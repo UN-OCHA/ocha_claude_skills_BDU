@@ -6,6 +6,8 @@ house writing style, and the full video pipeline.
 Once installed, you just ask Claude for the work and it follows OCHA standards
 automatically. You don't have to explain them every time.
 
+> **These instructions are for the Claude Code desktop app** (Mac or Windows).
+
 ---
 
 ## ⚠️ Before you start — you need a paid Claude plan
@@ -186,26 +188,7 @@ Quit and reopen Claude afterwards.
 
 ---
 
-### Using the Claude Code terminal instead?
-
-If you use the Claude Code command-line tool rather than the desktop app, you can install
-this as a plugin:
-
-```
-/plugin marketplace add UN-OCHA/ocha_claude_skills_BDU
-/plugin install ocha-bdu@ocha-bdu
-```
-
-`/plugin` works **only** in the terminal. In the desktop app it answers *"isn't available
-in this environment"* — that's expected, use Step 3 there.
-
----
-
 ## If something doesn't work
-
-**"It says /plugin isn't available in this environment."**
-Expected in the desktop app — `/plugin` only works in the Claude Code terminal. Use the
-message in Step 3 instead; it does the same thing.
 
 **"I installed them but Claude doesn't know about them."**
 You need to quit Claude and reopen it (Step 4). Skills only load at startup.
