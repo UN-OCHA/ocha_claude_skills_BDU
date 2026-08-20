@@ -27,32 +27,29 @@ import subprocess
 import sys
 import tempfile
 
-# --- Locate the QuickVid engine -----------------------------------------------------
+# --- Locate the QuickVid engine ----------------------------------------------------
 # Never hardcode one path: this skill is shared, and the engine lives in a DIFFERENT
 # place for a normal user than for a QuickVid developer.
 #   - Normal install (install.sh) -> ~/Library/Application Support/OCHA QuickVid/app
-#   - Developer                   -> a git clone, often synced via Dropbox
-# A candidate only counts if it has BOTH the engine AND a built venv. A Dropbox-synced
-# clone often has the code but no .venv (virtualenvs contain absolute paths and compiled
-# binaries, so they never sync usefully) — picking that would fail at run time.
+#   - Developer                   -> set QUICKVID_HOME
+# A candidate counts only if it has BOTH the engine AND a built venv.
 def _find_quickvid():
     home = os.path.expanduser("~")
     support = os.path.join(home, "Library", "Application Support", "OCHA QuickVid")
 
     candidates = []
-    if os.environ.get("QUICKVID_HOME"):                 # explicit override wins
+    if os.environ.get("QUICKVID_HOME"):
         candidates.append(os.environ["QUICKVID_HOME"])
-    relocated = os.path.join(support, "home")           # install.sh supports relocation
+    relocated = os.path.join(support, "home")
     if os.path.isfile(relocated):
         try:
             candidates.append(io.open(relocated, encoding="utf-8").read().strip())
         except OSError:
             pass
-    candidates.append(os.path.join(support, "app"))     # standard install
+    candidates.append(os.path.join(support, "app"))
     # NOTE: a Dropbox-synced clone is deliberately NOT probed. Dropbox ignores
     # .gitignore, so a shared repo carries the OWNER's .venv — present on disk but
-    # pointing at their Homebrew Python. It would pass an existence check and then
-    # fail at run time with a confusing error. Developers set QUICKVID_HOME instead.
+    # pointing at their Python. It would pass an existence check, then fail at run time.
 
     for c in candidates:
         if not c:

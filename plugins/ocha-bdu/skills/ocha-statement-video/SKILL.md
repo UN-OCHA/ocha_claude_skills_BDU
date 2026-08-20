@@ -75,6 +75,7 @@ contrast — NEVER a text outline).
 | **Reel format** | **Full-frame 9:16** | The default for the ASG and everyone else. **The USG does not like full-size reels** — for his clips build the blurred-fill version instead (`ocha-video-branding`). Either way, if the source is only 1080 tall, say so up front: a full-frame 9:16 crop then costs a ~1.8× upscale, and blurred fill keeps the picture at native size. |
 | **Thumbnail** | **Offer it — don't assume** | A standard deliverable, but ASK; it was declined on 2026-08-19. When yes: **1080×1920 even when the video is square**, because it is an Instagram COVER and covers are 9:16 there. Cut it from the ORIGINAL broadcast frame, never from a square export (which has no width left to give). |
 | **Clean master for translation** | **Offer it — don't assume** | Same rule as the thumbnail. When yes, see "Clean masters" in `ocha-video-branding`. |
+| **Vignette** | **YES — apply it by default** | Add `vignette` at the end of the video chain, at ffmpeg's default strength — a slight darkening of the corners so the face reads first. Approved as standard 2026-08-20. **Say in your report that it has been added**, so Javi knows it is there and can ask for it off; do not apply it silently. |
 
 Still worth asking per job: the destination/format, the length, and anything about the
 content itself.
@@ -162,6 +163,17 @@ Cut on the **words**, then hide each speech-edit with a shot change. Portrait cr
   give free, motivated shot changes (e.g. the wide as the principal is introduced / finishes).
 - A **wide room cutaway** breaks a long stretch — use it **sparingly** (once or twice).
 - **No fade in / no fade out** — hard cut in and out (a few frames of handle if it feels abrupt).
+- **Vignette by default.** Close the video chain with `vignette` (ffmpeg defaults — do not
+  parameterise it unless asked). Standard on every statement video; **tell Javi it is on**.
+  Colour grading is NOT standard: the WHD clip took `eq=saturation=0.85` because the face was
+  over-saturated, but that was a per-job call, so leave saturation alone unless he raises it.
+  ```
+  [vcat]vignette[v];                       # standard
+  [vcat]eq=saturation=0.85,vignette[v];    # only when he asks for a grade too
+  ```
+  The **Premiere plugin** has a vignette element of its own (a MOGRT, with a Strength knob) —
+  use that one when the job is being cut in Premiere. The **web app engine has no vignette
+  yet**, so a web-app job cannot add one; that gap is a known backlog item.
 - **Deliver an unbranded cut first for approval, then branding** — standing procedure, always,
   not a per-job question (Javi, 2026-08-19).
 - Frame-accurate cuts: build the whole cut in ONE `ffmpeg` filtergraph (`concat` filter) — a stream-copy
