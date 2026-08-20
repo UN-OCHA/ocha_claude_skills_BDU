@@ -135,6 +135,29 @@ Claude finds the engine on its own afterwards. Nothing to set up.
 
 ---
 
+## 🧠 What model should I use?
+
+**Start with Sonnet.** Opus and Fable are more powerful but eat through your usage limits
+much faster — and for most of this work they won't give you a better result.
+
+Switch up only for the jobs that need real judgment:
+
+| What you're doing | Model |
+|---|---|
+| Branding a finished clip — subtitles, lower third, logo ending | **Sonnet** |
+| Charts, maps, icons, brand questions, packaging files | **Sonnet** |
+| Choosing which 60 seconds to cut from a long briefing | **Opus** |
+| Translating subtitles | **Opus** |
+| Something broke and you need it debugged | **Opus** |
+
+You can switch models in the middle of a session — the work carries over.
+
+> **The one that matters:** if you're cutting a principal's words, use **Opus**. A weaker
+> model's mistake there isn't a broken file — it's a clip that misrepresents what someone
+> said.
+
+---
+
 ## Keeping it up to date
 
 We add and improve skills over time. To get the latest, type this in the Claude Code
