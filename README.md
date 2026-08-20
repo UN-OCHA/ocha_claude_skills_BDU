@@ -41,6 +41,14 @@ In the Claude app, click the **Claude Code** icon in the left sidebar.
 > **This matters.** The Claude app has several tabs — Claude, Claude Code and Cowork.
 > **These skills only work on the Claude Code tab.**
 
+### It asks you to choose a folder
+
+The first time, a window opens asking you to pick a folder. This is normal — Claude Code
+works inside a folder on your computer.
+
+Pick **Documents** (or anything simple) and click **Open**. It makes no difference to the
+installation.
+
 ### Say yes to the permission prompts
 
 The first time you use Claude Code, it asks permission before doing things on your
@@ -178,6 +186,10 @@ and try again.
 **"Claude asks permission for everything and I'm not sure what to click."**
 Approve it. Claude Code asks before touching files on your computer. If the prompts get
 tiring, turn on **Bypass permissions** at the bottom left — see Step 2.
+
+**"I pasted the first line and a folder window popped up."**
+That's normal, not an error — Claude Code is asking which folder to work in. Pick
+**Documents**, click **Open**, then paste the line again.
 
 **"Claude says it can't find the QuickVid engine."**
 You haven't done the video install yet — see the video step above.
