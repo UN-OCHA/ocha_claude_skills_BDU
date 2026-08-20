@@ -43,18 +43,19 @@ In the Claude app, click the **Claude Code** icon in the left sidebar.
 
 ### It asks you to choose a folder
 
-The first time, a window opens asking you to pick a folder. This is normal.
+A window opens asking you to pick a folder. **Pick `Desktop` and click Open.**
 
-**What it's for:** Claude Code works *inside* a folder. Whatever you pick is what it can
-read and write — it won't go outside it without asking. Think of it as the project you're
-working on right now.
+**This is not about the skills.** Claude Code can't open at all without a folder — it's
+its own one-time setup. It just happens to appear now because this is your first time
+using it.
 
-**For this installation, any folder works** — the skills install into Claude itself, not
-into your folder. Pick **Documents** and click **Open** to get through the setup.
+- **Nothing is saved into that folder.** The skills install inside Claude itself.
+- Picking `Desktop` here changes nothing and breaks nothing.
 
-**Later, pick the folder your work is actually in** — your Dropbox project folder, for
-example — otherwise Claude Code can't see those files. You can choose a different folder
-whenever you start new work; nothing is locked in.
+**Why Claude Code wants a folder at all:** it works *on files* — it makes charts, edits
+videos, writes documents. The folder tells it **where to look for your files and where to
+save what it makes.** That only starts to matter once you're doing real work, and you
+pick the right folder then (see below).
 
 ### Say yes to the permission prompts
 
@@ -195,9 +196,9 @@ Approve it. Claude Code asks before touching files on your computer. If the prom
 tiring, turn on **Bypass permissions** at the bottom left — see Step 2.
 
 **"I pasted the first line and a folder window popped up."**
-That's normal, not an error — Claude Code is asking which folder it's allowed to work in.
-For the installation any folder works: pick **Documents**, click **Open**, then paste the
-line again. For real work later, pick the folder your files are actually in.
+Normal, not an error. It's Claude Code's own first-time setup, not the skills — it can't
+open without a folder. Pick **Desktop**, click **Open**, paste the line again. Nothing
+gets saved into that folder.
 
 **"Claude says it can't find the QuickVid engine."**
 You haven't done the video install yet — see the video step above.
