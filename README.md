@@ -6,6 +6,19 @@ house writing style, and the full video pipeline.
 Once installed, you just ask Claude for the work and it follows OCHA standards
 automatically. You don't have to explain them every time.
 
+---
+
+## ⚠️ Before you start — you need a paid Claude plan
+
+**Claude Code is not available on the free plan.** You need **Claude Pro** (or higher —
+Max, Team, Enterprise). Without it, the Claude Code tab won't be there and none of the
+steps below will work.
+
+Not sure which plan you're on, or need one? Email **ochavisual@un.org** and we'll point
+you the right way.
+
+---
+
 **Setup takes about 5 minutes.** Follow the steps in order.
 
 ---
