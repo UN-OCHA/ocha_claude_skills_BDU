@@ -1,71 +1,140 @@
-# OCHA BDU skills for Claude Code
+# OCHA BDU skills for Claude
 
-Brand, design and video skills used by the OCHA Brand and Design Unit, packaged so any
-OCHA colleague can install them into **Claude Code** in one step.
+Brand, design and video know-how from the OCHA Brand and Design Unit, packaged so any
+OCHA colleague can add it to Claude in about a minute.
 
-## Install
+Once installed, Claude follows OCHA brand rules by default — the right colours, the right
+logo behaviour, house editorial style, the video pipeline — without you having to explain
+them each time.
 
-In Claude Code, add this marketplace and install the plugin:
+---
+
+## What you need first
+
+The **Claude desktop app** for Mac, with **Claude Code**. If you can open Claude and type
+in a chat box, you're ready.
+
+> **These are skills, so they work in Claude Code — not in Cowork sessions.**
+
+---
+
+## Install — 2 lines, no Terminal
+
+**Everything below goes in the Claude chat box**, exactly where you would type a normal
+message. This is *not* Terminal.
+
+**1.** Type this and press return:
 
 ```
 /plugin marketplace add UN-OCHA/ocha_claude_skills_BDU
+```
+
+**2.** Then type this and press return:
+
+```
 /plugin install ocha-bdu@ocha-bdu
 ```
 
-That's it. The skills load automatically when they're relevant — ask for an OCHA chart,
-a map, a logo rule, a caption, and the right one fires. You can also call one directly,
-e.g. `/ocha-bdu:ocha-visual-identity`.
+Done. Claude confirms each step.
 
-To update later, re-run the `marketplace add` command (or use `/plugin`).
+### Check it worked
 
-## What's included
+Type this in the chat box:
+
+> what OCHA skills do I have now?
+
+You should see seven, listed below.
+
+---
+
+## Using them — just ask normally
+
+You don't invoke anything. Ask for the work and the right skill loads itself:
+
+> *"Make a bar chart of funding by sector, OCHA style"*
+> *"Where's the OCHA logo, and how much clear space does it need?"*
+> *"Proofread this paragraph for our house style"*
+> *"Add subtitles and the OCHA ending to this clip"*
+
+If you'd rather be explicit, type `/ocha-bdu:` and pick from the list.
+
+---
+
+## What you get
 
 | Skill | What it covers |
 |---|---|
 | `ocha-visual-identity` | Brand colours, typography, logo rules, clear space, the `cd-*` Common Design System |
-| `ocha-dataviz` | Chart selection and OCHA data-visualization rules |
-| `ocha-mapping` | Cartographic standards — boundaries, symbology, disclaimers |
+| `ocha-dataviz` | Which chart to use, and OCHA's data-visualization rules |
+| `ocha-mapping` | Map standards — boundaries, symbology, disclaimers |
 | `humanitarian-icons` | The 389 OCHA Humanitarian Icons |
-| `ocha-editorial-style` | OCHA house style — numbers, dates, currency, capitalization, acronyms |
+| `ocha-editorial-style` | House style — numbers, dates, currency, capitalization, acronyms |
 | `ocha-design` | Umbrella: loads visual identity + dataviz + mapping together |
-| `ocha-statement-video` | End-to-end pipeline for a branded statement video (SC / member-states / noon briefing / PTC) |
-| `ocha-video-branding` | Branding a finished clip — captions, lower third, location strip, logo ending |
+| `ocha-video` | Everything video — cutting, captions, lower third, logo ending, packaging |
 
-## Extra setup for the two video skills
+Six of the seven need **no setup at all**. Only video needs one extra step.
 
-The video skills render through the **OCHA QuickVid** engine. Install it once
-(~10 minutes, no admin password needed):
+---
 
-```
+## Extra step — only if you do video
+
+Video rendering runs through the **OCHA QuickVid** engine. Install it once
+(about 10 minutes, no admin password).
+
+**Easiest way — ask Claude to do it.** In the chat box:
+
+> install OCHA QuickVid for me
+
+**Or run it yourself in Terminal** (Applications → Utilities → Terminal), paste and press
+return:
+
+```bash
 curl -fsSL https://raw.githubusercontent.com/UN-OCHA/quickvid_BDU/main/install.sh | bash
 ```
 
-The skills find it automatically afterwards. If you keep QuickVid somewhere unusual,
-point at it explicitly:
+The video skill finds it automatically afterwards — nothing to configure.
 
-```
+Already have QuickVid somewhere unusual? Tell Claude where, or set:
+
+```bash
 export QUICKVID_HOME="/path/to/ocha_quick_vid"
 ```
 
-The other six skills need no setup.
+---
 
-## A note on file paths
+## Keeping up to date
 
-Some skills reference shared resources in the OCHA DMU Dropbox, written as:
+New versions don't arrive on their own. In the Claude chat box:
+
+```
+/plugin marketplace update ocha-bdu
+```
+
+---
+
+## Dropbox files
+
+Some skills point at shared resources in the OCHA DMU Dropbox, written like this:
 
 ```
 ~/OCHA DMU Dropbox/<your-name>/Design/...
 ```
 
-Replace `<your-name>` with your own member folder — it's whatever
-`~/OCHA DMU Dropbox/` contains on your Mac. You need access to the relevant team folders
-for those references to resolve.
+`<your-name>` is your own member folder — whatever `~/OCHA DMU Dropbox/` shows on your
+Mac. You need access to the relevant team folders for those to open.
 
-## Requirements
+---
 
-- **Claude Code** (the Mac desktop app or CLI). These are skills — they do **not** work
-  in Cowork sessions.
-- Dropbox access to the OCHA DMU team folders, for the skills that point at shared assets.
+## Something not working?
+
+- **The `/plugin` commands do nothing** → you're probably in a Cowork session. Skills only
+  work in Claude Code.
+- **Claude says the QuickVid engine isn't found** → run the video install step above.
+- **A Dropbox path won't open** → you likely don't have access to that team folder yet.
+
+Still stuck: **ochavisual@un.org**
+
+---
 
 ## Project Owner
 
