@@ -1,0 +1,3572 @@
+{
+ "AI-chat": {
+  "name": "AI chat",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "ai chat"
+  ]
+ },
+ "API": {
+  "name": "API",
+  "family": "Product type",
+  "tags": [
+   "product type",
+   "api",
+   "computer"
+  ]
+ },
+ "Abduction-kidnapping": {
+  "name": "Abduction kidnapping",
+  "family": "Security and incident",
+  "tags": [
+   "grab",
+   "capture",
+   "taken",
+   "hostage"
+  ]
+ },
+ "About": {
+  "name": "About",
+  "family": "UX UI",
+  "tags": [
+   "info",
+   "information",
+   "letter i",
+   "help"
+  ]
+ },
+ "Add": {
+  "name": "Add",
+  "family": "UX UI",
+  "tags": [
+   "plus",
+   "new",
+   "create",
+   "more"
+  ]
+ },
+ "Add-document": {
+  "name": "Add document",
+  "family": "UX UI",
+  "tags": [
+   "new file",
+   "create document",
+   "page",
+   "form"
+  ]
+ },
+ "Advocacy": {
+  "name": "Advocacy",
+  "family": "Activities strategy",
+  "tags": [
+   "bullhorn",
+   "megaphone",
+   "announcement",
+   "communication"
+  ]
+ },
+ "Affected-population": {
+  "name": "Affected population",
+  "family": "People",
+  "tags": [
+   "people",
+   "affected population"
+  ]
+ },
+ "Agile": {
+  "name": "Agile",
+  "family": "Activities strategy",
+  "tags": [
+   "cycle",
+   "iteration",
+   "loop",
+   "process"
+  ]
+ },
+ "Agriculture": {
+  "name": "Agriculture",
+  "family": "Other sectors",
+  "tags": [
+   "wheat",
+   "crops",
+   "farming",
+   "harvest"
+  ]
+ },
+ "Airport": {
+  "name": "Airport",
+  "family": "Logistics",
+  "tags": [
+   "logistics",
+   "airport",
+   "plane"
+  ]
+ },
+ "Airport-affected": {
+  "name": "Airport affected",
+  "family": "Damage",
+  "tags": [
+   "plane",
+   "aviation",
+   "damaged airport",
+   "flight disrupted"
+  ]
+ },
+ "Airport-closed": {
+  "name": "Airport closed",
+  "family": "Lockdown",
+  "tags": [
+   "lockdown",
+   "airport closed",
+   "plane"
+  ]
+ },
+ "Airport-destroyed": {
+  "name": "Airport destroyed",
+  "family": "Damage",
+  "tags": [
+   "plane",
+   "aviation",
+   "airport rubble",
+   "flight cancelled"
+  ]
+ },
+ "Airport-military": {
+  "name": "Airport military",
+  "family": "Logistics",
+  "tags": [
+   "logistics",
+   "airport military",
+   "plane"
+  ]
+ },
+ "Airport-not-affected": {
+  "name": "Airport not affected",
+  "family": "Damage",
+  "tags": [
+   "plane",
+   "aviation",
+   "intact airport",
+   "flight operational"
+  ]
+ },
+ "Alert": {
+  "name": "Alert",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "alert",
+   "problem"
+  ]
+ },
+ "Analysis": {
+  "name": "Analysis",
+  "family": "Activities strategy",
+  "tags": [
+   "magnifying glass",
+   "chart",
+   "research",
+   "investigation"
+  ]
+ },
+ "Anticipatory-action": {
+  "name": "Anticipatory action",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "forward planning",
+   "early action",
+   "prevention",
+   "proactive"
+  ]
+ },
+ "Apps": {
+  "name": "Apps",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "apps",
+   "dots"
+  ]
+ },
+ "Arrest-detention": {
+  "name": "Arrest detention",
+  "family": "Security and incident",
+  "tags": [
+   "security and incident",
+   "arrest detention"
+  ]
+ },
+ "Assault": {
+  "name": "Assault",
+  "family": "Security and incident",
+  "tags": [
+   "security and incident",
+   "assault"
+  ]
+ },
+ "Assembly-point": {
+  "name": "Assembly point",
+  "family": "General infrastructure",
+  "tags": [
+   "gathering",
+   "meeting point",
+   "rally",
+   "muster"
+  ]
+ },
+ "Assessment": {
+  "name": "Assessment",
+  "family": "Activities strategy",
+  "tags": [
+   "clipboard",
+   "checklist",
+   "evaluation",
+   "survey"
+  ]
+ },
+ "Attack": {
+  "name": "Attack",
+  "family": "Security and incident",
+  "tags": [
+   "explosion",
+   "blast",
+   "strike",
+   "violence"
+  ]
+ },
+ "Bacteria": {
+  "name": "Bacteria",
+  "family": "Health",
+  "tags": [
+   "health",
+   "bacteria"
+  ]
+ },
+ "Blanket": {
+  "name": "Blanket",
+  "family": "Food and non-food items",
+  "tags": [
+   "food and non-food items",
+   "blanket"
+  ]
+ },
+ "Blog": {
+  "name": "Blog",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "blog"
+  ]
+ },
+ "Boat": {
+  "name": "Boat",
+  "family": "Logistics",
+  "tags": [
+   "vessel",
+   "ship",
+   "watercraft",
+   "maritime"
+  ]
+ },
+ "Bookmark": {
+  "name": "Bookmark",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "bookmark"
+  ]
+ },
+ "Border-closed": {
+  "name": "Border closed",
+  "family": "Lockdown",
+  "tags": [
+   "lockdown",
+   "border closed"
+  ]
+ },
+ "Border-crossing": {
+  "name": "Border crossing",
+  "family": "Physical barriers",
+  "tags": [
+   "checkpoint",
+   "gate",
+   "frontier",
+   "passage",
+   "arrows"
+  ]
+ },
+ "Borehole": {
+  "name": "Borehole",
+  "family": "Water sanitation and hygiene",
+  "tags": [
+   "water sanitation and hygiene",
+   "borehole"
+  ]
+ },
+ "Bottled-water": {
+  "name": "Bottled water",
+  "family": "Food and non-food items",
+  "tags": [
+   "food and non-food items",
+   "bottled water"
+  ]
+ },
+ "Bridge": {
+  "name": "Bridge",
+  "family": "Logistics",
+  "tags": [
+   "crossing",
+   "overpass",
+   "connection",
+   "span"
+  ]
+ },
+ "Bridge-affected": {
+  "name": "Bridge affected",
+  "family": "Damage",
+  "tags": [
+   "damaged bridge",
+   "crossing disrupted",
+   "infrastructure damage",
+   "span"
+  ]
+ },
+ "Bridge-closed": {
+  "name": "Bridge closed",
+  "family": "Lockdown",
+  "tags": [
+   "lockdown",
+   "bridge closed"
+  ]
+ },
+ "Bridge-destroyed": {
+  "name": "Bridge destroyed",
+  "family": "Damage",
+  "tags": [
+   "collapsed bridge",
+   "crossing destroyed",
+   "rubble",
+   "span"
+  ]
+ },
+ "Bridge-not-affected": {
+  "name": "Bridge not affected",
+  "family": "Damage",
+  "tags": [
+   "intact bridge",
+   "crossing operational",
+   "infrastructure safe",
+   "span"
+  ]
+ },
+ "Bucket": {
+  "name": "Bucket",
+  "family": "Food and non-food items",
+  "tags": [
+   "food and non-food items",
+   "bucket"
+  ]
+ },
+ "Buddhist-temple": {
+  "name": "Buddhist temple",
+  "family": "General infrastructure",
+  "tags": [
+   "pagoda",
+   "temple",
+   "worship",
+   "religion"
+  ]
+ },
+ "Building": {
+  "name": "Building",
+  "family": "General infrastructure",
+  "tags": [
+   "structure",
+   "office",
+   "facility",
+   "house"
+  ]
+ },
+ "Building-closed": {
+  "name": "Building closed",
+  "family": "Lockdown",
+  "tags": [
+   "lockdown",
+   "building closed"
+  ]
+ },
+ "Building-facility-affected": {
+  "name": "Building facility affected",
+  "family": "Damage",
+  "tags": [
+   "damage",
+   "building facility affected"
+  ]
+ },
+ "Building-facility-destroyed": {
+  "name": "Building facility destroyed",
+  "family": "Damage",
+  "tags": [
+   "damage",
+   "building facility destroyed"
+  ]
+ },
+ "Building-facility-not-affected": {
+  "name": "Building facility not affected",
+  "family": "Damage",
+  "tags": [
+   "damage",
+   "building facility not affected"
+  ]
+ },
+ "Bus": {
+  "name": "Bus",
+  "family": "Logistics",
+  "tags": [
+   "logistics",
+   "bus"
+  ]
+ },
+ "COVID-19": {
+  "name": "COVID-19",
+  "family": "Health",
+  "tags": [
+   "health",
+   "covid-19"
+  ]
+ },
+ "CSV-file": {
+  "name": "CSV file",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "csv file"
+  ]
+ },
+ "Calendar": {
+  "name": "Calendar",
+  "family": "Product type",
+  "tags": [
+   "date",
+   "schedule",
+   "time",
+   "planner"
+  ]
+ },
+ "Camp-coordination-and-camp-management": {
+  "name": "Camp coordination and camp management",
+  "family": "Clusters",
+  "tags": [
+   "tent",
+   "camp",
+   "shelter management",
+   "coordination"
+  ]
+ },
+ "Car": {
+  "name": "Car",
+  "family": "Logistics",
+  "tags": [
+   "vehicle",
+   "automobile",
+   "transport",
+   "driving"
+  ]
+ },
+ "Carjacking": {
+  "name": "Carjacking",
+  "family": "Security and incident",
+  "tags": [
+   "security and incident",
+   "carjacking"
+  ]
+ },
+ "Case-management": {
+  "name": "Case management",
+  "family": "Health",
+  "tags": [
+   "health",
+   "case management"
+  ]
+ },
+ "Cash-transfer": {
+  "name": "Cash transfer",
+  "family": "Activities strategy",
+  "tags": [
+   "money",
+   "payment",
+   "currency",
+   "financial aid"
+  ]
+ },
+ "Cell-tower": {
+  "name": "Cell tower",
+  "family": "Telecommunications and technology",
+  "tags": [
+   "telecommunications and technology",
+   "cell tower"
+  ]
+ },
+ "Chart": {
+  "name": "Chart",
+  "family": "Product type",
+  "tags": [
+   "graph",
+   "data",
+   "statistics",
+   "visualization"
+  ]
+ },
+ "Chat": {
+  "name": "Chat",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "chat"
+  ]
+ },
+ "Checked-mail": {
+  "name": "Checked mail",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "checked mail"
+  ]
+ },
+ "Checkpoint": {
+  "name": "Checkpoint",
+  "family": "Physical barriers",
+  "tags": [
+   "barrier",
+   "control",
+   "security check",
+   "gate",
+   "police",
+   "customs"
+  ]
+ },
+ "Child-care-child-friendly": {
+  "name": "Child care child friendly",
+  "family": "Other sectors",
+  "tags": [
+   "children",
+   "kids",
+   "nursery",
+   "parenting"
+  ]
+ },
+ "Child-combatant": {
+  "name": "Child combatant",
+  "family": "People",
+  "tags": [
+   "people",
+   "child combatant"
+  ]
+ },
+ "Child-protection": {
+  "name": "Child protection",
+  "family": "Other sectors",
+  "tags": [
+   "children",
+   "shield",
+   "safety",
+   "safeguarding"
+  ]
+ },
+ "Children": {
+  "name": "Children",
+  "family": "People",
+  "tags": [
+   "people",
+   "children"
+  ]
+ },
+ "Church": {
+  "name": "Church",
+  "family": "General infrastructure",
+  "tags": [
+   "cross",
+   "chapel",
+   "worship",
+   "christian"
+  ]
+ },
+ "Civil-military-coordination": {
+  "name": "Civil military coordination",
+  "family": "Activities strategy",
+  "tags": [
+   "cooperation",
+   "military",
+   "liaison",
+   "joint"
+  ]
+ },
+ "Clinic": {
+  "name": "Clinic",
+  "family": "General infrastructure",
+  "tags": [
+   "medical",
+   "healthcare",
+   "first aid",
+   "treatment"
+  ]
+ },
+ "Clothing": {
+  "name": "Clothing",
+  "family": "Food and non-food items",
+  "tags": [
+   "garment",
+   "textile",
+   "apparel",
+   "dress"
+  ]
+ },
+ "Cold-wave": {
+  "name": "Cold wave",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "freeze",
+   "frost",
+   "winter",
+   "temperature drop"
+  ]
+ },
+ "Communal-latrine": {
+  "name": "Communal latrine",
+  "family": "Water sanitation and hygiene",
+  "tags": [
+   "water sanitation and hygiene",
+   "communal latrine"
+  ]
+ },
+ "Community-building": {
+  "name": "Community building",
+  "family": "General infrastructure",
+  "tags": [
+   "people",
+   "group",
+   "social",
+   "neighbourhood"
+  ]
+ },
+ "Community-engagement": {
+  "name": "Community engagement",
+  "family": "Activities strategy",
+  "tags": [
+   "participation",
+   "outreach",
+   "dialogue",
+   "inclusion"
+  ]
+ },
+ "Computer": {
+  "name": "Computer",
+  "family": "Telecommunications and technology",
+  "tags": [
+   "telecommunications and technology",
+   "computer"
+  ]
+ },
+ "Confined": {
+  "name": "Confined",
+  "family": "Security and incident",
+  "tags": [
+   "security and incident",
+   "confined"
+  ]
+ },
+ "Conflict": {
+  "name": "Conflict",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "war",
+   "fighting",
+   "violence",
+   "armed"
+  ]
+ },
+ "Coordinated-assessment": {
+  "name": "Coordinated assessment",
+  "family": "Activities strategy",
+  "tags": [
+   "joint evaluation",
+   "team survey",
+   "multi-agency",
+   "review"
+  ]
+ },
+ "Coordination": {
+  "name": "Coordination",
+  "family": "Other sectors",
+  "tags": [
+   "gears",
+   "collaboration",
+   "teamwork",
+   "alignment"
+  ]
+ },
+ "Copy": {
+  "name": "Copy",
+  "family": "UX UI",
+  "tags": [
+   "duplicate",
+   "clone",
+   "replicate",
+   "clipboard"
+  ]
+ },
+ "Country": {
+  "name": "Country",
+  "family": "General infrastructure",
+  "tags": [
+   "nation",
+   "flag",
+   "geography",
+   "territory"
+  ]
+ },
+ "Cyclone": {
+  "name": "Cyclone",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "hurricane",
+   "typhoon",
+   "storm",
+   "wind spiral"
+  ]
+ },
+ "DOCX-file": {
+  "name": "DOCX file",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "docx file"
+  ]
+ },
+ "Damaged-affected": {
+  "name": "Damaged affected",
+  "family": "Damage",
+  "tags": [
+   "broken",
+   "harmed",
+   "impacted",
+   "destruction"
+  ]
+ },
+ "Dangerous-area": {
+  "name": "Dangerous area",
+  "family": "Security and incident",
+  "tags": [
+   "security and incident",
+   "dangerous area"
+  ]
+ },
+ "Data": {
+  "name": "Data",
+  "family": "Product type",
+  "tags": [
+   "database",
+   "information",
+   "digital",
+   "binary"
+  ]
+ },
+ "Dead": {
+  "name": "Dead",
+  "family": "People",
+  "tags": [
+   "people",
+   "dead"
+  ]
+ },
+ "Debris-management": {
+  "name": "Debris management",
+  "family": "Socioeconomic and development",
+  "tags": [
+   "rubble",
+   "cleanup",
+   "waste",
+   "wreckage"
+  ]
+ },
+ "Delete-account": {
+  "name": "Delete account",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "delete account"
+  ]
+ },
+ "Deployment": {
+  "name": "Deployment",
+  "family": "Activities strategy",
+  "tags": [
+   "send",
+   "dispatch",
+   "launch",
+   "mobilize"
+  ]
+ },
+ "Destroyed": {
+  "name": "Destroyed",
+  "family": "Damage",
+  "tags": [
+   "rubble",
+   "demolished",
+   "annihilated",
+   "collapsed"
+  ]
+ },
+ "Detergent": {
+  "name": "Detergent",
+  "family": "Food and non-food items",
+  "tags": [
+   "food and non-food items",
+   "detergent"
+  ]
+ },
+ "Diplomatic-mission": {
+  "name": "Diplomatic mission",
+  "family": "General infrastructure",
+  "tags": [
+   "embassy",
+   "flag",
+   "diplomacy",
+   "consulate"
+  ]
+ },
+ "Distribution-site": {
+  "name": "Distribution site",
+  "family": "General infrastructure",
+  "tags": [
+   "supply",
+   "handout",
+   "delivery point",
+   "aid station"
+  ]
+ },
+ "Doctor": {
+  "name": "Doctor",
+  "family": "Health",
+  "tags": [
+   "health",
+   "doctor"
+  ]
+ },
+ "Document": {
+  "name": "Document",
+  "family": "Product type",
+  "tags": [
+   "file",
+   "paper",
+   "page",
+   "report"
+  ]
+ },
+ "Down": {
+  "name": "Down",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "down"
+  ]
+ },
+ "Download": {
+  "name": "Download",
+  "family": "UX UI",
+  "tags": [
+   "arrow down",
+   "save",
+   "get",
+   "transfer"
+  ]
+ },
+ "Drought": {
+  "name": "Drought",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "dry",
+   "arid",
+   "no rain",
+   "cracked earth"
+  ]
+ },
+ "Drowned": {
+  "name": "Drowned",
+  "family": "People",
+  "tags": [
+   "people",
+   "drowned"
+  ]
+ },
+ "E-mail": {
+  "name": "E-mail",
+  "family": "Telecommunications and technology",
+  "tags": [
+   "telecommunications and technology",
+   "e-mail"
+  ]
+ },
+ "Early-recovery": {
+  "name": "Early recovery",
+  "family": "Clusters",
+  "tags": [
+   "rebuild",
+   "restoration",
+   "recovery",
+   "rehabilitation"
+  ]
+ },
+ "Earthmound": {
+  "name": "Earthmound",
+  "family": "Physical barriers",
+  "tags": [
+   "physical barriers",
+   "earthmound"
+  ]
+ },
+ "Earthquake": {
+  "name": "Earthquake",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "seismic",
+   "tremor",
+   "shaking",
+   "tectonic"
+  ]
+ },
+ "Edit": {
+  "name": "Edit",
+  "family": "UX UI",
+  "tags": [
+   "pencil",
+   "modify",
+   "change",
+   "write"
+  ]
+ },
+ "Education": {
+  "name": "Education",
+  "family": "Clusters",
+  "tags": [
+   "school",
+   "book",
+   "learning",
+   "classroom"
+  ]
+ },
+ "Elderly": {
+  "name": "Elderly",
+  "family": "People",
+  "tags": [
+   "senior",
+   "old age",
+   "pensioner",
+   "aged"
+  ]
+ },
+ "Emergency-telecommunications": {
+  "name": "Emergency telecommunications",
+  "family": "Clusters",
+  "tags": [
+   "radio",
+   "antenna",
+   "communication",
+   "signal"
+  ]
+ },
+ "Environment": {
+  "name": "Environment",
+  "family": "Other sectors",
+  "tags": [
+   "leaf",
+   "nature",
+   "ecology",
+   "green"
+  ]
+ },
+ "Epidemic": {
+  "name": "Epidemic",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "virus",
+   "disease",
+   "outbreak",
+   "pandemic"
+  ]
+ },
+ "Exit-cancel": {
+  "name": "Exit cancel",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "exit cancel"
+  ]
+ },
+ "Expand-down": {
+  "name": "Expand down",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "expand down"
+  ]
+ },
+ "Expand-left": {
+  "name": "Expand left",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "expand left"
+  ]
+ },
+ "Expand-right": {
+  "name": "Expand right",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "expand right"
+  ]
+ },
+ "Expand-up": {
+  "name": "Expand up",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "expand up"
+  ]
+ },
+ "Famine": {
+  "name": "Famine",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "hunger",
+   "starvation",
+   "malnutrition",
+   "food crisis"
+  ]
+ },
+ "Favourite": {
+  "name": "Favourite",
+  "family": "UX UI",
+  "tags": [
+   "star",
+   "bookmark",
+   "preferred",
+   "highlight"
+  ]
+ },
+ "Fax": {
+  "name": "Fax",
+  "family": "Telecommunications and technology",
+  "tags": [
+   "telecommunications and technology",
+   "fax"
+  ]
+ },
+ "Ferry": {
+  "name": "Ferry",
+  "family": "Logistics",
+  "tags": [
+   "logistics",
+   "ferry",
+   "boat"
+  ]
+ },
+ "Film": {
+  "name": "Film",
+  "family": "Product type",
+  "tags": [
+   "product type",
+   "film"
+  ]
+ },
+ "Filter": {
+  "name": "Filter",
+  "family": "UX UI",
+  "tags": [
+   "funnel",
+   "sort",
+   "refine",
+   "narrow"
+  ]
+ },
+ "Financing": {
+  "name": "Financing",
+  "family": "Activities strategy",
+  "tags": [
+   "dollar",
+   "budget",
+   "funding",
+   "money"
+  ]
+ },
+ "Fire": {
+  "name": "Fire",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "flame",
+   "blaze",
+   "burn",
+   "wildfire"
+  ]
+ },
+ "Fishery": {
+  "name": "Fishery",
+  "family": "Other sectors",
+  "tags": [
+   "fish",
+   "fishing",
+   "marine",
+   "catch"
+  ]
+ },
+ "Flash-flood": {
+  "name": "Flash flood",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "sudden flood",
+   "water surge",
+   "deluge",
+   "rapid flooding"
+  ]
+ },
+ "Flood": {
+  "name": "Flood",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "water",
+   "inundation",
+   "overflow",
+   "submerged"
+  ]
+ },
+ "Flour": {
+  "name": "Flour",
+  "family": "Food and non-food items",
+  "tags": [
+   "food and non-food items",
+   "flour"
+  ]
+ },
+ "Folder": {
+  "name": "Folder",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "folder"
+  ]
+ },
+ "Food": {
+  "name": "Food",
+  "family": "Food and non-food items",
+  "tags": [
+   "meal",
+   "plate",
+   "nutrition",
+   "eat"
+  ]
+ },
+ "Food-security": {
+  "name": "Food security",
+  "family": "Clusters",
+  "tags": [
+   "food",
+   "grain",
+   "nutrition",
+   "sustenance"
+  ]
+ },
+ "Food-warehouse": {
+  "name": "Food warehouse",
+  "family": "General infrastructure",
+  "tags": [
+   "silo",
+   "storage",
+   "granary",
+   "stockpile"
+  ]
+ },
+ "Forced-entry": {
+  "name": "Forced entry",
+  "family": "Security and incident",
+  "tags": [
+   "security and incident",
+   "forced entry"
+  ]
+ },
+ "Forced-recruitment": {
+  "name": "Forced recruitment",
+  "family": "Security and incident",
+  "tags": [
+   "security and incident",
+   "forced recruitment"
+  ]
+ },
+ "Fund": {
+  "name": "Fund",
+  "family": "Activities strategy",
+  "tags": [
+   "money bag",
+   "savings",
+   "funding",
+   "capital"
+  ]
+ },
+ "Gap-analysis": {
+  "name": "Gap analysis",
+  "family": "Activities strategy",
+  "tags": [
+   "gap",
+   "comparison",
+   "deficit",
+   "shortfall"
+  ]
+ },
+ "Gas-station": {
+  "name": "Gas station",
+  "family": "Logistics",
+  "tags": [
+   "fuel",
+   "petrol",
+   "pump",
+   "refuel"
+  ]
+ },
+ "Gender": {
+  "name": "Gender",
+  "family": "People",
+  "tags": [
+   "people",
+   "gender"
+  ]
+ },
+ "Gender-based-violence": {
+  "name": "Gender based violence",
+  "family": "Security and incident",
+  "tags": [
+   "security and incident",
+   "gender based violence"
+  ]
+ },
+ "Go": {
+  "name": "Go",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "go"
+  ]
+ },
+ "Government-office": {
+  "name": "Government office",
+  "family": "General infrastructure",
+  "tags": [
+   "administration",
+   "bureaucracy",
+   "authority",
+   "ministry"
+  ]
+ },
+ "Group": {
+  "name": "Group",
+  "family": "UX UI",
+  "tags": [
+   "people",
+   "team",
+   "crowd",
+   "collective"
+  ]
+ },
+ "Handwashing": {
+  "name": "Handwashing",
+  "family": "Health",
+  "tags": [
+   "hygiene",
+   "clean hands",
+   "soap",
+   "sanitation"
+  ]
+ },
+ "Harassment-intimidation": {
+  "name": "Harassment intimidation",
+  "family": "Security and incident",
+  "tags": [
+   "security and incident",
+   "harassment intimidation"
+  ]
+ },
+ "Health": {
+  "name": "Health",
+  "family": "Clusters",
+  "tags": [
+   "medical",
+   "cross",
+   "healthcare",
+   "hospital"
+  ]
+ },
+ "Health-facility": {
+  "name": "Health facility",
+  "family": "General infrastructure",
+  "tags": [
+   "hospital",
+   "clinic",
+   "medical centre",
+   "treatment"
+  ]
+ },
+ "Health-facility-affected": {
+  "name": "Health facility affected",
+  "family": "Damage",
+  "tags": [
+   "damaged hospital",
+   "clinic impacted",
+   "medical disrupted",
+   "healthcare"
+  ]
+ },
+ "Health-facility-destroyed": {
+  "name": "Health facility destroyed",
+  "family": "Damage",
+  "tags": [
+   "hospital rubble",
+   "clinic destroyed",
+   "medical collapsed",
+   "healthcare"
+  ]
+ },
+ "Health-facility-not-affected": {
+  "name": "Health facility not affected",
+  "family": "Damage",
+  "tags": [
+   "hospital intact",
+   "clinic safe",
+   "medical operational",
+   "healthcare"
+  ]
+ },
+ "Health-post": {
+  "name": "Health post",
+  "family": "General infrastructure",
+  "tags": [
+   "first aid",
+   "medical station",
+   "outpost",
+   "treatment point"
+  ]
+ },
+ "Health-worker": {
+  "name": "Health worker",
+  "family": "Health",
+  "tags": [
+   "doctor",
+   "nurse",
+   "medic",
+   "paramedic"
+  ]
+ },
+ "Heatwave": {
+  "name": "Heatwave",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "hot",
+   "high temperature",
+   "sun",
+   "scorching"
+  ]
+ },
+ "Heavy-rain": {
+  "name": "Heavy rain",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "downpour",
+   "precipitation",
+   "rainfall",
+   "monsoon"
+  ]
+ },
+ "Helicopter": {
+  "name": "Helicopter",
+  "family": "Logistics",
+  "tags": [
+   "chopper",
+   "aircraft",
+   "rotorcraft",
+   "airlift"
+  ]
+ },
+ "Helipad": {
+  "name": "Helipad",
+  "family": "Logistics",
+  "tags": [
+   "logistics",
+   "helipad"
+  ]
+ },
+ "Help": {
+  "name": "Help",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "help"
+  ]
+ },
+ "Hidden": {
+  "name": "Hidden",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "hidden"
+  ]
+ },
+ "Hindu-temple": {
+  "name": "Hindu temple",
+  "family": "General infrastructure",
+  "tags": [
+   "temple",
+   "worship",
+   "religion",
+   "mandir"
+  ]
+ },
+ "Hospital": {
+  "name": "Hospital",
+  "family": "General infrastructure",
+  "tags": [
+   "medical centre",
+   "clinic",
+   "healthcare",
+   "ward"
+  ]
+ },
+ "Hospital-bed": {
+  "name": "Hospital bed",
+  "family": "Health",
+  "tags": [
+   "health",
+   "hospital bed"
+  ]
+ },
+ "Hotel": {
+  "name": "Hotel",
+  "family": "General infrastructure",
+  "tags": [
+   "accommodation",
+   "lodging",
+   "guesthouse",
+   "stay"
+  ]
+ },
+ "House": {
+  "name": "House",
+  "family": "General infrastructure",
+  "tags": [
+   "home",
+   "dwelling",
+   "residence",
+   "building"
+  ]
+ },
+ "House-affected": {
+  "name": "House affected",
+  "family": "Damage",
+  "tags": [
+   "damaged home",
+   "house impacted",
+   "dwelling harmed",
+   "residential damage"
+  ]
+ },
+ "House-burned": {
+  "name": "House burned",
+  "family": "Security and incident",
+  "tags": [
+   "security and incident",
+   "house burned"
+  ]
+ },
+ "House-destroyed": {
+  "name": "House destroyed",
+  "family": "Damage",
+  "tags": [
+   "home rubble",
+   "house collapsed",
+   "dwelling demolished",
+   "homeless"
+  ]
+ },
+ "House-lockdown": {
+  "name": "House lockdown",
+  "family": "Lockdown",
+  "tags": [
+   "lockdown",
+   "house lockdown"
+  ]
+ },
+ "House-not-affected": {
+  "name": "House not affected",
+  "family": "Damage",
+  "tags": [
+   "home intact",
+   "house safe",
+   "dwelling operational",
+   "residential safe"
+  ]
+ },
+ "Humanitarian-access": {
+  "name": "Humanitarian access",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "aid access",
+   "passage",
+   "corridor",
+   "reach"
+  ]
+ },
+ "Humanitarian-programme-cycle": {
+  "name": "Humanitarian programme cycle",
+  "family": "Activities strategy",
+  "tags": [
+   "HPC",
+   "planning cycle",
+   "programme",
+   "response cycle"
+  ]
+ },
+ "IDP-refugee-camp": {
+  "name": "IDP refugee camp",
+  "family": "Camp",
+  "tags": [
+   "tent",
+   "displaced",
+   "settlement",
+   "shelter"
+  ]
+ },
+ "Indigenous-people": {
+  "name": "Indigenous people",
+  "family": "People",
+  "tags": [
+   "people",
+   "indigenous people"
+  ]
+ },
+ "Infant": {
+  "name": "Infant",
+  "family": "People",
+  "tags": [
+   "baby",
+   "newborn",
+   "child",
+   "toddler"
+  ]
+ },
+ "Infected": {
+  "name": "Infected",
+  "family": "Health",
+  "tags": [
+   "health",
+   "infected"
+  ]
+ },
+ "Infection-control": {
+  "name": "Infection control",
+  "family": "Health",
+  "tags": [
+   "health",
+   "infection control"
+  ]
+ },
+ "Information-management": {
+  "name": "Information management",
+  "family": "Activities strategy",
+  "tags": [
+   "data",
+   "records",
+   "database",
+   "knowledge"
+  ]
+ },
+ "Information-technology": {
+  "name": "Information technology",
+  "family": "Activities strategy",
+  "tags": [
+   "computer",
+   "digital",
+   "tech",
+   "IT"
+  ]
+ },
+ "Infrastructure": {
+  "name": "Infrastructure",
+  "family": "General infrastructure",
+  "tags": [
+   "buildings",
+   "roads",
+   "utilities",
+   "construction"
+  ]
+ },
+ "Injured": {
+  "name": "Injured",
+  "family": "People",
+  "tags": [
+   "people",
+   "injured"
+  ]
+ },
+ "Innovation": {
+  "name": "Innovation",
+  "family": "Activities strategy",
+  "tags": [
+   "lightbulb",
+   "idea",
+   "creative",
+   "invention"
+  ]
+ },
+ "Insect-infestation": {
+  "name": "Insect infestation",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "bugs",
+   "pest",
+   "swarm",
+   "plague"
+  ]
+ },
+ "Internally-displaced": {
+  "name": "Internally displaced",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "displaced person",
+   "IDP",
+   "forced movement",
+   "uprooted"
+  ]
+ },
+ "Internet": {
+  "name": "Internet",
+  "family": "Telecommunications and technology",
+  "tags": [
+   "web",
+   "online",
+   "network",
+   "connectivity"
+  ]
+ },
+ "Kitchen-set": {
+  "name": "Kitchen set",
+  "family": "Food and non-food items",
+  "tags": [
+   "food and non-food items",
+   "kitchen set"
+  ]
+ },
+ "Laboratory": {
+  "name": "Laboratory",
+  "family": "Health",
+  "tags": [
+   "health",
+   "laboratory"
+  ]
+ },
+ "Landslide-mudslide": {
+  "name": "Landslide mudslide",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "mudslide",
+   "earth movement",
+   "debris flow",
+   "slope failure"
+  ]
+ },
+ "Laptop": {
+  "name": "Laptop",
+  "family": "Telecommunications and technology",
+  "tags": [
+   "telecommunications and technology",
+   "laptop"
+  ]
+ },
+ "Latrine-cabin": {
+  "name": "Latrine cabin",
+  "family": "Water sanitation and hygiene",
+  "tags": [
+   "water sanitation and hygiene",
+   "latrine cabin"
+  ]
+ },
+ "Leadership": {
+  "name": "Leadership",
+  "family": "Activities strategy",
+  "tags": [
+   "chief",
+   "director",
+   "head",
+   "management"
+  ]
+ },
+ "Learning": {
+  "name": "Learning",
+  "family": "Activities strategy",
+  "tags": [
+   "study",
+   "education",
+   "knowledge",
+   "training"
+  ]
+ },
+ "Life-saving": {
+  "name": "Life saving",
+  "family": "Health",
+  "tags": [
+   "rescue",
+   "emergency",
+   "critical",
+   "survival"
+  ]
+ },
+ "Link": {
+  "name": "Link",
+  "family": "UX UI",
+  "tags": [
+   "chain",
+   "connection",
+   "URL",
+   "hyperlink"
+  ]
+ },
+ "Live-geoservices": {
+  "name": "Live geoservices",
+  "family": "Product type",
+  "tags": [
+   "product type",
+   "live geoservices"
+  ]
+ },
+ "Livelihood": {
+  "name": "Livelihood",
+  "family": "Socioeconomic and development",
+  "tags": [
+   "work",
+   "income",
+   "employment",
+   "occupation"
+  ]
+ },
+ "Livestock": {
+  "name": "Livestock",
+  "family": "Socioeconomic and development",
+  "tags": [
+   "cattle",
+   "animals",
+   "farm animals",
+   "herding"
+  ]
+ },
+ "Location": {
+  "name": "Location",
+  "family": "Product type",
+  "tags": [
+   "pin",
+   "marker",
+   "place",
+   "GPS"
+  ]
+ },
+ "Location-lockdown": {
+  "name": "Location lockdown",
+  "family": "Lockdown",
+  "tags": [
+   "lockdown",
+   "location lockdown"
+  ]
+ },
+ "Locust-infestation": {
+  "name": "Locust infestation",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "locusts",
+   "swarm",
+   "pest",
+   "crop destruction"
+  ]
+ },
+ "Logistics": {
+  "name": "Logistics",
+  "family": "Clusters",
+  "tags": [
+   "truck",
+   "delivery",
+   "supply chain",
+   "transport"
+  ]
+ },
+ "Logistics-and-telecommunications": {
+  "name": "Logistics and telecommunications",
+  "family": "Other sectors",
+  "tags": [
+   "truck",
+   "radio",
+   "supply",
+   "communication"
+  ]
+ },
+ "Map": {
+  "name": "Map",
+  "family": "Product type",
+  "tags": [
+   "geography",
+   "navigation",
+   "atlas",
+   "territory"
+  ]
+ },
+ "Market": {
+  "name": "Market",
+  "family": "General infrastructure",
+  "tags": [
+   "shop",
+   "store",
+   "trade",
+   "commerce"
+  ]
+ },
+ "Market-closed": {
+  "name": "Market closed",
+  "family": "Lockdown",
+  "tags": [
+   "lockdown",
+   "market closed"
+  ]
+ },
+ "Mask": {
+  "name": "Mask",
+  "family": "Health",
+  "tags": [
+   "face covering",
+   "PPE",
+   "protection",
+   "COVID"
+  ]
+ },
+ "Mattress": {
+  "name": "Mattress",
+  "family": "Food and non-food items",
+  "tags": [
+   "food and non-food items",
+   "mattress"
+  ]
+ },
+ "Medical-supply": {
+  "name": "Medical supply",
+  "family": "Food and non-food items",
+  "tags": [
+   "medicine",
+   "drugs",
+   "pharmaceutical",
+   "treatment"
+  ]
+ },
+ "Medicine": {
+  "name": "Medicine",
+  "family": "Food and non-food items",
+  "tags": [
+   "food and non-food items",
+   "medicine"
+  ]
+ },
+ "Meeting": {
+  "name": "Meeting",
+  "family": "Activities strategy",
+  "tags": [
+   "chat bubbles",
+   "conversation",
+   "dialogue",
+   "discussion"
+  ]
+ },
+ "Menu": {
+  "name": "Menu",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "menu"
+  ]
+ },
+ "Military-gate": {
+  "name": "Military gate",
+  "family": "Physical barriers",
+  "tags": [
+   "checkpoint",
+   "army",
+   "security",
+   "barricade"
+  ]
+ },
+ "Mine": {
+  "name": "Mine",
+  "family": "Security and incident",
+  "tags": [
+   "security and incident",
+   "mine"
+  ]
+ },
+ "Missing": {
+  "name": "Missing",
+  "family": "People",
+  "tags": [
+   "people",
+   "missing"
+  ]
+ },
+ "Mobile-clinic": {
+  "name": "Mobile clinic",
+  "family": "General infrastructure",
+  "tags": [
+   "ambulance",
+   "mobile health",
+   "medical vehicle",
+   "outreach"
+  ]
+ },
+ "Mobile-phone": {
+  "name": "Mobile phone",
+  "family": "Telecommunications and technology",
+  "tags": [
+   "smartphone",
+   "cellphone",
+   "device",
+   "communication"
+  ]
+ },
+ "Monitor": {
+  "name": "Monitor",
+  "family": "Telecommunications and technology",
+  "tags": [
+   "telecommunications and technology",
+   "monitor"
+  ]
+ },
+ "Monitoring": {
+  "name": "Monitoring",
+  "family": "Activities strategy",
+  "tags": [
+   "watch",
+   "observe",
+   "track",
+   "surveillance"
+  ]
+ },
+ "More-options": {
+  "name": "More options",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "more options"
+  ]
+ },
+ "Mosque": {
+  "name": "Mosque",
+  "family": "General infrastructure",
+  "tags": [
+   "minaret",
+   "islamic",
+   "worship",
+   "religion"
+  ]
+ },
+ "Mosquito-net": {
+  "name": "Mosquito net",
+  "family": "Food and non-food items",
+  "tags": [
+   "food and non-food items",
+   "mosquito net"
+  ]
+ },
+ "Multi-cluster-sector": {
+  "name": "Multi-cluster sector",
+  "family": "Other sectors",
+  "tags": [
+   "inter-sector",
+   "cross-cutting",
+   "multi-sector",
+   "coordination"
+  ]
+ },
+ "Murder": {
+  "name": "Murder",
+  "family": "Security and incident",
+  "tags": [
+   "security and incident",
+   "murder"
+  ]
+ },
+ "NGO-office": {
+  "name": "NGO office",
+  "family": "General infrastructure",
+  "tags": [
+   "organisation",
+   "non-profit",
+   "agency",
+   "office"
+  ]
+ },
+ "National-army": {
+  "name": "National army",
+  "family": "People",
+  "tags": [
+   "people",
+   "national army"
+  ]
+ },
+ "Needs-assessment": {
+  "name": "Needs assessment",
+  "family": "Activities strategy",
+  "tags": [
+   "evaluation",
+   "survey",
+   "needs analysis",
+   "gap"
+  ]
+ },
+ "Next-item": {
+  "name": "Next item",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "next item"
+  ]
+ },
+ "Non-food-items": {
+  "name": "Non food items",
+  "family": "Food and non-food items",
+  "tags": [
+   "NFI",
+   "supplies",
+   "kit",
+   "household items"
+  ]
+ },
+ "Non-food-items-2": {
+  "name": "Non food items 2",
+  "family": "Food and non-food items",
+  "tags": [
+   "food and non-food items",
+   "non food items 2"
+  ]
+ },
+ "Not-affected": {
+  "name": "Not affected",
+  "family": "Damage",
+  "tags": [
+   "safe",
+   "intact",
+   "undamaged",
+   "operational"
+  ]
+ },
+ "Not-infected": {
+  "name": "Not infected",
+  "family": "Health",
+  "tags": [
+   "health",
+   "not infected"
+  ]
+ },
+ "Not-secured": {
+  "name": "Not secured",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "not secured"
+  ]
+ },
+ "Notification": {
+  "name": "Notification",
+  "family": "UX UI",
+  "tags": [
+   "bell",
+   "alert",
+   "alarm",
+   "reminder"
+  ]
+ },
+ "Nutrition": {
+  "name": "Nutrition",
+  "family": "Clusters",
+  "tags": [
+   "food",
+   "diet",
+   "nourishment",
+   "feeding"
+  ]
+ },
+ "Observation-tower": {
+  "name": "Observation tower",
+  "family": "Physical barriers",
+  "tags": [
+   "physical barriers",
+   "observation tower"
+  ]
+ },
+ "Oil": {
+  "name": "Oil",
+  "family": "Food and non-food items",
+  "tags": [
+   "food and non-food items",
+   "oil"
+  ]
+ },
+ "Oil-facility": {
+  "name": "Oil facility",
+  "family": "General infrastructure",
+  "tags": [
+   "petroleum",
+   "refinery",
+   "fuel",
+   "energy"
+  ]
+ },
+ "Out-of-platform": {
+  "name": "Out of platform",
+  "family": "UX UI",
+  "tags": [
+   "external link",
+   "redirect",
+   "outside",
+   "open new"
+  ]
+ },
+ "P-code": {
+  "name": "P-code",
+  "family": "Product type",
+  "tags": [
+   "product type",
+   "p-code"
+  ]
+ },
+ "PDF-file": {
+  "name": "PDF file",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "pdf file"
+  ]
+ },
+ "Partnership": {
+  "name": "Partnership",
+  "family": "Activities strategy",
+  "tags": [
+   "handshake",
+   "collaboration",
+   "alliance",
+   "cooperation"
+  ]
+ },
+ "Password": {
+  "name": "Password",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "password"
+  ]
+ },
+ "Pause": {
+  "name": "Pause",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "pause"
+  ]
+ },
+ "Peacekeeping-force": {
+  "name": "Peacekeeping force",
+  "family": "People",
+  "tags": [
+   "people",
+   "peacekeeping force"
+  ]
+ },
+ "People-affected": {
+  "name": "People affected",
+  "family": "People",
+  "tags": [
+   "people",
+   "people affected"
+  ]
+ },
+ "People-covered": {
+  "name": "People covered",
+  "family": "People",
+  "tags": [
+   "people",
+   "people covered"
+  ]
+ },
+ "People-in-need": {
+  "name": "People in need",
+  "family": "People",
+  "tags": [
+   "vulnerable",
+   "affected population",
+   "beneficiary",
+   "assistance"
+  ]
+ },
+ "People-in-need-2": {
+  "name": "People in need 2",
+  "family": "People",
+  "tags": [
+   "people",
+   "people in need 2"
+  ]
+ },
+ "People-reached": {
+  "name": "People reached",
+  "family": "People",
+  "tags": [
+   "people",
+   "people reached"
+  ]
+ },
+ "People-targeted": {
+  "name": "People targeted",
+  "family": "People",
+  "tags": [
+   "target group",
+   "beneficiaries",
+   "planned",
+   "reach"
+  ]
+ },
+ "People-targeted-2": {
+  "name": "People targeted 2",
+  "family": "People",
+  "tags": [
+   "people",
+   "people targeted 2"
+  ]
+ },
+ "People-with-physical-impairments": {
+  "name": "People with physical impairments",
+  "family": "People",
+  "tags": [
+   "people",
+   "people with physical impairments"
+  ]
+ },
+ "Permanent-camp": {
+  "name": "Permanent camp",
+  "family": "Camp",
+  "tags": [
+   "established camp",
+   "long-term",
+   "settled",
+   "fixed"
+  ]
+ },
+ "Person-1": {
+  "name": "Person 1",
+  "family": "People",
+  "tags": [
+   "people",
+   "person 1"
+  ]
+ },
+ "Person-2": {
+  "name": "Person 2",
+  "family": "People",
+  "tags": [
+   "people",
+   "person 2"
+  ]
+ },
+ "Photo": {
+  "name": "Photo",
+  "family": "Product type",
+  "tags": [
+   "product type",
+   "photo"
+  ]
+ },
+ "Physical-closure": {
+  "name": "Physical closure",
+  "family": "Physical barriers",
+  "tags": [
+   "locked",
+   "sealed",
+   "shut",
+   "barred"
+  ]
+ },
+ "Physical-distancing": {
+  "name": "Physical distancing",
+  "family": "Health",
+  "tags": [
+   "social distance",
+   "spacing",
+   "separation",
+   "COVID"
+  ]
+ },
+ "Plastic-sheeting": {
+  "name": "Plastic sheeting",
+  "family": "Food and non-food items",
+  "tags": [
+   "tarpaulin",
+   "tarp",
+   "covering",
+   "sheet"
+  ]
+ },
+ "Police-station": {
+  "name": "Police station",
+  "family": "General infrastructure",
+  "tags": [
+   "law enforcement",
+   "police",
+   "security",
+   "station"
+  ]
+ },
+ "Policy": {
+  "name": "Policy",
+  "family": "Activities strategy",
+  "tags": [
+   "regulation",
+   "rules",
+   "governance",
+   "guidelines"
+  ]
+ },
+ "Population-growth": {
+  "name": "Population growth",
+  "family": "Socioeconomic and development",
+  "tags": [
+   "increase",
+   "demographic",
+   "rising numbers",
+   "growth"
+  ]
+ },
+ "Population-return": {
+  "name": "Population return",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "repatriation",
+   "going home",
+   "return",
+   "resettlement"
+  ]
+ },
+ "Port": {
+  "name": "Port",
+  "family": "Logistics",
+  "tags": [
+   "logistics",
+   "port"
+  ]
+ },
+ "Port-affected": {
+  "name": "Port affected",
+  "family": "Damage",
+  "tags": [
+   "damage",
+   "port affected"
+  ]
+ },
+ "Port-closed": {
+  "name": "Port closed",
+  "family": "Lockdown",
+  "tags": [
+   "lockdown",
+   "port closed"
+  ]
+ },
+ "Port-destroyed": {
+  "name": "Port destroyed",
+  "family": "Damage",
+  "tags": [
+   "damage",
+   "port destroyed"
+  ]
+ },
+ "Port-not-affected": {
+  "name": "Port not affected",
+  "family": "Damage",
+  "tags": [
+   "damage",
+   "port not affected"
+  ]
+ },
+ "Potable-water": {
+  "name": "Potable water",
+  "family": "Water sanitation and hygiene",
+  "tags": [
+   "drinking water",
+   "clean water",
+   "safe water",
+   "tap"
+  ]
+ },
+ "Potable-water-source": {
+  "name": "Potable water source",
+  "family": "Water sanitation and hygiene",
+  "tags": [
+   "water sanitation and hygiene",
+   "potable water source"
+  ]
+ },
+ "Poverty": {
+  "name": "Poverty",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "poor",
+   "deprivation",
+   "hardship",
+   "low income"
+  ]
+ },
+ "Power-electricity": {
+  "name": "Power electricity",
+  "family": "General infrastructure",
+  "tags": [
+   "energy",
+   "electric",
+   "power line",
+   "voltage"
+  ]
+ },
+ "Power-electricity-affected": {
+  "name": "Power electricity affected",
+  "family": "Damage",
+  "tags": [
+   "damage",
+   "power electricity affected"
+  ]
+ },
+ "Power-electricity-not-affected": {
+  "name": "Power electricity not affected",
+  "family": "Damage",
+  "tags": [
+   "damage",
+   "power electricity not affected"
+  ]
+ },
+ "Power-outage": {
+  "name": "Power outage",
+  "family": "Damage",
+  "tags": [
+   "blackout",
+   "no electricity",
+   "dark",
+   "outage"
+  ]
+ },
+ "Pregnant": {
+  "name": "Pregnant",
+  "family": "People",
+  "tags": [
+   "maternity",
+   "expecting",
+   "prenatal",
+   "mother"
+  ]
+ },
+ "Preparedness": {
+  "name": "Preparedness",
+  "family": "Activities strategy",
+  "tags": [
+   "readiness",
+   "planning",
+   "contingency",
+   "prevention"
+  ]
+ },
+ "Previous-item": {
+  "name": "Previous item",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "previous item"
+  ]
+ },
+ "Print": {
+  "name": "Print",
+  "family": "UX UI",
+  "tags": [
+   "printer",
+   "paper",
+   "output",
+   "hardcopy"
+  ]
+ },
+ "Protection": {
+  "name": "Protection",
+  "family": "Clusters",
+  "tags": [
+   "shield",
+   "safety",
+   "security",
+   "defend"
+  ]
+ },
+ "Public-information": {
+  "name": "Public information",
+  "family": "Activities strategy",
+  "tags": [
+   "broadcast",
+   "media",
+   "press",
+   "news"
+  ]
+ },
+ "Radio": {
+  "name": "Radio",
+  "family": "Telecommunications and technology",
+  "tags": [
+   "telecommunications and technology",
+   "radio"
+  ]
+ },
+ "Rebel": {
+  "name": "Rebel",
+  "family": "People",
+  "tags": [
+   "people",
+   "rebel"
+  ]
+ },
+ "Reconstruction": {
+  "name": "Reconstruction",
+  "family": "Socioeconomic and development",
+  "tags": [
+   "rebuild",
+   "repair",
+   "restore",
+   "construction"
+  ]
+ },
+ "Refugee": {
+  "name": "Refugee",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "displaced",
+   "asylum",
+   "fled",
+   "exile"
+  ]
+ },
+ "Registration": {
+  "name": "Registration",
+  "family": "Camp",
+  "tags": [
+   "sign up",
+   "enroll",
+   "record",
+   "register"
+  ]
+ },
+ "Relief-goods": {
+  "name": "Relief goods",
+  "family": "Food and non-food items",
+  "tags": [
+   "aid supplies",
+   "humanitarian goods",
+   "donations",
+   "cargo"
+  ]
+ },
+ "Remote-support": {
+  "name": "Remote support",
+  "family": "Telecommunications and technology",
+  "tags": [
+   "telecommunications and technology",
+   "remote support"
+  ]
+ },
+ "Remove": {
+  "name": "Remove",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "remove"
+  ]
+ },
+ "Remove-document": {
+  "name": "Remove document",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "remove document"
+  ]
+ },
+ "Report": {
+  "name": "Report",
+  "family": "Product type",
+  "tags": [
+   "product type",
+   "report"
+  ]
+ },
+ "Reporting": {
+  "name": "Reporting",
+  "family": "Activities strategy",
+  "tags": [
+   "report",
+   "document",
+   "summary",
+   "findings"
+  ]
+ },
+ "Resettlement": {
+  "name": "Resettlement",
+  "family": "People",
+  "tags": [
+   "people",
+   "resettlement"
+  ]
+ },
+ "Resilience": {
+  "name": "Resilience",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "strength",
+   "endurance",
+   "bounce back",
+   "adapt"
+  ]
+ },
+ "Respiratory": {
+  "name": "Respiratory",
+  "family": "Health",
+  "tags": [
+   "health",
+   "respiratory"
+  ]
+ },
+ "Response": {
+  "name": "Response",
+  "family": "Activities strategy",
+  "tags": [
+   "react",
+   "action",
+   "emergency response",
+   "mobilize"
+  ]
+ },
+ "Return": {
+  "name": "Return",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "return"
+  ]
+ },
+ "Rice": {
+  "name": "Rice",
+  "family": "Food and non-food items",
+  "tags": [
+   "food and non-food items",
+   "rice"
+  ]
+ },
+ "Road": {
+  "name": "Road",
+  "family": "Logistics",
+  "tags": [
+   "highway",
+   "route",
+   "path",
+   "street"
+  ]
+ },
+ "Road-affected": {
+  "name": "Road affected",
+  "family": "Damage",
+  "tags": [
+   "damaged road",
+   "route disrupted",
+   "highway impacted",
+   "path blocked"
+  ]
+ },
+ "Road-barrier": {
+  "name": "Road barrier",
+  "family": "Physical barriers",
+  "tags": [
+   "physical barriers",
+   "road barrier"
+  ]
+ },
+ "Road-closed": {
+  "name": "Road closed",
+  "family": "Lockdown",
+  "tags": [
+   "lockdown",
+   "road closed"
+  ]
+ },
+ "Road-destroyed": {
+  "name": "Road destroyed",
+  "family": "Damage",
+  "tags": [
+   "road rubble",
+   "route collapsed",
+   "highway demolished",
+   "impassable"
+  ]
+ },
+ "Road-not-affected": {
+  "name": "Road not affected",
+  "family": "Damage",
+  "tags": [
+   "road intact",
+   "route safe",
+   "highway operational",
+   "passable"
+  ]
+ },
+ "Roadblock": {
+  "name": "Roadblock",
+  "family": "Physical barriers",
+  "tags": [
+   "physical barriers",
+   "roadblock"
+  ]
+ },
+ "Robbery": {
+  "name": "Robbery",
+  "family": "Security and incident",
+  "tags": [
+   "security and incident",
+   "robbery"
+  ]
+ },
+ "Rule-of-law-and-justice": {
+  "name": "Rule of law and justice",
+  "family": "Other sectors",
+  "tags": [
+   "scales",
+   "court",
+   "legal",
+   "justice"
+  ]
+ },
+ "Rural": {
+  "name": "Rural",
+  "family": "Socioeconomic and development",
+  "tags": [
+   "countryside",
+   "village",
+   "agricultural",
+   "remote"
+  ]
+ },
+ "Rural-exodus": {
+  "name": "Rural exodus",
+  "family": "Socioeconomic and development",
+  "tags": [
+   "migration",
+   "rural to urban",
+   "leaving countryside",
+   "displacement"
+  ]
+ },
+ "Safety-and-security": {
+  "name": "Safety and security",
+  "family": "Other sectors",
+  "tags": [
+   "shield",
+   "lock",
+   "safe",
+   "protection"
+  ]
+ },
+ "Salt": {
+  "name": "Salt",
+  "family": "Food and non-food items",
+  "tags": [
+   "food and non-food items",
+   "salt"
+  ]
+ },
+ "Sanitation": {
+  "name": "Sanitation",
+  "family": "Water sanitation and hygiene",
+  "tags": [
+   "toilet",
+   "sewage",
+   "waste",
+   "hygiene"
+  ]
+ },
+ "Sanitizer": {
+  "name": "Sanitizer",
+  "family": "Health",
+  "tags": [
+   "health",
+   "sanitizer"
+  ]
+ },
+ "Satellite-dish": {
+  "name": "Satellite dish",
+  "family": "Telecommunications and technology",
+  "tags": [
+   "telecommunications and technology",
+   "satellite dish"
+  ]
+ },
+ "Save": {
+  "name": "Save",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "save"
+  ]
+ },
+ "Scale-down-operation": {
+  "name": "Scale down operation",
+  "family": "Activities strategy",
+  "tags": [
+   "reduce",
+   "decrease",
+   "wind down",
+   "shrink"
+  ]
+ },
+ "Scale-up-operation": {
+  "name": "Scale up operation",
+  "family": "Activities strategy",
+  "tags": [
+   "expand",
+   "increase",
+   "grow",
+   "ramp up"
+  ]
+ },
+ "School": {
+  "name": "School",
+  "family": "General infrastructure",
+  "tags": [
+   "education",
+   "classroom",
+   "learning",
+   "students"
+  ]
+ },
+ "School-affected": {
+  "name": "School affected",
+  "family": "Damage",
+  "tags": [
+   "damaged school",
+   "education disrupted",
+   "classroom impacted",
+   "students"
+  ]
+ },
+ "School-closed": {
+  "name": "School closed",
+  "family": "Lockdown",
+  "tags": [
+   "lockdown",
+   "school closed"
+  ]
+ },
+ "School-destroyed": {
+  "name": "School destroyed",
+  "family": "Damage",
+  "tags": [
+   "school rubble",
+   "education collapsed",
+   "classroom demolished",
+   "students"
+  ]
+ },
+ "School-not-affected": {
+  "name": "School not affected",
+  "family": "Damage",
+  "tags": [
+   "school intact",
+   "education safe",
+   "classroom operational",
+   "students"
+  ]
+ },
+ "Search": {
+  "name": "Search",
+  "family": "UX UI",
+  "tags": [
+   "magnifying glass",
+   "find",
+   "look",
+   "query"
+  ]
+ },
+ "Search-and-rescue": {
+  "name": "Search and rescue",
+  "family": "Activities strategy",
+  "tags": [
+   "rescue",
+   "save",
+   "emergency",
+   "find survivors"
+  ]
+ },
+ "Secured": {
+  "name": "Secured",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "secured"
+  ]
+ },
+ "Security": {
+  "name": "Security",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "security"
+  ]
+ },
+ "See": {
+  "name": "See",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "see"
+  ]
+ },
+ "Selected": {
+  "name": "Selected",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "selected"
+  ]
+ },
+ "Services-and-tools": {
+  "name": "Services and tools",
+  "family": "Activities strategy",
+  "tags": [
+   "wrench",
+   "gear",
+   "utility",
+   "toolkit"
+  ]
+ },
+ "Settings": {
+  "name": "Settings",
+  "family": "UX UI",
+  "tags": [
+   "gear",
+   "configuration",
+   "preferences",
+   "options"
+  ]
+ },
+ "Sex": {
+  "name": "Sex",
+  "family": "People",
+  "tags": [
+   "people",
+   "sex"
+  ]
+ },
+ "Sexual-and-reproductive-health": {
+  "name": "Sexual and reproductive health",
+  "family": "Activities strategy",
+  "tags": [
+   "reproductive",
+   "maternal",
+   "family planning",
+   "SRH"
+  ]
+ },
+ "Sexual-violence": {
+  "name": "Sexual violence",
+  "family": "Security and incident",
+  "tags": [
+   "GBV",
+   "assault",
+   "gender violence",
+   "abuse"
+  ]
+ },
+ "Share": {
+  "name": "Share",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "share"
+  ]
+ },
+ "Shelter": {
+  "name": "Shelter",
+  "family": "Clusters",
+  "tags": [
+   "house",
+   "roof",
+   "housing",
+   "dwelling"
+  ]
+ },
+ "Shelter-land-and-site-coordination": {
+  "name": "Shelter, land and site coordination",
+  "family": "Other sectors",
+  "tags": [
+   "camp planning",
+   "land",
+   "site management",
+   "settlement"
+  ]
+ },
+ "Ship": {
+  "name": "Ship",
+  "family": "Logistics",
+  "tags": [
+   "vessel",
+   "boat",
+   "maritime",
+   "cargo ship"
+  ]
+ },
+ "Shower": {
+  "name": "Shower",
+  "family": "Water sanitation and hygiene",
+  "tags": [
+   "wash",
+   "bath",
+   "clean",
+   "water"
+  ]
+ },
+ "Smartphone": {
+  "name": "Smartphone",
+  "family": "Telecommunications and technology",
+  "tags": [
+   "mobile",
+   "phone",
+   "device",
+   "cellphone"
+  ]
+ },
+ "Snow-avalanche": {
+  "name": "Snow avalanche",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "avalanche",
+   "snow slide",
+   "mountain",
+   "buried"
+  ]
+ },
+ "Snowfall": {
+  "name": "Snowfall",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "snow",
+   "winter",
+   "cold",
+   "blizzard"
+  ]
+ },
+ "Soap": {
+  "name": "Soap",
+  "family": "Food and non-food items",
+  "tags": [
+   "hygiene",
+   "handwashing",
+   "clean",
+   "sanitize"
+  ]
+ },
+ "Solid-waste": {
+  "name": "Solid waste",
+  "family": "Water sanitation and hygiene",
+  "tags": [
+   "water sanitation and hygiene",
+   "solid waste"
+  ]
+ },
+ "Spontaneous-site": {
+  "name": "Spontaneous site",
+  "family": "Camp",
+  "tags": [
+   "informal camp",
+   "unplanned",
+   "makeshift",
+   "squatter"
+  ]
+ },
+ "Spring-water": {
+  "name": "Spring water",
+  "family": "Water sanitation and hygiene",
+  "tags": [
+   "natural water",
+   "source",
+   "groundwater",
+   "well"
+  ]
+ },
+ "Staff-management": {
+  "name": "Staff management",
+  "family": "Activities strategy",
+  "tags": [
+   "HR",
+   "personnel",
+   "team management",
+   "human resources"
+  ]
+ },
+ "Stop": {
+  "name": "Stop",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "stop"
+  ]
+ },
+ "Storm": {
+  "name": "Storm",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "tempest",
+   "gale",
+   "severe weather",
+   "wind"
+  ]
+ },
+ "Storm-surge": {
+  "name": "Storm surge",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "tidal wave",
+   "coastal flooding",
+   "sea surge",
+   "wave"
+  ]
+ },
+ "Stove": {
+  "name": "Stove",
+  "family": "Food and non-food items",
+  "tags": [
+   "food and non-food items",
+   "stove"
+  ]
+ },
+ "Submersible-pump": {
+  "name": "Submersible pump",
+  "family": "Water sanitation and hygiene",
+  "tags": [
+   "water sanitation and hygiene",
+   "submersible pump"
+  ]
+ },
+ "Sugar": {
+  "name": "Sugar",
+  "family": "Food and non-food items",
+  "tags": [
+   "food and non-food items",
+   "sugar"
+  ]
+ },
+ "Table": {
+  "name": "Table",
+  "family": "Product type",
+  "tags": [
+   "grid",
+   "spreadsheet",
+   "data table",
+   "rows and columns"
+  ]
+ },
+ "Tarpaulin": {
+  "name": "Tarpaulin",
+  "family": "Food and non-food items",
+  "tags": [
+   "food and non-food items",
+   "tarpaulin"
+  ]
+ },
+ "Technological-disaster": {
+  "name": "Technological disaster",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "industrial accident",
+   "chemical spill",
+   "nuclear",
+   "tech failure"
+  ]
+ },
+ "Temporary-camp": {
+  "name": "Temporary camp",
+  "family": "Camp",
+  "tags": [
+   "temporary shelter",
+   "short-term",
+   "transit",
+   "interim"
+  ]
+ },
+ "Tent": {
+  "name": "Tent",
+  "family": "Food and non-food items",
+  "tags": [
+   "canvas",
+   "camping",
+   "temporary shelter",
+   "marquee"
+  ]
+ },
+ "Testing": {
+  "name": "Testing",
+  "family": "Health",
+  "tags": [
+   "health",
+   "testing"
+  ]
+ },
+ "Time": {
+  "name": "Time",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "time"
+  ]
+ },
+ "Toilet": {
+  "name": "Toilet",
+  "family": "Water sanitation and hygiene",
+  "tags": [
+   "latrine",
+   "WC",
+   "restroom",
+   "sanitation"
+  ]
+ },
+ "Top-ranking": {
+  "name": "Top ranking",
+  "family": "Activities strategy",
+  "tags": [
+   "trophy",
+   "award",
+   "best",
+   "number one"
+  ]
+ },
+ "Tornado": {
+  "name": "Tornado",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "twister",
+   "whirlwind",
+   "funnel",
+   "cyclone"
+  ]
+ },
+ "Trade-and-market": {
+  "name": "Trade and market",
+  "family": "Socioeconomic and development",
+  "tags": [
+   "commerce",
+   "exchange",
+   "business",
+   "bazaar"
+  ]
+ },
+ "Train": {
+  "name": "Train",
+  "family": "Logistics",
+  "tags": [
+   "logistics",
+   "train"
+  ]
+ },
+ "Training": {
+  "name": "Training",
+  "family": "Activities strategy",
+  "tags": [
+   "teaching",
+   "workshop",
+   "capacity building",
+   "skill"
+  ]
+ },
+ "Transition-site": {
+  "name": "Transition site",
+  "family": "Camp",
+  "tags": [
+   "transitional",
+   "temporary",
+   "interim camp",
+   "relocation"
+  ]
+ },
+ "Trending": {
+  "name": "Trending",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "trending"
+  ]
+ },
+ "Truck": {
+  "name": "Truck",
+  "family": "Logistics",
+  "tags": [
+   "lorry",
+   "vehicle",
+   "freight",
+   "cargo"
+  ]
+ },
+ "Tsunami": {
+  "name": "Tsunami",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "tidal wave",
+   "ocean wave",
+   "sea disaster",
+   "coastal"
+  ]
+ },
+ "Tunnel": {
+  "name": "Tunnel",
+  "family": "Logistics",
+  "tags": [
+   "underground",
+   "passage",
+   "subway",
+   "underpass"
+  ]
+ },
+ "UN-compound-office": {
+  "name": "UN compound office",
+  "family": "General infrastructure",
+  "tags": [
+   "United Nations",
+   "UN building",
+   "headquarters",
+   "blue flag"
+  ]
+ },
+ "UN-vehicle": {
+  "name": "UN vehicle",
+  "family": "Logistics",
+  "tags": [
+   "UN car",
+   "white vehicle",
+   "humanitarian vehicle",
+   "blue flag"
+  ]
+ },
+ "University": {
+  "name": "University",
+  "family": "General infrastructure",
+  "tags": [
+   "higher education",
+   "college",
+   "campus",
+   "academic"
+  ]
+ },
+ "Up": {
+  "name": "Up",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "up"
+  ]
+ },
+ "Upload": {
+  "name": "Upload",
+  "family": "UX UI",
+  "tags": [
+   "arrow up",
+   "send",
+   "share",
+   "transfer"
+  ]
+ },
+ "Urban": {
+  "name": "Urban",
+  "family": "Socioeconomic and development",
+  "tags": [
+   "city",
+   "metropolitan",
+   "town",
+   "urban area"
+  ]
+ },
+ "Urban-rural": {
+  "name": "Urban rural",
+  "family": "Socioeconomic and development",
+  "tags": [
+   "city and countryside",
+   "mixed",
+   "peri-urban",
+   "suburban"
+  ]
+ },
+ "User": {
+  "name": "User",
+  "family": "UX UI",
+  "tags": [
+   "person",
+   "profile",
+   "account",
+   "individual"
+  ]
+ },
+ "Users": {
+  "name": "Users",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "users"
+  ]
+ },
+ "Vaccine": {
+  "name": "Vaccine",
+  "family": "Food and non-food items",
+  "tags": [
+   "injection",
+   "immunization",
+   "shot",
+   "syringe"
+  ]
+ },
+ "Validate-account": {
+  "name": "Validate account",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "validate account"
+  ]
+ },
+ "Ventilator": {
+  "name": "Ventilator",
+  "family": "Health",
+  "tags": [
+   "health",
+   "ventilator"
+  ]
+ },
+ "Video": {
+  "name": "Video",
+  "family": "Product type",
+  "tags": [
+   "product type",
+   "video"
+  ]
+ },
+ "Violent-wind": {
+  "name": "Violent wind",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "gale",
+   "strong wind",
+   "windstorm",
+   "gusty"
+  ]
+ },
+ "Virus": {
+  "name": "Virus",
+  "family": "Health",
+  "tags": [
+   "health",
+   "virus"
+  ]
+ },
+ "Volcano": {
+  "name": "Volcano",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "eruption",
+   "lava",
+   "volcanic",
+   "magma"
+  ]
+ },
+ "Walkie-talkie": {
+  "name": "Walkie talkie",
+  "family": "Telecommunications and technology",
+  "tags": [
+   "telecommunications and technology",
+   "walkie talkie"
+  ]
+ },
+ "Warning-error": {
+  "name": "Warning error",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "warning error"
+  ]
+ },
+ "Water-sanitation-and-hygiene": {
+  "name": "Water sanitation and hygiene",
+  "family": "Clusters",
+  "tags": [
+   "WASH",
+   "clean water",
+   "sanitation",
+   "hygiene"
+  ]
+ },
+ "Water-source": {
+  "name": "Water source",
+  "family": "Water sanitation and hygiene",
+  "tags": [
+   "well",
+   "spring",
+   "tap",
+   "water point"
+  ]
+ },
+ "Water-trucking": {
+  "name": "Water trucking",
+  "family": "Water sanitation and hygiene",
+  "tags": [
+   "water delivery",
+   "tanker",
+   "water transport",
+   "supply"
+  ]
+ },
+ "Work-from-home": {
+  "name": "Work from home",
+  "family": "Telecommunications and technology",
+  "tags": [
+   "telecommunications and technology",
+   "work from home"
+  ]
+ },
+ "Worm-infestation": {
+  "name": "Worm infestation",
+  "family": "Disasters, hazards and crises",
+  "tags": [
+   "disasters, hazards and crises",
+   "worm infestation"
+  ]
+ },
+ "XLSX-file": {
+  "name": "XLSX file",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "xlsx file"
+  ]
+ },
+ "ZIP-compressed": {
+  "name": "ZIP compressed",
+  "family": "UX UI",
+  "tags": [
+   "ux ui",
+   "zip compressed"
+  ]
+ }
+}

@@ -1,0 +1,48 @@
+{
+  "_note": "Worked example — USG Tom Fletcher Venezuela briefing, Spanish social subtitles + bilingual centred lower third + OCHA logo-click ending. 1080x1080. This is the exact job that produced temp/usg_es/USG_es_FULL.mp4 in the ocha_quick_vid repo. Copy + edit for the next clip.",
+  "src": "~/OCHA DMU Dropbox/<your-name>/Design/Resources/ocha_quick_vid/temp/USG_MS_briefing_venezuela_8_july_CLEAN.mp4",
+  "out": "~/OCHA DMU Dropbox/<your-name>/Design/Resources/ocha_quick_vid/temp/usg_es/USG_es_FULL.mp4",
+  "canvas": [1080, 1080],
+  "fps": 30,
+  "footage_end": 69.97,
+
+  "subtitle": { "size": 44, "max_w": 800, "bottom_hi": 806, "bottom_lo": 900 },
+
+  "lower_thirds": [
+    {
+      "name": "TOM FLETCHER",
+      "titles": ["UN Relief Chief", "Coordinador del Socorro de Emergencia de la ONU"],
+      "align": "center",
+      "in": 1.2,
+      "hold": 3.4,
+      "bottom": 972,
+      "name_size": 40,
+      "org_size": 23
+    }
+  ],
+
+  "cues": [
+    [0.00,  "La gente está conmocionada y desesperada."],
+    [5.08,  "Hay un momento en estos lugares:"],
+    [7.88,  "los distintos equipos que intentan rescatar a las personas de entre los escombros."],
+    [12.04, "Estuve junto a grupos de madres"],
+    [15.00, "que acuden cada día al lugar"],
+    [18.00, "con la esperanza de encontrar algún rastro de sus hijos."],
+    [22.28, "Y hay momentos en el lugar"],
+    [23.42, "en que un miembro del equipo de rescate"],
+    [26.92, "levanta la mano y todo queda en silencio."],
+    [29.78, "Las máquinas callan. Y esto es porque"],
+    [32.36, "han oído, o esperan haber oído,"],
+    [35.02, "el más leve ruido bajo los escombros"],
+    [38.56, "y todos se detienen con la esperanza de que sea una señal de vida."],
+    [43.90, "Y entonces, como ayer, tras un par de minutos de silencio,"],
+    [47.68, "el rescatista levanta ambos brazos para indicar"],
+    [50.86, "que no ha oído ningún sonido."],
+    [53.78, "Y la excavación y la búsqueda continúan."],
+    [57.16, "Anoche, esas madres me preguntaron: ¿viene la ayuda?"],
+    [61.82, "Y la reunión de hoy es nuestra respuesta a eso."],
+    [64.78, "Y solo puede haber una respuesta a esa pregunta."]
+  ],
+
+  "ending": { "logo": true, "hold": 2.0, "click": true }
+}

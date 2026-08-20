@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "ocha-bdu",
+  "description": "OCHA Brand and Design Unit skills for Claude Code — visual identity, data visualization, mapping, humanitarian icons, editorial style, and the OCHA video pipeline.",
+  "owner": {
+    "name": "OCHA Brand and Design Unit (BDU)",
+    "email": "ochavisual@un.org"
+  },
+  "plugins": [
+    {
+      "name": "ocha-bdu",
+      "description": "OCHA brand, design and video skills: visual identity (colours, typography, logo, cd-* design system), data visualization, cartographic standards, the 389 humanitarian icons, OCHA editorial house style, and the two-part video pipeline (statement videos + branding).",
+      "author": {
+        "name": "OCHA Brand and Design Unit (BDU)",
+        "email": "ochavisual@un.org"
+      },
+      "source": "./plugins/ocha-bdu",
+      "category": "design",
+      "homepage": "https://github.com/UN-OCHA/ocha_claude_skills_BDU"
+    }
+  ]
+}
