@@ -1,106 +1,119 @@
 # OCHA BDU skills for Claude
 
-Brand, design and video know-how from the OCHA Brand and Design Unit, packaged so any
-OCHA colleague can add it to Claude in about a minute.
+Adds OCHA brand knowledge to Claude — colours, logo rules, chart and map standards,
+house writing style, and the full video pipeline.
 
-Once installed, Claude follows OCHA brand rules by default — the right colours, the right
-logo behaviour, house editorial style, the video pipeline — without you having to explain
-them each time.
+Once installed, you just ask Claude for the work and it follows OCHA standards
+automatically. You don't have to explain them every time.
 
----
-
-## What you need first
-
-The **Claude desktop app**, with **Claude Code** — **Mac or Windows**. If you can open
-Claude and type in a chat box, you're ready.
-
-> **These are skills, so they work in Claude Code — not in Cowork sessions.**
+**Setup takes about 5 minutes.** Follow the steps in order.
 
 ---
 
-## Install — 2 lines, no Terminal
+## Step 1 — Install Claude on your computer
 
-**Everything below goes in the Claude chat box**, exactly where you would type a normal
-message. This is *not* Terminal.
+Download it here: **https://claude.ai/download**
 
-**1.** Type this and press return:
+Install it like any other app, then open it and sign in.
+
+> Works on **Mac and Windows**.
+> If you already have the Claude app, skip to Step 2.
+
+---
+
+## Step 2 — Open Claude Code
+
+Inside the Claude app, start a **Claude Code** session.
+
+> **This matters.** The Claude app can run different kinds of session. These skills only
+> work in **Claude Code**. If you're in a *Cowork* session, Step 3 won't do anything.
+
+---
+
+## Step 3 — Add the OCHA skills
+
+You'll type two lines into Claude — **in the normal chat box, where you'd type a
+message**. This is not Terminal. You're just talking to Claude.
+
+**3a.** Copy this line, paste it in the chat box, press return:
 
 ```
 /plugin marketplace add UN-OCHA/ocha_claude_skills_BDU
 ```
 
-**2.** Then type this and press return:
+**3b.** Wait for Claude to confirm. Then copy this line, paste it, press return:
 
 ```
 /plugin install ocha-bdu@ocha-bdu
 ```
 
-Done. Claude confirms each step.
-
-### Check it worked
-
-Type this in the chat box:
-
-> what OCHA skills do I have now?
-
-You should see seven, listed below.
+That's the installation done.
 
 ---
 
-## Using them — just ask normally
+## Step 4 — Check it worked
 
-You don't invoke anything. Ask for the work and the right skill loads itself:
+Type this in the chat box, like a normal question:
+
+> **what OCHA skills do I have now?**
+
+Claude should list seven skills. If it does, you're finished. 🎉
+
+---
+
+## How to use it
+
+Nothing to remember. Just ask for what you need:
 
 > *"Make a bar chart of funding by sector, OCHA style"*
-> *"Where's the OCHA logo, and how much clear space does it need?"*
-> *"Proofread this paragraph for our house style"*
-> *"Add subtitles and the OCHA ending to this clip"*
+> *"What are the OCHA brand colours?"*
+> *"How much clear space does the OCHA logo need?"*
+> *"Check this paragraph against our house style"*
+> *"Add subtitles and the OCHA ending to this video"*
 
-If you'd rather be explicit, type `/ocha-bdu:` and pick from the list.
+Claude picks the right skill by itself.
+
+---
+
+## Only if you make videos — one more install
+
+Skip this unless you edit video.
+
+Video work uses the **OCHA QuickVid** engine. Install it once — about 10 minutes,
+**no admin rights, no Terminal**:
+
+1. Go to **https://un-ocha.github.io/quickvid_BDU/**
+2. Click the button to download the installer (**Install OCHA QuickVid**)
+3. Find it in your Downloads and double-click it
+
+It sets itself up and starts when finished. Mac and Windows both.
+
+> The first time you open it, your computer shows one security warning. This is normal
+> for anything downloaded from the internet.
+> **Mac:** right-click the file → Open → Open.
+> **Windows:** More info → Run anyway.
+
+Claude finds the engine on its own afterwards. Nothing to set up.
 
 ---
 
 ## What you get
 
-| Skill | What it covers |
+| Skill | What it helps with |
 |---|---|
-| `ocha-visual-identity` | Brand colours, typography, logo rules, clear space, the `cd-*` Common Design System |
-| `ocha-dataviz` | Which chart to use, and OCHA's data-visualization rules |
-| `ocha-mapping` | Map standards — boundaries, symbology, disclaimers |
+| `ocha-visual-identity` | Brand colours, fonts, logo rules, clear space, the OCHA design system |
+| `ocha-dataviz` | Which chart to use, and how OCHA charts should look |
+| `ocha-mapping` | OCHA map standards — boundaries, symbols, disclaimers |
 | `humanitarian-icons` | The 389 OCHA Humanitarian Icons |
-| `ocha-editorial-style` | House style — numbers, dates, currency, capitalization, acronyms |
-| `ocha-design` | Umbrella: loads visual identity + dataviz + mapping together |
-| `ocha-video` | Everything video — cutting, captions, lower third, logo ending, packaging |
-
-Six of the seven need **no setup at all**. Only video needs one extra step.
+| `ocha-editorial-style` | OCHA house style — numbers, dates, currency, capitalisation, acronyms |
+| `ocha-design` | Loads visual identity + charts + maps together |
+| `ocha-video` | Everything video — cutting, subtitles, lower third, logo ending, packaging |
 
 ---
 
-## Extra step — only if you do video
+## Keeping it up to date
 
-Video rendering runs through the **OCHA QuickVid** engine. Install it once — about
-10 minutes, **no admin rights, no Terminal**:
-
-1. Go to **https://un-ocha.github.io/quickvid_BDU/**
-2. Download the installer the page offers (**Install OCHA QuickVid**)
-3. Double-click it in your Downloads
-
-It sets everything up by itself and starts when it's done. Works the same on **Mac and
-Windows**.
-
-> The first launch shows one security warning — normal for any internet download.
-> **Mac:** right-click → Open → Open. **Windows:** More info → Run anyway.
-
-The video skill finds the engine automatically afterwards — nothing to configure.
-
-Already keep QuickVid somewhere unusual? Tell Claude where it is, or set `QUICKVID_HOME`
-to that folder.
-
----
-
-## Keeping up to date
-
-New versions don't arrive on their own. In the Claude chat box:
+We add and improve skills over time. To get the latest, type this in the chat box:
 
 ```
 /plugin marketplace update ocha-bdu
@@ -108,28 +121,19 @@ New versions don't arrive on their own. In the Claude chat box:
 
 ---
 
-## Dropbox files
+## If something doesn't work
 
-Some skills point at shared resources in the OCHA DMU Dropbox, written like this:
+**"Nothing happens when I paste the `/plugin` line."**
+You're probably in a Cowork session. Start a **Claude Code** session instead (Step 2).
 
-```
-~/OCHA DMU Dropbox/<your-name>/Design/...
-```
+**"Claude says it can't find the QuickVid engine."**
+You haven't done the video install yet — see the video step above.
 
-`<your-name>` is your own member folder — whatever your `OCHA DMU Dropbox` folder shows
-(in your home folder on Mac, or `C:\Users\<you>\OCHA DMU Dropbox` on Windows). You need
-access to the relevant team folders for those to open.
+**"Claude can't open a Dropbox file."**
+Some skills point at shared files in the OCHA DMU Dropbox. You need access to that team
+folder. Ask us and we'll sort it out.
 
----
-
-## Something not working?
-
-- **The `/plugin` commands do nothing** → you're probably in a Cowork session. Skills only
-  work in Claude Code.
-- **Claude says the QuickVid engine isn't found** → run the video install step above.
-- **A Dropbox path won't open** → you likely don't have access to that team folder yet.
-
-Still stuck: **ochavisual@un.org**
+**Anything else:** **ochavisual@un.org** — we'd rather help than have you stuck.
 
 ---
 
