@@ -39,7 +39,7 @@ Install it like any other app, then open it and sign in.
 In the Claude app, click the **Claude Code** icon in the left sidebar.
 
 > **This matters.** The Claude app has several tabs — Claude, Claude Code and Cowork.
-> **These skills only work on the Claude Code tab.** On any other tab, Step 3 does nothing.
+> **These skills only work on the Claude Code tab.**
 
 ### Say yes to the permission prompts
 
