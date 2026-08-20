@@ -11,8 +11,8 @@ them each time.
 
 ## What you need first
 
-The **Claude desktop app** for Mac, with **Claude Code**. If you can open Claude and type
-in a chat box, you're ready.
+The **Claude desktop app**, with **Claude Code** — **Mac or Windows**. If you can open
+Claude and type in a chat box, you're ready.
 
 > **These are skills, so they work in Claude Code — not in Cowork sessions.**
 
@@ -78,27 +78,23 @@ Six of the seven need **no setup at all**. Only video needs one extra step.
 
 ## Extra step — only if you do video
 
-Video rendering runs through the **OCHA QuickVid** engine. Install it once
-(about 10 minutes, no admin password).
+Video rendering runs through the **OCHA QuickVid** engine. Install it once — about
+10 minutes, **no admin rights, no Terminal**:
 
-**Easiest way — ask Claude to do it.** In the chat box:
+1. Go to **https://un-ocha.github.io/quickvid_BDU/**
+2. Download the installer the page offers (**Install OCHA QuickVid**)
+3. Double-click it in your Downloads
 
-> install OCHA QuickVid for me
+It sets everything up by itself and starts when it's done. Works the same on **Mac and
+Windows**.
 
-**Or run it yourself in Terminal** (Applications → Utilities → Terminal), paste and press
-return:
+> The first launch shows one security warning — normal for any internet download.
+> **Mac:** right-click → Open → Open. **Windows:** More info → Run anyway.
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/UN-OCHA/quickvid_BDU/main/install.sh | bash
-```
+The video skill finds the engine automatically afterwards — nothing to configure.
 
-The video skill finds it automatically afterwards — nothing to configure.
-
-Already have QuickVid somewhere unusual? Tell Claude where, or set:
-
-```bash
-export QUICKVID_HOME="/path/to/ocha_quick_vid"
-```
+Already keep QuickVid somewhere unusual? Tell Claude where it is, or set `QUICKVID_HOME`
+to that folder.
 
 ---
 
@@ -120,8 +116,9 @@ Some skills point at shared resources in the OCHA DMU Dropbox, written like this
 ~/OCHA DMU Dropbox/<your-name>/Design/...
 ```
 
-`<your-name>` is your own member folder — whatever `~/OCHA DMU Dropbox/` shows on your
-Mac. You need access to the relevant team folders for those to open.
+`<your-name>` is your own member folder — whatever your `OCHA DMU Dropbox` folder shows
+(in your home folder on Mac, or `C:\Users\<you>\OCHA DMU Dropbox` on Windows). You need
+access to the relevant team folders for those to open.
 
 ---
 
