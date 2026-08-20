@@ -91,6 +91,25 @@ That's the installation done.
 
 ---
 
+### If `/plugin` doesn't work
+
+Some setups answer **"/plugin isn't available in this environment."** No problem — Claude
+Code can install the skills itself instead.
+
+Paste this into the Claude Code chat box, as a normal message:
+
+> Please install the OCHA BDU skills. Clone https://github.com/UN-OCHA/ocha_claude_skills_BDU
+> into a temp folder, copy all 7 skill folders from `plugins/ocha-bdu/skills/` into my
+> `~/.claude/skills/` folder, then tell me which ones you installed.
+
+Approve the steps when it asks. **Then quit Claude and reopen it** so the new skills load.
+
+Same skills, exactly the same behaviour. The only difference: you call them
+`/ocha-visual-identity` instead of `/ocha-bdu:ocha-visual-identity`. To update later, ask
+Claude Code to run the same thing again.
+
+---
+
 ## Step 4 — Check it worked
 
 Type this in the Claude Code chat box, like a normal question:
@@ -186,6 +205,10 @@ chat box:
 ---
 
 ## If something doesn't work
+
+**"It says /plugin isn't available in this environment."**
+Use the alternative install in Step 3 — Claude Code installs the skills itself. Works the
+same way.
 
 **"Nothing happens when I paste the `/plugin` line."**
 You're on the wrong tab. Click the **Claude Code** icon in the left sidebar (Step 2)
