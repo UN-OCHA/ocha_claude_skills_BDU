@@ -7,6 +7,7 @@ Once installed, you just ask Claude for the work and it follows OCHA standards
 automatically. You don't have to explain them every time.
 
 > **These instructions are for the Claude Code desktop app** (Mac or Windows).
+> **Not for Terminal.**
 
 ---
 
