@@ -1,26 +1,3 @@
-## Keeping it up to date
-
-We add and improve skills over time. To get the latest, paste the **same message from
-Step 3** into Claude Code again — it overwrites the old versions. Restart Claude
-afterwards.
-
----
-
-### Using the Claude Code terminal instead?
-
-If you use the Claude Code command-line tool rather than the desktop app, you can install
-this as a plugin instead:
-
-```
-/plugin marketplace add UN-OCHA/ocha_claude_skills_BDU
-/plugin install ocha-bdu@ocha-bdu
-```
-
-`/plugin` only works in the terminal — in the desktop app it answers *"isn't available in
-this environment"*, which is expected. Use Step 3 there.
-
----
-
 # OCHA BDU skills for Claude
 
 Adds OCHA brand knowledge to Claude — colours, logo rules, chart and map standards,
@@ -203,12 +180,24 @@ You can switch models in the middle of a session — the work carries over.
 
 ## Keeping it up to date
 
-We add and improve skills over time. To get the latest, type this in the Claude Code
-chat box:
+We add and improve skills over time. To get the latest, paste the **same message from
+Step 3** into Claude Code again — it overwrites the old versions with the current ones.
+Quit and reopen Claude afterwards.
+
+---
+
+### Using the Claude Code terminal instead?
+
+If you use the Claude Code command-line tool rather than the desktop app, you can install
+this as a plugin:
 
 ```
-/plugin marketplace update ocha-bdu
+/plugin marketplace add UN-OCHA/ocha_claude_skills_BDU
+/plugin install ocha-bdu@ocha-bdu
 ```
+
+`/plugin` works **only** in the terminal. In the desktop app it answers *"isn't available
+in this environment"* — that's expected, use Step 3 there.
 
 ---
 
