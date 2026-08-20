@@ -1,3 +1,26 @@
+## Keeping it up to date
+
+We add and improve skills over time. To get the latest, paste the **same message from
+Step 3** into Claude Code again — it overwrites the old versions. Restart Claude
+afterwards.
+
+---
+
+### Using the Claude Code terminal instead?
+
+If you use the Claude Code command-line tool rather than the desktop app, you can install
+this as a plugin instead:
+
+```
+/plugin marketplace add UN-OCHA/ocha_claude_skills_BDU
+/plugin install ocha-bdu@ocha-bdu
+```
+
+`/plugin` only works in the terminal — in the desktop app it answers *"isn't available in
+this environment"*, which is expected. Use Step 3 there.
+
+---
+
 # OCHA BDU skills for Claude
 
 Adds OCHA brand knowledge to Claude — colours, logo rules, chart and map standards,
@@ -72,45 +95,30 @@ one is the safer default.
 
 ## Step 3 — Add the OCHA skills
 
-You'll type two lines into **Claude Code** — in the **Claude Code chat box**, the same
-box where you'd type a message. This is not Terminal. You're just talking to Claude Code.
+Copy this whole message, paste it into the **Claude Code chat box**, and press return:
 
-**3a.** Copy this line, paste it in the Claude Code chat box, press return:
+> Please install the OCHA BDU skills. Clone
+> https://github.com/UN-OCHA/ocha_claude_skills_BDU into a temp folder, copy all 7 skill
+> folders from `plugins/ocha-bdu/skills/` into my `~/.claude/skills/` folder, then tell me
+> which ones you installed.
 
-```
-/plugin marketplace add UN-OCHA/ocha_claude_skills_BDU
-```
+Claude Code will ask permission for a couple of steps — approve them. It takes under a
+minute, and it tidies up after itself.
 
-**3b.** Wait for Claude to confirm. Then copy this line, paste it, press return:
-
-```
-/plugin install ocha-bdu@ocha-bdu
-```
-
-That's the installation done.
+You should see all seven listed when it finishes.
 
 ---
 
-### If `/plugin` doesn't work
+## Step 4 — Quit Claude and open it again
 
-Some setups answer **"/plugin isn't available in this environment."** No problem — Claude
-Code can install the skills itself instead.
+**This step is required.** Skills only load when Claude starts, so the new ones won't
+appear until you restart.
 
-Paste this into the Claude Code chat box, as a normal message:
-
-> Please install the OCHA BDU skills. Clone https://github.com/UN-OCHA/ocha_claude_skills_BDU
-> into a temp folder, copy all 7 skill folders from `plugins/ocha-bdu/skills/` into my
-> `~/.claude/skills/` folder, then tell me which ones you installed.
-
-Approve the steps when it asks. **Then quit Claude and reopen it** so the new skills load.
-
-Same skills, exactly the same behaviour. The only difference: you call them
-`/ocha-visual-identity` instead of `/ocha-bdu:ocha-visual-identity`. To update later, ask
-Claude Code to run the same thing again.
+Quit Claude completely, then open it again and go back to the **Claude Code** tab.
 
 ---
 
-## Step 4 — Check it worked
+## Step 5 — Check it worked
 
 Type this in the Claude Code chat box, like a normal question:
 
@@ -207,21 +215,11 @@ chat box:
 ## If something doesn't work
 
 **"It says /plugin isn't available in this environment."**
-Use the alternative install in Step 3 — Claude Code installs the skills itself. Works the
-same way.
+Expected in the desktop app — `/plugin` only works in the Claude Code terminal. Use the
+message in Step 3 instead; it does the same thing.
 
-**"Nothing happens when I paste the `/plugin` line."**
-You're on the wrong tab. Click the **Claude Code** icon in the left sidebar (Step 2)
-and try again.
-
-**"Claude asks permission for everything and I'm not sure what to click."**
-Approve it. Claude Code asks before touching files on your computer. If the prompts get
-tiring, turn on **Bypass permissions** at the bottom left — see Step 2.
-
-**"I pasted the first line and a folder window popped up."**
-Normal, not an error. It's Claude Code's own first-time setup, not the skills — it can't
-open without a folder. Pick **Desktop**, click **Open**, paste the line again. Nothing
-gets saved into that folder.
+**"I installed them but Claude doesn't know about them."**
+You need to quit Claude and reopen it (Step 4). Skills only load at startup.
 
 **"Claude says it can't find the QuickVid engine."**
 You haven't done the video install yet — see the video step above.
