@@ -16,9 +16,6 @@ automatically. You don't have to explain them every time.
 Max, Team, Enterprise). Without it, the Claude Code tab won't be there and none of the
 steps below will work.
 
-Not sure which plan you're on, or need one? Email **ochavisual@un.org** and we'll point
-you the right way.
-
 ---
 
 **Setup takes about 5 minutes.** Follow the steps in order.
