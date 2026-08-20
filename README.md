@@ -180,9 +180,15 @@ You can switch models in the middle of a session — the work carries over.
 
 ## Keeping it up to date
 
-We add and improve skills over time. To get the latest, paste the **same message from
-Step 3** into Claude Code again — it overwrites the old versions with the current ones.
-Quit and reopen Claude afterwards.
+We add and improve skills over time. To get the latest, paste this into the Claude Code
+chat box:
+
+> Please check https://github.com/UN-OCHA/ocha_claude_skills_BDU for updates to the OCHA
+> BDU skills and update the ones in my `~/.claude/skills/` folder. Tell me what changed.
+
+Then **quit Claude and open it again** so the updated skills load.
+
+Worth doing every few weeks, or whenever we tell you something new has landed.
 
 ---
 

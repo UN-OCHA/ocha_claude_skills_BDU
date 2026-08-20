@@ -11,8 +11,9 @@ description: >
   briefing", "video message from [principal]", or wants a bespoke piece cut — a mission wrap-up,
   a field film, an event recap. Carries the house rules that hold for EVERY OCHA video (no
   fades, vignette, ending logo, caption standard per format, approval flow, 4-folder package)
-  and routes to the deep procedure for the job in hand. Runs fully local (ffmpeg + cairosvg/resvg
-  + faster-whisper); footage never leaves the Mac.
+  and routes to the deep procedure for the job in hand. Renders through the OCHA QuickVid
+  engine, installed separately. Runs fully local (ffmpeg + cairosvg/resvg + faster-whisper);
+  footage never leaves the Mac.
 ---
 
 # OCHA Video
@@ -22,6 +23,29 @@ procedure for a particular kind of job lives in `references/` and is read on dem
 
 Everything runs locally with `ffmpeg` + `cairosvg`/`resvg` + `faster-whisper`. **The footage
 never leaves the machine.**
+
+---
+
+## 0 · Requires the OCHA QuickVid engine
+
+Every render here goes through the **OCHA QuickVid engine**. It is not optional and there
+is no fallback. `scripts/render_social_video.py` locates it automatically:
+
+- **Mac** — `~/Library/Application Support/OCHA QuickVid/app`
+- **Windows** — `%LocalAppData%\OCHA QuickVid\app`
+- Or wherever `QUICKVID_HOME` points (developer setups)
+
+**If it isn't installed**, the script exits with instructions. Tell the user to install it
+once from **https://un-ocha.github.io/quickvid_BDU/** — download the installer the page
+offers and double-click it (~10 minutes, no admin rights) — then re-run the job.
+
+**Never substitute a hand-rolled `ffmpeg` pipeline.** The engine carries the brand rules —
+caption style and safe areas, lower-third geometry, the logo ending, colour. Improvised
+ffmpeg produces output that looks close but is off-brand, and nobody catches it until it
+has shipped. If the engine is missing, stop and say so.
+
+(QuickVid also has a **web app** and a **Premiere panel** — those are alternative ways for
+a person to do the work by hand. They are not what this skill drives; see §1.)
 
 ---
 
