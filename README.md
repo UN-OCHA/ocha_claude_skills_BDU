@@ -23,10 +23,21 @@ Install it like any other app, then open it and sign in.
 
 ## Step 2 — Open Claude Code
 
-Inside the Claude app, start a **Claude Code** session.
+In the Claude app, click the **Claude Code** icon in the left sidebar.
 
-> **This matters.** The Claude app can run different kinds of session. These skills only
-> work in **Claude Code**. If you're in a *Cowork* session, Step 3 won't do anything.
+> **This matters.** The Claude app runs different kinds of session. These skills only work
+> in **Claude Code**. If you're in a *Cowork* session, Step 3 won't do anything.
+
+### Say yes to the permission prompts
+
+The first time you use Claude Code, it asks permission before doing things on your
+computer — reading a file, running something. **Approve these when prompted**, or it
+won't be able to do the work.
+
+Tired of being asked every time? At the **bottom left** there's a **Bypass permissions**
+option. It stops the prompts and lets Claude act without checking each time — faster, but
+you lose that checkpoint, so only turn it on for work you trust. Approving prompts one by
+one is the safer default.
 
 ---
 
@@ -124,7 +135,12 @@ We add and improve skills over time. To get the latest, type this in the chat bo
 ## If something doesn't work
 
 **"Nothing happens when I paste the `/plugin` line."**
-You're probably in a Cowork session. Start a **Claude Code** session instead (Step 2).
+You're probably in a Cowork session. Click the **Claude Code** icon in the left sidebar
+(Step 2) and try again.
+
+**"Claude asks permission for everything and I'm not sure what to click."**
+Approve it. Claude Code asks before touching files on your computer. If the prompts get
+tiring, turn on **Bypass permissions** at the bottom left — see Step 2.
 
 **"Claude says it can't find the QuickVid engine."**
 You haven't done the video install yet — see the video step above.
