@@ -123,21 +123,42 @@ Claude picks the right skill by itself.
 
 Skip this unless you edit video.
 
-Video work uses the **OCHA QuickVid** engine. Install it once — about 10 minutes,
-**no admin rights, no Terminal**:
+Video work runs on the **OCHA QuickVid engine**. Install it once — about 10 minutes, no
+admin rights.
 
-1. Go to **https://un-ocha.github.io/quickvid_BDU/**
-2. Click the button to download the installer (**Install OCHA QuickVid**)
-3. Find it in your Downloads and double-click it
+**Open this page in Chrome** — Safari doesn't play nicely with it:
 
-It sets itself up and starts when finished. Mac and Windows both.
+**https://un-ocha.github.io/quickvid_BDU/**
 
-> The first time you open it, your computer shows one security warning. This is normal
-> for anything downloaded from the internet.
-> **Mac:** right-click the file → Open → Open.
-> **Windows:** More info → Run anyway.
+The page has a **Mac / Windows** switch. Pick yours — the two are different:
 
-Claude finds the engine on its own afterwards. Nothing to set up.
+### On Mac
+
+The page shows you **a line of text to copy**. There's nothing to download.
+
+1. Copy the line
+2. Open **Terminal** (Applications → Utilities → Terminal)
+3. Paste it, press return, and leave it to finish
+
+This is the **only** time you'll use Terminal — everything else is in Claude.
+
+### On Windows
+
+Download the installer the page offers and double-click it.
+
+> Windows shows *"Windows protected your PC"* → **More info** → **Run anyway**. Normal for
+> any internet download.
+
+### Already had QuickVid, or it stopped working?
+
+An old version won't update itself properly, and restarting your computer won't fix it.
+
+1. Delete the old **OCHA QuickVid** app from your machine
+2. Go back to the page and scroll to the bottom → **Help & reinstall**
+3. Run the install again from there
+
+That sets everything up fresh. (This is exactly what we hit on one laptop — the old
+version kept asking for a restart and never worked until it was removed and reinstalled.)
 
 ---
 
@@ -196,6 +217,10 @@ Worth doing every few weeks, or whenever we tell you something new has landed.
 
 **"I installed them but Claude doesn't know about them."**
 You need to quit Claude and reopen it (Step 4). Skills only load at startup.
+
+**"QuickVid keeps asking me to restart and never works."**
+You have an old version. Delete the OCHA QuickVid app, then reinstall from **Help &
+reinstall** at the bottom of the QuickVid page. Restarting alone won't fix it.
 
 **"Claude says it can't find the QuickVid engine."**
 You haven't done the video install yet — see the video step above.
