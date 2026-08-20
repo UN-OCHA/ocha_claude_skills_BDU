@@ -16,8 +16,8 @@ Download it here: **https://claude.ai/download**
 
 Install it like any other app, then open it and sign in.
 
-> Works on **Mac and Windows**.
-> If you already have the Claude app, skip to Step 2.
+> One app, **Mac or Windows**. Claude Code comes with it — there's nothing extra to
+> download. If you already have the Claude app, skip to Step 2.
 
 ---
 
@@ -25,8 +25,8 @@ Install it like any other app, then open it and sign in.
 
 In the Claude app, click the **Claude Code** icon in the left sidebar.
 
-> **This matters.** The Claude app runs different kinds of session. These skills only work
-> in **Claude Code**. If you're in a *Cowork* session, Step 3 won't do anything.
+> **This matters.** The Claude app has several tabs — Claude, Claude Code and Cowork.
+> **These skills only work on the Claude Code tab.** On any other tab, Step 3 does nothing.
 
 ### Say yes to the permission prompts
 
@@ -135,8 +135,8 @@ We add and improve skills over time. To get the latest, type this in the chat bo
 ## If something doesn't work
 
 **"Nothing happens when I paste the `/plugin` line."**
-You're probably in a Cowork session. Click the **Claude Code** icon in the left sidebar
-(Step 2) and try again.
+You're on the wrong tab. Click the **Claude Code** icon in the left sidebar (Step 2)
+and try again.
 
 **"Claude asks permission for everything and I'm not sure what to click."**
 Approve it. Claude Code asks before touching files on your computer. If the prompts get
