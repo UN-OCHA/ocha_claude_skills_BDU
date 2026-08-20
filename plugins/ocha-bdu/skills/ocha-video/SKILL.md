@@ -35,9 +35,15 @@ is no fallback. `scripts/render_social_video.py` locates it automatically:
 - **Windows** — `%LocalAppData%\OCHA QuickVid\app`
 - Or wherever `QUICKVID_HOME` points (developer setups)
 
-**If it isn't installed**, the script exits with instructions. Tell the user to install it
-once from **https://un-ocha.github.io/quickvid_BDU/** — download the installer the page
-offers and double-click it (~10 minutes, no admin rights) — then re-run the job.
+**If it isn't installed**, the script exits with instructions. Send the user to
+**https://un-ocha.github.io/quickvid_BDU/** — opened in **Chrome**, not Safari. The page
+has a Mac/Windows switch and they differ: on **Mac** it shows a line to copy and paste into
+Terminal (nothing to download); on **Windows** it offers an installer to download and
+double-click. ~10 minutes, no admin rights. Then re-run the job.
+
+**If they already have QuickVid but it misbehaves** — asks for a restart, reports an old
+version — it is a stale install. Restarting does not fix it: delete the OCHA QuickVid app,
+then reinstall via **Help & reinstall** at the bottom of that page.
 
 **Never substitute a hand-rolled `ffmpeg` pipeline.** The engine carries the brand rules —
 caption style and safe areas, lower-third geometry, the logo ending, colour. Improvised
