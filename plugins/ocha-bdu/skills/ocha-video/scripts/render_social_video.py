@@ -77,10 +77,14 @@ def main(cfgpath):
     if not ENGINE:
         sys.exit(
             "OCHA QuickVid engine not found.\n\n"
-            "This skill renders through the QuickVid engine. Install it once "
-            "(~10 min, no admin password):\n\n"
-            "  curl -fsSL https://raw.githubusercontent.com/UN-OCHA/quickvid_BDU/main/install.sh | bash\n\n"
-            "Already installed somewhere unusual? Point at it directly:\n"
+            "Install it once - about 10 min, no admin rights. Open this page in CHROME:\n\n"
+            "  https://un-ocha.github.io/quickvid_BDU/\n\n"
+            "  Mac     - copy the line it shows, paste it into Terminal.\n"
+            "  Windows - download the installer it offers and double-click it.\n\n"
+            "Already installed but misbehaving (asks to restart, reports an old version)?\n"
+            "Delete the OCHA QuickVid app, then use Help and reinstall at the bottom of\n"
+            "that page. Restarting alone does not fix a stale install.\n\n"
+            "Kept somewhere unusual? Point at it directly:\n"
             "  export QUICKVID_HOME=\"/path/to/ocha_quick_vid\""
         )
     # encoding="utf-8" is NOT optional: job.json carries Spanish accents and Arabic,
