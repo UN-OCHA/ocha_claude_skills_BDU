@@ -30,23 +30,29 @@ import tempfile
 # --- Locate the QuickVid engine ----------------------------------------------------
 # Never hardcode one path: this skill is shared, and the engine lives in a DIFFERENT
 # place for a normal user than for a QuickVid developer.
-#   - Normal install (install.sh) -> ~/Library/Application Support/OCHA QuickVid/app
-#   - Developer                   -> set QUICKVID_HOME
-# A candidate counts only if it has BOTH the engine AND a built venv.
+#   - Mac install     -> ~/Library/Application Support/OCHA QuickVid/app
+#   - Windows install -> %LocalAppData%\OCHA QuickVidpp
+#   - Developer       -> set QUICKVID_HOME
+# A candidate counts only if it has BOTH the engine AND a built venv. The venv
+# interpreter differs by platform: .venv/bin/python3 vs .venv\Scripts\python.exe.
 def _find_quickvid():
-    home = os.path.expanduser("~")
-    support = os.path.join(home, "Library", "Application Support", "OCHA QuickVid")
-
     candidates = []
     if os.environ.get("QUICKVID_HOME"):
         candidates.append(os.environ["QUICKVID_HOME"])
-    relocated = os.path.join(support, "home")
-    if os.path.isfile(relocated):
-        try:
-            candidates.append(io.open(relocated, encoding="utf-8").read().strip())
-        except OSError:
-            pass
-    candidates.append(os.path.join(support, "app"))
+
+    supports = [os.path.join(os.path.expanduser("~"), "Library",
+                             "Application Support", "OCHA QuickVid")]
+    if os.environ.get("LOCALAPPDATA"):
+        supports.append(os.path.join(os.environ["LOCALAPPDATA"], "OCHA QuickVid"))
+
+    for support in supports:
+        relocated = os.path.join(support, "home")   # written if QuickVid was relocated
+        if os.path.isfile(relocated):
+            try:
+                candidates.append(io.open(relocated, encoding="utf-8").read().strip())
+            except OSError:
+                pass
+        candidates.append(os.path.join(support, "app"))
     # NOTE: a Dropbox-synced clone is deliberately NOT probed. Dropbox ignores
     # .gitignore, so a shared repo carries the OWNER's .venv — present on disk but
     # pointing at their Python. It would pass an existence check, then fail at run time.
@@ -55,9 +61,12 @@ def _find_quickvid():
         if not c:
             continue
         engine = os.path.join(c, "engine", "social_brand.py")
-        venv = os.path.join(c, ".venv", "bin", "python3")
-        if os.path.exists(engine) and os.path.exists(venv):
-            return c, engine, venv
+        if not os.path.exists(engine):
+            continue
+        for venv in (os.path.join(c, ".venv", "bin", "python3"),
+                     os.path.join(c, ".venv", "Scripts", "python.exe")):
+            if os.path.exists(venv):
+                return c, engine, venv
     return None, None, None
 
 
