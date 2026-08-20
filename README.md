@@ -56,8 +56,8 @@ one is the safer default.
 
 ## Step 3 — Add the OCHA skills
 
-You'll type two lines into the **Claude Code chat box** — the same box where you'd type
-a message. This is not Terminal. You're just talking to Claude Code.
+You'll type two lines into **Claude Code** — in the **Claude Code chat box**, the same
+box where you'd type a message. This is not Terminal. You're just talking to Claude Code.
 
 **3a.** Copy this line, paste it in the Claude Code chat box, press return:
 
