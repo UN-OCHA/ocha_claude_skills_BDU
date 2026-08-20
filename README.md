@@ -43,10 +43,10 @@ one is the safer default.
 
 ## Step 3 — Add the OCHA skills
 
-You'll type two lines into Claude — **in the normal chat box, where you'd type a
-message**. This is not Terminal. You're just talking to Claude.
+You'll type two lines into the **Claude Code chat box** — the same box where you'd type
+a message. This is not Terminal. You're just talking to Claude Code.
 
-**3a.** Copy this line, paste it in the chat box, press return:
+**3a.** Copy this line, paste it in the Claude Code chat box, press return:
 
 ```
 /plugin marketplace add UN-OCHA/ocha_claude_skills_BDU
@@ -64,7 +64,7 @@ That's the installation done.
 
 ## Step 4 — Check it worked
 
-Type this in the chat box, like a normal question:
+Type this in the Claude Code chat box, like a normal question:
 
 > **what OCHA skills do I have now?**
 
@@ -124,7 +124,8 @@ Claude finds the engine on its own afterwards. Nothing to set up.
 
 ## Keeping it up to date
 
-We add and improve skills over time. To get the latest, type this in the chat box:
+We add and improve skills over time. To get the latest, type this in the Claude Code
+chat box:
 
 ```
 /plugin marketplace update ocha-bdu
