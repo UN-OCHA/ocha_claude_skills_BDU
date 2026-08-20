@@ -99,7 +99,7 @@ Claude picks the right skill by itself.
 
 ---
 
-## Only if you make videos — one more install
+## 🎬 Only if you make videos — one more install
 
 Skip this unless you edit video.
 
