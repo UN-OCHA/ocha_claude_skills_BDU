@@ -31,7 +31,7 @@ import tempfile
 # Never hardcode one path: this skill is shared, and the engine lives in a DIFFERENT
 # place for a normal user than for a QuickVid developer.
 #   - Mac install     -> ~/Library/Application Support/OCHA QuickVid/app
-#   - Windows install -> %LocalAppData%\OCHA QuickVidpp
+#   - Windows install -> %LocalAppData%\OCHA QuickVid\app
 #   - Developer       -> set QUICKVID_HOME
 # A candidate counts only if it has BOTH the engine AND a built venv. The venv
 # interpreter differs by platform: .venv/bin/python3 vs .venv\Scripts\python.exe.
