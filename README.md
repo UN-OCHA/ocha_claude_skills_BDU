@@ -1,10 +1,11 @@
 # OCHA BDU skills for Claude
 
 Adds OCHA brand knowledge to Claude — colours, logo rules, chart and map standards,
-house writing style, and the full video pipeline.
+house writing style, logo production, and the full video pipeline.
 
 Once installed, you just ask Claude for the work and it follows OCHA standards
-automatically. You don't have to explain them every time.
+automatically. You don't have to explain them every time. **And the skills keep
+themselves up to date** — when we improve them, your copy updates on its own.
 
 > **These instructions are for the Claude Code desktop app** (Mac or Windows).
 > **Not for Terminal.**
@@ -74,22 +75,33 @@ one is the safer default.
 
 Copy this whole message, paste it into the **Claude Code chat box**, and press return:
 
-> Please install the OCHA BDU skills. Clone
-> https://github.com/UN-OCHA/ocha_claude_skills_BDU into a temp folder, copy all 7 skill
-> folders from `plugins/ocha-bdu/skills/` into my `~/.claude/skills/` folder, then tell me
-> which ones you installed.
+> Please install the OCHA BDU skills plugin with automatic updates:
+>
+> 1. Run `claude plugin marketplace add UN-OCHA/ocha_claude_skills_BDU`
+> 2. Run `claude plugin install ocha-bdu@ocha-bdu --scope user`
+> 3. In my `~/.claude/settings.json`, merge in (create the file if needed, don't
+>    overwrite my other settings):
+>    `"extraKnownMarketplaces": { "ocha-bdu": { "source": { "source": "github",
+>    "repo": "UN-OCHA/ocha_claude_skills_BDU" }, "autoUpdate": true } }`
+> 4. If any of these folders exist in my `~/.claude/skills/`, delete them — they are
+>    old manual copies of the same skills and would duplicate the plugin:
+>    ocha-visual-identity, ocha-dataviz, ocha-mapping, humanitarian-icons,
+>    ocha-editorial-style, ocha-design, ocha-video, ocha-logo-production.
+>    Do not touch any other folder there.
+> 5. Tell me what you did at each step.
 
 Claude Code will ask permission for a couple of steps — approve them. It takes under a
-minute, and it tidies up after itself.
+minute.
 
-You should see all seven listed when it finishes.
+> Already installed the skills the old way (before September 2026)? This same message
+> upgrades you: step 4 removes the old copies and the plugin takes over. Do it once and
+> you never have to update manually again.
 
 ---
 
 ## Step 4 — Quit Claude and open it again
 
-**This step is required.** Skills only load when Claude starts, so the new ones won't
-appear until you restart.
+**This step is required.** The plugin loads when Claude starts.
 
 Quit Claude completely, then open it again and go back to the **Claude Code** tab.
 
@@ -101,7 +113,23 @@ Type this in the Claude Code chat box, like a normal question:
 
 > **what OCHA skills do I have now?**
 
-Claude should list seven skills. If it does, you're finished. 🎉
+Claude should list eight skills. If it does, you're finished. 🎉
+
+---
+
+## How updates work — you do nothing
+
+That's the point of installing it as a plugin: **updates are automatic.**
+
+Shortly after you start a session, Claude Code quietly checks our repository in the
+background. When we've improved something, it updates your copy and shows a small note
+that a plugin was updated — the new version is active on your next launch (or right away
+if you run `/reload-plugins`). No reinstalling, no copy-pasting, nothing to remember.
+
+If you ever want to force a check right now, paste this:
+
+> Run `claude plugin marketplace update ocha-bdu` and then
+> `claude plugin update ocha-bdu@ocha-bdu`, and tell me what changed.
 
 ---
 
@@ -172,6 +200,7 @@ version kept asking for a restart and never worked until it was removed and rein
 | `humanitarian-icons` | The 389 OCHA Humanitarian Icons |
 | `ocha-editorial-style` | OCHA house style — numbers, dates, currency, capitalisation, acronyms |
 | `ocha-design` | Loads visual identity + charts + maps together |
+| `ocha-logo-production` | Building logo packages from Illustrator — languages, variants, verified exports |
 | `ocha-video` | Everything video — cutting, subtitles, lower third, logo ending, packaging |
 
 ---
@@ -199,24 +228,14 @@ You can switch models in the middle of a session — the work carries over.
 
 ---
 
-## Keeping it up to date
-
-We add and improve skills over time. To get the latest, paste this into the Claude Code
-chat box:
-
-> Please check https://github.com/UN-OCHA/ocha_claude_skills_BDU for updates to the OCHA
-> BDU skills and update the ones in my `~/.claude/skills/` folder. Tell me what changed.
-
-Then **quit Claude and open it again** so the updated skills load.
-
-Worth doing every few weeks, or whenever we tell you something new has landed.
-
----
-
 ## If something doesn't work
 
 **"I installed them but Claude doesn't know about them."**
-You need to quit Claude and reopen it (Step 4). Skills only load at startup.
+You need to quit Claude and reopen it (Step 4). The plugin loads at startup.
+
+**"Claude lists seven skills, not eight."**
+Your copy predates the plugin. Run the Step 3 message once — it upgrades you and turns
+on automatic updates.
 
 **"QuickVid keeps asking me to restart and never works."**
 You have an old version. Delete the OCHA QuickVid app, then reinstall from **Help &
