@@ -77,7 +77,7 @@ one is the safer default.
 You do this **inside the Claude app**, by clicking. Nothing to type into Terminal, and
 nothing to paste into the chat.
 
-<!-- SCREENSHOT SLOT 1: the + menu open, showing "Plugins" -->
+![The + menu open, with Plugins selected and Manage plugins in the submenu](docs/images/manage_plugins.jpg)
 
 1. In the **Claude Code** tab, click the **+** button next to the message box
 2. Choose **Plugins**
@@ -85,17 +85,30 @@ nothing to paste into the chat.
 4. Click **Add** at the top right
 5. Choose **Add marketplace**
 6. Choose **Add from a repository**
-7. Paste this in, exactly, and confirm:
+
+![The Add marketplace dialog, with the option "Add from a repository"](docs/images/add_marketplace.jpg)
+
+7. Paste this into the **URL** box, exactly:
 
 ```
 UN-OCHA/ocha_claude_skills_BDU
 ```
 
-<!-- SCREENSHOT SLOT 2: the "Add marketplace" dialog, "Add from a repository" highlighted -->
+8. Click **Sync**
+
+![The URL box where you paste the address, with the Sync button and the red trust warning](docs/images/repo.jpg)
+
+> ### You will see a red warning. This is normal — keep going.
+>
+> It says Anthropic can't verify plugins that don't come from them. It appears for
+> **every** plugin that isn't Anthropic's own, including this one, and it is not a sign
+> that anything is wrong.
+>
+> These skills are OCHA's. The address you just pasted is the **UN-OCHA** organisation on
+> GitHub, it is maintained by the Brand and Design Unit, and nobody outside BDU can change
+> what's in it. Questions: **ochavisual@un.org**.
 
 **OCHA BDU** now appears in the plugin list. Install it, and you're done.
-
-<!-- SCREENSHOT SLOT 3: OCHA BDU in the list, installed -->
 
 > **Why clicking and not a pasted message?** Earlier versions of these instructions asked
 > you to paste a message that ran commands. Those commands come from a separate developer
