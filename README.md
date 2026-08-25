@@ -4,8 +4,9 @@ Adds OCHA brand knowledge to Claude — colours, logo rules, chart and map stand
 house writing style, logo production, and the full video pipeline.
 
 Once installed, you just ask Claude for the work and it follows OCHA standards
-automatically. You don't have to explain them every time. **And the skills keep
-themselves up to date** — when we improve them, your copy updates on its own.
+automatically. You don't have to explain them every time. **And they stay current** — we
+improve them regularly, and your copy updates from our repository rather than needing a
+reinstall.
 
 > **These instructions are for the Claude Code desktop app** (Mac or Windows).
 > **Not for Terminal.**
@@ -73,29 +74,48 @@ one is the safer default.
 
 ## Step 3 — Add the OCHA skills
 
-Copy this whole message, paste it into the **Claude Code chat box**, and press return:
+You do this **inside the Claude app**, by clicking. Nothing to type into Terminal, and
+nothing to paste into the chat.
 
-> Please install the OCHA BDU skills plugin with automatic updates:
->
-> 1. Run `claude plugin marketplace add UN-OCHA/ocha_claude_skills_BDU`
-> 2. Run `claude plugin install ocha-bdu@ocha-bdu --scope user`
-> 3. In my `~/.claude/settings.json`, merge in (create the file if needed, don't
->    overwrite my other settings):
->    `"extraKnownMarketplaces": { "ocha-bdu": { "source": { "source": "github",
->    "repo": "UN-OCHA/ocha_claude_skills_BDU" }, "autoUpdate": true } }`
-> 4. If any of these folders exist in my `~/.claude/skills/`, delete them — they are
->    old manual copies of the same skills and would duplicate the plugin:
->    ocha-visual-identity, ocha-dataviz, ocha-mapping, humanitarian-icons,
->    ocha-editorial-style, ocha-design, ocha-video, ocha-logo-production.
->    Do not touch any other folder there.
-> 5. Tell me what you did at each step.
+<!-- SCREENSHOT SLOT 1: the + menu open, showing "Plugins" -->
 
-Claude Code will ask permission for a couple of steps — approve them. It takes under a
-minute.
+1. In the **Claude Code** tab, click the **+** button next to the message box
+2. Choose **Plugins**
+3. Choose **Manage plugins**
+4. Click **Add** at the top right
+5. Choose **Add marketplace**
+6. Choose **Add from a repository**
+7. Paste this in, exactly, and confirm:
 
-> Already installed the skills the old way (before September 2026)? This same message
-> upgrades you: step 4 removes the old copies and the plugin takes over. Do it once and
-> you never have to update manually again.
+```
+UN-OCHA/ocha_claude_skills_BDU
+```
+
+<!-- SCREENSHOT SLOT 2: the "Add marketplace" dialog, "Add from a repository" highlighted -->
+
+**OCHA BDU** now appears in the plugin list. Install it, and you're done.
+
+<!-- SCREENSHOT SLOT 3: OCHA BDU in the list, installed -->
+
+> **Why clicking and not a pasted message?** Earlier versions of these instructions asked
+> you to paste a message that ran commands. Those commands come from a separate developer
+> tool that the Claude app doesn't include, so on most laptops they simply failed. The
+> buttons above are built into the app and work on every machine.
+
+### Only if you installed these skills the old way
+
+If you added the skills by hand before September 2026, you now have two copies of each and
+Claude will see duplicates. Paste this into the chat box **after** the plugin is installed
+and showing up:
+
+> I have just installed the OCHA BDU plugin. Please confirm it is installed and that you
+> can see its skills. **Only if it is**, delete these folders from my `~/.claude/skills/`,
+> because they are old manual copies the plugin now replaces: ocha-visual-identity,
+> ocha-dataviz, ocha-mapping, humanitarian-icons, ocha-editorial-style, ocha-design,
+> ocha-video, ocha-logo-production. Do not touch any other folder there. If the plugin is
+> **not** installed, stop and tell me — do not delete anything.
+
+Brand new to these skills? Skip this — there's nothing to clean up.
 
 ---
 
@@ -117,19 +137,21 @@ Claude should list eight skills. If it does, you're finished. 🎉
 
 ---
 
-## How updates work — you do nothing
+## How updates work
 
-That's the point of installing it as a plugin: **updates are automatic.**
+We improve these skills regularly. Your copy comes from our repository, so an update is
+never a reinstall — at most it's a refresh.
 
-Shortly after you start a session, Claude Code quietly checks our repository in the
-background. When we've improved something, it updates your copy and shows a small note
-that a plugin was updated — the new version is active on your next launch (or right away
-if you run `/reload-plugins`). No reinstalling, no copy-pasting, nothing to remember.
+Claude Code checks for plugin updates on its own, and in most cases you'll simply have the
+newest version the next time you launch the app. We are still confirming how reliably that
+happens in the desktop app, so we won't promise you never have to think about it.
 
-If you ever want to force a check right now, paste this:
+**If Claude seems to be working from something out of date**, open the same panel you
+installed from — **+** → **Plugins** → **Manage plugins** — and update **OCHA BDU** there.
+Then quit Claude and open it again.
 
-> Run `claude plugin marketplace update ocha-bdu` and then
-> `claude plugin update ocha-bdu@ocha-bdu`, and tell me what changed.
+If you're ever unsure, ask us: **ochavisual@un.org**. We'll tell you whether there's
+anything new worth refreshing for.
 
 ---
 
@@ -147,46 +169,35 @@ Claude picks the right skill by itself.
 
 ---
 
-## 🎬 Only if you make videos — one more install
+## 🎬 If you make videos
 
-Skip this unless you edit video.
+**On a Mac, there is nothing for you to do here.** Video work runs on a separate program
+called **OCHA QuickVid**, and the first time you ask Claude for a video it installs it for
+you. It will tell you it's doing it. Expect about **10 minutes** that first time — no
+password, nothing to download yourself. After that it's instant and never happens again.
 
-Video work runs on the **OCHA QuickVid engine**. Install it once — about 10 minutes, no
-admin rights.
-
-**Open this page in Chrome** — Safari doesn't play nicely with it:
-
-**https://un-ocha.github.io/quickvid_BDU/**
-
-The page has a **Mac / Windows** switch. Pick yours — the two are different:
-
-### On Mac
-
-The page shows you **a line of text to copy**. There's nothing to download.
-
-1. Copy the line
-2. Open **Terminal** (Applications → Utilities → Terminal)
-3. Paste it, press return, and leave it to finish
-
-This is the **only** time you'll use Terminal — everything else is in Claude.
+Everything runs on your own computer. Your footage is never uploaded anywhere.
 
 ### On Windows
 
-Download the installer the page offers and double-click it.
+Windows needs one manual step. **Open this page in Chrome** — Safari and Edge don't play
+nicely with it:
+
+**https://un-ocha.github.io/quickvid_BDU/**
+
+Download the installer it offers and double-click it.
 
 > Windows shows *"Windows protected your PC"* → **More info** → **Run anyway**. Normal for
 > any internet download.
 
-### Already had QuickVid, or it stopped working?
+### If video stops working
 
-An old version won't update itself properly, and restarting your computer won't fix it.
+An old copy of QuickVid won't update itself properly, and restarting your computer won't
+fix it. On a Mac, just tell Claude *"QuickVid isn't working, please repair it"* — it
+re-runs the installer, which repairs it in place and keeps your setup.
 
-1. Delete the old **OCHA QuickVid** app from your machine
-2. Go back to the page and scroll to the bottom → **Help & reinstall**
-3. Run the install again from there
-
-That sets everything up fresh. (This is exactly what we hit on one laptop — the old
-version kept asking for a restart and never worked until it was removed and reinstalled.)
+On Windows, delete the **OCHA QuickVid** app, go back to the page above, scroll to the
+bottom → **Help & reinstall**, and install it again.
 
 ---
 
@@ -234,15 +245,17 @@ You can switch models in the middle of a session — the work carries over.
 You need to quit Claude and reopen it (Step 4). The plugin loads at startup.
 
 **"Claude lists seven skills, not eight."**
-Your copy predates the plugin. Run the Step 3 message once — it upgrades you and turns
-on automatic updates.
+Your copy predates the plugin. Do Step 3 once — the buttons in the app — and then the
+clean-up message underneath it.
 
 **"QuickVid keeps asking me to restart and never works."**
-You have an old version. Delete the OCHA QuickVid app, then reinstall from **Help &
-reinstall** at the bottom of the QuickVid page. Restarting alone won't fix it.
+You have an old version, and restarting won't fix it. On a Mac, tell Claude *"QuickVid
+isn't working, please repair it"*. On Windows, delete the app and reinstall from **Help &
+reinstall** at the bottom of the QuickVid page.
 
 **"Claude says it can't find the QuickVid engine."**
-You haven't done the video install yet — see the video step above.
+On a Mac it should offer to install it — just ask for the video again. On Windows, do the
+install from the QuickVid page (see the video section above).
 
 **"Claude can't open a Dropbox file."**
 Some skills point at shared files in the OCHA DMU Dropbox. You need access to that team
