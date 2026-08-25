@@ -12,7 +12,7 @@ description: >
   a field film, an event recap. Carries the house rules that hold for EVERY OCHA video (no
   fades, vignette, ending logo, caption standard per format, approval flow, 4-folder package)
   and routes to the deep procedure for the job in hand. Renders through the OCHA QuickVid
-  engine, a one-time install on each machine. Runs fully local (ffmpeg + cairosvg/resvg + faster-whisper);
+  engine, which this skill installs by itself the first time it is needed. Runs fully local (ffmpeg + cairosvg/resvg + faster-whisper);
   footage never leaves the Mac.
 ---
 
@@ -26,39 +26,68 @@ never leaves the machine.**
 
 ---
 
-## 0 · Requires the OCHA QuickVid engine
+## 0 · The OCHA QuickVid engine — check it, then fix it yourself
 
-**Never state whether QuickVid is installed. Run the check and report what it says.**
+Every render goes through the **OCHA QuickVid engine**. It is not optional and there is no
+fallback. Before the first render of a session, run:
 
 ```bash
 python3 scripts/render_social_video.py --check
 ```
 
-About a second. It prints `FOUND` with the location and version, or `NOT FOUND` — and it
-actually starts the engine, so it also catches the stale install that looks perfectly fine
-on disk. Exit 0 means ready to render.
+About a second. Three possible answers, and what to do about each:
 
-This is spelled out because the guess was being made, and it was wrong: colleagues who had
-QuickVid installed were told by their own Claude that it was missing, purely from reading
-the paragraph below. Reading this file tells you QuickVid is a **separate install**; only
-`--check` tells you whether **this machine** has it.
+| `--check` says | Do this |
+|---|---|
+| `ready` | Nothing. Get on with the video. Do not mention QuickVid at all. |
+| `NOT FOUND` | Say the paragraph below, then install it. |
+| `BROKEN` | Say the paragraph below, then run the same install command — it repairs in place. |
 
-Every render here goes through the **OCHA QuickVid engine**. It is not optional and there
-is no fallback. `scripts/render_social_video.py` locates it automatically:
+**Never state whether QuickVid is installed without running the check.** The claim was
+being made from reading this file, and it was wrong: colleagues who *had* QuickVid were
+told by their own Claude that it was missing. Reading tells you QuickVid is a separate
+program; only `--check` tells you whether **this machine** has it.
 
-- **Mac** — `~/Library/Application Support/OCHA QuickVid/app`
-- **Windows** — `%LocalAppData%\OCHA QuickVid\app`
-- Or wherever `QUICKVID_HOME` points (developer setups)
+### Installing it — inform, then do it. Do not ask permission.
 
-**If it isn't installed**, the script exits with instructions. Send the user to
-**https://un-ocha.github.io/quickvid_BDU/** — opened in **Chrome**, not Safari. The page
-has a Mac/Windows switch and they differ: on **Mac** it shows a line to copy and paste into
-Terminal (nothing to download); on **Windows** it offers an installer to download and
-double-click. ~10 minutes, no admin rights. Then re-run the job.
+Say it in plain English first, so a non-technical colleague knows what is happening and
+why the wait is normal. Something like:
 
-**If they already have QuickVid but it misbehaves** — asks for a restart, reports an old
-version — it is a stale install. Restarting does not fix it: delete the OCHA QuickVid app,
-then reinstall via **Help & reinstall** at the bottom of that page.
+> OCHA videos are cut by a separate program called **OCHA QuickVid** — it does the
+> captions, lower thirds and branding, and it runs entirely on your own computer, so your
+> footage is never uploaded anywhere. It isn't on this Mac yet, so I'm installing it now.
+> About 10 minutes the first time, and it won't ask you for a password. After this it's
+> instant and you'll never see this message again.
+
+For the `BROKEN` case, say instead that QuickVid is installed but is an old copy that
+didn't update itself, and that you're re-running the installer to repair it — a couple of
+minutes, and their setup is kept.
+
+Then run it (**Mac**), and expect it to take a while:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/UN-OCHA/quickvid_BDU/main/install.sh | bash
+```
+
+This is the exact command the OCHA QuickVid page hands out. It needs no admin password and
+asks nothing. **Re-running it is also the update** — it keeps the existing setup, so a
+repair or upgrade is quick rather than another full install. When it finishes, run
+`--check` again to confirm, then carry on with the video.
+
+**Windows** has no equivalent one-liner: it is a downloaded installer. Send the user to
+**https://un-ocha.github.io/quickvid_BDU/** opened in **Chrome**, have them download and
+double-click it, then re-run `--check`.
+
+**Kept somewhere unusual?** `export QUICKVID_HOME=/path/to/ocha_quick_vid` and `--check`
+will honour it. Only relevant to QuickVid developers — a normal install is found on its own.
+
+**Do not build a version check into this skill.** QuickVid's launcher already self-updates,
+and when a copy gets stuck it is a launcher bug that `tools/qv-doctor.sh` in the QuickVid
+repo already detects by name. A second updater here would compete with that one and hide
+the real fault. Re-running the installer is the fix.
+
+If the install itself fails — UN networks sometimes block raw.githubusercontent.com —
+stop and say so, and point at the page. Do not improvise another route.
 
 **Never substitute a hand-rolled `ffmpeg` pipeline.** The engine carries the brand rules —
 caption style and safe areas, lower-third geometry, the logo ending, colour. Improvised
