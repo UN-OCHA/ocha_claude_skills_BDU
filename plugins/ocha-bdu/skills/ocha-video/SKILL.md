@@ -12,7 +12,7 @@ description: >
   a field film, an event recap. Carries the house rules that hold for EVERY OCHA video (no
   fades, vignette, ending logo, caption standard per format, approval flow, 4-folder package)
   and routes to the deep procedure for the job in hand. Renders through the OCHA QuickVid
-  engine, installed separately. Runs fully local (ffmpeg + cairosvg/resvg + faster-whisper);
+  engine, a one-time install on each machine. Runs fully local (ffmpeg + cairosvg/resvg + faster-whisper);
   footage never leaves the Mac.
 ---
 
@@ -27,6 +27,21 @@ never leaves the machine.**
 ---
 
 ## 0 · Requires the OCHA QuickVid engine
+
+**Never state whether QuickVid is installed. Run the check and report what it says.**
+
+```bash
+python3 scripts/render_social_video.py --check
+```
+
+About a second. It prints `FOUND` with the location and version, or `NOT FOUND` — and it
+actually starts the engine, so it also catches the stale install that looks perfectly fine
+on disk. Exit 0 means ready to render.
+
+This is spelled out because the guess was being made, and it was wrong: colleagues who had
+QuickVid installed were told by their own Claude that it was missing, purely from reading
+the paragraph below. Reading this file tells you QuickVid is a **separate install**; only
+`--check` tells you whether **this machine** has it.
 
 Every render here goes through the **OCHA QuickVid engine**. It is not optional and there
 is no fallback. `scripts/render_social_video.py` locates it automatically:

@@ -109,8 +109,76 @@ def main(cfgpath):
     sys.exit(r.returncode)
 
 
+
+def check():
+    """Answer "is the QuickVid engine ready?" — the only reliable way to know.
+
+    WHY THIS EXISTS: until now the question was unanswerable without attempting a
+    full render, so it got answered by GUESSING. Colleagues installing the skills
+    were told "QuickVid isn't installed" — including colleagues who had installed
+    it — because that claim was read off this skill's prose, not off their machine.
+    Never state whether QuickVid is present. Run this and report what it says.
+
+    Exit 0 = ready to render.  Exit 1 = not ready, with the reason printed.
+    """
+    if not ENGINE or not os.path.exists(ENGINE):
+        print("OCHA QuickVid engine: NOT FOUND")
+        print()
+        print("Install it once - about 10 min, no admin rights.")
+        print("Open https://un-ocha.github.io/quickvid_BDU/ in CHROME:")
+        print("  Mac     - copy the line it shows, paste it into Terminal.")
+        print("  Windows - download the installer it offers, double-click it.")
+        return 1
+
+    home = os.path.dirname(os.path.dirname(ENGINE))
+    version = "unknown"
+    vfile = os.path.join(home, "VERSION")
+    if os.path.isfile(vfile):
+        try:
+            with open(vfile, encoding="utf-8") as fh:
+                version = fh.read().strip() or "unknown"
+        except OSError:
+            pass
+
+    print("OCHA QuickVid engine: FOUND")
+    print(f"  location: {home}")
+    print(f"  version:  {version}")
+
+    # Finding the files is NOT the same as being able to run them: a stale or
+    # half-built venv looks identical on disk, and that is the single most common
+    # QuickVid complaint. `--help` imports the engine's entire chain (svgpng ->
+    # cairosvg/resvg, Pillow, lower_third, ending...) in well under a second, so a
+    # broken install is caught here without this shim hardcoding a dependency list
+    # that would drift out of date.
+    py = VENV_PY if (VENV_PY and os.path.exists(VENV_PY)) else sys.executable
+    try:
+        probe = subprocess.run([py, ENGINE, "--help"],
+                               capture_output=True, text=True, timeout=120)
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        print(f"  status:   BROKEN - could not run the engine ({type(exc).__name__})")
+        return 1
+
+    if probe.returncode != 0:
+        tail = [ln for ln in (probe.stderr or "").strip().splitlines() if ln.strip()]
+        print("  status:   BROKEN - installed, but the engine will not start")
+        if tail:
+            print(f"            {tail[-1]}")
+        print()
+        print("Usually a stale install. Delete the OCHA QuickVid app, then use")
+        print("'Help & reinstall' at the bottom of https://un-ocha.github.io/quickvid_BDU/")
+        print("Restarting alone does not fix it.")
+        return 1
+
+    print("  status:   ready")
+    return 0
+
+
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
+    args = sys.argv[1:]
+    if args and args[0] in ("--check", "--doctor"):
+        sys.exit(check())
+    if len(args) != 1:
         print("usage: render_social_video.py job.json")
+        print("       render_social_video.py --check   # is the QuickVid engine ready?")
         sys.exit(1)
-    main(sys.argv[1])
+    main(args[0])
