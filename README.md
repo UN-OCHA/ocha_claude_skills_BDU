@@ -8,6 +8,23 @@ automatically. You don't have to explain them every time. **And they stay curren
 improve them regularly, and your copy updates from our repository rather than needing a
 reinstall.
 
+---
+
+## What you get
+
+| Skill | What it helps with |
+|---|---|
+| `ocha-visual-identity` | Brand colours, fonts, logo rules, clear space, the OCHA design system |
+| `ocha-dataviz` | Which chart to use, and how OCHA charts should look |
+| `ocha-mapping` | OCHA map standards — boundaries, symbols, disclaimers |
+| `humanitarian-icons` | The 389 OCHA Humanitarian Icons |
+| `ocha-editorial-style` | OCHA house style — numbers, dates, currency, capitalisation, acronyms |
+| `ocha-design` | Loads visual identity + charts + maps together |
+| `ocha-logo-production` | Building logo packages from Illustrator — languages, variants, verified exports |
+| `ocha-video` | Everything video — cutting, subtitles, lower third, logo ending, packaging |
+
+---
+
 > **These instructions are for the Claude Code desktop app** (Mac or Windows).
 > **Not for Terminal.**
 
@@ -211,21 +228,6 @@ re-runs the installer, which repairs it in place and keeps your setup.
 
 On Windows, delete the **OCHA QuickVid** app, go back to the page above, scroll to the
 bottom → **Help & reinstall**, and install it again.
-
----
-
-## What you get
-
-| Skill | What it helps with |
-|---|---|
-| `ocha-visual-identity` | Brand colours, fonts, logo rules, clear space, the OCHA design system |
-| `ocha-dataviz` | Which chart to use, and how OCHA charts should look |
-| `ocha-mapping` | OCHA map standards — boundaries, symbols, disclaimers |
-| `humanitarian-icons` | The 389 OCHA Humanitarian Icons |
-| `ocha-editorial-style` | OCHA house style — numbers, dates, currency, capitalisation, acronyms |
-| `ocha-design` | Loads visual identity + charts + maps together |
-| `ocha-logo-production` | Building logo packages from Illustrator — languages, variants, verified exports |
-| `ocha-video` | Everything video — cutting, subtitles, lower third, logo ending, packaging |
 
 ---
 
