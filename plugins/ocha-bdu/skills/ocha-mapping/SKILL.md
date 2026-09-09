@@ -210,6 +210,9 @@ Five pillars: alignment, proximity, white space, clear title, correct metadata.
 
 ## 9. Geodata — where it is and how to read it
 
+**Check §17 first.** A finished location map may already exist for
+this country — rebuilding it from geodata will not match the published one.
+
 **`~/OCHA DMU Dropbox/<your-name>/data/Geodatabase/vector/`**
 
 ~147 Esri file geodatabases, one per country, ISO3-named (`afg.gdb`, `sdn.gdb`, `yem.gdb`…),
@@ -357,6 +360,8 @@ maps, and in `simple` / `xsimple` generalised versions for very small output.
 Use the country's own `.prj` for a single-country map. These are *not* duplicated in the
 Geodatabase folder.
 
+The same folder also holds the **finished location maps and the globe artwork** — §17.
+
 ## 12. Export formats
 
 | Format | Use | How |
@@ -441,6 +446,42 @@ geometry as GeoJSON (or shapefile/GeoPackage) and styling as `.qml` (QGIS) or `.
 Multiply strokes (round to 0.1pt) and point/font sizes (round to 0.5pt) by the factor.
 Dash patterns scale too. For scripted generation use
 `references/ocha_map_styles_data.js` as the source of truth.
+
+## 17. Ready-made location maps and globes — check here before building one
+
+**`~/OCHA DMU Dropbox/<your-name>/Maps/location_maps_2024/`**
+
+This folder is not only the projection library (§11) — it is OCHA’s finished location map
+set. **123 country folders**, each holding a built map. Opening one is almost always the
+right move: rebuilding the same map from the geodatabase is wasted work and the result
+will not match the published version.
+
+| What | Where |
+|---|---|
+| Country location map | `{iso3}/{iso3}_ocha.{ai,svg,pdf,png,mxd}` |
+| Locator globes | `0_GLOBES/globes.ai` — the artwork; the 8 regional `.prj` files sit beside it |
+| Multi-country regions | `0_regions/` — Caribbean, Central America, Horn of Africa, Sahel |
+| Projections | `{iso3}/{iso3}_ocha.prj`, plus `0_prj_files/` and `0_wkt_files/` (§11) |
+
+### Three things that will trip you up
+
+- **The casing is inconsistent.** Both `sdn_ocha.svg` and `caf_OCHA.svg` exist. Always
+  match case-insensitively (`find … -iname`, or `ls | grep -i`) — an exact lowercase path
+  silently misses roughly a dozen countries and looks like "no map exists".
+- **Coverage is not uniform across formats.** No SVG for `ecu`, `gnq`, `ita`, `kir`,
+  `mdv`, `mhl`, `niu`, `tuv`; no Illustrator file for `ita`. Check what is actually in the
+  folder before promising a format.
+- **Ignore the `_old` variants** (e.g. `mdv/mdv_ocha_old.ai`) and the `0_SCRAP/` folder.
+
+### Which format for which job
+
+- **SVG** — web, artifacts, anything that must scale or be restyled in code.
+- **AI** — the editable master. Restyle here when the map needs real changes (§4).
+- **PDF / PNG** — drop straight into a report or slide when nothing needs changing.
+- **MXD** — the ArcGIS project, for re-deriving the map from live data.
+
+Build from the geodatabase (§9) only when no country map exists, when the geography needed
+isn’t a whole country, or when the data being mapped changes the base map itself.
 
 ---
 
