@@ -9,261 +9,438 @@ description: >
   bubble maps, admin levels, disputed boundaries, locator globes, or map
   disclaimers. Trigger on phrases like "OCHA map", "humanitarian map",
   "reference map", "location map", "map style", "Illustrator map",
-  "ArcGIS Pro style", ".stylx". For general brand colours / logo rules use
+  "choropleth", "bubble map". For general brand colours / logo rules use
   `ocha-visual-identity`. For charts/infographics (non-map) use
   `ocha-dataviz`.
 ---
 
 # OCHA Mapping
 
-Authoritative style reference: **`~/OCHA DMU Dropbox/<your-name>/Maps/map_style_guidance/`**
+Single source of truth for all style values: **`references/ocha_map_styles_data.js`**
+(mirrored from `~/OCHA DMU Dropbox/<your-name>/Maps/map_style_guidance/`).
 
-That folder contains:
-- `ocha_map_style_guidance.html` — live visual reference (print/PDF + .stylx export for ArcGIS Pro)
-- `ocha_map_styles_data.js` — the single source of truth for all values (boundaries, fills, points, labels, colours). A copy ships with this skill at `references/ocha_map_styles_data.js`.
-- `ocha_map_style_editor.html` — editor UI that writes back to `ocha_map_styles_data.js`
-
-Baseline is **A4 (794 × 1123 px at 96 dpi)**. All stroke weights and point
-sizes scale from A4. When producing maps at other sizes (A3, A5, Instagram
-1080², Twitter 1200×628, HD 16:9, Web 800×600), sizes scale proportionally
-(stroke rounded to nearest 0.1pt, point sizes to nearest 0.5pt).
+Baseline is **A4 (794 × 1123 px at 96 dpi)**. All stroke weights and point sizes scale
+from A4 — see §16.
 
 ---
 
 ## 1. Is a map even the right answer?
 
-Ask this before building anything. If geography isn't adding meaning, a
-chart, table, or paragraph of text will communicate better. Don't use a map
-as decoration.
-
----
+Ask before building. If geography isn't adding meaning, a chart, table or a sentence
+communicates better. Never use a map as decoration.
 
 ## 2. Three foundations
 
-Same as all OCHA visual work: **data + story + design**.
-- **Data** — verified, current, reliable. Fix topology (gaps/overlaps between admin polygons) before publishing.
-- **Story** — the map must deliver a message. Coordinate with public information / reporting officers.
-- **Design** — convert data + text into a visually stimulating product using the conventions below.
+**Data** — verified, current. Fix topology (gaps/overlaps between admin polygons) before
+publishing. **Story** — the map must carry a message. **Design** — the conventions below.
 
-Decide audience and medium FIRST: expert vs. novice; web vs. print; A4 / A3 / A2 / social / slide; colour vs. B&W print.
+Decide audience and medium first: expert vs. novice; print vs. web vs. slide; page size;
+colour vs. B&W.
 
----
+## 3. Output type — full layout or map only
 
-## 3. OCHA Map Style — the authoritative spec
+Establish which is wanted before building:
 
-All values below are for the **A4 baseline**. Source: `references/ocha_map_styles_data.js`.
+- **Full layout** — map plus title, logo, legend, disclaimer, source, narrative (§6, §8).
+- **Map only** — just the mapped geography, no surrounding furniture. For dropping into a
+  report, slide, dashboard or someone else's layout.
 
-### Boundaries (polyline features only — NEVER polygon fills)
+Default to **map only** when the map goes inside something else, **full layout** when it's
+a standalone product. If ambiguous, ask.
+
+## 4. The map style spec
+
+All values at the A4 baseline.
+
+### Boundaries — polyline features only, never polygon fills
 
 | Element | Hex | CMYK | Stroke (pt, A4) | Dash | Cap | Notes |
 |---|---|---|---|---|---|---|
-| International boundary | `#8A8C8E` | 0, 0, 0, 55 | **1.3** | solid | butt | — |
-| Disputed boundary | `#77787B` | 0, 0, 0, 55 | **1.0** | `[0, 2]` (dots) | round | "Check with relevant authority" |
-| 1st admin level boundary | `#C7C8CA` | 0, 0, 0, 23 | **0.8** | `[2.3, 2.3]` | butt | — |
-| Coastline / water edge | `#64BEEB` | 55, 8, 0, 0 | **0.5** | solid | butt | — |
-| Water feature (river) | `#64BEEB` | 55, 8, 0, 0 | **0.5** | solid | butt | — |
+| International boundary | `#8A8C8E` | 0, 0, 0, 55 | 1.3 | solid | butt | — |
+| Disputed boundary | `#77787B` | 0, 0, 0, 55 | 1.0 | `[0, 2]` dots | round | **Check §7 before drawing** |
+| 1st admin level | `#C7C8CA` | 0, 0, 0, 23 | 0.8 | `[2.3, 2.3]` | butt | — |
+| Coastline / water edge | `#64BEEB` | 55, 8, 0, 0 | 0.5 | solid | butt | — |
+| Water feature (river) | `#64BEEB` | 55, 8, 0, 0 | 0.5 | solid | butt | — |
 
-**Why polyline-only?** Polygon fills with borders produce doubled/thickened
-strokes at shared edges. Polylines keep boundary weights consistent.
+Polygon fills with borders double the stroke at shared edges — always use the `polbndl`
+(line) layers, not the outline of `polbnda` (area) layers.
 
-**Hierarchy of line weights**: International > Admin 1 > Admin 2 > Admin 3.
-International is always the heaviest and darkest.
+Weight hierarchy: International > Admin 1 > Admin 2 > Admin 3.
 
-### Area fills (polygons)
+> ⚠️ Unresolved: the palette below lists international boundaries as `#737373` while the
+> table above says `#8A8C8E`. Both values are in `ocha_map_styles_data.js`. Awaiting
+> cartographer sign-off — flag it to the user if it matters to the output.
 
-| Element | Hex | CMYK | Notes |
-|---|---|---|---|
-| Neighbouring country / land mass | `#E6E6E6` | 0, 0, 0, 10 | — |
-| Featured country | `#FFFFFF` | 0, 0, 0, 0 | White or choropleth for thematic overlays |
-| Ocean / sea water | `#E1E8F6` | 10, 2, 0, 0 | — |
+### Area fills
 
-### Point symbols (A4 baseline)
+| Element | Hex | CMYK |
+|---|---|---|
+| Neighbouring country / land mass | `#E6E6E6` | 0, 0, 0, 10 |
+| Featured country | `#FFFFFF` | 0, 0, 0, 0 |
+| Ocean / sea | `#E1E8F6` | 10, 2, 0, 0 |
 
-| Element | Symbol | Size (pt) | Fill | Stroke | Notes |
-|---|---|---|---|---|---|
-| Capital city | Black circle + white star | **8.5** | `#231F20` | — | Use the `Capital.svg` symbol |
-| Administrative 1 capital | White circle, dark stroke | **6.2** | `#FFFFFF` | `#4D4D4F` @ 1.0pt | Hollow circle |
-| Town | Solid dark circle | **4.0** | `#4D4D4F` | — | — |
+### Point symbols
 
-### Labels & typography
+| Element | Symbol | Size (pt, A4) | Fill | Stroke |
+|---|---|---|---|---|
+| Capital city | Black circle + white star | 8.5 | `#231F20` | — |
+| Admin 1 capital | White circle, dark stroke | 6.2 | `#FFFFFF` | `#4D4D4F` @ 1.0pt |
+| Town | Solid circle | 4.0 | `#4D4D4F` | — |
+
+Symbol SVGs ship in **`symbols/`** — `Capital.svg`, `Adm1_capital.svg`, `Town.svg`.
+That set is incomplete; if a map needs a symbol that isn't there, ask rather than drawing one.
+
+### Labels
 
 | Element | Font | Style | Size (pt, A4) | Colour | Tracking | Case |
 |---|---|---|---|---|---|---|
-| Featured country | Roboto | Bold | **14** | `#262626` | 300 | UPPERCASE |
-| Neighbouring country | Roboto | Regular | **12.5** | `#999999` | 200 | UPPERCASE |
-| Admin 1 region | Roboto | Regular | **9.5** | `#666666` | 0 | UPPERCASE |
-| Capital label | Roboto | Regular | **12.5** | `#999999` | 100 | Title case |
-| Admin 1 capital label | Roboto Condensed | Regular | **9.5** | `#262626` | 0 | Title case |
-| Town label | Roboto Condensed | Regular | **8** | `#4D4D4D` | 0 | Title case |
-| Ocean label | Crimson Pro | Italic | **10** | `#009EDB` | 300 | UPPERCASE |
-| Sea / water feature | Crimson Pro | Italic | **8** | `#009EDB` | 100 | Title case |
-| River label | Crimson Pro | Italic | **8** | `#009EDB` | 100 | Title case |
+| Featured country | Roboto | Bold | 14 | `#262626` | 300 | UPPER |
+| Neighbouring country | Roboto | Regular | 12.5 | `#999999` | 200 | UPPER |
+| Admin 1 region | Roboto | Regular | 9.5 | `#666666` | 0 | UPPER |
+| Capital | Roboto | Regular | 12.5 | `#999999` | 100 | Title |
+| Admin 1 capital | Roboto Condensed | Regular | 9.5 | `#262626` | 0 | Title |
+| Town | Roboto Condensed | Regular | 8 | `#4D4D4D` | 0 | Title |
+| Ocean | Crimson Pro | Italic | 10 | `#009EDB` | 300 | UPPER |
+| Sea / water feature | Crimson Pro | Italic | 8 | `#009EDB` | 100 | Title |
+| River | Crimson Pro | Italic | 8 | `#009EDB` | 100 | Title |
 
-**Water-label rule**: water labels use UN Blue italic. Never use blue text on blue water fill of a similar value — check contrast. The ocean/sea label colour `#009EDB` on ocean fill `#E1E8F6` works because the fill is very pale.
+Water labels are UN Blue italic. Never blue text on a blue fill of similar value.
 
-### Full map colour palette (labels + fills + strokes)
+### Palette
 
 | Role | Hex | CMYK |
 |---|---|---|
-| UN Blue (ocean labels, water features, rivers) | `#009EDB` | 80, 20, 0, 0 |
+| UN Blue — ocean/water labels, rivers | `#009EDB` | 80, 20, 0, 0 |
 | Ocean / sea fill | `#E1E8F6` | 10, 2, 0, 0 |
 | Coastline stroke | `#64BEEB` | 55, 8, 0, 0 |
-| Black 100% (capital symbol) | `#000000` | 0, 0, 0, 100 |
-| Black 85% (featured country label, admin capital label) | `#262626` | 0, 0, 0, 85 |
-| Black 70% (town labels, town symbols) | `#4D4D4D` | 0, 0, 0, 70 |
-| Black 60% (admin 1 region labels) | `#666666` | 0, 0, 0, 60 |
-| Black 55% (international boundaries) | `#737373` | 0, 0, 0, 55 |
-| Black 40% (neighbouring country / capital labels) | `#999999` | 0, 0, 0, 40 |
-| Black 23% (admin 1 boundary lines) | `#C7C8CA` | 0, 0, 0, 23 |
-| Black 10% (neighbour fill / land mass) | `#E6E6E6` | 0, 0, 0, 10 |
-| White (featured country fill) | `#FFFFFF` | 0, 0, 0, 0 |
+| Black 100% — capital symbol | `#000000` | 0, 0, 0, 100 |
+| Black 85% — featured country + admin capital labels | `#262626` | 0, 0, 0, 85 |
+| Black 70% — town labels and symbols | `#4D4D4D` | 0, 0, 0, 70 |
+| Black 60% — admin 1 region labels | `#666666` | 0, 0, 0, 60 |
+| Black 55% — international boundaries | `#737373` | 0, 0, 0, 55 |
+| Black 40% — neighbouring country + capital labels | `#999999` | 0, 0, 0, 40 |
+| Black 23% — admin 1 boundary lines | `#C7C8CA` | 0, 0, 0, 23 |
+| Black 10% — neighbour fill / land mass | `#E6E6E6` | 0, 0, 0, 10 |
+| White — featured country fill | `#FFFFFF` | 0, 0, 0, 0 |
 
----
+## 5. Data visualization on maps
 
-## 4. Data visualization on maps
+- **Proportional circles** → whole numbers (people in need, partners, events, cases).
+- **Choropleth** → rates, percentages, densities. Never raw counts.
+- **Direct-label** values on bubbles where space allows — often removes the legend.
 
-### When to use what
-- **Proportional circles (bubble maps)** → **whole numbers** (people in need, partners, events, cases).
-- **Choropleth (filled polygons)** → **rates, percentages, densities**. Never for raw counts.
-- **Direct-label values on bubbles** where space allows. Often removes the need for a legend.
+**Class breaks** — natural increments, e.g.
+`<10,000 | 10,000–50,000 | 50,001–150,000 | 150,001–300,000 | >300,000`. Never
+machine-generated breaks like `47,382`.
 
-### Class breaks
-Use **natural, user-friendly increments**. Examples:
-- `<10,000 | 10,000–50,000 | 50,001–150,000 | 150,001–300,000 | >300,000`
+**Bubbles** scale by area (π × r²), not radius. Legend with 2–3 representative sizes.
+**Choropleth** uses a sequential ramp (UN Blue ramp — see `ocha-visual-identity`), darker
+= higher, capped at 5–7 classes.
 
-Avoid computer-generated breaks (e.g. `47,382 | 94,221 …`). Round to
-human-readable numbers. Use the OCHA colour ramps (see `ocha-visual-identity`
-skill or `brand.unocha.org`).
-
-### Bubble (proportional circle) rules
-- Scale by **area** (π × r²), not radius.
-- Provide a tiny legend showing 2–3 representative sizes with their values.
-
-### Choropleth rules
-- Use a **sequential ramp** (e.g. UN Blue ramp). Darker = higher.
-- Cap at **5–7 classes**. More classes are hard to distinguish.
-
----
-
-## 5. Required map elements
+## 6. Required map elements (full layout)
 
 | Element | When |
 |---|---|
-| **Title** | Always |
-| **OCHA logo** | Always — see `ocha-visual-identity` for placement / clear space |
-| **Disclaimer** | Always. Italic, `#A7A9AC` (grey). Required especially where boundaries are shown (disputed/non-recognised). |
-| **Data source + "as of" date** | Always |
-| **Locator globe / inset** | When the country's global position isn't obvious to the audience. |
-| **North arrow** | Only when genuinely needed. Subdued — never ornate. |
-| **Scale bar** | Only when genuinely needed. Natural increments. Subdued. |
-| **Legend** | Only if symbols / fills aren't self-explanatory. Prefer direct labelling. |
-| **Narrative / summary text** | Strongly encouraged — a short caption or intro headline on the map. |
+| Title | Always |
+| OCHA logo | Always — see `ocha-visual-identity` for clear space |
+| Disclaimer | Always. Italic, `#A7A9AC`. |
+| Source + "as of" date | Always |
+| Locator globe / inset | When the country's global position isn't obvious |
+| North arrow | Only if needed. Subdued, never ornate. |
+| Scale bar | Only if needed. Natural increments. Subdued. |
+| Legend | Only if symbols aren't self-explanatory. Prefer direct labelling. |
+| Narrative / summary text | Strongly encouraged |
+
+## 7. Country and place naming
+
+- Country names from **UNTERM** — https://conferences.unite.un.org/unterm
+- Spell out acronyms; if space is tight use an asterisk and a footnote.
+
+### Disputed and sensitive territories — always check the guidance
+
+OCHA's rules for representing disputed territories are **deliberately not written into
+this skill.** The skill is distributed publicly; that guidance is internal.
+
+Whenever a map involves a disputed or sensitive territory, boundary, or place name:
+
+**1. Look for the guidance PDF locally.** It ships in the DMU Dropbox:
+
+```
+~/OCHA DMU Dropbox/<your-name>/Design/Visual_identity/visual_identity_guidance/2017_2018/chapters/pdf/99_representing_territories.pdf
+```
+
+The personal-folder segment differs per person — if that exact path misses, search the
+DMU Dropbox for `99_representing_territories.pdf`. Read it and follow it.
+
+> ⛔ **`40_maps.pdf` sits in that same folder. Do not use it.** It's from the 2017/18
+> visual identity stylebook and is superseded — the colours and fonts in it are wrong.
+> The current map styling is §4 of this skill. Take only the territories chapter from
+> that folder, nothing else.
+
+**2. If it isn't on their machine, ask them to attach it.** Explain why, and reassure
+them about where it goes:
+
+> This map involves a disputed territory, and OCHA has specific rules for how those are
+> shown. That guidance is internal, so it's deliberately not built into this skill.
+> Could you drop `99_representing_territories.pdf` into the chat? It's in the DMU
+> Dropbox under Visual identity → visual identity guidance. I'll use it only for this
+> map — it isn't saved into the skill or published anywhere.
+
+**3. Never guess.** If the guidance can't be obtained, say so plainly and stop. A wrong
+disputed boundary is a political problem, not a design one — an unfinished map is far
+better than a confidently wrong one.
+
+The same applies to politically sensitive country labels: follow the internal
+country-label guidance, and ask BDU (ochavisual@un.org) when unclear.
+
+## 8. Layout and composition
+
+Five pillars: alignment, proximity, white space, clear title, correct metadata.
+
+- **Portrait** for publication / tall countries. **Landscape** for presentation / wide ones.
+- Start from an OCHA template, not a blank page.
+- **Inset maps to one side** — never floating mid-composition.
+- **No island effect** — always show neighbouring countries (§10).
+- **Clean topology** — no gaps or overlaps between adjacent admin units.
+- **Layer order (bottom → top):** ocean fill → neighbour fill → featured fill →
+  choropleth/bubbles → water features → admin boundaries (3→2→1) → international boundary
+  → coastline → points → labels → disclaimer/logo.
 
 ---
 
-## 6. Country / place naming
+## 9. Geodata — where it is and how to read it
 
-- **Country names**: use the spelling from the **UNTERM database** —
-  https://conferences.unite.un.org/unterm
-- **Politically sensitive cases**: follow OCHA's internal country-label guidance (ask the BDU if unclear).
-- **Spell out acronyms** on the map. If space is tight, use an asterisk `*` and footnote with the full name.
-- The "OCHA" word in the logo is **never translated** — only the spelled-out descriptor.
+**`~/OCHA DMU Dropbox/<your-name>/data/Geodatabase/vector/`**
 
----
+~147 Esri file geodatabases, one per country, ISO3-named (`afg.gdb`, `sdn.gdb`, `yem.gdb`…),
+plus regional sets (`afr.gdb`, `asi.gdb`, `eur.gdb`) and the world set `wrl.gdb`.
 
-## 7. Layout & composition
+### GDAL is required — find it, or install it
 
-Five pillars: **alignment, proximity, white space, clear title, correct metadata**.
-- **Portrait** = publication / when the country shape is tall.
-- **Landscape** = presentation / when the country shape is wide.
-- Use an OCHA map template rather than starting from scratch.
-- **Inset maps** to one side — don't float them mid-composition.
-- **Island effect**: never show a featured country floating on a white void. Always include neighbouring countries (greyed out with `#E6E6E6` fill).
-- **Topology must be clean**: no gaps, no overlapping polygons between adjacent admin units. Fix the GIS data before exporting.
-- **Layer order** (bottom → top): ocean fill → neighbour fill → featured fill → choropleth / bubbles → water features → admin boundaries (3 → 2 → 1) → international boundary → coastline → points → labels → disclaimer/logo.
+Everything below needs GDAL's `ogr2ogr`. Resolve it in this order and use the first
+one that works:
 
----
+1. `/opt/homebrew/bin/ogr2ogr` — Homebrew install, newest version
+2. `ogr2ogr` on `PATH`
+3. `/Applications/QGIS*.app/Contents/MacOS/bin/ogr2ogr` — **QGIS bundles GDAL.** Most
+   OCHA mappers already have QGIS, so always check here before installing anything.
+   It ships an older GDAL but it reads `.gdb` and writes GeoJSON fine.
+4. Windows: `C:\Program Files\QGIS *\bin\ogr2ogr.exe`
 
-## 8. Critique checklist — run through these before shipping
+**If none of those exist, install it. Do not work around it.** Never fall back to asking
+the user to hand-export layers from QGIS or ArcGIS — that is the dead end this skill
+exists to remove, and a non-technical colleague will simply stop there.
 
-1. Is the title clear?
-2. Is the OCHA logo present and at correct clear space?
-3. Is the disclaimer present?
-4. Is a locator globe / inset needed for global context?
-5. Is source + "as of" date present?
-6. Are acronyms spelled out (or footnoted)?
-7. Are country names from UNTERM?
-8. Are boundaries polylines (not polygon fills)?
-9. Is the boundary hierarchy correct (international heaviest, admin levels lighter)?
-10. Is topology clean (no gaps / overlapping borders)?
-11. Is the right data-type used — bubbles for counts, choropleth for rates?
-12. Are class breaks natural (not computer-generated)?
-13. Can values be direct-labelled instead of using a legend?
-14. Are north arrow / scale bar subdued and only present if needed?
-15. Is narrative / summary text present?
-16. Is there neighbouring-country context (no "island" effect)?
-17. Is label hierarchy clear (capital > admin capital > town distinct)?
+#### Always ask before installing anything
+
+Never install silently. Say what's missing, what it's for in plain language, how long it
+takes, and whether it needs their password — then **wait for a yes**. Something like:
+
+> Making this map needs **GDAL**, the toolkit that reads OCHA's geodatabase files. It's
+> not on your machine yet. It takes about 10 minutes to install and won't ask for your
+> password. Shall I install it?
+
+If they say no, stop and explain what can't be done without it — don't quietly fall back
+to a worse method.
+
+**macOS, Homebrew present** — once they've said yes:
+
+```bash
+brew install gdal
+```
+
+**macOS, no Homebrew** — this is the one step the user has to run themselves, because
+Homebrew's installer prompts for their password. Give them this line, wait for them to
+confirm, then run `brew install gdal` yourself:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+**Windows, no QGIS** — have them install QGIS rather than OSGeo4W alone. It bundles GDAL
+and it's software a mapper wants anyway: https://qgis.org/download/
+
+### Reading the data
+
+```bash
+# list layers in a country geodatabase
+/opt/homebrew/bin/ogrinfo "$GDB/sdn.gdb"
+
+# extract one layer to GeoJSON
+/opt/homebrew/bin/ogr2ogr -f GeoJSON out.geojson "$GDB/sdn.gdb" sdn_polbndl_adm1_1m_ocha
+
+# extract and reproject in one step (see §11 for the .prj)
+/opt/homebrew/bin/ogr2ogr -f GeoJSON -t_srs "$PRJ/sdn/sdn_ocha.prj" \
+  out.geojson "$GDB/sdn.gdb" sdn_polbnda_adm1_1m_ocha
+```
+
+Tell the user to make only the country they need available offline in Dropbox — the whole
+folder is far too heavy to sync.
+
+### Layer naming convention
+
+| Fragment | Meaning |
+|---|---|
+| `polbnda` | Political boundary, **area** (polygon) — use for fills |
+| `polbndl` | Political boundary, **line** (polyline) — **use for boundary strokes** |
+| `int` | International |
+| `adm1` / `adm2` / `adm3` | Admin level |
+| `pplp` / `capp` | Populated places / capitals (point) |
+| `watcrsl` / `watcrsa` | Watercourse line / area |
+| `lakeresa` | Lake and reservoir (area) |
+| `coastl` | Coastline (line) |
+| `rdsl` / `rlwl` | Roads / railways (line) |
+| `airdrmp` / `bdgep` / `prtp` | Aerodromes / bridges / ports (point) |
+| `50k` `250k` `1m` `15m` `25m` | Source scale |
+| `sim` / `simple` / `xsimple` | Generalised geometry |
+| trailing `ocha` `uncs` `gaul` `fao` `wfp` `esri` `ne` | Data source |
+
+`uncs` = **UN Cartographic Section** — the authoritative boundary source. Prefer it for
+international boundaries.
+
+Example: `sdn_polbndl_adm3_250k_sim` = Sudan, admin-3 boundary lines, 1:250k, simplified.
+
+### Country geodatabases are not uniform
+
+Contents vary — always run `ogrinfo` first, never assume a layer name. Observed variation:
+
+- Sudan has both `250k` and `1m_ocha` families, **plus `_2024` versions** — prefer the
+  most recent (`sdn_polbnda_adm1_1m_ocha_2024`).
+- Yemen has `_govt` and `_govt_Union` layers — the `_Union` is dissolved and matches
+  world boundaries better.
+- Afghanistan and Chad have neither of those patterns.
+
+## 10. Border matching — never map a country alone
+
+**Every OCHA map shows its neighbours.** A country floating on white is wrong (the "island
+effect"). That means every map combines **country data + world data**, and the two must
+line up along the shared border.
+
+**The matching rule: use the same scale family for both.** Country data at `1m` pairs with
+world layers at `1m`. Mixing scales (a `1m` country against a `15m` world) produces visible
+slivers, gaps and offset borders along the shared edge.
+
+### World layers — `wrl.gdb`, all from `uncs`
+
+| Layer | Use |
+|---|---|
+| `wrl_polbnda_int_1m_uncs` | Country polygons → neighbouring-country fills |
+| `wrl_polbndl_int_1m_uncs` | International boundary lines |
+| `wrl_coastl_1m_uncs` | Coastlines |
+
+Also available at `15m` (`wrl_polbnda_int_15m_uncs` etc.) for small-scale regional and world
+maps, and in `simple` / `xsimple` generalised versions for very small output.
+
+**Pick one family and use it for all three world layers.** Never mix `1m` boundaries with
+`15m` coastlines.
+
+### Standard country-map recipe
+
+1. `ogrinfo` the country `.gdb` — see what's actually there.
+2. Featured country admin polygons + boundary lines from the country `.gdb`, newest version.
+3. Neighbour fills, international boundaries and coastline from `wrl.gdb` at the **matching
+   scale family**.
+4. Reproject everything to the country's `.prj` (§11).
+5. Style per §4, order layers per §8.
+
+## 11. Projections
+
+**`~/OCHA DMU Dropbox/<your-name>/Maps/location_maps_2024/`**
+
+242 `.prj` files, plain text, read directly:
+
+- **Per country:** `{iso3}/{iso3}_ocha.prj` — e.g. `sdn/sdn_ocha.prj`, `yem/yem_ocha.prj`
+- **Regional globes:** `0_GLOBES/` — Africa, Americas, Asia, Europe, Middle East, North
+  America, Oceania, Pacific, plus proj4 text variants
+- **World:** `World Robinson 11 deg.prj` in the Geodatabase `vector/` folder
+
+Use the country's own `.prj` for a single-country map. These are *not* duplicated in the
+Geodatabase folder.
+
+## 12. Export formats
+
+| Format | Use | How |
+|---|---|---|
+| **SVG** | Primary output. Editable in Illustrator. | Generated directly |
+| **PDF** | Print. Stays vector. | `cairosvg.svg2pdf()` |
+| **PNG** | Slides, web, previews. Any DPI. | `cairosvg.svg2png(dpi=…)` |
+
+| **GeoJSON** | Editable data for QGIS / ArcGIS | Generated directly / `ogr2ogr` |
+| **Shapefile / GeoPackage** | Traditional GIS handoff | `ogr2ogr -f "ESRI Shapefile"` / `-f GPKG` |
+| **QGIS style (`.qml`)** | Styling to accompany the data | XML, written directly |
+| **ArcGIS style (`.lyrx`)** | Styling to accompany the data | JSON, written directly |
+
+Illustrator needs no special format — it opens SVG as live editable vector art.
+
+PDF and PNG conversion needs `cairosvg`. If it's missing, offer to install it
+(`pip3 install cairosvg`) rather than telling the user to convert the SVG themselves —
+asking first, as in §9.
+
+**"Editable in ESRI/QGIS" means data + styling, not a picture.** Deliver two files:
+geometry as GeoJSON (or shapefile/GeoPackage) and styling as `.qml` (QGIS) or `.lyrx`
+(ArcGIS Pro), generated to match §4 exactly.
+
+## 13. Tooling
+
+- **Illustrator** — the OCHA DataViz plugin's **Map Maker** builds choropleth and bubble
+  maps directly on the artboard. See `ocha-dataviz-release` for plugin architecture.
+- **Datawrapper** — preferred for web-embedded maps on unocha.org (Drupal).
+- **Ready-made maps** — `Maps/Illustrator_ready_to_use_maps/`, `Maps/location_maps_2024/`.
+
+## 14. Critique checklist
+
+1. Title clear?
+2. OCHA logo present, correct clear space?
+3. Disclaimer present?
+4. Locator globe / inset needed?
+5. Source + "as of" date?
+6. Acronyms spelled out?
+7. Country names from UNTERM?
+7b. Any disputed territory checked against the internal guidance (§7)?
+8. Boundaries from `polbndl` line layers, not polygon outlines?
+9. Boundary hierarchy correct (international heaviest)?
+10. Topology clean, borders matching between country and world data?
+11. Right data type — bubbles for counts, choropleth for rates?
+12. Class breaks natural?
+13. Could values be direct-labelled instead of a legend?
+14. North arrow / scale bar subdued, and only if needed?
+15. Narrative text present?
+16. Neighbouring countries shown (no island effect)?
+17. Label hierarchy clear — capital vs admin capital vs town?
 18. No blue text on blue water?
-19. No busy patterns, 3D effects, or heavy ornaments?
-20. Is the export crisp (no blurry raster lines)?
+19. No busy patterns, 3D, heavy ornaments?
+20. Export crisp, vector throughout?
 
----
+## 15. Common pitfalls
 
-## 9. Common pitfalls
-
-- Polygon boundaries instead of polylines → doubled borders.
-- Whole-number data shown as choropleth → use proportional circles.
+- Polygon outlines instead of `polbndl` lines → doubled borders.
+- **Mismatched scale families** between country and world data → slivers along the border.
+- Counts shown as choropleth → use proportional circles.
+- Assuming a layer name without running `ogrinfo` first.
+- Using an outdated layer version when a `_2024` one exists.
 - Blue labels on blue water fills.
-- Busy hatching / stripe patterns. Use subtle fills or tints.
-- Info overload for the map scale. Split into two maps or small multiples.
-- Missing locator globe, logo, disclaimer, or source.
-- Unspelled acronyms.
-- Machine-generated class breaks (e.g. `47,382`).
-- Ornate north arrows and scale bars dominating the composition.
-- Blurry exports — export at proper resolution; use vector everywhere.
-- Island effect (country floating in a white void).
-- Missing summary/narrative text.
-- Using a map when a chart would communicate better.
+- Busy hatching; too much detail for the map scale.
+- Missing locator, logo, disclaimer or source.
+- Machine-generated class breaks.
+- Ornate north arrows and scale bars.
+- Island effect — country alone on white.
+- Using a map where a chart would communicate better.
 
----
+## 16. Scaling to other page sizes
 
-## 10. Tooling
-
-### Illustrator
-- Use the **OCHA Humanitarian DataViz** plugin's **Map Maker** for choropleth + bubble maps directly in Illustrator. Geodata is local (mapmaker-cache in the plugin). See `ocha-dataviz-release` skill for plugin architecture.
-- Catalog of ready-to-use reference maps at `~/OCHA DMU Dropbox/<your-name>/Maps/Illustrator_ready_to_use_maps/` and location maps at `~/OCHA DMU Dropbox/<your-name>/Maps/location_maps_2024/`.
-
-### ArcGIS Pro
-- Download a scaled **.stylx** file from `ocha_map_style_guidance.html` (button in the toolbar). Select the page size first — the .stylx is pre-scaled for that size.
-- The .stylx ships all OCHA boundaries, fills, points, and label styles.
-
-### Datawrapper
-- For web-embedded maps on unocha.org (Drupal), prefer Datawrapper — per the user's CLAUDE.md preference.
-
-### Web maps
-- Reference base styles in `~/OCHA DMU Dropbox/<your-name>/Maps/web_maps/`.
-
----
-
-## 11. Scaling to other sizes
-
-The style spec is defined at A4. For other page sizes:
-
-| Size | Label | Width (px) | Scale factor vs A4 |
+| Size | Dimensions | Width (px) | Factor vs A4 |
 |---|---|---|---|
-| A4 | A4 (210 × 297 mm) | 794 | 1.00 |
-| A5 | A5 (148 × 210 mm) | 559 | 0.70 |
-| A3 | A3 (297 × 420 mm) | 1123 | 1.41 |
-| IG | Instagram (1080²) | 1080 | 1.36 |
-| TW | Twitter/X (1200 × 628) | 1200 | 1.51 |
-| HD | HD 16:9 (1920 × 1080) | 1920 | 2.42 |
-| WEB | Web (800 × 600) | 800 | 1.01 |
+| A4 | 210 × 297 mm | 794 | 1.00 |
+| A5 | 148 × 210 mm | 559 | 0.70 |
+| A3 | 297 × 420 mm | 1123 | 1.41 |
+| Instagram | 1080 × 1080 | 1080 | 1.36 |
+| Twitter/X | 1200 × 628 | 1200 | 1.51 |
+| HD 16:9 | 1920 × 1080 | 1920 | 2.42 |
+| Web | 800 × 600 | 800 | 1.01 |
 
-Multiply all stroke widths (round to 0.1pt) and point sizes (round to 0.5pt)
-by the scale factor. Font sizes scale the same way. Dash patterns scale too.
-
-For scripted generation, use `ocha_map_styles_data.js` (ships at
-`references/ocha_map_styles_data.js`) as the single source of truth.
+Multiply strokes (round to 0.1pt) and point/font sizes (round to 0.5pt) by the factor.
+Dash patterns scale too. For scripted generation use
+`references/ocha_map_styles_data.js` as the source of truth.
 
 ---
 
