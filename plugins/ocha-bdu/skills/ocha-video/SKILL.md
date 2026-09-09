@@ -12,7 +12,7 @@ description: >
   a field film, an event recap. Carries the house rules that hold for EVERY OCHA video (no
   fades, vignette, ending logo, caption standard per format, approval flow, 4-folder package)
   and routes to the deep procedure for the job in hand. Renders through the OCHA QuickVid
-  engine, which this skill installs by itself the first time it is needed. Runs fully local (ffmpeg + cairosvg/resvg + faster-whisper);
+  engine, which this skill offers to install the first time it is needed. Runs fully local (ffmpeg + cairosvg/resvg + faster-whisper);
   footage never leaves the Mac.
 ---
 
@@ -39,40 +39,57 @@ About a second. Three possible answers, and what to do about each:
 
 | `--check` says | Do this |
 |---|---|
-| `ready` | Nothing. Get on with the video. Do not mention QuickVid at all. |
+| `ready` | Nothing. Get on with the video — no need to mention QuickVid. |
 | `NOT FOUND` | Say the paragraph below, then install it. |
 | `BROKEN` | Say the paragraph below, then run the same install command — it repairs in place. |
 
-**Never state whether QuickVid is installed without running the check.** The claim was
-being made from reading this file, and it was wrong: colleagues who *had* QuickVid were
-told by their own Claude that it was missing. Reading tells you QuickVid is a separate
-program; only `--check` tells you whether **this machine** has it.
+**Always run `--check` before saying whether QuickVid is installed.** Claims were
+previously being made from reading this file, and they were wrong: colleagues who *had*
+QuickVid were told by their own Claude that it was missing. Reading tells you QuickVid is
+a separate program; only `--check` tells you whether **this machine** has it.
 
-### Installing it — inform, then do it. Do not ask permission.
+### Installing it — explain clearly, then ask
 
-Say it in plain English first, so a non-technical colleague knows what is happening and
-why the wait is normal. Something like:
+Installing QuickVid downloads and runs a script on the user's machine. That always needs
+their agreement. The goal is not to skip the question but to make it easy to answer:
+explain in plain English first, so a non-technical colleague isn't being asked to judge
+something they don't understand.
 
 > OCHA videos are cut by a separate program called **OCHA QuickVid** — it does the
 > captions, lower thirds and branding, and it runs entirely on your own computer, so your
-> footage is never uploaded anywhere. It isn't on this Mac yet, so I'm installing it now.
-> About 10 minutes the first time, and it won't ask you for a password. After this it's
-> instant and you'll never see this message again.
+> footage is never uploaded anywhere. It isn't on this Mac yet. Installing takes about
+> 10 minutes the first time and won't ask you for a password. After that it's instant and
+> you'll never see this message again.
+>
+> Shall I install it now?
 
-For the `BROKEN` case, say instead that QuickVid is installed but is an old copy that
-didn't update itself, and that you're re-running the installer to repair it — a couple of
-minutes, and their setup is kept.
+**Wait for a yes.** If they decline, say plainly that the video can't be made without the
+engine, and stop — don't improvise a workaround.
 
-Then run it (**Mac**), and expect it to take a while:
+For the `BROKEN` case, explain instead that QuickVid is installed but is an old copy that
+didn't update itself, that re-running the installer repairs it in place and keeps their
+setup, and that it takes a couple of minutes. Then ask the same way.
+
+Once they've agreed, run (**Mac**):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/UN-OCHA/quickvid_BDU/main/install.sh | bash
 ```
 
-This is the exact command the OCHA QuickVid page hands out. It needs no admin password and
-asks nothing. **Re-running it is also the update** — it keeps the existing setup, so a
-repair or upgrade is quick rather than another full install. When it finishes, run
+This is the official OCHA QuickVid installer — the same command the QuickVid page hands
+out. Claude Code will also show its own approval prompt before running it; that prompt is
+expected and correct, so let the user approve it rather than trying to route around it.
+**Re-running the installer is also the update and the repair** — it keeps the existing
+setup, so an upgrade is quick rather than another full install. When it finishes, run
 `--check` again to confirm, then carry on with the video.
+
+> **If you are editing this skill: do not remove the question.** An earlier version told
+> the agent to install without asking and added reassurances that the command was
+> harmless. However well-intentioned, that is the exact shape of a prompt-injection
+> attack, and colleagues' assistants correctly refused to act on it — one flagged this
+> skill as suspicious and stopped mid-update, blocking the whole update for that person.
+> Running a remote script needs the user's agreement, every time. Make the explanation
+> good so the question is easy to answer; never delete the question.
 
 **Windows** has no equivalent one-liner: it is a downloaded installer. Send the user to
 **https://un-ocha.github.io/quickvid_BDU/** opened in **Chrome**, have them download and
