@@ -22,6 +22,16 @@ This file distils the rules that come up constantly. **The guide's exhaustive A�
 spelling list and acronym list are NOT reproduced here** — open the PDF for those
 (spelling list ≈ p.30, acronyms ≈ p.37+).
 
+## Updates since the 3rd edition — these override the PDF
+
+The bundled PDF predates these changes. **Where they conflict, this list wins** — check
+it before quoting anything from the PDF.
+
+| Term | Write it as | The PDF still says (outdated) | Updated |
+|---|---|---|---|
+| Occupied Palestinian Territory | **Occupied Palestinian Territory** — title case, every word | *occupied Palestinian territory* — in the Capitalization list and the spelling list | 2026-09-11 |
+| OPT (acronym) | **OPT** — all capitals | *oPt* — in the spelling list | 2026-09-11 |
+
 ## Non-negotiables
 
 - **Curly quotes and apostrophes, always** (`'` → `’`, `"…"` → `“…”`). This is a global
@@ -130,7 +140,9 @@ Three-way distinction the guide is strict about:
 
 ## When the answer isn't here
 
-Open `references/OCHA_Editorial_Style_Guide_3rd_ed.pdf`. It's an A–Z: Section 1 grammar
+First check **Updates since the 3rd edition** at the top of this file — the PDF is
+outdated wherever the two disagree. Then open
+`references/OCHA_Editorial_Style_Guide_3rd_ed.pdf`. It's an A–Z: Section 1 grammar
 and style, then commonly misused words, unnecessary words, quotation marks/italics,
 capitalization, the spelling list, and the acronym list. If it's still ambiguous, ask
 Javier — he owns this standard.
