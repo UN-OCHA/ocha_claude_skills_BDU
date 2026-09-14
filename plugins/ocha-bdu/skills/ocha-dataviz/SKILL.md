@@ -310,6 +310,11 @@ from both ends.
 
 ---
 
+## Saving and naming files
+
+Where files go, how they are named, draft versions and the end-of-job clean-up all
+follow **`ocha-files-and-folders`**.
+
 ## Contacts
 
 - **Team:** OCHA Brand and Design Unit (BDU) — **ochavisual@un.org**

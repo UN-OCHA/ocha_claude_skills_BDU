@@ -104,3 +104,8 @@ icons are new since X").
 These reference files are a snapshot. If precision matters or the set may have changed,
 fetch `metadata.json` fresh from
 `https://raw.githubusercontent.com/UN-OCHA/humanitarian-icons-2026-BDU/main/metadata.json`.
+
+## Saving and naming files
+
+Where files go, how they are named, draft versions and the end-of-job clean-up all
+follow **`ocha-files-and-folders`**.

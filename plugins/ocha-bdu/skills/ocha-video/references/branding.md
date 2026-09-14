@@ -78,7 +78,7 @@ gives you cairosvg + PIL + faster-whisper; ffmpeg is `/opt/homebrew/bin/ffmpeg`.
   "pins": [                          // top-left LOCATION STRIP (place + date), animated
     { "on": true, "place": "GENEVA", "date": "8 July 2026",
       "icon": true,                  // the map-pin icon; off → the text shifts left
-      "color": "red",                // "red" (#ED1847) or "blue" (#004987)
+      "color": "red",                // "red" (#ED1847) default; "blue" (#004987) only if red clashes
       "start": 4.0, "duration": 5.0 }
   ],
   "texts": [                         // TEXT ON SCREEN — up to 3 lines that rise in/out
@@ -180,6 +180,8 @@ their own captions:
   in `browser/brand-pin.json`, logic in `engine/pin_locator.py`. Place-only is fine; date-only
   is not (it is dropped). RTL moves it to the top-RIGHT and the logo watermark takes the corner
   it vacates. [[ocha-pin-locator]]
+  **Pin colour: red (`#ED1847`) by default.** Switch to blue (`#004987`) only when red clashes
+  with the footage — and let the user make that call rather than switching silently.
 - **Text on screen** is up to **3 lines**, with a soft readability band placed behind it
   automatically — never add your own scrim. `engine/text_on.py`.
 - **RTL is ONE decision for the whole video**, not per element: the watermark has no text to

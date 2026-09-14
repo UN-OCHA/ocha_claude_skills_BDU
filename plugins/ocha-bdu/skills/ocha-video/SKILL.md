@@ -267,17 +267,21 @@ Still worth asking per job: destination and format, length, and anything about t
 
 ## 7 · Package: four folders + a root README
 
+Folders, file names, draft versions and the end-of-job clean-up follow
+**`ocha-files-and-folders`**. What a video job puts in each folder:
+
 ```
 export/   the finished videos (+ thumbnail, + clean_for_translation/ if made)
 info/     transcript, statement or key-message docs, the sheets used for approvals
 source/   the FULL original, audio-synced
 assets/   the exact recipe (filtergraph + job.json), word timings, reference stills
+archive/  optional: earlier cuts worth keeping (ask first)
 README.md what it is, the layout, how it was made (commands + timecodes), what was learned
 ```
 
-[[video-job-folder-structure]] · [[always-export-folder-for-finals]]. Do moves and deletes in
-Python to avoid the bash rm-guard; delete regenerable intermediates. Convert relative dates to
-absolute in the README.
+Export names follow the standard: `ukr_asg_security_council_1080x1920_en.mp4`, with the
+thumbnail as `ukr_asg_security_council_thumbnail_1080x1920.jpg`. Do moves and deletes in
+Python to avoid the bash rm-guard. Convert relative dates to absolute in the README.
 
 ---
 

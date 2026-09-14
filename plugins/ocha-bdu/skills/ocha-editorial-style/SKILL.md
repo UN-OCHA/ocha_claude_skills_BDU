@@ -147,6 +147,11 @@ and style, then commonly misused words, unnecessary words, quotation marks/itali
 capitalization, the spelling list, and the acronym list. If it's still ambiguous, ask
 Javier — he owns this standard.
 
+## Saving and naming files
+
+Where files go, how they are named, draft versions and the end-of-job clean-up all
+follow **`ocha-files-and-folders`**.
+
 ## Project Owner
 
 Javier Cueto, Head of Brand and Design Unit

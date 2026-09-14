@@ -1,7 +1,8 @@
 # OCHA BDU skills for Claude
 
 Adds OCHA brand knowledge to Claude — colours, logo rules, chart and map standards,
-house writing style, logo production, and the full video pipeline.
+house writing style, logo production, the full video pipeline, and how to name and
+organise files.
 
 Once installed, you just ask Claude for the work and it follows OCHA standards
 automatically. You don't have to explain them every time. **And they stay current** — we
@@ -22,6 +23,7 @@ reinstall.
 | `ocha-design` | Loads visual identity + charts + maps together |
 | `ocha-logo-production` | Building logo packages from Illustrator — languages, variants, verified exports |
 | `ocha-video` | Everything video — cutting, subtitles, lower third, logo ending, packaging |
+| `ocha-files-and-folders` | Where files go, how to name them, draft versions, cleaning up at the end |
 
 ---
 
@@ -163,7 +165,7 @@ Type this in the Claude Code chat box, like a normal question:
 
 > **what OCHA skills do I have now?**
 
-Claude should list eight skills. If it does, you're finished. 🎉
+Claude should list nine skills. If it does, you're finished. 🎉
 
 ---
 
@@ -259,9 +261,10 @@ You can switch models in the middle of a session — the work carries over.
 **"I installed them but Claude doesn't know about them."**
 You need to quit Claude and reopen it (Step 4). The plugin loads at startup.
 
-**"Claude lists seven skills, not eight."**
-Your copy predates the plugin. Do Step 3 once — the buttons in the app — and then the
-clean-up message underneath it.
+**"Claude lists fewer than nine skills."**
+Your copy is out of date. Open **+** → **Plugins** → **Manage plugins**, update **OCHA BDU**,
+then quit Claude and open it again. If you installed the skills by hand before September
+2026, also do Step 3 once and the clean-up message underneath it.
 
 **"QuickVid keeps asking me to restart and never works."**
 You have an old version, and restarting won't fix it. On a Mac, tell Claude *"QuickVid

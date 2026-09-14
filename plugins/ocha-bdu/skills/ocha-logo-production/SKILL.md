@@ -86,8 +86,10 @@ especially Arabic, where a substituted face changes stroke weight and line break
 the exports name themselves**. Do the renaming inside the `.ai` once and it holds
 for every future run.
 
-A workable convention is `<PRODUCT><YEAR>_<variant>_<LANG>` — variant first,
-language last, so files group by variant when sorted.
+Name artboards to the BDU standard in **`ocha-files-and-folders`**: lowercase,
+`<product><year>_<variant>_<lang>` — variant first, language last, so files group by
+variant when sorted (`gho2026_horizontal_blue_en`). Published brand assets that already
+have established names, such as the OCHA logo package, keep them.
 
 Masters usually contain artboards that are not deliverables: duplicates left over
 from design, overview or reference boards, working areas. Keep an explicit skip
@@ -192,6 +194,9 @@ a live page, renaming or recreating it breaks that page. Change files inside it
 freely; leave the folder alone, and say so in the project README.
 
 ## 8. Leave the project rebuildable
+
+Folders, file names, versions and the end-of-job clean-up follow
+**`ocha-files-and-folders`**.
 
 A year later nobody remembers any of this. Ship with the assets:
 
