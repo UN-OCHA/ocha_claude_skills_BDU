@@ -7,7 +7,7 @@ description: >
   tidying a job folder, naming a file, handling draft versions, archiving old versions,
   or finishing a job. Trigger on "save this", "export", "where should this go", "name
   the file", "folder structure", "organise the folder", "clean up the folder", "final
-  version", "archive", "we're done", "PNG or JPEG", "which format", "file too big". The other OCHA skills point here for every file and
+  version", "archive", "we're done", "PNG or JPEG", "which format", "file too big", "re-export", "update the file". The other OCHA skills point here for every file and
   folder rule.
 ---
 
@@ -107,16 +107,28 @@ Examples:
 - **Published brand assets with established names**, such as the OCHA logo package.
 - **Finished projects.** Apply this standard to new work; don’t rename old jobs.
 
-## 4. Versions
+## 4. Versions and re-exports
 
-- **While working:** drafts are `_v01`, `_v02`, `_v03`. Two digits, so they sort in order.
-- **When delivered:** the final drops its version number and is the only copy in
-  `export/`. `sdn_humanitarian_snapshot_a4_v03.pdf` becomes
+**Re-export over the same file by default.** When a file is updated, export it with exactly
+the same name to the same place, so the new file replaces the old one. A Dropbox link
+belongs to the file: replacing it in place keeps every link already shared working, and the
+link now shows the new content. Saving under a new name creates a new file, and the old
+link keeps showing the old one. Let the export write over the file — don’t delete the old
+file first and then save, or Dropbox can treat it as a new file and the link breaks.
+
+- **Make an additional version only when one is needed** — the user asks to keep the
+  previous one, or two options have to exist side by side. Then number them `_v01`, `_v02`,
+  `_v03`: two digits, so they sort in order.
+- **When delivered:** the final carries no version number and is the only copy in
+  `export/`. If drafts were numbered, `sdn_humanitarian_snapshot_a4_v03.pdf` becomes
   `sdn_humanitarian_snapshot_a4.pdf`, so nobody has to guess which one is final.
 - **Older versions:** ask the user whether to delete them or move them to `archive/`.
   Never decide on your own.
-- **A job that reopens:** move the current final into `archive/` before making the next
-  version.
+- **A job that reopens:** replace the final in place. If the previous final is worth
+  keeping, ask, then **copy** it into `archive/` first — never move it. A moved file takes
+  its Dropbox link with it, so the shared link would keep showing the old version.
+- **After replacing a file that has been shared,** check Dropbox’s version history shows a
+  new version of the same file rather than a new file.
 
 ## 5. Export formats
 

@@ -24,6 +24,7 @@ reinstall.
 | `ocha-logo-production` | Building logo packages from Illustrator — languages, variants, verified exports |
 | `ocha-video` | Everything video — cutting, subtitles, lower third, logo ending, packaging |
 | `ocha-files-and-folders` | Where files go, how to name them, draft versions, cleaning up at the end |
+| `ocha-animation` | Smooth motion for animated graphics and data films — entrances, exits, transitions, timing, rendering to video |
 
 ---
 
@@ -165,7 +166,7 @@ Type this in the Claude Code chat box, like a normal question:
 
 > **what OCHA skills do I have now?**
 
-Claude should list nine skills. If it does, you're finished. 🎉
+Claude should list ten skills. If it does, you're finished. 🎉
 
 ---
 
@@ -261,7 +262,7 @@ You can switch models in the middle of a session — the work carries over.
 **"I installed them but Claude doesn't know about them."**
 You need to quit Claude and reopen it (Step 4). The plugin loads at startup.
 
-**"Claude lists fewer than nine skills."**
+**"Claude lists fewer than ten skills."**
 Your copy is out of date. Open **+** → **Plugins** → **Manage plugins**, update **OCHA BDU**,
 then quit Claude and open it again. If you installed the skills by hand before September
 2026, also do Step 3 once and the clean-up message underneath it.
