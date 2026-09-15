@@ -425,6 +425,9 @@ The same folder also holds the **finished location maps and the globe artwork** 
 
 Illustrator needs no special format — it opens SVG as live editable vector art.
 
+Choosing between PNG and JPEG for a raster export, and keeping the file light, follows
+`ocha-files-and-folders` §5.
+
 PDF and PNG conversion needs `cairosvg`. If it's missing, offer to install it
 (`pip3 install cairosvg`) rather than telling the user to convert the SVG themselves —
 asking first, as in §9.
@@ -538,8 +541,8 @@ isn’t a whole country, or when the data being mapped changes the base map itse
 
 ## Saving and naming files
 
-Where files go, how they are named, draft versions and the end-of-job clean-up all
-follow **`ocha-files-and-folders`**.
+Where files go, how they are named, which export format to use, draft versions and the
+end-of-job clean-up all follow **`ocha-files-and-folders`**.
 
 ## Contacts
 

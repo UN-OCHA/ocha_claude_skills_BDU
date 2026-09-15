@@ -314,8 +314,8 @@ from both ends.
 
 ## Saving and naming files
 
-Where files go, how they are named, draft versions and the end-of-job clean-up all
-follow **`ocha-files-and-folders`**.
+Where files go, how they are named, which export format to use, draft versions and the
+end-of-job clean-up all follow **`ocha-files-and-folders`**.
 
 ## Contacts
 

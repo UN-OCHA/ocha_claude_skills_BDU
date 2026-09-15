@@ -1,13 +1,13 @@
 ---
 name: ocha-files-and-folders
 description: >
-  The OCHA BDU standard for organising job folders and naming files. Applies to every
+  The OCHA BDU standard for organising job folders, naming files and choosing export formats. Applies to every
   BDU job: videos, maps, charts, infographics, reports, logo packages, social posts,
   presentations. Use whenever saving, exporting or delivering anything, creating or
   tidying a job folder, naming a file, handling draft versions, archiving old versions,
   or finishing a job. Trigger on "save this", "export", "where should this go", "name
   the file", "folder structure", "organise the folder", "clean up the folder", "final
-  version", "archive", "we're done". The other OCHA skills point here for every file and
+  version", "archive", "we're done", "PNG or JPEG", "which format", "file too big". The other OCHA skills point here for every file and
   folder rule.
 ---
 
@@ -114,11 +114,32 @@ Examples:
 - **A job that reopens:** move the current final into `archive/` before making the next
   version.
 
-## 5. Closing a job
+## 5. Export formats
+
+Aim for the best quality at the smallest file size.
+
+| The graphic | Export as |
+|---|---|
+| Can stay vector, and the destination accepts it | **SVG** for web and Illustrator, **PDF** for print |
+| Flat colour, text, icons, charts, maps — no photos or raster effects | **PNG** |
+| Needs a transparent background | **PNG** — JPEG can’t do transparency |
+| Photos, grain, textures, blur, soft shadows | **JPEG**, quality 80–85 |
+| A photo with crisp text on top | JPEG at higher quality, or PNG if the size stays reasonable — compare both |
+
+- **Don’t rasterise what can stay vector.** PNG and JPEG are for destinations that need an
+  image: social media, slides, email, some web tools.
+- **Flat graphics can often go smaller** with a reduced colour palette (8-bit PNG) and no
+  visible change. Check smooth gradients afterwards: a reduced palette can make them band.
+- **JPEG above quality 90 buys almost nothing** but makes the file much bigger.
+- **Export at the size the destination shows it** (twice that only when a high-density
+  version is asked for). An oversized image is the most common reason a file is heavy.
+- **When unsure, export both** and keep the smaller one that looks identical at full size.
+
+## 6. Closing a job
 
 When the work is delivered, go through this before calling it done:
 
-1. `export/` holds only the finals, named to §3 with no version numbers. No templates,
+1. `export/` holds only the finals, named to §3, in the format §5 calls for, with no version numbers. No templates,
    asset folders, scripts or intermediate renders (see “Generated work” in §2).
 2. The top level holds only `source/`, `info/`, `assets/`, `export/`, `archive/` and
    `README.md`. Tooling folders such as `build/` move into `assets/`.

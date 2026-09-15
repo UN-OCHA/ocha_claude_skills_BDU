@@ -59,5 +59,5 @@ the details ready for the real task that follows.
 | Brand colours / logo / fonts / `cd-*` / design system only | `ocha-visual-identity` |
 | Charts / infographics only | `ocha-dataviz` |
 | Maps only | `ocha-mapping` |
-| Saving, naming files, versions, closing a job | `ocha-files-and-folders` |
+| Saving, naming files, export formats, versions, closing a job | `ocha-files-and-folders` |
 | Illustrator plugin release / ZXP build | `ocha-dataviz-release` (unrelated to this umbrella) |
