@@ -166,6 +166,8 @@ for true highlights.
 - For emphasis of headline figures. Always pair with a clear number.
 - Use the **Humanitarian Icons v2** set from **brand.unocha.org**.
 - Ship with OCHA blue `#009EDB` by default; may recolour to the active family accent.
+- **To mark which country something is about**, use the OCHA **country icons** (small
+  locator maps) — see `humanitarian-icons`. Never recolour those.
 
 ### Sankey
 - For flow data (source → target).

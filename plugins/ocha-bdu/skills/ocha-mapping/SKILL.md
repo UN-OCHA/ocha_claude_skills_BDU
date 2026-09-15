@@ -463,6 +463,9 @@ will not match the published version.
 | Multi-country regions | `0_regions/` — Caribbean, Central America, Horn of Africa, Sahel |
 | Projections | `{iso3}/{iso3}_ocha.prj`, plus `0_prj_files/` and `0_wkt_files/` (§11) |
 
+**Need a tiny country marker rather than a map?** The OCHA country icons (40 × 40 locator
+maps) are covered in `humanitarian-icons`.
+
 ### Three things that will trip you up
 
 - **The casing is inconsistent.** Both `sdn_ocha.svg` and `caf_OCHA.svg` exist. Always

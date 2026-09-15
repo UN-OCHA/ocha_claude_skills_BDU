@@ -2,12 +2,13 @@
 name: humanitarian-icons
 description: >
   Find, reference, and use OCHA Humanitarian Icons — the official set of 389 single-colour
-  SVG icons (OCHA blue #009edb) maintained by the Brand and Design Unit. Use this skill
+  SVG icons (OCHA blue #009edb) maintained by the Brand and Design Unit — and the separate
+  set of OCHA country icons (small locator maps, one per country). Use this skill
   whenever the user asks for "an OCHA icon", "humanitarian icon", "an icon for X", the SVG
   or CDN URL of a specific icon, which icons exist for a topic (shelter, health, water,
   disasters, people/HPC, clusters, damage states), which icons are approved for wordmarks,
   or wants to build/design something that should use OCHA icons. Also trigger on "icon
-  library", "icon inventory", "humanitarian iconography", "OCHA SVG", "cluster icon", or
+  library", "icon inventory", "humanitarian iconography", "OCHA SVG", "cluster icon", "country icon", "icon for [country]", "locator icon", or
   when matching a concept/keyword to an icon (e.g. "I need a 'communication' or 'noise'
   icon" → Advocacy). For general OCHA brand colours/logo use `ocha-visual-identity`; for
   charts use `ocha-dataviz`; for maps use `ocha-mapping`.
@@ -104,6 +105,40 @@ icons are new since X").
 These reference files are a snapshot. If precision matters or the set may have changed,
 fetch `metadata.json` fresh from
 `https://raw.githubusercontent.com/UN-OCHA/humanitarian-icons-2026-BDU/main/metadata.json`.
+
+## Country icons — a separate set
+
+BDU also makes **OCHA country icons**: 250 small locator maps, one per country or
+territory, plus a few regions and world views. They are **not** part of the 389
+humanitarian icons. They look different, live somewhere else and follow different rules.
+
+| | |
+|---|---|
+| **What they are** | 40 × 40 locator maps in the OCHA map colours: the country in white, neighbours grey, sea pale blue |
+| **Current set** | `~/OCHA DMU Dropbox/<your-name>/Design/Humanitarian_Icons/v2/Country_icons/2025/svg_2025/` |
+| **Illustrator master** | `…/Country_icons/2025/2025_OCHA_country_icons.ai` |
+| **Naming** | `Country_Name_ISO3.svg` — `Haiti_HTI.svg`, `New_Zealand_NZL.svg`. Regions and world views have no code: `1_Caribbean.svg`, `World_1.svg` |
+| **Format** | SVG |
+
+The personal-folder part of that path differs per person. If it misses, search the DMU
+Dropbox for `svg_2025`. To find a country, match its ISO3 code case-insensitively
+(`ls | grep -i '_hti\.svg'`) rather than guessing the exact name.
+
+**Use them to** mark which country a card, chart, dashboard tile or report section is
+about, or as a small locator inset.
+
+**Rules**
+
+- **Only the 2025 set.** Never use anything under `Country_icons/archive/` — the 2018 and
+  2023 sets are outdated.
+- **Use them exactly as they are.** Unlike the humanitarian icons, never recolour them —
+  the colours are the map. Don’t redraw, crop, rename or relabel them.
+- **Some show disputed or sensitive territories.** Use those exactly as provided, and
+  before adding any label or caption follow the territories guidance in `ocha-mapping` §7.
+- **They are internal to BDU.** They live only in the DMU Dropbox; there is deliberately
+  no public link or CDN, so never publish one. If the folder isn’t on the user’s machine,
+  tell them to ask BDU for the icon (ochavisual@un.org). Never draw a replacement country
+  shape, and don’t substitute a flag unless the user asks for flags.
 
 ## Saving and naming files
 
