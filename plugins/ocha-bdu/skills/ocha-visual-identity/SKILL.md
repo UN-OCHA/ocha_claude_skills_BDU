@@ -9,7 +9,8 @@ description: >
   OCHA products, or when building/editing any OCHA-branded HTML, CSS, slide,
   document, poster, social media graphic, or web page. Trigger on phrases
   like "OCHA brand", "OCHA colours", "UN Blue", "brand guidelines", "design
-  system", "use our brand", "OCHA logo", "clear space", "one OCHA". For
+  system", "use our brand", "OCHA logo", "clear space", "one OCHA", "partner logo", "donor logo",
+  "co-branding", or the logo of any UN agency, donor, NGO or cluster. For
   specifically humanitarian maps, use `ocha-mapping`. For specifically charts
   and infographics, use `ocha-dataviz`. For the Illustrator dataviz plugin
   release process, use `ocha-dataviz-release`.
