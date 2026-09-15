@@ -198,6 +198,42 @@ Below this requires approval from the Design and Multimedia Unit.
 4. Exception: one partner may be enlarged if it needs extra recognition.
 5. For complex cases: contact **ochavisual@un.org**.
 
+### Partner logos — where to find them
+
+Every partner logo BDU holds is in one folder:
+
+`~/OCHA DMU Dropbox/<your-name>/Design/Logos/`
+
+The personal-folder part of that path differs per person. If it misses, search the DMU
+Dropbox for the `Design/Logos` folder.
+
+| Folder | What’s in it |
+|---|---|
+| `By_Country/` | Government donors, one folder per country, plus `EU/`, `ECHO/` and `regional_authorities/` |
+| `UN_agency/` | UN agencies, funds and programmes |
+| `UN_secretariat/` | UN Secretariat logos, with the UN logo system guidance |
+| `Partners/` | NGOs and other organisations (IFRC, MapAction…) |
+| `Private_sector/` | Companies |
+| `clusters/` | Cluster logos |
+| `ocha_family/`, `ocha_logo/` | OCHA-related logos; the current OCHA master set is `ocha_logo/2024/` (above) |
+
+**Rules**
+
+- **Check the partner’s own guidelines first** where the folder has them — for example
+  `Partners/IFRC/`, `Partners/MapAction/`, `clusters/Health/`, `clusters/education/`,
+  `clusters/shelter/` and `UN_secretariat/UN logo template/`. Their rules on colour, clear
+  space and minimum size apply to their logo; the co-branding rules above decide how the
+  logos sit together.
+- **Never use anything in an `archive/` folder**, or
+  `ocha_logo/DO_NOT_USE_UN_BRAND_OCHA_logo_draft/`.
+- **Use partner logos exactly as supplied.** Don’t recolour, redraw, crop or stretch them.
+  Prefer SVG or EPS; use PNG or JPG only when nothing else exists.
+- **Keep them internal.** Point to the folder only — never publish a link to it or to a
+  partner’s logo file. These are other organisations’ marks.
+- **Never take a partner logo from the web.** Web copies are often outdated or wrong. If
+  the logo isn’t in the folder, or the folder isn’t on the user’s machine, ask BDU
+  (ochavisual@un.org).
+
 ### UN emblem authorisation
 - UN System entities (including OCHA) don't need written authorisation for official use — see **ST/AI/189/Add.21**.
 - Non-UN entities (governments, IGOs, NGOs, private sector) must request authorisation from the Office of Legal Affairs: **gld@un.org**.
