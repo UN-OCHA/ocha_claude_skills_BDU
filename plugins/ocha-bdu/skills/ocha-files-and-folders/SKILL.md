@@ -45,6 +45,25 @@ video skill’s thumbnail, the logo skill’s artboards — but they follow thes
 - Recurring outputs (a weekly email, a monthly update) get a dated folder inside
   `export/`: `export/2026-09-14_priorities/`.
 
+### Generated work: build files stay in `assets/`, only the result goes to `export/`
+
+When a final is produced by something else — an HTML page printed to PDF, an SVG rendered
+to PNG, a script that draws a chart — everything doing the producing is **build
+material**, not a final:
+
+- HTML and CSS templates, the logos and images they link to, scripts, data and
+  intermediate renders all live in `assets/`. A subfolder such as `assets/build/` is fine.
+- Build from `assets/` and write **only the final file** into `export/`. Never render from
+  inside `export/`: a template there pulls its linked files in beside it.
+- A template that links to local files by relative path keeps those files next to it,
+  **inside `assets/`**.
+- If a web page *is* the deliverable (something that will be hosted), make it
+  self-contained, with images and styles embedded, so it goes into `export/` as one file
+  with no folder beside it.
+
+The test: if you would have to explain to the requester why a file is in `export/`, it
+doesn’t belong there.
+
 ## 3. Naming files
 
 For every file BDU produces:
@@ -99,13 +118,21 @@ Examples:
 
 When the work is delivered, go through this before calling it done:
 
-1. `export/` holds only the finals, with no version numbers.
-2. Older versions: ask whether to delete them or move them to `archive/`.
-3. Delete what nobody will open again: tests, previews, logs, temporary renders, one-off
+1. `export/` holds only the finals, named to §3 with no version numbers. No templates,
+   asset folders, scripts or intermediate renders (see “Generated work” in §2).
+2. The top level holds only `source/`, `info/`, `assets/`, `export/`, `archive/` and
+   `README.md`. Tooling folders such as `build/` move into `assets/`.
+3. Older versions: ask whether to delete them or move them to `archive/`.
+4. Delete what nobody will open again: tests, previews, logs, temporary renders, one-off
    scripts. Scripts needed to rebuild the work stay, in `assets/`.
-4. Delete your own throwaway files without asking. Ask before deleting anything someone
+5. Delete your own throwaway files without asking. Ask before deleting anything someone
    else made, or anything you’re not sure about.
-5. Update `README.md`.
+6. If you moved build files, run the build once more and confirm it still writes the
+   final into `export/`.
+7. Update `README.md` so it describes the folders as they now are.
+8. **Look before calling it done.** List the job folder and `export/`, and check what is
+   actually there against this list. Having followed the steps is not the same as the
+   folder being right.
 
 ---
 
