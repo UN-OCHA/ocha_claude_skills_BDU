@@ -143,13 +143,60 @@ machine-generated breaks like `47,382`.
 |---|---|
 | Title | Always |
 | OCHA logo | Always — see `ocha-visual-identity` for clear space |
-| Disclaimer | Always. Italic, `#A7A9AC`. |
+| Disclaimer | Always. Which one and the exact wording: **Disclaimers** below. Italic, `#A7A9AC`. |
 | Source + "as of" date | Always |
 | Locator globe / inset | When the country's global position isn't obvious |
 | North arrow | Only if needed. Subdued, never ornate. |
 | Scale bar | Only if needed. Natural increments. Subdued. |
 | Legend | Only if symbols aren't self-explanatory. Prefer direct labelling. |
 | Narrative / summary text | Strongly encouraged |
+
+### Disclaimers — which one, and the exact wording
+
+Source: brand.unocha.org → Maps → Guidance → **Map Disclaimers**. Use the wording exactly as
+written below; don’t paraphrase, shorten or translate it yourself. Style: italic, `#A7A9AC`
+(OCHA location maps set it in Roboto Condensed Italic).
+
+**Which disclaimer to use**
+
+| The map… | Use |
+|---|---|
+| is a map of Israel and the Occupied Palestinian Territory (OPT) | **Long form** |
+| doesn’t include that area, or is small-scale with Israel and the OPT not the main focus | **Short form** |
+| shows Jammu and Kashmir | Short form, followed by the **Jammu and Kashmir** note |
+| shows the boundary between Sudan and South Sudan | Short form, followed by the **Sudan–South Sudan** note |
+| shows the Abyei area itself, not only the Sudan–South Sudan boundary | Short form, followed by the **Sudan–South Sudan** and **Abyei** notes |
+
+In a multi-page document with several maps, one disclaimer at the beginning is enough —
+on the back cover, for example.
+
+**Short form**
+- EN — The boundaries and names shown and the designations used on this map do not imply official endorsement or acceptance by the United Nations.
+- FR — Les frontières et les noms indiqués et les désignations employées sur cette carte n’impliquent pas reconnaissance ou acceptation officielle par l’Organisation des Nations Unies.
+- ES — Los Límites y los nombres y las designaciones que figuran en este mapa no implican su apoyo o aceptación oficial por las Naciones Unidas.
+
+**Long form**
+- EN — The designations employed and the presentation of material on this map do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area or of its authorities, or concerning the delimitation of its frontiers or boundaries.
+- FR — Les appellations utilisées sur cette carte et la présentation des données qui y figurent n’impliquent de la part du Secrétariat de l’Organisation des Nations Unies aucune prise de position quant au statut juridique des pays, territoires, villes ou zones, ou de leurs autorités, ni quant au tracé de leurs frontières ou limites.
+- ES — Las denominaciones empleadas en este mapa y la forma en que aparecen presentados los datos que contiene no implican, de parte de la Secretaría de las Naciones Unidas, juicio alguno sobre la condición jurídica de países, territorios, ciudades o zonas, o de sus autoridades, ni respecto de la delimitación de sus fronteras o límites.
+
+**Jammu and Kashmir note**
+- EN — Dotted line represents approximately the Line of Control in Jammu and Kashmir agreed upon by India and Pakistan. The final status of Jammu and Kashmir has not yet been agreed upon by the parties.
+- FR — La ligne en pointillé correspond approximativement à la Ligne de contrôle du Jammu et Cachemire dont ont convenu l’Inde et le Pakistan. Les parties n’ont pas encore convenu du statut définitif du Jammu et Cachemire.
+- ES — La línea de puntos representa aproximadamente la Línea de Control en Jammu y Cachemira convenida por la India y el Pa-kistán. Las partes no han llegado todavia a un acuerdo sobre el estatuto definitivo de Jammu y Cachemira.
+
+**Sudan–South Sudan note**
+- EN — Final boundary between the Republic of Sudan and the Republic of South Sudan has not yet been determined.
+- FR — La frontière entre la République du Soudan et la Rèpublique du Soudan du Sud n’a pas été déterminée.
+- ES — Las fronteras definitivas entre la República del Sudán y la República de Sudán del Sur no se han determinado todavía.
+
+**Abyei note**
+- EN — Final status of the Abyei area is not yet determined.
+- FR — Le statut définitif de la zone d'Abyei n'a pas encore été fixé.
+- ES — La condición jurídica definitiva de la zona de Abyei aún no se ha determinado.
+
+Only English, French and Spanish are published. For any other language, ask BDU
+(ochavisual@un.org).
 
 ## 7. Country and place naming
 
@@ -396,7 +443,7 @@ geometry as GeoJSON (or shapefile/GeoPackage) and styling as `.qml` (QGIS) or `.
 
 1. Title clear?
 2. OCHA logo present, correct clear space?
-3. Disclaimer present?
+3. Right disclaimer present — short or long form, plus any area note?
 4. Locator globe / inset needed?
 5. Source + "as of" date?
 6. Acronyms spelled out?
