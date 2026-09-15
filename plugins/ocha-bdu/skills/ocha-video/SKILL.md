@@ -279,8 +279,9 @@ archive/  optional: earlier cuts worth keeping (ask first)
 README.md what it is, the layout, how it was made (commands + timecodes), what was learned
 ```
 
-Export names follow the standard: `ukr_asg_security_council_1080x1920_en.mp4`, with the
-thumbnail as `ukr_asg_security_council_thumbnail_1080x1920.jpg`. Do moves and deletes in
+Export names follow the standard: `ukr_asg_security_council_1080x1920.mp4`, with the
+thumbnail as `ukr_asg_security_council_thumbnail_1080x1920.jpg`. Add a language code
+(`_en`, `_es`…) only when the video is delivered in more than one language. Do moves and deletes in
 Python to avoid the bash rm-guard. Convert relative dates to absolute in the README.
 
 ---

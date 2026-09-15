@@ -78,7 +78,7 @@ Use only the parts that apply, always in that order.
 | Countries as three-letter ISO codes | `sdn`, `ukr`, `pse` |
 | Format as page size or pixels | `a4`, `1080x1920` |
 | Dates as year-month-day | `2026-09-14` |
-| Language last, two letters | `_en`, `_fr`, `_es`, `_ar`, `_ru`, `_zh` |
+| Language last, two letters — **only when the job comes in more than one language** | `_en`, `_fr`, `_es`, `_ar`, `_ru`, `_zh` |
 | Never `final`, `new`, `latest` or `copy` | — |
 
 Country codes rather than names, because names change — Türkiye, Occupied Palestinian
@@ -87,11 +87,15 @@ Territory — and codes don’t. OCHA geodata and location maps already use them
 The year-month-day format is for file names only. Dates written in text follow
 `ocha-editorial-style`.
 
+A job produced in a single language gets no language code at all. Add codes only when the
+same deliverable exists in two or more languages, and then give every language its code.
+
 Examples:
 
-- `sdn_humanitarian_snapshot_a4_2026-09-14_en.pdf`
-- `ukr_asg_security_council_1080x1920_en.mp4`
-- `gho2026_funding_by_sector_chart_fr.svg`
+- `sdn_humanitarian_snapshot_a4_2026-09-14.pdf` — one language, no code
+- `ukr_asg_security_council_1080x1920.mp4` — one language, no code
+- `gho2026_funding_by_sector_chart_en.svg` and `gho2026_funding_by_sector_chart_fr.svg` —
+  the same chart in two languages, so both carry a code
 
 ### Leave these names alone
 
@@ -107,8 +111,8 @@ Examples:
 
 - **While working:** drafts are `_v01`, `_v02`, `_v03`. Two digits, so they sort in order.
 - **When delivered:** the final drops its version number and is the only copy in
-  `export/`. `sdn_humanitarian_snapshot_a4_v03_en.pdf` becomes
-  `sdn_humanitarian_snapshot_a4_en.pdf`, so nobody has to guess which one is final.
+  `export/`. `sdn_humanitarian_snapshot_a4_v03.pdf` becomes
+  `sdn_humanitarian_snapshot_a4.pdf`, so nobody has to guess which one is final.
 - **Older versions:** ask the user whether to delete them or move them to `archive/`.
   Never decide on your own.
 - **A job that reopens:** move the current final into `archive/` before making the next
