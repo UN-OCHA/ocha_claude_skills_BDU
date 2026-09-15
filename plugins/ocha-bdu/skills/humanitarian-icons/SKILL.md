@@ -75,7 +75,7 @@ All SVGs are monochrome — recolour via CSS `fill` or `filter`, don't add gradi
 
 ## Wordmark eligibility
 
-91 of the 389 icons are **approved for wordmarks** (`"wordmark": true` in metadata.json,
+105 of the 389 icons are **approved for wordmarks** (`"wordmark": true` in metadata.json,
 flagged with ✎ in the inventory). Only these should be offered when someone is building a
 wordmark. There is a dedicated wordmark generator at
 `word-mark-generator/` (live at the GitHub Pages URL above) with a BDU approval workflow.

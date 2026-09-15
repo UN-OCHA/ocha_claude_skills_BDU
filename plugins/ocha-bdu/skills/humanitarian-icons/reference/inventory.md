@@ -5,13 +5,13 @@ Filename = `svg/{name}.svg` · CDN = `https://cdn.jsdelivr.net/gh/UN-OCHA/humani
 
 ## Activities strategy (35)
 
-- `Advocacy` — Advocacy — _bullhorn, megaphone, announcement, communication_
+- `Advocacy` — Advocacy ✎ — _bullhorn, megaphone, announcement, communication_
 - `Agile` — Agile — _cycle, iteration, loop, process_
 - `Analysis` — Analysis — _magnifying glass, chart, research, investigation_
 - `Assessment` — Assessment — _clipboard, checklist, evaluation, survey_
 - `Cash-transfer` — Cash transfer — _money, payment, currency, financial aid_
 - `Civil-military-coordination` — Civil military coordination — _cooperation, military, liaison, joint_
-- `Community-engagement` — Community engagement — _participation, outreach, dialogue, inclusion_
+- `Community-engagement` — Community engagement ✎ — _participation, outreach, dialogue, inclusion_
 - `Coordinated-assessment` — Coordinated assessment — _joint evaluation, team survey, multi-agency, review_
 - `Deployment` — Deployment — _send, dispatch, launch, mobilize_
 - `Financing` — Financing — _dollar, budget, funding, money_
@@ -26,7 +26,7 @@ Filename = `svg/{name}.svg` · CDN = `https://cdn.jsdelivr.net/gh/UN-OCHA/humani
 - `Meeting` — Meeting — _chat bubbles, conversation, dialogue, discussion_
 - `Monitoring` — Monitoring — _watch, observe, track, surveillance_
 - `Needs-assessment` — Needs assessment — _evaluation, survey, needs analysis, gap_
-- `Partnership` — Partnership — _handshake, collaboration, alliance, cooperation_
+- `Partnership` — Partnership ✎ — _handshake, collaboration, alliance, cooperation_
 - `Policy` — Policy — _regulation, rules, governance, guidelines_
 - `Preparedness` — Preparedness — _readiness, planning, contingency, prevention_
 - `Public-information` — Public information — _broadcast, media, press, news_
@@ -39,7 +39,7 @@ Filename = `svg/{name}.svg` · CDN = `https://cdn.jsdelivr.net/gh/UN-OCHA/humani
 - `Sexual-and-reproductive-health` — Sexual and reproductive health — _reproductive, maternal, family planning, SRH_
 - `Staff-management` — Staff management — _HR, personnel, team management, human resources_
 - `Top-ranking` — Top ranking — _trophy, award, best, number one_
-- `Training` — Training — _teaching, workshop, capacity building, skill_
+- `Training` — Training ✎ — _teaching, workshop, capacity building, skill_
 
 ## Camp (6)
 
@@ -195,7 +195,7 @@ Filename = `svg/{name}.svg` · CDN = `https://cdn.jsdelivr.net/gh/UN-OCHA/humani
 
 - `Bacteria` — Bacteria — _health, bacteria_
 - `COVID-19` — COVID-19 — _health, covid-19_
-- `Case-management` — Case management — _health, case management_
+- `Case-management` — Case management ✎ — _health, case management_
 - `Doctor` — Doctor — _health, doctor_
 - `Handwashing` — Handwashing — _hygiene, clean hands, soap, sanitation_
 - `Health-worker` — Health worker — _doctor, nurse, medic, paramedic_
@@ -264,11 +264,11 @@ Filename = `svg/{name}.svg` · CDN = `https://cdn.jsdelivr.net/gh/UN-OCHA/humani
 
 - `Affected-population` — Affected population — _people, affected population_
 - `Child-combatant` — Child combatant — _people, child combatant_
-- `Children` — Children — _people, children_
+- `Children` — Children ✎ — _people, children_
 - `Dead` — Dead — _people, dead_
 - `Drowned` — Drowned — _people, drowned_
 - `Elderly` — Elderly — _senior, old age, pensioner, aged_
-- `Gender` — Gender — _people, gender_
+- `Gender` — Gender ✎ — _people, gender_
 - `Indigenous-people` — Indigenous people — _people, indigenous people_
 - `Infant` — Infant — _baby, newborn, child, toddler_
 - `Injured` — Injured — _people, injured_
@@ -329,13 +329,13 @@ Filename = `svg/{name}.svg` · CDN = `https://cdn.jsdelivr.net/gh/UN-OCHA/humani
 - `Dangerous-area` — Dangerous area — _security and incident, dangerous area_
 - `Forced-entry` — Forced entry — _security and incident, forced entry_
 - `Forced-recruitment` — Forced recruitment — _security and incident, forced recruitment_
-- `Gender-based-violence` — Gender based violence — _security and incident, gender based violence_
-- `Harassment-intimidation` — Harassment intimidation — _security and incident, harassment intimidation_
+- `Gender-based-violence` — Gender based violence ✎ — _security and incident, gender based violence_
+- `Harassment-intimidation` — Harassment intimidation ✎ — _security and incident, harassment intimidation_
 - `House-burned` — House burned — _security and incident, house burned_
 - `Mine` — Mine — _security and incident, mine_
 - `Murder` — Murder — _security and incident, murder_
 - `Robbery` — Robbery — _security and incident, robbery_
-- `Sexual-violence` — Sexual violence — _GBV, assault, gender violence, abuse_
+- `Sexual-violence` — Sexual violence ✎ — _GBV, assault, gender violence, abuse_
 
 ## Socioeconomic and development (10)
 
@@ -358,7 +358,7 @@ Filename = `svg/{name}.svg` · CDN = `https://cdn.jsdelivr.net/gh/UN-OCHA/humani
 - `Fax` — Fax — _telecommunications and technology, fax_
 - `Internet` — Internet — _web, online, network, connectivity_
 - `Laptop` — Laptop — _telecommunications and technology, laptop_
-- `Mobile-phone` — Mobile phone — _smartphone, cellphone, device, communication_
+- `Mobile-phone` — Mobile phone ✎ — _smartphone, cellphone, device, communication_
 - `Monitor` — Monitor — _telecommunications and technology, monitor_
 - `Radio` — Radio — _telecommunications and technology, radio_
 - `Remote-support` — Remote support — _telecommunications and technology, remote support_
@@ -395,8 +395,8 @@ Filename = `svg/{name}.svg` · CDN = `https://cdn.jsdelivr.net/gh/UN-OCHA/humani
 - `Filter` — Filter — _funnel, sort, refine, narrow_
 - `Folder` — Folder — _ux ui, folder_
 - `Go` — Go — _ux ui, go_
-- `Group` — Group — _people, team, crowd, collective_
-- `Help` — Help — _ux ui, help_
+- `Group` — Group ✎ — _people, team, crowd, collective_
+- `Help` — Help ✎ — _ux ui, help_
 - `Hidden` — Hidden — _ux ui, hidden_
 - `Link` — Link — _chain, connection, URL, hyperlink_
 - `Menu` — Menu — _ux ui, menu_
@@ -415,7 +415,7 @@ Filename = `svg/{name}.svg` · CDN = `https://cdn.jsdelivr.net/gh/UN-OCHA/humani
 - `Return` — Return — _ux ui, return_
 - `Save` — Save — _ux ui, save_
 - `Search` — Search — _magnifying glass, find, look, query_
-- `Secured` — Secured — _ux ui, secured_
+- `Secured` — Secured ✎ — _ux ui, secured_
 - `Security` — Security — _ux ui, security_
 - `See` — See — _ux ui, see_
 - `Selected` — Selected — _ux ui, selected_
