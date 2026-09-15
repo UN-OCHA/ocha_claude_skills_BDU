@@ -57,7 +57,8 @@ All values at the A4 baseline.
 | Element | Hex | CMYK | Stroke (pt, A4) | Dash | Cap | Notes |
 |---|---|---|---|---|---|---|
 | International boundary | `#8A8C8E` | 0, 0, 0, 55 | 1.3 | solid | butt | — |
-| Disputed boundary | `#77787B` | 0, 0, 0, 55 | 1.0 | `[0, 2]` dots | round | **Check §7 before drawing** |
+| “Disputed” boundary (dotted) | `#77787B` | 0, 0, 0, 55 | 1.0 | `[0, 2]` dots | round | **Check §7 before drawing** |
+| “Disputed” boundary (dashed) | ⚠️ unconfirmed — `#77787B` or `#A7A9AC` | 0, 0, 0, 55 | 1.3 | `[4, 2]` | — | **Check §7 before drawing.** When to use dashed rather than dotted is still open (cartographer review) |
 | 1st admin level | `#C7C8CA` | 0, 0, 0, 23 | 0.8 | `[2.3, 2.3]` | butt | — |
 | Coastline / water edge | `#64BEEB` | 55, 8, 0, 0 | 0.5 | solid | butt | — |
 | Water feature (river) | `#64BEEB` | 55, 8, 0, 0 | 0.5 | solid | butt | — |
@@ -130,8 +131,8 @@ Water labels are UN Blue italic. Never blue text on a blue fill of similar value
 - **Direct-label** values on bubbles where space allows — often removes the legend.
 
 **Class breaks** — natural increments, e.g.
-`<10,000 | 10,000–50,000 | 50,001–150,000 | 150,001–300,000 | >300,000`. Never
-machine-generated breaks like `47,382`.
+`<10,000 | 10,000–50,000 | 50,001–150,000 | 150,001–300,000 | >300,000`. Never use the
+software’s “natural breaks” (Jenks) classes, which give values like `47,382`.
 
 **Bubbles** scale by area (π × r²), not radius. Legend with 2–3 representative sizes.
 **Choropleth** uses a sequential ramp (UN Blue ramp — see `ocha-visual-identity`), darker
@@ -173,7 +174,7 @@ on the back cover, for example.
 **Short form**
 - EN — The boundaries and names shown and the designations used on this map do not imply official endorsement or acceptance by the United Nations.
 - FR — Les frontières et les noms indiqués et les désignations employées sur cette carte n’impliquent pas reconnaissance ou acceptation officielle par l’Organisation des Nations Unies.
-- ES — Los Límites y los nombres y las designaciones que figuran en este mapa no implican su apoyo o aceptación oficial por las Naciones Unidas.
+- ES — Los límites y los nombres y las designaciones que figuran en este mapa no implican su apoyo o aceptación oficial por las Naciones Unidas.
 
 **Long form**
 - EN — The designations employed and the presentation of material on this map do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area or of its authorities, or concerning the delimitation of its frontiers or boundaries.
@@ -183,11 +184,11 @@ on the back cover, for example.
 **Jammu and Kashmir note**
 - EN — Dotted line represents approximately the Line of Control in Jammu and Kashmir agreed upon by India and Pakistan. The final status of Jammu and Kashmir has not yet been agreed upon by the parties.
 - FR — La ligne en pointillé correspond approximativement à la Ligne de contrôle du Jammu et Cachemire dont ont convenu l’Inde et le Pakistan. Les parties n’ont pas encore convenu du statut définitif du Jammu et Cachemire.
-- ES — La línea de puntos representa aproximadamente la Línea de Control en Jammu y Cachemira convenida por la India y el Pa-kistán. Las partes no han llegado todavia a un acuerdo sobre el estatuto definitivo de Jammu y Cachemira.
+- ES — La línea de puntos representa aproximadamente la Línea de Control en Jammu y Cachemira convenida por la India y el Pakistán. Las partes no han llegado todavía a un acuerdo sobre el estatuto definitivo de Jammu y Cachemira.
 
 **Sudan–South Sudan note**
 - EN — Final boundary between the Republic of Sudan and the Republic of South Sudan has not yet been determined.
-- FR — La frontière entre la République du Soudan et la Rèpublique du Soudan du Sud n’a pas été déterminée.
+- FR — La frontière entre la République du Soudan et la République du Soudan du Sud n’a pas été déterminée.
 - ES — Las fronteras definitivas entre la República del Sudán y la República de Sudán del Sur no se han determinado todavía.
 
 **Abyei note**
@@ -453,7 +454,7 @@ geometry as GeoJSON (or shapefile/GeoPackage) and styling as `.qml` (QGIS) or `.
 9. Boundary hierarchy correct (international heaviest)?
 10. Topology clean, borders matching between country and world data?
 11. Right data type — bubbles for counts, choropleth for rates?
-12. Class breaks natural?
+12. Class breaks rounded to human-readable numbers, not software “natural breaks”?
 13. Could values be direct-labelled instead of a legend?
 14. North arrow / scale bar subdued, and only if needed?
 15. Narrative text present?
