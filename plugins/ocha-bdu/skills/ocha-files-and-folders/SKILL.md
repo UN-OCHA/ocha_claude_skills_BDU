@@ -127,8 +127,9 @@ When the work is delivered, go through this before calling it done:
    scripts. Scripts needed to rebuild the work stay, in `assets/`.
 5. Delete your own throwaway files without asking. Ask before deleting anything someone
    else made, or anything you’re not sure about.
-6. If you moved build files, run the build once more and confirm it still writes the
-   final into `export/`.
+6. If you moved build files or rebuilt anything, run the build once more and confirm it
+   still writes the final into `export/`. Then compare the new file with the previous
+   final: a browser or tool update can change the output even when nothing else did.
 7. Update `README.md` so it describes the folders as they now are.
 8. **Look before calling it done.** List the job folder and `export/`, and check what is
    actually there against this list. Having followed the steps is not the same as the
