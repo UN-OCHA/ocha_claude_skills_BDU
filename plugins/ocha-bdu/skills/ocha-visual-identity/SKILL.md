@@ -197,7 +197,11 @@ Below this requires approval from the Design and Multimedia Unit.
 2. Match the **emblem size** (UN globe vs partner's equivalent emblem element).
 3. If that makes one logo disproportionate, match **type size** instead.
 4. Exception: one partner may be enlarged if it needs extra recognition.
-5. For complex cases: contact **ochavisual@un.org**.
+5. **Align by visual weight, not the bounding box.** Many logos are unbalanced: the emblem carries
+   the weight, and a long name beside it, above it or underneath reads as secondary. Space and
+   centre such a logo on its dominant element, then check the result by eye. Equal box spacing
+   makes it look detached.
+6. For complex cases: contact **ochavisual@un.org**.
 
 ### Partner logos — where to find them
 
