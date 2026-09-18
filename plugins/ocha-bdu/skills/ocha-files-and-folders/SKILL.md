@@ -116,6 +116,13 @@ link now shows the new content. Saving under a new name creates a new file, and 
 link keeps showing the old one. Let the export write over the file — don’t delete the old
 file first and then save, or Dropbox can treat it as a new file and the link breaks.
 
+**When a script writes over the file, on a Mac, copy with `cp -X`, never a plain `cp`.**
+A plain `cp` onto an existing file removes the hidden tag Dropbox uses to recognise it.
+Dropbox then sometimes treats it as a new file, and the shared link stops working with no
+warning. This happened 3 times in 10 renders of one film. `cp -X` keeps the tag. In Python,
+open the existing file and write the new bytes into it. Use `-X` on archive copies too, so
+the copy doesn’t carry the original’s tag.
+
 - **Make an additional version only when one is needed** — the user asks to keep the
   previous one, or two options have to exist side by side. Then number them `_v01`, `_v02`,
   `_v03`: two digits, so they sort in order.
@@ -128,7 +135,8 @@ file first and then save, or Dropbox can treat it as a new file and the link bre
   keeping, ask, then **copy** it into `archive/` first — never move it. A moved file takes
   its Dropbox link with it, so the shared link would keep showing the old version.
 - **After replacing a file that has been shared,** check Dropbox’s version history shows a
-  new version of the same file rather than a new file.
+  new version of the same file rather than a new file: the file id must be unchanged. The
+  file on the Mac staying the same proves nothing; only Dropbox’s id does.
 
 ## 5. Export formats
 
