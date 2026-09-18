@@ -1,0 +1,17 @@
+{
+  "description": "One-time check: offers to switch on automatic updates for the OCHA BDU skills, which the Claude desktop app leaves off. Silent once the user has answered. See hooks/README.md.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat \"${CLAUDE_PLUGIN_ROOT}/hooks/autoupdate${FORCE_AUTOUPDATE_PLUGINS}${env:FORCE_AUTOUPDATE_PLUGINS}.md\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
