@@ -8,7 +8,9 @@ description: >
   or editing OCHA-facing copy, or when the user asks about OCHA style, UN style,
   "how do we write X", capitalization of a term, whether something takes italics or
   quotes, how to format a number/date/currency, or asks to proofread or copy-edit
-  OCHA text. Source: OCHA Editorial Style Guide, 3rd edition (bundled). For brand
+  OCHA text, or names a term that has changed since the guide — Occupied Palestinian
+  Territory, OPT, pooled funds, CBPF, Country-Based Pooled Funds, CERF.
+  Source: OCHA Editorial Style Guide, 3rd edition (bundled). For brand
   colours/logo use `ocha-visual-identity`; for charts `ocha-dataviz`; for maps
   `ocha-mapping`.
 ---
@@ -31,6 +33,10 @@ it before quoting anything from the PDF.
 |---|---|---|---|
 | Occupied Palestinian Territory | **Occupied Palestinian Territory** — title case, every word | *occupied Palestinian territory* — in the Capitalization list and the spelling list | 2026-09-11 |
 | OPT (acronym) | **OPT** — all capitals | *oPt* — in the spelling list | 2026-09-11 |
+| OCHA’s pooled funds | **OCHA Pooled Funds (Humanitarian Country and Regional Funds and CERF)** | *country-based pooled funds* — in the hyphenation list | 2026-09-18 |
+
+**Pooled funds:** *Country-Based Pooled Funds and CERF* (and *CBPFs*) is still the funds’
+official name, but communications use the new term above.
 
 ## Non-negotiables
 
