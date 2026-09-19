@@ -404,6 +404,14 @@ maps, and in `simple` / `xsimple` generalised versions for very small output.
 - **Regional globes:** `0_GLOBES/` — Africa, Americas, Asia, Europe, Middle East, North
   America, Oceania, Pacific, plus proj4 text variants
 - **World:** `World Robinson 11 deg.prj` in the Geodatabase `vector/` folder
+- **Equal-area where size matters (GA resolution, 4 Sept 2026).** The General Assembly adopted
+  “Correct the map” (draft A/80/L.104; 164 in favour, 1 against, 6 abstentions), which
+  encourages international organizations to use **Equal Earth** or other equal-area projections
+  for world maps where the relative size of regions matters. Never use Mercator for a world map.
+  Robinson 11° E remains OCHA’s general world projection; use **Equal Earth** for world maps that
+  compare where people, needs or countries are (e.g. the UNGA81 “87 Million Lives” slides,
+  Sept 2026). In d3: `d3.geoEqualEarth()`. Cite the adopted resolution’s A/RES/80/… symbol
+  once it is issued.
 
 Use the country's own `.prj` for a single-country map. These are *not* duplicated in the
 Geodatabase folder.
