@@ -166,25 +166,50 @@ Type this in the Claude Code chat box, like a normal question:
 
 > **what OCHA skills do I have now?**
 
-Claude should list ten skills. If it does, you're finished. 🎉
+Claude should list ten skills.
+
+---
+
+## Step 6 — Switch on automatic updates
+
+**Don't skip this one.** In the Claude desktop app, plugins from outside Anthropic don't
+update by themselves until you switch it on. You do it once per computer.
+
+When you did Step 5, Claude most likely also asked you something like: *“The OCHA BDU plugin
+can't update its skills on this computer yet. Shall I switch that on?”*
+
+**Say yes.** Then quit Claude and open it again. That's it — you're finished. 🎉
+
+If Claude didn't ask, paste this into the chat box instead, then quit Claude and open it again:
+
+```
+Please turn on automatic updates for the OCHA BDU skills plugin on this computer. In my Claude settings file (~/.claude/settings.json on a Mac, %USERPROFILE%\.claude\settings.json on Windows; create it if missing), keep everything already there and add:
+1. Under "extraKnownMarketplaces": "ocha-bdu": {"source": {"source": "github", "repo": "UN-OCHA/ocha_claude_skills_BDU"}, "autoUpdate": true}
+2. Under "env": "FORCE_AUTOUPDATE_PLUGINS": "1"
+Check the file is still valid JSON and tell me when it's done.
+```
 
 ---
 
 ## How updates work
 
-We improve these skills regularly. Your copy comes from our repository, so an update is
-never a reinstall — at most it's a refresh.
+We improve these skills regularly. Once automatic updates are on (Step 6), you don't have
+to do anything:
 
-Claude Code checks for plugin updates on its own, and in most cases you'll simply have the
-newest version the next time you launch the app. We are still confirming how reliably that
-happens in the desktop app, so we won't promise you never have to think about it.
+- A few minutes after you start a session, Claude checks our repository in the background
+  and downloads anything new.
+- The session you have open keeps the version it started with. Your **next** session has
+  the new one.
 
-**If Claude seems to be working from something out of date**, open the same panel you
-installed from — **+** → **Plugins** → **Manage plugins** — and update **OCHA BDU** there.
-Then quit Claude and open it again.
+**Think your skills are out of date?** Tell Claude:
 
-If you're ever unsure, ask us: **ochavisual@un.org**. We'll tell you whether there's
-anything new worth refreshing for.
+> Update the OCHA skills with the latest version from the repository.
+
+Then start a new session.
+
+Use more than one computer? Do Step 6 on each one.
+
+If you're ever unsure, ask us: **ochavisual@un.org**.
 
 ---
 
@@ -263,9 +288,12 @@ You can switch models in the middle of a session — the work carries over.
 You need to quit Claude and reopen it (Step 4). The plugin loads at startup.
 
 **"Claude lists fewer than ten skills."**
-Your copy is out of date. Open **+** → **Plugins** → **Manage plugins**, update **OCHA BDU**,
-then quit Claude and open it again. If you installed the skills by hand before September
-2026, also do Step 3 once and the clean-up message underneath it.
+Your copy is out of date. Tell Claude *“Update the OCHA skills with the latest version from
+the repository”*, then quit Claude and open it again. If you installed the skills by hand
+before September 2026, also do Step 3 once and the clean-up message underneath it.
+
+**"My skills never seem to get the latest changes."**
+Automatic updates aren't on for this computer. Do Step 6.
 
 **"QuickVid keeps asking me to restart and never works."**
 You have an old version, and restarting won't fix it. On a Mac, tell Claude *"QuickVid
