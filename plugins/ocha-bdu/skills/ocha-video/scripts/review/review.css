@@ -1,0 +1,59 @@
+/* OCHA review tool — layout only. Header, buttons, inputs, cards and tabs are the OCHA App Kit's
+   (vendor/ocha-app-kit.css, kept current by the design system's app-kit/sync.py). The only
+   drawings of this tool's own are the marks on the picture (pins, boxes) and the position bar,
+   in kit tokens. */
+.app-header { position: sticky; top: 0; z-index: 10; }
+.rv-version { margin-inline-start: auto; display: flex; align-items: center; gap: 0.5rem; }
+.rv-version .cd-form__label { margin: 0; }
+.rv-version .cd-form__input { width: auto; max-width: 26rem; }
+
+.rv-main { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); width: 100%; max-width: 1680px;
+  margin: 0 auto; padding: var(--cd-container-padding-tablet); }
+@media (min-width: 1024px) {
+  .rv-main { grid-template-columns: minmax(0, 1fr) minmax(320px, 400px); align-items: start; }
+  .rv-comments { position: sticky; top: 96px; max-height: calc(100dvh - 116px); overflow: auto; }
+}
+.rv-watch { display: grid; gap: 0.75rem; min-width: 0; }
+
+/* the picture, with a layer on top that takes the clicks and holds the marks */
+.rv-stage { position: relative; }
+.rv-stage .app-player { border-radius: 0; }
+.rv-overlay { position: absolute; inset: 0; cursor: crosshair; touch-action: none; overflow: hidden; }
+.rv-pin { position: absolute; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--ocha-cyan); color: #fff; border: 2px solid #fff;
+  font-weight: 700; font-size: 13px; cursor: pointer; }
+.rv-pin.is-selected { background: var(--err); }
+.rv-pin.is-other { opacity: 0.55; }                  /* made on another render */
+.rv-box { position: absolute; border: 3px solid var(--ocha-cyan); pointer-events: none; }
+.rv-box.is-selected { border-color: var(--err); }
+.rv-box.is-draft { border-style: dashed; }
+.rv-box .rv-pin { left: 0; top: 0; pointer-events: auto; }
+.rv-composer { position: absolute; width: min(340px, 90%); z-index: 3; cursor: default; }
+.rv-composer .cd-card__content { display: grid; gap: 0.5rem; padding: 0.75rem; }
+.rv-composer .field-row { justify-content: flex-end; }
+
+.rv-transport { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.rv-timecode { font-size: var(--cd-font-size--medium); margin-inline-start: 0.5rem; min-width: 6ch; }
+.rv-transport select.rv-speed { width: auto; margin-inline-start: auto; }   /* beats the kit's full-width select.cd-form__input */
+
+/* position bar: the film's length, where you are, and a tick at every comment */
+.rv-track { position: relative; height: 28px; cursor: pointer; }
+.rv-track__bar { position: absolute; left: 0; right: 0; top: 11px; height: 6px; background: var(--line); }
+.rv-track__fill { height: 100%; width: 0; background: var(--ocha-cyan); }
+.rv-mark { position: absolute; top: 3px; width: 4px; height: 22px; margin-left: -2px; background: var(--ink); }
+.rv-mark.is-fixed { background: var(--ocha-cyan); }
+.rv-mark.is-ok { background: var(--ok); }
+
+.rv-context { margin: 0; min-height: 1.5em; }
+.rv-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+.rv-item.is-selected { border-color: var(--ocha-cyan); }
+.rv-item .cd-card__content { display: grid; gap: 0.5rem; padding: 0.85rem 1rem; }
+.rv-item__meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.6rem; }
+.rv-num { font-weight: 700; }
+.rv-time { appearance: none; background: none; border: 0; padding: 0; font: inherit; color: var(--ocha-blue);
+  text-decoration: underline; cursor: pointer; }
+.rv-status { margin-inline-start: auto; font-weight: 700; font-size: 0.85rem; }
+.rv-status.is-open { color: var(--warn); } .rv-status.is-fixed { color: var(--ocha-blue); } .rv-status.is-ok { color: var(--ok); }
+.rv-text, .rv-reply { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.rv-reply { padding-inline-start: 0.75rem; border-inline-start: 3px solid var(--ocha-cyan); }
+.rv-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }

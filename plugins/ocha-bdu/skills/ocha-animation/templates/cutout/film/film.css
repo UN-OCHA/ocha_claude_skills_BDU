@@ -1,0 +1,77 @@
+/* SG Awards 2026 film — one continuous world. A single warm ground with a faint dot grid;
+   everything floats on it. OCHA palette only. Text contrast >= 4.5:1, 7:1 where possible; the one
+   exception is white on OCHA blue (3.0:1), used only for the 80 px bold word labels (world.css). */
+:root {
+  --ground: #EDEAE6;    /* Slate Grey ramp, lightest */
+  --grid: #D6D0CA;
+  --blob: #DDDAD7;
+  --ink: #1B1B1A;
+  --ink-2: #493F38;
+  --ink-3: #6E6259;
+  --stone: #AEA29A;
+  --red: #ED1847;       /* shapes only: 3.6:1 on --ground */
+  --red-text: #A71F36;  /* text on --ground: 6:1 */
+  --blue: #009EDB;
+  --blue-mid: #0074B7;  /* white text 4.9:1; shapes 4.2:1 on --ground */
+  --blue-deep: #004987; /* white text 8.9:1 */
+  --blue-light: #C5DFEF; /* UN Blue ramp: the sign-off sheet */
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ground); }
+body { font-family: Roboto, Arial, Helvetica, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+#stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; background-color: var(--ground);
+  background-image: radial-gradient(circle, var(--grid) 2.2px, transparent 2.8px); background-size: 48px 48px; }
+.scene { position: absolute; inset: 0; visibility: hidden; }
+.abs { position: absolute; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* icons sit in white badges that pop in; the badge hugs the icon (motion rule 3) */
+.badge { position: absolute; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; }
+.badge .icon { display: block; line-height: 0; }
+.badge .icon svg { height: 100%; width: auto; display: block; }
+.badge.lg { width: 168px; height: 168px; } .badge.lg .icon { height: 88px; }
+.badge.md { width: 128px; height: 128px; } .badge.md .icon { height: 66px; }
+.badge.sm { width: 92px;  height: 92px;  } .badge.sm .icon { height: 48px; }
+.badge.ink { color: var(--ink-2); } .badge.red { color: var(--red); } .badge.blue { color: var(--blue-mid); }
+.badge.on-red { background: var(--red); color: #fff; } .badge.on-blue { background: var(--blue-mid); color: #fff; }
+
+.float { position: absolute; line-height: 0; }
+.float svg { width: 100%; height: auto; display: block; }
+
+/* devices the charts merge into */
+.device { position: absolute; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.device svg { width: 86%; height: auto; }
+.device.screen { border: 16px solid var(--ink); border-radius: 18px; }
+.device.phone { border: 12px solid var(--ink); border-radius: 44px; }
+.device.doc { box-shadow: none; outline: 3px solid var(--blob); flex-direction: column; justify-content: flex-start; padding: 30px 26px; gap: 14px; }
+.device.doc .top { width: 100%; height: 12px; background: var(--blue); }
+.device.doc .p { height: 14px; border-radius: 7px; background: var(--ink-2); align-self: flex-start; }
+.device.doc .p.l { background: var(--stone); }
+.stand { position: absolute; background: var(--ink); }
+
+/* numbers flying about */
+.n { position: absolute; font-family: 'Roboto Condensed', Roboto, sans-serif; white-space: nowrap; color: var(--stone); }
+.n.s { color: var(--ink-3); } .n.r { color: var(--red-text); }
+
+/* sign-off */
+.wordmark { font-weight: 900; font-size: 112px; line-height: 1; color: var(--ink); letter-spacing: -0.01em; }
+.credit { position: absolute; background: #fff; border-radius: 48px; padding: 20px 40px; white-space: nowrap; }
+.credit .who { font-weight: 700; font-size: 44px; color: var(--ink); }
+.credit .where { font-weight: 400; font-size: 32px; color: var(--ink-3); margin-left: 16px; }
+.award { font-size: 34px; color: var(--ink-3); margin-top: 10px; }
+.url { font-weight: 700; font-size: 46px; color: var(--blue-deep); }
+
+/* the spoken words: big, on pills, word by word. Screen-anchored, bottom-left. */
+#words { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; pointer-events: none; }
+.unit { position: absolute; left: 128px; bottom: 112px; width: 1540px; font-weight: 700; font-size: 76px;
+  line-height: 1.52; color: #fff; visibility: hidden; text-wrap: balance; }   /* no orphan words */
+.unit.big { font-size: 118px; line-height: 1.4; width: 1664px; }
+.unit .w { position: relative; z-index: 1; display: inline-block; padding: 0 0.02em; }
+.unit .keep { display: inline-block; white-space: nowrap; }
+.unit .pill { position: absolute; z-index: 0; background: var(--blue-deep); border-radius: 26px; }
+.unit .w.em { color: #fff; }
+.unit .pill-em { position: absolute; z-index: 0; background: var(--blue-mid); border-radius: 20px; }
+/* option B: one pill per word */
+.pills-word .unit .pill, .pills-word .unit .pill-em { display: none; }
+.pills-word .unit .w { background: var(--blue-deep); border-radius: 22px; padding: 0 0.2em; margin: 0.06em 0; }
+.pills-word .unit .w.em { background: var(--blue-mid); }

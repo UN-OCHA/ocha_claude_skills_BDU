@@ -510,6 +510,8 @@ Dash patterns scale too. For scripted generation use
 
 **`~/OCHA DMU Dropbox/<your-name>/Maps/location_maps_2024/`**
 
+Make the folder you need available offline first: see “Files from the BDU Dropbox” in `ocha-files-and-folders`.
+
 This folder is not only the projection library (§11) — it is OCHA’s finished location map
 set. **123 country folders**, each holding a built map. Opening one is almost always the
 right move: rebuilding the same map from the geodatabase is wasted work and the result

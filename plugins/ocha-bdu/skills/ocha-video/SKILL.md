@@ -9,7 +9,10 @@ description: >
   version for translation", "make a statement video" (or the older "statement clip"), "cut the
   USG/ASG's Security Council briefing", "clip this member-states briefing", "cut the noon
   briefing", "video message from [principal]", or wants a bespoke piece cut — a mission wrap-up,
-  a field film, an event recap. Carries the house rules that hold for EVERY OCHA video (no
+  a field film, an event recap. Also for any video's sound — "add a voiceover", "add music",
+  "find a sound effect", "the music is too loud", "mix the audio" (ElevenLabs voice, Flippermusic,
+  the BDU sound library, the three-layer mix) — and for review rounds ("review tool", "leave
+  comments on the video"); both shared with `ocha-animation`. Carries the house rules that hold for EVERY OCHA video (no
   fades, vignette, ending logo, caption standard per format, approval flow, 4-folder package)
   and routes to the deep procedure for the job in hand. Renders through the OCHA QuickVid
   engine, which this skill offers to install the first time it is needed. Runs fully local (ffmpeg + cairosvg/resvg + faster-whisper);
@@ -286,12 +289,34 @@ Python to avoid the bash rm-guard. Convert relative dates to absolute in the REA
 
 ---
 
+## 8 · Voice, music, sound effects and review — shared with `ocha-animation`
+
+Any video that gets a voiceover, music or sound effects, and any job with review rounds:
+
+- **Voice** — ElevenLabs on its free credits: ask the person to create a free account if they have
+  none. **Music** — Flippermusic, BDU’s subscription: the login and password are on our Trello
+  (BDU work plan → Design resources → “Music archive from Matteo + Flipper”). **Sound effects** — the
+  BDU library in Dropbox, `Design/Resources/SFX/` (BoomBox with a searchable index, older collections,
+  single downloads). **The mix** — three layers at constant levels: voice on top, effects in the
+  middle, music lowest; nothing ducks. Read **`references/sound-voice-music.md`** first.
+- **Review** — the frame-comment review tool: **`references/review-tool.md`**.
+- Tools: `scripts/audio/mix.py` (the mix under the picture), `scripts/audio/voice_clarity.py` (does
+  the voice stand out, word by word), `scripts/review/` (the review tool).
+- The reference for all of it is the SG Awards 2026 Dataviz film:
+  [watch it](https://www.dropbox.com/scl/fi/a7a1kd3fhx60f35xyecl2/sg_awards_2026_film_1920x1080.mp4?rlkey=xm4o8g38esx4a94jsmyvms8aq&dl=0).
+
+---
+
 ## References
 
 - **`references/statement-video.md`** — the statement pipeline, end to end.
 - **`references/branding.md`** — the render contract: one command, `job.json` schema, every
   element, the blurred-fill reel, clean masters, Spanish glossary.
 - **`references/bespoke-edits.md`** — multi-clip assembly for mission films and recaps.
+- **`references/sound-voice-music.md`** — voice (ElevenLabs), music (Flippermusic), sound effects (the
+  BDU library) and the three-layer mix. Shared with `ocha-animation`.
+- **`references/review-tool.md`** — the frame-comment review tool and the fix-and-reply loop. Shared
+  with `ocha-animation`.
 
 ## Assets
 
@@ -299,6 +324,9 @@ Python to avoid the bash rm-guard. Convert relative dates to absolute in the REA
   `brand/brand.json` → `ending.asset` (the click .mov);
   `assets/OCHA_logo_horizontal_white.svg`; Raleway at `/Library/Fonts/Raleway/static/`.
 - Download tool: `video_editing/tools/un-webtv-download.sh` in the same repo.
-- Scripts ship with this skill: `scripts/render_social_video.py`, `scripts/transcribe.py`.
+- Scripts ship with this skill: `scripts/render_social_video.py`, `scripts/transcribe.py`,
+  `scripts/audio/` (mix, voice clarity), `scripts/review/` (the review tool).
+- Sound effects: `~/OCHA DMU Dropbox/<your-name>/Design/Resources/SFX/` (see
+  `references/sound-voice-music.md`). Make it available offline first: see “Files from the BDU Dropbox” in `ocha-files-and-folders`.
 
 — OCHA Brand and Design Unit (BDU) · ochavisual@un.org

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/kit.css">
+<link rel="stylesheet" href="/review.css">
+<script src="https://kit.fontawesome.com/f4c1c5435d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<a class="cd-skip-link" href="#main">Skip to main content</a>
+<header class="app-header">
+  <img class="app-header__logo" src="/logo.svg" alt="OCHA">
+  <div class="app-header__titles">
+    <h1 class="app-header__title" id="rv-title">Review</h1>
+    <p class="app-header__subtitle">Pause anywhere, click the picture and type. Drag to mark an area.</p>
+  </div>
+  <label class="rv-version"><span class="cd-form__label">Render</span>
+    <select id="version" class="cd-form__input"></select></label>
+</header>
+
+<main id="main" class="rv-main">
+  <section class="rv-watch" aria-label="Film">
+    <div class="rv-stage" id="stage">
+      <video id="video" class="app-player" preload="auto" playsinline></video>
+      <div class="rv-overlay" id="overlay" aria-label="Click to comment on this frame"></div>
+    </div>
+    <div class="rv-transport">
+      <button class="cd-button cd-button--outline cd-button--small" data-step="-30" title="Back 1 second (Shift + ←)" aria-label="Back 1 second"><i class="fa-regular fa-backward" aria-hidden="true"></i></button>
+      <button class="cd-button cd-button--outline cd-button--small" data-step="-1" title="Back 1 frame (←)" aria-label="Back 1 frame"><i class="fa-regular fa-backward-step" aria-hidden="true"></i></button>
+      <button class="cd-button cd-button--small" id="play" title="Play or pause (Space)" aria-label="Play"><i class="fa-regular fa-play" aria-hidden="true"></i><span>Play</span></button>
+      <button class="cd-button cd-button--outline cd-button--small" data-step="1" title="Forward 1 frame (→)" aria-label="Forward 1 frame"><i class="fa-regular fa-forward-step" aria-hidden="true"></i></button>
+      <button class="cd-button cd-button--outline cd-button--small" data-step="30" title="Forward 1 second (Shift + →)" aria-label="Forward 1 second"><i class="fa-regular fa-forward" aria-hidden="true"></i></button>
+      <span class="rv-timecode mono" id="timecode" aria-live="off">0:00.00</span>
+      <span class="app-hint mono" id="frame">frame 0</span>
+      <select id="speed" class="cd-form__input rv-speed" aria-label="Playback speed">
+        <option value="1">Speed 1×</option><option value="0.5">Speed ½×</option><option value="0.25">Speed ¼×</option>
+      </select>
+    </div>
+    <div class="rv-track" id="track" role="slider" tabindex="0" aria-label="Position in the film">
+      <div class="rv-track__bar"><div class="rv-track__fill" id="fill"></div></div>
+      <div id="marks"></div>
+    </div>
+    <p class="rv-context"><strong id="scene"></strong> <span id="spoken" class="app-hint"></span></p>
+    <p class="app-hint">Keys: Space play or pause · ← → one frame · Shift + ← → one second · Enter saves a comment, Esc cancels.</p>
+  </section>
+
+  <aside class="rv-comments cd-card" aria-label="Comments">
+    <div class="cd-card__content cd-flow">
+      <h2 class="cd-block-title">Comments</h2>
+      <div class="cd-alert cd-alert--error" id="err" role="alert" style="display:none"><p class="cd-alert__message" id="err-msg"></p></div>
+      <div class="mode-tabs" role="tablist">
+        <button class="mode-tab is-active" data-filter="active" role="tab">To do <span id="n-active"></span></button>
+        <button class="mode-tab" data-filter="all" role="tab">All <span id="n-all"></span></button>
+      </div>
+      <p class="app-hint" id="empty">No comments yet. Pause, click the picture, and type.</p>
+      <ol class="rv-list" id="list"></ol>
+    </div>
+  </aside>
+</main>
+<script src="/review.js"></script>
+</body>
+</html>

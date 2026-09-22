@@ -121,7 +121,7 @@ humanitarian icons. They look different, live somewhere else and follow differen
 | **Format** | SVG |
 
 The personal-folder part of that path differs per person. If it misses, search the DMU
-Dropbox for `svg_2025`. To find a country, match its ISO3 code case-insensitively
+Dropbox for `svg_2025`. The folder must be available offline (see “Files from the BDU Dropbox” in `ocha-files-and-folders`). To find a country, match its ISO3 code case-insensitively
 (`ls | grep -i '_hti\.svg'`) rather than guessing the exact name.
 
 **Use them to** mark which country a card, chart, dashboard tile or report section is

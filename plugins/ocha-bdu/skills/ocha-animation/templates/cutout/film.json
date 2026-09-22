@@ -1,0 +1,6 @@
+{
+ "_comment": "The film's settings, read by the kit's tools. name: the job folder's name (file names start with it). music: the track under the film, once chosen (mix.py and sfx_audition.py use it). new_cutout_film.py fills name and title.",
+ "name": "cutout_demo",
+ "title": "Cut-out demo",
+ "music": {"file": "", "offset": 0.0, "db": -24}
+}

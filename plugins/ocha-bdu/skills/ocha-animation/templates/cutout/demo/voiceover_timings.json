@@ -1,0 +1,24 @@
+{
+ "_comment": "The kit's demo: two lines with hand-set word times and no recording, so the demo film builds before any voice exists. word_timings.py writes the real file, measured from the voice, over this one.",
+ "lines": [
+  {"line": 1, "text": "When a crisis hits, questions come first.", "start": 0.0, "end": 2.8},
+  {"line": 2, "text": "Data turns them into answers everyone can see.", "start": 3.6, "end": 6.6}
+ ],
+ "words": [
+  {"line": 1, "word": "When", "start": 0.0, "end": 0.2},
+  {"line": 1, "word": "a", "start": 0.2, "end": 0.28},
+  {"line": 1, "word": "crisis", "start": 0.28, "end": 0.72},
+  {"line": 1, "word": "hits,", "start": 0.72, "end": 1.1},
+  {"line": 1, "word": "questions", "start": 1.45, "end": 2.02},
+  {"line": 1, "word": "come", "start": 2.02, "end": 2.28},
+  {"line": 1, "word": "first.", "start": 2.28, "end": 2.8},
+  {"line": 2, "word": "Data", "start": 3.6, "end": 4.0},
+  {"line": 2, "word": "turns", "start": 4.0, "end": 4.3},
+  {"line": 2, "word": "them", "start": 4.3, "end": 4.45},
+  {"line": 2, "word": "into", "start": 4.45, "end": 4.65},
+  {"line": 2, "word": "answers", "start": 4.65, "end": 5.2},
+  {"line": 2, "word": "everyone", "start": 5.4, "end": 5.92},
+  {"line": 2, "word": "can", "start": 5.92, "end": 6.08},
+  {"line": 2, "word": "see.", "start": 6.08, "end": 6.6}
+ ]
+}

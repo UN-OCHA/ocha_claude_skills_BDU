@@ -8,7 +8,7 @@ description: >
   or finishing a job. Trigger on "save this", "export", "where should this go", "name
   the file", "folder structure", "organise the folder", "clean up the folder", "final
   version", "archive", "we're done", "PNG or JPEG", "which format", "file too big", "re-export", "update the file",
-  "pick up this job", "where does this stand", "README", "CLAUDE.md", "project notes",
+  "pick up this job", "where does this stand", "make available offline", "online only", "file is empty", "README", "CLAUDE.md", "project notes",
   "document this", "editable .ai", "Illustrator file", "export to Illustrator", "send it to the
   designer", "they want to edit it". Also use when starting a job or coming back to one: every job keeps a
   README.md and a CLAUDE.md. The other OCHA skills point here for every file and
@@ -31,6 +31,19 @@ video skill’s thumbnail, the logo skill’s artboards — but they follow thes
 - `<job_name>` is short and lowercase, with words joined by `_`: `humanifesto`,
   `hl_dashboard`.
 - Save everything into the job folder. Never into a temporary folder, where it gets lost.
+
+### Files from the BDU Dropbox
+
+The OCHA skills point to shared folders in the BDU Dropbox: logos, icons, geodata, the sound library,
+ready-made maps. Dropbox often keeps folders online only, so a file can look present but be empty or fail
+to open.
+
+- **Before a job that needs a Dropbox folder** (one of those, or the job folder itself), tell the user
+  which folder and ask them to right-click it and choose **Make available offline**. Only that folder,
+  not the whole Dropbox: some are large.
+- **On a Mac, check first when you can:** online-only files show as `dataless` in `ls -lO`.
+- **If a file reads as empty, won’t open, or a folder looks incomplete,** stop and ask for the same thing.
+  Never work around it with a copy from elsewhere or a download from the web.
 
 ## 2. Inside every job: the same folders
 
@@ -174,9 +187,13 @@ Aim for the best quality at the smallest file size.
 | Flat colour, text, icons, charts, maps — no photos or raster effects | **PNG** |
 | Needs a transparent background | **PNG** — JPEG can’t do transparency |
 | Photos, grain, textures, blur, soft shadows | **JPEG**, quality 80–85 |
-| A photo with crisp text on top | JPEG at higher quality, or PNG if the size stays reasonable — compare both |
+| A photo with crisp text on top | JPEG at higher quality, or PNG if that is lighter — test both, deliver one |
 | Someone will edit it in Illustrator (a designer, a partner, a country office) | An **editable .ai** as well, next to the PDF or SVG — see below |
 
+- **One raster file per image.** Never deliver a PNG and a JPEG of the same thing: deliver the lighter
+  one at the highest quality. Pick the format from the table. When it’s a close call, test both in
+  `assets/`, keep the lighter one that looks identical at full size, and delete the test. Only the
+  winner goes into `export/`.
 - **Don’t rasterise what can stay vector.** PNG and JPEG are for destinations that need an
   image: social media, slides, email, some web tools.
 - **Flat graphics can often go smaller** with a reduced colour palette (8-bit PNG) and no
@@ -184,7 +201,6 @@ Aim for the best quality at the smallest file size.
 - **JPEG above quality 90 buys almost nothing** but makes the file much bigger.
 - **Export at the size the destination shows it** (twice that only when a high-density
   version is asked for). An oversized image is the most common reason a file is heavy.
-- **When unsure, export both** and keep the smaller one that looks identical at full size.
 
 ### Editable Illustrator file (.ai)
 
@@ -232,7 +248,7 @@ The tags don’t change how the page looks, so add them to the build template on
 
 When the work is delivered, go through this before calling it done:
 
-1. `export/` holds only the finals, named to §3, in the format §5 calls for, with no version numbers. No templates,
+1. `export/` holds only the finals, named to §3, in the one format §5 calls for (never a PNG and a JPEG of the same image), with no version numbers. No templates,
    asset folders, scripts or intermediate renders (see “Generated work” in §2).
 2. The top level holds only `source/`, `info/`, `assets/`, `export/`, `archive/`,
    `README.md` and `CLAUDE.md`. Tooling folders such as `build/` move into `assets/`.

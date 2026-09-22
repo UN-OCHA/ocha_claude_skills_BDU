@@ -1,0 +1,93 @@
+/* One world: everything lives on #world, which the camera moves and zooms. */
+#world { position: absolute; left: 0; top: 0; width: 1px; height: 1px; transform-origin: 0 0; }
+#backdrop { position: absolute; left: 0; top: 0; width: 1px; height: 1px; transform-origin: 0 0; }
+#lines { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+.wo { position: absolute; transform-origin: 50% 50%; will-change: transform, opacity; }
+.globe svg { display: block; }
+
+/* the cut-out look: a paper piece with a hand-cut edge and a hard shadow (filters in world.js) */
+.cut { filter: url(#cut0); }
+
+.qb { position: absolute; width: 180px; height: 180px; border-radius: 50%; background: #fff;
+  display: flex; align-items: center; justify-content: center; color: var(--red); }
+.qb .icon { height: 96px; line-height: 0; } .qb .icon svg { height: 100%; width: auto; display: block; }
+.qb.ink { color: var(--ink-2); }
+.num-w { position: absolute; font-family: 'Roboto Condensed', Roboto, sans-serif; font-size: 46px; white-space: nowrap;
+  color: var(--stone); transform-origin: 50% 50%; font-variant-numeric: tabular-nums; }
+.num-w.s { color: var(--ink-3); } .num-w.r { color: var(--red-text); } .num-w.b { font-weight: 700; }
+.gp { position: absolute; border-radius: 999px; }
+.gp.title { background: var(--ink-2); } .gp.text { background: var(--stone); }
+.gbar { position: absolute; background: var(--blue); transform-origin: 0 50%; }
+.float-w { position: absolute; line-height: 0; transform-origin: 50% 50%; }
+.float-w svg { width: 100%; height: auto; display: block; }
+
+/* secondary life in the background: faint shapes that drift, with less parallax than the world */
+.bg { position: absolute; border: 4px solid var(--grid); border-radius: 50%; opacity: 0.9; }
+.bg.sq { border-radius: 8px; } .bg.x { border: 0; color: var(--grid); font-weight: 300; font-size: 64px; line-height: 1; }
+
+/* ---------- the spoken words: three treatments, chosen with ?text= ---------- */
+.unit .w { will-change: transform, opacity; }
+/* B · paper cut-out labels, one per word — the locked look (19 Sept 2026). The paper is ::before,
+   which carries the cut edge and the shadow (--cut, set per word in world.js); the letters sit on
+   it untouched, so they stay crisp while the label boils. .w's z-index (film.css) keeps the
+   paper behind its own letters. */
+.text-cutout .unit { color: var(--ink); font-size: 80px; line-height: 1.55; }
+.text-cutout .unit .pill, .text-cutout .unit .pill-em { display: none; }
+.text-cutout .unit .w { padding: 0.02em 0.28em 0.06em; margin: 0.05em 0.02em; display: inline-block; transform-origin: 50% 60%; }
+.text-cutout .unit .w::before { content: ""; position: absolute; inset: 0; z-index: -1; background: #fff;
+  border-radius: 6px; filter: var(--cut, none); }
+.text-cutout .unit .w.em { color: #fff; }
+/* OCHA blue, not the darker blue (Javier, 19 Sept 2026). White on it is 3.0:1: enough for large
+   text (WCAG AA needs 3:1 from 24 px, or 18.7 px bold), and these words are 80 px bold. */
+.text-cutout .unit .w.em::before { background: var(--blue); }
+/* dark red for words; bright OCHA red is for shapes (Javier, 19 Sept 2026) */
+.text-cutout .unit .w.em.red::before { background: var(--red-text); }
+/* the last line is the biggest in the film; the sign-off line is the title, at the top */
+.text-cutout .unit.big { font-size: 124px; line-height: 1.45; width: 1664px; }
+.unit.signoff { top: 96px; bottom: auto; }
+.text-cutout .unit.signoff { font-size: 84px; }
+.unit.signoff .w.sub { font-size: 0.64em; }            /* "Made by OCHA’s Brand and Design Unit." — the byline */
+
+/* ---------- scenes 5–8 ---------- */
+.qb.answered { color: var(--blue); }                 /* a question answered: the same icon, now blue */
+.qb.lg { width: 220px; height: 220px; } .qb.lg .icon { height: 120px; }
+.qb.md { width: 150px; height: 150px; } .qb.md .icon { height: 82px; }
+.qb.team { color: var(--blue); }                    /* the humanitarian teams: on the side of the answers */
+.qb.on-blue { background: var(--blue); color: #fff; }
+.qb.sm { width: 120px; height: 120px; } .qb.sm .icon { height: 64px; }   /* the aid that comes out of the answers */
+.qb.xs { width: 84px; height: 84px; } .qb.xs .icon { height: 48px; }      /* a mark on a badge's shoulder: a question, then a clock */
+.qb.on-red { background: var(--red); color: #fff; }                        /* bright red is for shapes; white on it is an icon, not text */
+.gbar.track { background: var(--blob); }
+.gbar.funded { background: var(--blue-mid); }
+.device .drop { width: 86%; line-height: 0; }
+.device .drop svg { width: 100%; height: auto; display: block; }
+.device.doc .slot { width: 100%; display: flex; justify-content: center; overflow: hidden; }   /* the report's chart slides down out of the slot's top edge, not over the text lines */
+.device.doc .slot .drop { width: 94%; }
+.person { position: absolute; width: 54px; line-height: 0; transform-origin: 50% 100%; }
+.person svg { width: 100%; height: auto; display: block; }
+/* sign-off labels: paper (::before, with the cut edge) under crisp letters, like the word labels */
+.credit-w { position: absolute; padding: 16px 32px 18px; white-space: nowrap; isolation: isolate; }
+.credit-w::before { content: ""; position: absolute; inset: 0; z-index: -1; background: #fff; border-radius: 6px; filter: var(--cut, none); }
+.credit-w .who { font-weight: 700; font-size: 44px; color: var(--ink); }
+.credit-w .where { font-weight: 400; font-size: 32px; color: var(--ink-3); margin-left: 14px; }
+.credit-w.url-w { font-weight: 700; font-size: 46px; color: var(--blue-deep); }
+.credit-w.award-w { font-weight: 400; font-size: 32px; color: var(--ink-3); }
+/* the sign-off sheet: a full-screen sheet of paper that wipes in over the picture (review round 1).
+   It sits between the world and the words by document order — no z-index, or it would cover them. */
+.end-sheet { position: absolute; inset: 0; visibility: hidden; transform-origin: 30% 100%; }
+.end-paper { position: absolute; inset: -40px -40px -60px -60px; background: var(--blue-light); }   /* light blue, not OCHA blue: Javier, 20 Sept 2026 */
+/* the OCHA logo: the official file, untouched (no cut edge, no wobble, no shadow on it — brand rule),
+   with at least half the emblem's width as clear space all round: the blue logo on a card of white paper. */
+.end-logo { position: absolute; right: 120px; bottom: 90px; width: 400px; padding: 40px 48px; isolation: isolate; }
+.end-logo img { display: block; width: 100%; height: auto; }
+.end-logo::before { content: ""; position: absolute; inset: 0; z-index: -1; background: #fff; border-radius: 6px; filter: url(#cutw0); }
+
+/* the end: a black sheet wipes over everything, words included (it comes after #words and sits above) */
+.end-black { position: absolute; inset: 0; visibility: hidden; z-index: 10; transform-origin: 30% 100%; }
+.end-black .end-paper { background: #000; }
+/* C · bare type with a marker highlight */
+.text-marker .unit { color: var(--ink); font-size: 88px; line-height: 1.4; }
+.text-marker .unit .pill, .text-marker .unit .pill-em { display: none; }
+.text-marker .unit .w.em { color: var(--ink); }
+.text-marker .unit .mark { position: absolute; z-index: 0; background: #FFC800; transform-origin: 0 50%; }
+.text-marker .unit .w { position: relative; z-index: 1; }

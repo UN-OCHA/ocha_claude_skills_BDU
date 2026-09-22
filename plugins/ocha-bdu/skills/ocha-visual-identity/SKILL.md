@@ -164,6 +164,9 @@ lives in Javier's Dropbox:
 **Local path (canonical):**
 `~/OCHA DMU Dropbox/<your-name>/Design/Logos/ocha_logo/2024/OCHA_logo_2024/`
 
+This and every other Dropbox folder in this skill must be available offline on the user’s computer:
+see “Files from the BDU Dropbox” in `ocha-files-and-folders`.
+
 **Dropbox link (public):**
 https://www.dropbox.com/scl/fo/p8ii3zn8ixo99mjqr18ny/AGdbTBJZFDBdmxjjWbjmTjU?rlkey=rsoq8co6pzh09tcnf7xlgpmnm&dl=0
 
