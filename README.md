@@ -261,18 +261,20 @@ bottom → **Help & reinstall**, and install it again.
 
 ## 🧠 What model should I use?
 
-**Start with Sonnet.** Opus and Fable are more powerful but eat through your usage limits
-much faster — and for most of this work they won't give you a better result.
-
-Switch up only for the jobs that need real judgment:
+**Start with Sonnet.** It's the default, and the right one for updates and changes to work
+that already exists. If you're not happy with the result, switch to Opus.
 
 | What you're doing | Model |
 |---|---|
-| Branding a finished clip — subtitles, lower third, logo ending | **Sonnet** |
-| Charts, maps, icons, brand questions, packaging files | **Sonnet** |
+| Updates and changes: a new figure, a new size, a re-export | **Sonnet** |
+| Branding a finished clip, charts, maps, icons, brand questions | **Sonnet** |
+| Starting a new project that needs creativity | **Opus** |
+| Sonnet's result isn't good enough | **Opus** |
 | Choosing which 60 seconds to cut from a long briefing | **Opus** |
 | Translating subtitles | **Opus** |
 | Something broke and you need it debugged | **Opus** |
+
+**Fable:** only occasionally. It uses far more of your allowance.
 
 You can switch models in the middle of a session — the work carries over.
 
