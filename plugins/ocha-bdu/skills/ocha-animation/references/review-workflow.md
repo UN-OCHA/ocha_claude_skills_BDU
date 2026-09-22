@@ -38,3 +38,7 @@ get approval, then render once.
 - One contact sheet per question, options labelled A / B / C with what differs in words.
 - Recommend one option and say why in a line.
 - Previews live with the tooling, not with the deliverables.
+- **Review rounds on renders go through the review tool** — comments pinned to exact frames, each
+  answered with the version that fixed it: `ocha-video` → `references/review-tool.md`.
+- **After a re-render, prove only the asked-for frames changed:** hash every frame against the previous
+  render's; any other frame that differs is a finding, not noise.

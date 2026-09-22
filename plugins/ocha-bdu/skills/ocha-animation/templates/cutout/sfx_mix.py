@@ -6,7 +6,8 @@ uses and how loud, then places every cue on the film clock:
 
     python3 sfx_mix.py            # writes audio/sfx_track.wav + audio/sfx_cues.json, prints the cue sheet
     python3 sfx_mix.py --list     # only prints the cue sheet
-    python3 sfx_mix.py --strikes  # checks every one-off's recording is ONE strike (one icon, one sound)
+    python3 sfx_mix.py --strikes  # checks every appearance sound is ONE strike (one icon, one sound)
+    python3 sfx_mix.py --strikes "Paper Flap 02|Tactile Feelings"   # …or candidates, before one goes in
 
 The recordings come from the BDU sound library in Dropbox (Design/Resources/SFX: BoomBox, by pack
 and title through BoomBox/boombox_index.csv, and the older collections by path), READ IN PLACE:
@@ -399,23 +400,44 @@ def build(cues, write=True):
     return sheet, vpeak, vrms
 
 
-def strikes(a, floor_db=20, dip_db=6):
-    """How many separate strikes a recording has: peaks of its 5 ms envelope within 20 dB of the loudest,
-    counted apart only when the sound dips at least 6 dB between them. One icon = one strike."""
-    blk = int(0.005 * RATE); env = np.abs(a[: len(a) // blk * blk]).reshape(-1, blk * 2).max(axis=1)
-    e = 20 * np.log10(np.maximum(env, 1e-9)); top = e.max(); n, lastpk, lo = 0, None, None
-    for i in range(1, len(e) - 1):
-        if e[i] >= e[i - 1] and e[i] > e[i + 1] and e[i] >= top - floor_db:
-            if lastpk is None: n, lastpk, lo = 1, e[i], e[i]; continue
-            if min(lastpk, e[i]) - lo >= dip_db: n += 1; lastpk = lo = e[i]
-            else: lastpk = max(lastpk, e[i])
-        if lastpk is not None: lo = min(lo, e[i])
-    return n
+def strikes(a):
+    """How many separate strikes a recording has — the SG film's counter, which found the multi-note sounds
+    (a 3-note "confirmation" chime, 2–4-note errors, 2–3-hit paper set-downs) and passed the singles Javier
+    then approved by ear. Peaks of the 5 ms envelope within 20 dB of the loudest; two count apart only if the
+    sound dips more than 6 dB below the smaller of them in between AND they are at least 60 ms apart —
+    without the 60 ms, the ripple in one sound's own tail reads as extra hits. One icon = one strike."""
+    env = np.abs(a).max(axis=1); w = int(0.005 * RATE); e = env[: len(env) // w * w].reshape(-1, w).max(axis=1)
+    d = 20 * np.log10(np.maximum(e, 1e-6)); top = d.max()
+    peaks = [i for i in range(1, len(d) - 1) if d[i] >= d[i - 1] and d[i] > d[i + 1] and d[i] > top - 20]
+    out = []
+    for i in peaks:
+        if not out:
+            out.append(i); continue
+        j = out[-1]
+        if d[j:i + 1].min() < min(d[j], d[i]) - 6 and i - j >= 12:
+            out.append(i)
+        elif d[i] > d[j]:
+            out[-1] = i
+    return len(out)
 
 
-def check_strikes():
-    """Every one-off kind's recordings, as the film plays them (filter and trim applied): one strike each?"""
+# The kinds that mark ONE thing appearing (an icon, a graph, a label): the single-strike rule applies to them.
+# Event sounds (a splash, breaking glass, a rumble, wind, a pen) and runs (processing, coins, a shuffle) are
+# naturally several strikes; the check lists them for information only.
+APPEARANCE = ("pop", "error", "blop", "chime", "dotchime", "paper")
+
+
+def check_strikes(candidates=()):
+    """Every appearance sound as the film plays it (filter and trim applied) — or candidates ("Title|Pack",
+    before one goes into PALETTE): one strike each?"""
     cat, bad = catalogue(), 0
+    if candidates:
+        for c in candidates:
+            title, _, pack = c.partition("|")
+            s, path = resolve(cat, title.strip(), pack.strip())
+            k = strikes(decode(path)) if s else None
+            print(f"  {s['title'] if s else c:<48} {'online-only, not checked' if k is None else f'{k} strike' + ('s' if k != 1 else '')}")
+        return
     for kind, recs in PALETTE.items():
         if kind in BEDS or kind in ("click1", "click2"):
             continue
@@ -425,19 +447,20 @@ def check_strikes():
                 print(f"  {kind:<10} {t if t != 'file' else p}: online-only on this Mac, not checked"); continue
             a = decode(path, FILTER.get(kind))
             if kind in TRIM: a = a[: int(TRIM[kind] * RATE)]
-            k = strikes(a); bad += k != 1 and kind not in ("rows", "coins", "crowdin", "peopleblue", "hop", "reveal", "whoosh")
-            print(f"  {kind:<10} {s['title'][:44]:<44} {k} strike{'s' if k != 1 else ''}")
-    print("one-offs with more than one strike (an icon would get several sounds):", bad or "none")
-    print("(runs and flourishes — rows, coins, crowdin, peopleblue, hop, reveal, whoosh — are meant to be several)")
+            k = strikes(a); flag = kind in APPEARANCE and k != 1; bad += flag
+            print(f"  {kind:<10} {s['title'][:44]:<44} {k} strike{'s' if k != 1 else ''}"
+                  + ("   ← an icon would get several sounds" if flag else "" if kind in APPEARANCE else "   (event or run: several is fine)"))
+    print(f"appearance sounds ({', '.join(APPEARANCE)}) with more than one strike: {bad or 'none'}")
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--list", action="store_true", help="print the cue sheet without writing the stem")
-    ap.add_argument("--strikes", action="store_true", help="check every one-off's recording is a single strike")
+    ap.add_argument("--strikes", nargs="*", metavar="TITLE|PACK",
+                    help="check the appearance sounds are single strikes (or these candidates, before choosing one)")
     a = ap.parse_args()
-    if a.strikes:
-        return check_strikes()
+    if a.strikes is not None:
+        return check_strikes(a.strikes)
     sheet, vpeak, vrms = build(get_cues(), write=not a.list)
     print(f"{len(sheet)} sounds · voice: typical peak {vpeak:.1f} dBFS, speech RMS {vrms:.1f} dBFS")
     for t, until, kind, label, snd, lvl, how in sheet:

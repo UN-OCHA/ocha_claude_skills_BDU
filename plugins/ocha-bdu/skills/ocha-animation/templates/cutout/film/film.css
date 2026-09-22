@@ -1,6 +1,7 @@
-/* SG Awards 2026 film — one continuous world. A single warm ground with a faint dot grid;
-   everything floats on it. OCHA palette only. Text contrast >= 4.5:1, 7:1 where possible; the one
-   exception is white on OCHA blue (3.0:1), used only for the 80 px bold word labels (world.css). */
+/* Cut-out style (from the SG Awards 2026 film) — one continuous world. A single warm ground with a
+   faint dot grid; everything floats on it. OCHA palette only. Text contrast >= 4.5:1, 7:1 where
+   possible; the one exception is white on OCHA blue (3.0:1), used only for the 80 px bold word labels
+   (world.css). Roboto and Roboto Condensed must be installed (world.js warns on the picture if not). */
 :root {
   --ground: #EDEAE6;    /* Slate Grey ramp, lightest */
   --grid: #D6D0CA;

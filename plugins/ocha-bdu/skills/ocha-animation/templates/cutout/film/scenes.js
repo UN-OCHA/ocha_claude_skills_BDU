@@ -19,19 +19,19 @@
   focus({ from: L1[4].start, to: line(1).end + 0.3, x: 330, y: -80, amount: 0.12 });   // lean toward what is named
 
   // ---------- 1 · "When a crisis hits, questions come first." ----------
-  const crises = [["Earthquake", -560, -110], ["Flood", -250, -250], ["Cyclone", -300, 70]]
+  const crises = [["Earthquake", -560, -110], ["Flood", -250, -250], ["Cyclone", -300, 20]]
     .map(([icon, x, y], i) => badge(icon, x, y, L1[2].start - 0.05 + i * 0.12, line(1).end + 0.9));   // on "crisis", one after another
   const q = badge("Help", 330, -80, L1[4].start - 0.03, line(1).end + 0.9, "lg on-red");              // on "questions"
   crises.forEach((c, i) => link(c.x, c.y, q.x, q.y, L1[4].start + 0.1 + i * 0.08, line(1).end + 0.7));
 
   // ---------- 2 · "Data turns them into answers everyone can see." ----------
-  const chart = piece(WF.hbar(), "float-w cut", 1600, -90, L2[0].start - 0.05, null,
+  const chart = piece(WF.hbar(), "float-w cut", 1600, -150, L2[0].start - 0.05, null,
                       { w: 560, mat: MAT.chart, from: 0.3 });                                  // on "Data": perfectly still, the clean result
   const answer = badge("Help", 1130, -250, L2[4].start - 0.03, null, "answered");              // on "answers": the question, answered (blue)
   link(answer.x, answer.y, chart.x - 200, chart.y - 60, L2[4].start + 0.15, null);
   const KINDS = ["Person-1", "Children", "Elderly", "Person-2", "Pregnant", "Infant", "People-with-physical-impairments"];
   const crowd = KINDS.map((k, i) => {
-    const x = 1240 + i * 100, n = el("div", "person cut", world, I[k]); setXY(n, x, 150);
+    const x = 1240 + i * 100, n = el("div", "person cut", world, I[k]); setXY(n, x, 105);
     return { n, x, id: 700 + i, at: L2[5].start - 0.05 + i * 0.07, litAt: L2[7].start - 0.05 + i * 0.05 };   // on "everyone"; blue on "see"
   });
   add(t => {
@@ -61,7 +61,7 @@
     question: { x: q.x, y: q.y, at: q.at },
     chart: { x: chart.x, y: chart.y, at: chart.at },
     answer: { x: answer.x, y: answer.y, at: answer.at },
-    crowd: { x: 1540, y: 150, at: Math.min(...crowd.map(p => p.at)), litAt: Math.min(...crowd.map(p => p.litAt)) },
+    crowd: { x: 1540, y: 105, at: Math.min(...crowd.map(p => p.at)), litAt: Math.min(...crowd.map(p => p.litAt)) },
     blackAt,
   });
   Object.assign(F.KEYS, { a: line(1).end - 0.1, b: L2[4].end + 0.3, c: scene(2).end - 0.2 });   // approval stills (stills.mjs)

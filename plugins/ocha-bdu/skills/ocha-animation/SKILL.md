@@ -7,16 +7,21 @@ description: >
   asks to "animate" something, make a "motion graphic", an "animated chart" or "data
   animation", a "looping video for screens", an "explainer" or "top donors / funding"
   film, to "make this move", "add transitions", "fix the easing", "it looks jumpy / not
-  smooth", "the exit looks odd", or to render an HTML/CSS animation to MP4. It covers HOW
-  things move, not how they look: take colours, type and logos from `ocha-visual-identity`,
-  chart rules from `ocha-dataviz`, and video branding, subtitles and packaging from
-  `ocha-video`.
+  smooth", "the exit looks odd", or to render an HTML/CSS animation to MP4. Also the named
+  animation style CUT-OUT — "cut-out", "the cut-out style", "paper cut-out", "stop-motion
+  paper", "like the SG Awards Dataviz animation", an animated explainer with a voiceover —
+  with its whole process (script, style inspiration, storyboard, voice, build, review rounds,
+  sound effects, music, export) and a starter kit. Voice, music, sound effects and the review
+  tool are shared with `ocha-video`. Otherwise it covers HOW things move, not how they look:
+  take colours, type and logos from `ocha-visual-identity`, chart rules from `ocha-dataviz`,
+  and video branding, subtitles and packaging from `ocha-video`.
 ---
 
 # OCHA Animation
 
-How OCHA animated graphics should **move**. The look comes from the other OCHA skills; this
-skill is about smoothness, sequencing, transitions and getting a frame-perfect file out.
+How OCHA animated graphics should **move**. The look comes from the other OCHA skills, except in a
+**named style** (below), which is a whole look, process and kit. Otherwise this skill is about
+smoothness, sequencing, transitions and getting a frame-perfect file out.
 
 Every rule here was learned the hard way on a real 75-second data film and corrected more
 than once. Follow them by default; break one only when the user asks.
@@ -29,7 +34,43 @@ than once. Follow them by default; break one only when the user asks.
 - `scripts/motion.js` — drop-in helpers: reversible entrances and exits, counters, the marker
   highlight, the wipe-cover calculation.
 - `scripts/render_frames.mjs` + `scripts/encode.sh` — capture every frame with headless
-  Chrome, then encode with ffmpeg.
+  Chrome, then encode with ffmpeg (full BT.709 colour tags; it warns if a tag goes missing).
+- `references/cutout-style.md`, `references/cutout-process.md`, `templates/cutout/`,
+  `scripts/new_cutout_film.py` — the cut-out style (below).
+
+---
+
+## Named styles
+
+### Cut-out
+
+Paper cut-outs in one continuous world: flat OCHA shapes and icons cut from paper, with a hand-cut
+edge and a hard shadow, moving in stop-motion, while the voiceover’s words land on paper labels as
+they are spoken. **The reference is the SG Awards 2026 Dataviz animation:**
+[watch it](https://www.dropbox.com/scl/fi/a7a1kd3fhx60f35xyecl2/sg_awards_2026_film_1920x1080.mp4?rlkey=xm4o8g38esx4a94jsmyvms8aq&dl=0).
+When someone asks for “cut-out” or “like the SG Awards Dataviz animation”, this is it.
+
+- **The look and the shaking:** `references/cutout-style.md` — read it before building one.
+- **The whole process**, script, style inspiration and storyboard through voice, review rounds, sound,
+  music and export: `references/cutout-process.md`.
+- **Start from the kit, never from scratch:**
+  `python3 scripts/new_cutout_film.py "<job folder>" --title "<Film title>"` copies the film’s engine,
+  its tools and a 9-second demo into the job’s `assets/build/`, with the shared audio and review tools
+  from `ocha-video`. `templates/cutout/README.md` lists every file and command.
+
+## Voice, music, sound effects and review — shared with `ocha-video`
+
+Every animation with sound, and every job with review rounds, follows the shared guides in the
+`ocha-video` skill (beside this one):
+
+- **`references/sound-voice-music.md`** — voice with ElevenLabs on its free credits (ask the person to
+  create a free account if they have none); music from Flippermusic (the login and password are on our
+  Trello); sound effects from the BDU library in Dropbox (`Design/Resources/SFX`: BoomBox with a
+  searchable index, older collections); the mix as three layers at constant levels, the voice on top.
+- **`references/review-tool.md`** — the review tool: comments on exact frames, answered version by
+  version.
+- Tools: `scripts/audio/mix.py`, `scripts/audio/voice_clarity.py`, `scripts/review/` (a cut-out job gets
+  its own copies from `new_cutout_film.py`).
 
 ---
 
@@ -52,7 +93,9 @@ Details and the page contract are in `references/engine.md`.
    sinking, a wipe by un-wiping, a line that draws on draws off, a count counts back down.
    Never a generic fade-out.
 2. **Text rises in, line by line.** Each line fades up on its own beat, about 0.12 s apart.
-   No typewriter for reading text, no mask or wipe reveals on text or icons.
+   No typewriter for reading text, no mask or wipe reveals on text or icons. (One exception: in
+   the cut-out style the voiceover’s words land one by one as they are spoken — captions timed to
+   the voice, not a typewriter.)
 3. **Icons scale from their own anchor**, usually bottom centre, and the element's box must
    hug the icon — a full-width box makes it grow from empty space.
 4. **Transform, don't replace.** A number that changes meaning slides into its new place and

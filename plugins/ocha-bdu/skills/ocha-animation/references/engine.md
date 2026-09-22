@@ -48,7 +48,10 @@ bash scripts/encode.sh frames film_1920x1080.mp4 30
 - `render_frames.mjs` launches the Chrome already on the machine in headless mode, calls
   `seek(t)` for every frame and saves a PNG. No npm install. Set `CHROME` if Chrome is not in
   the standard macOS location. `--scale 2` gives 3840×2160 frames.
-- `encode.sh` makes an H.264 MP4 (CRF 16, yuv420p, BT.709, fast-start) that plays everywhere.
+- `encode.sh` makes an H.264 MP4 (CRF 16, yuv420p, BT.709, fast-start) that plays everywhere. It
+  writes all three BT.709 tags into the stream and checks them afterwards: on ffmpeg 8.1 the usual
+  `-color_*` options alone left two of them “unknown”, which QuickTime can show washed out.
+- Sound goes on after the picture, never re-encoding it: `ocha-video` → `scripts/audio/mix.py`.
 - **Default 1920×1080.** Use `--scale 2` for 4K only when the user reports HD is not sharp
   enough on their screens.
 - The frame folder is large and scratch: delete it after encoding.

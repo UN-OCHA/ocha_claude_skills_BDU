@@ -48,7 +48,7 @@
 .text-cutout .unit.signoff { font-size: 84px; }
 .unit.signoff .w.sub { font-size: 0.64em; }            /* "Made by OCHA’s Brand and Design Unit." — the byline */
 
-/* ---------- scenes 5–8 ---------- */
+/* ---------- more pieces: answered and team badges, badge sizes, devices, people, the sign-off (as the SG film used them) ---------- */
 .qb.answered { color: var(--blue); }                 /* a question answered: the same icon, now blue */
 .qb.lg { width: 220px; height: 220px; } .qb.lg .icon { height: 120px; }
 .qb.md { width: 150px; height: 150px; } .qb.md .icon { height: 82px; }

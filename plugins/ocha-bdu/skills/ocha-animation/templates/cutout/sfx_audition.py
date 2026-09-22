@@ -31,7 +31,7 @@ FILM = json.loads((BUILD / "film.json").read_text(encoding="utf-8"))
 
 # Each set: the kinds it swaps, their level (dB under the voice), the options {name: (recordings, trim s)}
 # and, if needed, the clip (start, end) — by default from 0.6 s before the kind's first cue to 2 s after.
-# Search candidates in the library's BoomBox/boombox_index.csv; check each is ONE strike (sfx_mix.py --strikes).
+# Search candidates in the library's BoomBox/boombox_index.csv; check each is ONE strike first (python3 sfx_mix.py --strikes "Title|Pack").
 # The example is the SG film's second round for its blue-icon sound: Javier picked T1.
 AUDITIONS = {
     "chime": {
