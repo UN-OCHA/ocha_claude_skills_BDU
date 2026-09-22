@@ -10,7 +10,8 @@ description: >
   document, poster, social media graphic, or web page. Trigger on phrases
   like "OCHA brand", "OCHA colours", "UN Blue", "brand guidelines", "design
   system", "use our brand", "OCHA logo", "clear space", "one OCHA", "partner logo", "donor logo",
-  "co-branding", or the logo of any UN agency, donor, NGO or cluster. For
+  "co-branding", "font size", "leading", "line height", "spacing", "margins", "padding", "rule of 4",
+  "4-point grid", or the logo of any UN agency, donor, NGO or cluster. For
   specifically humanitarian maps, use `ocha-mapping`. For specifically charts
   and infographics, use `ocha-dataviz`. For the Illustrator dataviz plugin
   release process, use `ocha-dataviz-release`.
@@ -115,6 +116,23 @@ accent sits in the middle slot (step 4 or 5 depending on the ramp).
 - **Body text**: left-align, right-ragged. Never justified (hurts dyslexic readers).
 - **Column width**: 40–80 characters (~12 words/line) for comfortable reading.
 - **Numbers**: right-align. Round aggressively using k / M / B abbreviations in humanitarian contexts — precise figures imply certainty we usually don't have.
+- **Round type sizes.** Font sizes are whole numbers or halves: 13 or 13.5, never 13.234. Leading is a
+  whole number: 13/16, not 13/15.6. After scaling a layout to another size, round every type size and
+  leading again. In CSS, set `line-height` in px, or choose a multiplier that lands on a whole number
+  (`line-height: 1.3` on 46px gives 59.8px).
+
+### Spacing: the rule of 4
+
+Every space is a multiple of 4: margins, padding, gutters, the gap between a heading and its text, the
+space between elements. Use 4, 8, 12, 16, 20, 24, 32, 40, 48, 64 and so on, in px on screen and in pt in
+print (work in pt, not mm, so the multiples hold). The design system already follows it: its gutters are
+12, 24 and 40px.
+
+**2 is allowed for the smallest gaps only**, such as an icon and its label or a tight label. Above 4, stay on
+multiples of 4: no 6, 10 or 14.
+
+Where a standard sets its own value, the standard wins: the logo’s clear space (½ the emblem), a partner’s
+template, the A4 map baseline in `ocha-mapping`.
 
 ### Type scale (from the design system)
 
