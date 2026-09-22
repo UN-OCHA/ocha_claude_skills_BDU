@@ -53,9 +53,33 @@ Four things will bite you, in this order:
   for i in $(seq 1 60); do grep -qE "OK done|ABORT|ERROR" build.log && break; sleep 5; done
   ```
 
-- **Per-character loops are slow.** Reading `characterAttributes` for every
-  character in a document takes minutes. Read the whole `textRange` instead, and
-  only drop to characters when you must.
+- **Per-character loops are slow, and can crash Illustrator.** Reading
+  `characterAttributes` for every character in a document takes minutes, and in
+  Illustrator 2026 a loop reading every letter’s font and colour crashed it outright.
+  Read the whole `textRange` instead, and only drop to characters when you must.
+
+More that bit on 22 Sept 2026 (building `export_ai`, in `ocha-files-and-folders`):
+
+- **Global variables survive between runs.** Illustrator keeps a script’s globals alive
+  for the next `do javascript`, and `var R;` does not reset one. A leftover `R` made a
+  later run skip its work and report stale data. Wrap every script in
+  `(function () { … })();`.
+- **With several versions installed, name the app by path:**
+  `tell application "/Applications/Adobe Illustrator 2026/Adobe Illustrator.app"`.
+  The name “Adobe Illustrator 2026” is a syntax error to AppleScript.
+- **The first text read after opening a document sometimes fails** with
+  “Error 1200 … MRAP”. Close it, open it again and re-read: that works.
+- **Never close documents you didn’t open.** Keep a reference to your own document and
+  close that one, in a `finally`, so a failed run doesn’t leave it open either.
+- **Scripted kerning is ignored** while auto kerning is on. For extra space after a
+  letter, set `tracking` on that one letter.
+- **`\r` starts a new paragraph**, and a first-line indent then repeats on every line.
+  For a line break inside one paragraph use `\u0003`.
+- **Check what you set.** A nested `a ? b : c ? d : e` choosing `Justification` set
+  right-aligned text to centred without an error. Use a plain lookup and read the value back.
+- **A clipping group’s `geometricBounds` include what it hides.** For what you see, use
+  its clipping path’s bounds.
+- `app.redraw()` crashed Illustrator when called from a script run through `osascript`.
 
 `scripts/build_template.jsx` is an annotated skeleton with all of this wired up.
 

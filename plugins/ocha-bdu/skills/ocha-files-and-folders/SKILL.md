@@ -9,7 +9,8 @@ description: >
   the file", "folder structure", "organise the folder", "clean up the folder", "final
   version", "archive", "we're done", "PNG or JPEG", "which format", "file too big", "re-export", "update the file",
   "pick up this job", "where does this stand", "README", "CLAUDE.md", "project notes",
-  "document this". Also use when starting a job or coming back to one: every job keeps a
+  "document this", "editable .ai", "Illustrator file", "export to Illustrator", "send it to the
+  designer", "they want to edit it". Also use when starting a job or coming back to one: every job keeps a
   README.md and a CLAUDE.md. The other OCHA skills point here for every file and
   folder rule.
 ---
@@ -174,6 +175,7 @@ Aim for the best quality at the smallest file size.
 | Needs a transparent background | **PNG** — JPEG can’t do transparency |
 | Photos, grain, textures, blur, soft shadows | **JPEG**, quality 80–85 |
 | A photo with crisp text on top | JPEG at higher quality, or PNG if the size stays reasonable — compare both |
+| Someone will edit it in Illustrator (a designer, a partner, a country office) | An **editable .ai** as well, next to the PDF or SVG — see below |
 
 - **Don’t rasterise what can stay vector.** PNG and JPEG are for destinations that need an
   image: social media, slides, email, some web tools.
@@ -183,6 +185,48 @@ Aim for the best quality at the smallest file size.
 - **Export at the size the destination shows it** (twice that only when a high-density
   version is asked for). An oversized image is the most common reason a file is heavy.
 - **When unsure, export both** and keep the smaller one that looks identical at full size.
+
+### Editable Illustrator file (.ai)
+
+Anything built as a page (HTML one-pager, infographic, poster, slide) or as an SVG (chart, map)
+can also go out as an **editable .ai**: the same artwork, with live text and named layers.
+
+```bash
+python3 <skill>/scripts/export_ai/export_ai.py page.html -o export/<name>.ai
+python3 <skill>/scripts/export_ai/export_ai.py chart.svg -o export/<name>.ai
+```
+
+`<skill>` is the folder this file is in. Give the `.ai` the same name as the PDF or SVG it goes
+with, in `export/`.
+
+**What you get:** the artwork exactly as Chrome draws it. The text is live, one text object per
+block (heading, paragraph, label), in the real fonts, sizes, colours and spacing, with bold
+words kept and each block aligned as on the page (left, right or centred), so it grows the right
+way when edited. Layers come from tags in the source:
+
+| Attribute | Put it on | What it does |
+|---|---|---|
+| `data-ai-layer="Globes"` | any element | Artwork inside it goes to that layer. When tags nest, the smallest area wins. |
+| `data-ai-name="3 Afghanistan"` | any element | Groups its artwork under that name, and names the text inside it (“3 Afghanistan - ask”). |
+| `data-ai-text-layer="Labels"` | any element | Text inside it goes to that layer. Default: Text. |
+
+Untagged work still exports, into Text, Graphics and Background (anything covering the page).
+The tags don’t change how the page looks, so add them to the build template once.
+
+**Rules**
+- **Never open the PDF in Illustrator and save it as .ai.** That gives one text box per letter.
+  Use the script.
+- **Read the report it prints.** “Check” compares every letter with the PDF: expect a median
+  offset around 0.1pt and no solid pixel differences. Anything listed as “NOT converted” stays as
+  imported letters in the layer “Text (not converted)”. Nothing is ever dropped.
+- Close the `.ai` in Illustrator before exporting over it. It needs macOS, Chrome, Illustrator
+  (2024 or later) and the fonts installed, so it can’t run in a Cowork cloud session.
+- One page per export.
+- **Known limits.** CSS gradients arrive as pattern fills. Underlines and highlights are separate
+  shapes, so move them with the text. Text at angles other than 0, 90, 180 or 270 degrees stays as
+  imported letters. Large headings may sit up to about 1pt off, because Illustrator kerns slightly
+  differently. Ligatures such as “ffi” may be set as separate letters.
+- The PDF stays the approved deliverable. The `.ai` is the editable copy of it.
 
 ## 6. Closing a job
 

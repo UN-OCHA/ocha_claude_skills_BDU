@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420" font-family="Roboto, sans-serif">
+  <rect width="640" height="420" fill="#FFFFFF" data-ai-layer="Background"/>
+  <g data-ai-text-layer="Titles">
+    <text x="32" y="44" font-size="22" font-weight="700" fill="#1F1F1F">
+      <tspan x="32" dy="0">Funding received by appeal</tspan>
+      <tspan x="32" dy="27">January–August 2026</tspan>
+    </text>
+    <text x="32" y="98" font-size="12" fill="#595959">US$ million · test data for the export tool, not real figures</text>
+  </g>
+  <g data-ai-layer="Bars" transform="translate(180,120)">
+    <g data-ai-name="Sudan"><rect x="0" y="0" width="380" height="26" fill="#009EDB"/></g>
+    <g data-ai-name="Occupied Palestinian Territory"><rect x="0" y="40" width="300" height="26" fill="#009EDB"/></g>
+    <g data-ai-name="Ukraine"><rect x="0" y="80" width="210" height="26" fill="#009EDB"/></g>
+    <g data-ai-name="Afghanistan"><rect x="0" y="120" width="150" height="26" fill="#64BEEB"/></g>
+    <g data-ai-name="Yemen"><rect x="0" y="160" width="96" height="26" fill="#64BEEB"/></g>
+  </g>
+  <g data-ai-text-layer="Labels" font-size="12" fill="#1F1F1F">
+    <text x="170" y="137" text-anchor="end">Sudan</text>
+    <text x="170" y="177" text-anchor="end">Occupied Palestinian Territory</text>
+    <text x="170" y="217" text-anchor="end">Ukraine</text>
+    <text x="170" y="257" text-anchor="end">Afghanistan</text>
+    <text x="170" y="297" text-anchor="end">Yemen</text>
+    <text x="566" y="137" font-weight="700">1,520</text>
+    <text x="486" y="177" font-weight="700">1,198</text>
+    <text x="396" y="217" font-weight="700">842</text>
+    <text x="336" y="257" font-weight="700">601</text>
+    <text x="282" y="297" font-weight="700">384</text>
+  </g>
+  <g data-ai-layer="Axis" stroke="#CBBE9F" stroke-width="1">
+    <line x1="180" y1="112" x2="180" y2="314"/>
+    <line x1="180" y1="314" x2="600" y2="314"/>
+  </g>
+  <text x="390" y="336" text-anchor="middle" font-size="11" fill="#595959" data-ai-text-layer="Labels">Funding received (US$ million)</text>
+  <text transform="translate(24,214) rotate(-90)" text-anchor="middle" font-size="11" fill="#595959" data-ai-text-layer="Labels">Appeal</text>
+  <text x="32" y="396" font-size="10" fill="#8A847B" font-style="italic" data-ai-text-layer="Titles">Source: test data. Created with the OCHA export tool test suite.</text>
+</svg>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>export_ai test page</title>
+<!-- No data-ai-* tags on purpose: tests the default layers (Text / Graphics / Background),
+     and text that doesn't fit one paragraph. Test content only. -->
+<style>
+  @page { size: 148mm 210mm; margin: 0; }
+  html, body { margin: 0; }
+  body { width: 148mm; height: 210mm; font-family: "Roboto", sans-serif; color: #1F1F1F; background: #FFFAED; }
+  .page { padding: 10mm; }
+  .eyebrow { font-family: "Roboto Condensed", sans-serif; font-weight: 700; font-size: 8pt; letter-spacing: 0.12em;
+             text-transform: uppercase; text-align: center; color: #57524A; margin: 0 0 3mm; }
+  h1 { font-weight: 900; font-size: 20pt; line-height: 1.1; text-align: center; margin: 0 0 5mm; }
+  .rule { width: 20mm; height: 1.2mm; background: #FFC800; margin: 0 auto 6mm; }
+  p.just { font-size: 9pt; line-height: 1.4; text-align: justify; margin: 0 0 5mm; }
+  .boxl { float: left; width: 24mm; height: 8mm; background: #64BEEB; margin: 0 4mm 1mm 0; }
+  .box { float: right; width: 36mm; height: 24mm; background: #009EDB; margin: 0 0 2mm 4mm; }
+  p.wrap { font-size: 9pt; line-height: 1.4; margin: 0 0 5mm; }
+  ul { font-size: 9pt; line-height: 1.4; margin: 0 0 5mm; padding-left: 5mm; }
+  .right { text-align: right; font-size: 8pt; color: #57524A; }
+  .right b { color: #0E0E0D; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="eyebrow">Test page · export tool</div>
+  <h1>Centred heading that wraps onto a second line</h1>
+  <div class="rule"></div>
+  <p class="just">This paragraph is justified, so the spaces between words stretch to fill each line. The export
+  has to keep every word where Chrome put it, with the extra room carried on the spaces, while the text stays one
+  editable paragraph in Illustrator.</p>
+  <div class="box"></div>
+  <p class="wrap">This paragraph wraps round a box on the right, so its first lines are shorter than the last
+  ones. Every line still starts at the same left edge, so it stays one editable paragraph in Illustrator, with
+  the line breaks exactly where Chrome put them.</p>
+  <div class="boxl"></div>
+  <p class="wrap">This one wraps round a box on the left, so its first two lines start further right than the
+  rest. One paragraph can’t do that in Illustrator, so each line becomes its own text object, grouped under the
+  paragraph’s name, and every word still sits exactly where the page has it.</p>
+  <ul>
+    <li>A bullet list item, whose bullet Chrome draws on its own</li>
+    <li>A second item with <b>bold words</b> in it</li>
+  </ul>
+  <div class="right">Right-aligned note with <b>bold</b> text<br>and a forced line break</div>
+</div>
+</body>
+</html>
