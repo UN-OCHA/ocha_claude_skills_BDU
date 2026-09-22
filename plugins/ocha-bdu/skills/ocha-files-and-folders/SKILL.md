@@ -7,7 +7,10 @@ description: >
   tidying a job folder, naming a file, handling draft versions, archiving old versions,
   or finishing a job. Trigger on "save this", "export", "where should this go", "name
   the file", "folder structure", "organise the folder", "clean up the folder", "final
-  version", "archive", "we're done", "PNG or JPEG", "which format", "file too big", "re-export", "update the file". The other OCHA skills point here for every file and
+  version", "archive", "we're done", "PNG or JPEG", "which format", "file too big", "re-export", "update the file",
+  "pick up this job", "where does this stand", "README", "CLAUDE.md", "project notes",
+  "document this". Also use when starting a job or coming back to one: every job keeps a
+  README.md and a CLAUDE.md. The other OCHA skills point here for every file and
   folder rule.
 ---
 
@@ -38,12 +41,34 @@ video skill’s thumbnail, the logo skill’s artboards — but they follow thes
              fonts, cleaned data, scripts
   export/    the finals only, one file per deliverable
   archive/   optional: older versions worth keeping
-  README.md  what it is, who asked for it, how it was made, how to edit it
+  README.md  for people: what it is, who asked for it, where the finals are, how to edit them
+  CLAUDE.md  for Claude: decisions, sources, how to rebuild, what is still open
 ```
 
 - Create only the folders the job needs. Nothing else at the top level.
 - Recurring outputs (a weekly email, a monthly update) get a dated folder inside
   `export/`: `export/2026-09-14_priorities/`.
+
+### Notes for next time: `README.md` and `CLAUDE.md`
+
+Every job folder has two notes files at the top level. They are what the next session, a
+colleague or another computer starts from. A conversation stays on one computer, and over a
+long session its early parts get condensed; the notes keep the details.
+
+- **`README.md`, for people:** what it is, who asked for it, where the finals are, how to
+  edit them.
+- **`CLAUDE.md`, for Claude:** what was decided and why, the cleared wording and where the
+  figures came from, how to rebuild each final, what is still open, and who is working on
+  it now.
+
+- **Create both when the job starts,** without being asked.
+- **Update them before the end of every working session,** not only when the job closes.
+  A session can end at any point; the notes should never be behind the work.
+- **Picking up an existing job:** read both before changing anything, then say in plain
+  words where it stands. Open the job folder itself in Claude Code and its `CLAUDE.md` is
+  read automatically at the start of every session.
+- Write down decisions, not a diary. Use full dates, never “yesterday” or “last week”.
+- Never put a password or token in them: job folders are shared.
 
 ### Generated work: build files stay in `assets/`, only the result goes to `export/`
 
@@ -165,8 +190,8 @@ When the work is delivered, go through this before calling it done:
 
 1. `export/` holds only the finals, named to §3, in the format §5 calls for, with no version numbers. No templates,
    asset folders, scripts or intermediate renders (see “Generated work” in §2).
-2. The top level holds only `source/`, `info/`, `assets/`, `export/`, `archive/` and
-   `README.md`. Tooling folders such as `build/` move into `assets/`.
+2. The top level holds only `source/`, `info/`, `assets/`, `export/`, `archive/`,
+   `README.md` and `CLAUDE.md`. Tooling folders such as `build/` move into `assets/`.
 3. Older versions: ask whether to delete them or move them to `archive/`.
 4. Delete what nobody will open again: tests, previews, logs, temporary renders, one-off
    scripts. Scripts needed to rebuild the work stay, in `assets/`.
@@ -175,7 +200,8 @@ When the work is delivered, go through this before calling it done:
 6. If you moved build files or rebuilt anything, run the build once more and confirm it
    still writes the final into `export/`. Then compare the new file with the previous
    final: a browser or tool update can change the output even when nothing else did.
-7. Update `README.md` so it describes the folders as they now are.
+7. Update `README.md` and `CLAUDE.md` so they describe the job as it now stands: the
+   folders, what was decided, and anything left open.
 8. **Look before calling it done.** List the job folder and `export/`, and check what is
    actually there against this list. Having followed the steps is not the same as the
    folder being right.
