@@ -41,8 +41,13 @@ a job that will stall halfway.
    - **Or paste the brief** into the chat: the cleared copy per slide, the photo link(s) per slide, and
      any credits or notes from the comments.
    Don’t start building from a card you can’t read, and don’t guess copy.
-4. **MediaValet** — photos. Until BDU’s API access is live (§2), photos are downloaded through the
-   MediaValet web app in Chrome, signed in with the BDU team account.
+4. **MediaValet** — photos come straight from the MediaValet API (§2). Each Mac needs a one-time setup:
+   - the **Client ID**, **Secret** and **Primary Key** — tell the colleague to **ask Javier Cueto
+     (cuetoj@un.org)** for them. Never ask them to paste these into the chat: run `mediavalet.py setup`, which opens
+     private dialogs and stores them locally;
+   - one browser sign-in with the BDU team MediaValet account (`mediavalet.py login`).
+   If setup isn’t done yet, the fallback is the MediaValet web app in Chrome (§2), signed in with the BDU
+   team account.
 
 Then tell the person, once, that **some Canva steps can’t be done through the connector and will be done
 in their Chrome** (§4), so they’re not surprised when Chrome moves.
@@ -74,19 +79,33 @@ around the font limit. Using the Canva desktop app instead of Chrome does not ch
 
 ## 2. Photos (MediaValet)
 
-**Now (web app, Chrome):** open each asset link → Show details. Record the **credit** (in the
-description, “Credit: …”) and caption. Download with **Download → Advanced Download → Custom → Format JPG,
-Original Size, sRGB, no watermark → Download**. The file arrives as a zip once “Ready for download”
-appears (download panel). **Never use Quick Download** — it gives a 1504 px preview.
-Save originals to `source/photos_mediavalet/` and credits to `info/photos_and_credits.md`.
+**Main route — API** (set up once per Mac, see §0):
 
-**Later (API):** BDU is setting up MediaValet API access. Once it is live, a downloader script will
-replace the Chrome step.
+```bash
+python3 ~/.claude/skills/ocha-social-media/scripts/mediavalet.py setup     # once per Mac: Client ID + Secret + Primary Key (ask Javier)
+python3 ~/.claude/skills/ocha-social-media/scripts/mediavalet.py login     # once per Mac: browser sign-in, BDU team account
+python3 ~/.claude/skills/ocha-social-media/scripts/mediavalet.py download <asset links…> --out source/photos_mediavalet
+```
+
+`download` takes the MediaValet asset links from the brief, fetches the **true original files** (it checks
+each file’s size against MediaValet’s record) and writes `credits.json` with each photo’s credit and
+caption — use those for the credit lines and `info/photos_and_credits.md`. Keys and the sign-in live only in
+`~/.claude/tokens.json` on that Mac. If it says the sign-in expired (long unused, or the account password
+changed), run `login` again. For `login`, the person signs in themselves in the browser tab that opens;
+never type their password.
+
+Don’t use an asset’s `original`/`download` preview links: despite the names they are the 1504 px preview.
+The script uses MediaValet’s download jobs, which return the real original.
+
+**Fallback — web app in Chrome** (no setup yet, or the API is down): open each asset link → Show details →
+note the **credit** (end of the description, “Credit: …”) → **Download → Advanced Download → Custom → JPG,
+Original Size, sRGB, no watermark**; the zip arrives once “Ready for download” shows. **Never Quick
+Download** (1504 px preview).
 
 **Enhance every photo before upload** (approved default — tone and colour only, never content):
 
 ```bash
-python3 ~/.claude/skills/ocha-social-media/scripts/enhance_photo.py source/photos_mediavalet/*.JPG --out source/photos_enhanced
+python3 ~/.claude/skills/ocha-social-media/scripts/enhance_photo.py source/photos_mediavalet/*.[jJ][pP]*[gG] --out source/photos_enhanced
 ```
 
 Credits stay exactly as in MediaValet (e.g. “Photo: UNOCHA/Name”). Flag oddities (capitalised surnames,
@@ -104,8 +123,9 @@ Follow the BDU Canva SOP: **make a copy of the template, rename it, move it to t
   Search folders by name when unsure, and ask if two fit.
 - After copying through the connector, **re-add the guides in Chrome** — connector copies drop them (§4).
 
-**If no template fits:** build from the closest existing design (copy it first), and when the post is
-final **ask whether it should become a template**. If yes: copy the final design into
+**If no template fits:** this is a new type of content — follow §7 first. Build from the closest existing
+design (copy it first). When the post is final, the decision to turn it into a template is Javier’s (§7);
+only when he says yes: copy the final design into
 `Templates_DONT_CHANGE/<type folder>`, name it `Generic_<Type>`, make the country pill and credits generic
 (“Country”, “Photo: Org/Photographer”), add the rules to page 1 speaker notes, and check guides, transitions
 and timing in Chrome.
@@ -170,7 +190,44 @@ padded frames (in the template: pill text box at 80/75, logo frame at 849/54).
 - Share the **Canva link** of the post (not the template). Mention anything flagged for the requester
   (credits, fund names, copy questions).
 - Update the job `README.md` (links) and `CLAUDE.md` (decisions, open points).
-- If the post was built outside a template, ask whether it should become one (§3).
+- If the post was a new type of content, make sure the briefing for Javier has gone out (§7).
+
+## 7. New types of content — tell the person, brief Javier
+
+This skill is built from **carousels** (template `Generic_Carousel`). Requests for anything else — a
+single static card, a quote card, a stat/data card, a story or reel cover, a banner, a different size or
+platform, a new layout — are **a new type of content**.
+
+1. **Say so at the start**, before building:
+   *“This is a new type of content for the BDU social media skill — there’s no template for it yet. I can
+   still make it, using the carousel rules as the reference (grid, Inter, spacing, gradients, credits). Please
+   check with Javi (Javier Cueto, cuetoj@un.org) whether it’s worth adding to the skills — I’ll prepare a
+   short briefing you can send him.”*
+2. **Still help.** Use the carousel rules as the starting point and adapt only what the format forces
+   (size, number of pages, text amount). Note every decision that differs from the carousel rules.
+3. **Write the briefing for Javi in the chat** (ready to paste into an email or Teams; don’t save it as a
+   file), once the content is clear — and update it when the post is final:
+
+   > **Subject:** New social media content type for the BDU skill — <type>
+   >
+   > Hi Javi,
+   >
+   > I made a <type> for <office / requester> with Claude. It isn’t covered by the BDU social media skill
+   > or a template yet. Is it worth adding?
+   >
+   > - **What it is:** <one line, e.g. single static card announcing a CBPF allocation>
+   > - **Platforms and size:** <e.g. Instagram + LinkedIn, 1080×1350>
+   > - **How often we expect to make it:** <one-off / monthly / every allocation …>
+   > - **Based on:** <template or design it started from>
+   > - **What differs from the carousel rules:** <list: size, grid changes, type sizes, layout, elements>
+   > - **Canva link:** <link to the post>
+   > - **Open questions:** <anything we weren’t sure about>
+   >
+   > If yes, the post could become a template (e.g. `Generic_<Type>` in Templates_DONT_CHANGE) and the
+   > skill could learn its rules.
+
+4. **Don’t create a template or change this skill** unless Javier says yes. If he does, the template
+   steps are in §3.
 
 ---
 
