@@ -174,7 +174,7 @@ def login():
     print("Signed in. Refresh token stored in ~/.claude/tokens.json.")
 
 
-def api_get(path, token):
+def api_get(path, token, retry_500=False):
     d = creds()
     req = urllib.request.Request(API + path, headers={
         **UA,
@@ -187,7 +187,9 @@ def api_get(path, token):
             with urllib.request.urlopen(req) as r:
                 return json.load(r)
         except urllib.error.HTTPError as e:
-            if e.code in (429, 502, 503, 504) and attempt < 4:
+            # 500 is retried only where asked: the download-job status check throws a server-side
+            # NullReferenceException when polled a moment after the job is created.
+            if (e.code in (429, 502, 503, 504) or (retry_500 and e.code == 500)) and attempt < 4:
                 time.sleep(3 * (attempt + 1))
                 continue
             sys.exit(f"MediaValet API error {e.code} on {path}: {e.read().decode(errors='replace')[:300]}")
@@ -236,9 +238,10 @@ def download(assets, out):
         "images": {"shareOriginals": True, "renditionType": "Original"},
         "ids": ids, "zipFileName": "bdu_originals"}})
     bid = job["payload"]["batchId"]
+    time.sleep(3)                            # give MediaValet a moment to register the job
     deadline = time.time() + 600
     while True:
-        st = api_get("/downloads/" + bid, token)["payload"]
+        st = api_get("/downloads/" + bid, token, retry_500=True)["payload"]
         if str(st.get("status")).lower() == "completed" and st.get("processedCount") == st.get("itemCount"):
             break
         if str(st.get("status")).lower() in ("failed", "error", "cancelled"):

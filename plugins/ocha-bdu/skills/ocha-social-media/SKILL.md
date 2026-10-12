@@ -3,7 +3,7 @@ name: ocha-social-media
 description: >
   Produce OCHA social media graphics in Canva for the BDU: carousels, impact stories, static cards,
   video-ready slide sets. Covers the whole job: reading the brief and copy from the Trello card, getting
-  photos from MediaValet, enhancing them, duplicating the right Canva template and filing it per the Canva
+  photos (through ocha-photo), duplicating the right Canva template and filing it per the Canva
   SOP, building the slides to the BDU grid and type rules, making them video-ready, and handing the
   social media team a Canva link. Use whenever someone asks to "make a carousel", "create the social
   media graphics", "impact story", "social cards", "Instagram/LinkedIn/X post", "do the Canva for this
@@ -17,8 +17,8 @@ The deliverable is a **Canva design link** for the social media team, who review
 needed and export it themselves. BDU does not export PNG/JPEG unless asked (if ever needed: JPEG, it is
 photo-based).
 
-Brand basics come from `ocha-visual-identity`, copy rules from `ocha-editorial-style`, job folders and
-file names from `ocha-files-and-folders`.
+Brand basics come from `ocha-visual-identity`, copy rules from `ocha-editorial-style`, photos (MediaValet,
+enhancement, credits) from `ocha-photo`, job folders and file names from `ocha-files-and-folders`.
 
 ---
 
@@ -41,13 +41,8 @@ a job that will stall halfway.
    - **Or paste the brief** into the chat: the cleared copy per slide, the photo link(s) per slide, and
      any credits or notes from the comments.
    Don’t start building from a card you can’t read, and don’t guess copy.
-4. **MediaValet** — photos come straight from the MediaValet API (§2). Each Mac needs a one-time setup:
-   - the **Client ID**, **Secret** and **Primary Key** — tell the colleague to **ask Javier Cueto
-     (cuetoj@un.org)** for them. Never ask them to paste these into the chat: run `mediavalet.py setup`, which opens
-     private dialogs and stores them locally;
-   - one browser sign-in with the BDU team MediaValet account (`mediavalet.py login`).
-   If setup isn’t done yet, the fallback is the MediaValet web app in Chrome (§2), signed in with the BDU
-   team account.
+4. **MediaValet** — photos come through the `ocha-photo` skill, which checks its one-time setup (the
+   colleague asks Javier Cueto for the MediaValet keys) and falls back to the web app if needed.
 
 Then tell the person, once, that **some Canva steps can’t be done through the connector and will be done
 in their Chrome** (§4), so they’re not surprised when Chrome moves.
@@ -77,39 +72,16 @@ around the font limit. Using the Canva desktop app instead of Chrome does not ch
   (don’t fix) anything off.
 - Create the job folder per `ocha-files-and-folders` (`source/`, `info/`, `README.md`, `CLAUDE.md`).
 
-## 2. Photos (MediaValet)
+## 2. Photos — use `ocha-photo`
 
-**Main route — API** (set up once per Mac, see §0):
+Get, enhance and credit the photos with the **`ocha-photo`** skill:
 
-```bash
-python3 ~/.claude/skills/ocha-social-media/scripts/mediavalet.py setup     # once per Mac: Client ID + Secret + Primary Key (ask Javier)
-python3 ~/.claude/skills/ocha-social-media/scripts/mediavalet.py login     # once per Mac: browser sign-in, BDU team account
-python3 ~/.claude/skills/ocha-social-media/scripts/mediavalet.py download <asset links…> --out source/photos_mediavalet
-```
-
-`download` takes the MediaValet asset links from the brief, fetches the **true original files** (it checks
-each file’s size against MediaValet’s record) and writes `credits.json` with each photo’s credit and
-caption — use those for the credit lines and `info/photos_and_credits.md`. Keys and the sign-in live only in
-`~/.claude/tokens.json` on that Mac. If it says the sign-in expired (long unused, or the account password
-changed), run `login` again. For `login`, the person signs in themselves in the browser tab that opens;
-never type their password.
-
-Don’t use an asset’s `original`/`download` preview links: despite the names they are the 1504 px preview.
-The script uses MediaValet’s download jobs, which return the real original.
-
-**Fallback — web app in Chrome** (no setup yet, or the API is down): open each asset link → Show details →
-note the **credit** (end of the description, “Credit: …”) → **Download → Advanced Download → Custom → JPG,
-Original Size, sRGB, no watermark**; the zip arrives once “Ready for download” shows. **Never Quick
-Download** (1504 px preview).
-
-**Enhance every photo before upload** (approved default — tone and colour only, never content):
-
-```bash
-python3 ~/.claude/skills/ocha-social-media/scripts/enhance_photo.py source/photos_mediavalet/*.[jJ][pP]*[gG] --out source/photos_enhanced
-```
-
-Credits stay exactly as in MediaValet (e.g. “Photo: UNOCHA/Name”). Flag oddities (capitalised surnames,
-missing credit) — don’t change them silently.
+- download the **originals** of each slide’s MediaValet link into `source/photos_mediavalet/`, with
+  `credits.json`;
+- **ask** whether to apply the BDU photo enhancement (the default) and, if yes, use the files in
+  `source/photos_enhanced/`;
+- write the credits in the OCHA format from `ocha-photo` (“Photo: UNOCHA/First Last”) and tell the
+  requester when the MediaValet record differs.
 
 ## 3. Canva: template → copy → name → file → build
 

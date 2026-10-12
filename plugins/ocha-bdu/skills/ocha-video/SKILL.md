@@ -205,6 +205,8 @@ Still worth asking per job: destination and format, length, and anything about t
 
 ## 5 · Before you touch the source
 
+- **Stills from MediaValet** (photos for a film, a thumbnail, a background): get them with `ocha-photo`
+  — true originals plus credits, and it offers the BDU enhancement.
 - **What renditions exist**, before promising a format. UN Web TV held only 1080/720/480 for
   the Aug 2026 noon briefing, which is exactly what made a full-frame 9:16 reel an upscale.
   ```python

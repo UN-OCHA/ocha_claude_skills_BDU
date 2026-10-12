@@ -26,6 +26,7 @@ reinstall.
 | `ocha-files-and-folders` | Where files go, how to name them, draft versions, cleaning up at the end |
 | `ocha-animation` | Smooth motion for animated graphics and data films — entrances, exits, transitions, timing, rendering to video |
 | `ocha-social-media` | Social media graphics in Canva — carousels and cards from a Trello brief, MediaValet photos, BDU templates, grid and Inter type rules, video-ready slides |
+| `ocha-photo` | OCHA photos — original downloads from MediaValet, photo credits and captions, the BDU photo enhancement, dignity and inclusion when choosing photos |
 
 ---
 
@@ -167,7 +168,7 @@ Type this in the Claude Code chat box, like a normal question:
 
 > **what OCHA skills do I have now?**
 
-Claude should list eleven skills.
+Claude should list twelve skills.
 
 ---
 
@@ -290,7 +291,7 @@ You can switch models in the middle of a session — the work carries over.
 **"I installed them but Claude doesn't know about them."**
 You need to quit Claude and reopen it (Step 4). The plugin loads at startup.
 
-**"Claude lists fewer than eleven skills."**
+**"Claude lists fewer than twelve skills."**
 Your copy is out of date. Tell Claude *“Update the OCHA skills with the latest version from
 the repository”*, then quit Claude and open it again. If you installed the skills by hand
 before September 2026, also do Step 3 once and the clean-up message underneath it.
