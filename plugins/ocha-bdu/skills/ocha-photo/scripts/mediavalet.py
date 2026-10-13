@@ -10,6 +10,8 @@ Commands:
   python3 mediavalet.py info <asset-url-or-id> # print the asset's metadata (JSON)
   python3 mediavalet.py download <asset-url-or-id>... --out <folder>
         # original files + <folder>/credits.json (title, file name, credit, caption, link)
+  python3 mediavalet.py search "<plain description>" --out <folder> [--country SDN] [--year 2026]
+        # MediaValet's AI search; <folder>/results.json + contact_sheet.jpg to choose from
 
 Sign-in uses MediaValet's authorization-code flow with refresh tokens. The redirect URL
 http://localhost:8765/callback must be whitelisted by MediaValet support for the client.
@@ -281,6 +283,114 @@ def download(assets, out):
         sys.exit("Downloaded, but check these:\n  " + "\n  ".join(problems))
 
 
+def attribute_names(token):
+    """Library attribute id -> name (Country, Date Created, Photographer, Copyright…). The ids are
+    specific to OCHA's library, so look them up by name rather than hardcoding them."""
+    p = api_get("/attributes", token).get("payload", [])
+    return {a["id"]: a.get("name", "") for a in (p if isinstance(p, list) else p.get("attributes", []))}
+
+
+def search(query, out, country=None, year=None, count=40, pool=400):
+    """Find photos with MediaValet's AI search (the same as the sparkle "Smart Search" in the web app).
+
+    useSemanticSearch=true matches on meaning and on what is in the picture, so a plain description
+    ("aid workers distributing food in Sudan") works. A keyword search for the same sentence returns
+    nothing. Semantic search ranks by meaning only: it happily returns South Sudan for "Sudan" and
+    2024 for "2026", so --country and --year filter on the photo's own metadata afterwards.
+
+    Writes <out>/results.json and <out>/contact_sheet.jpg (numbered thumbnails) for choosing.
+    """
+    from io import BytesIO
+    token = access_token()
+    names = attribute_names(token)
+    # The ranking only knows what is in the sentence: a country left out of the query is ranked out
+    # before the filter ever sees it (Sudan 2026 aid workers: 10 of 200 without "Sudan", 24 with it).
+    if country and len(country) > 3 and country.lower() not in query.lower():
+        query = f"{query} {country}"
+    if year and str(year) not in query:
+        query = f"{query} {year}"
+    found, offset = [], 0
+    while offset < pool:
+        page = api_post("/assets/search", token, {
+            "search": query, "count": min(100, pool - offset), "offset": offset,
+            "useSemanticSearch": True, "includeTotalCount": True, "includeSoftDeleted": False})
+        p = page.get("payload", page)
+        assets = p.get("assets", []) if isinstance(p, dict) else []
+        if not assets:
+            break
+        found += assets
+        offset += len(assets)
+
+    def attr(a, name):
+        for k, v in (a.get("attributes") or {}).items():
+            if names.get(k, "").lower() == name.lower():
+                return str(v or "")
+        return ""
+
+    results = []
+    for a in found:
+        if (a.get("media") or {}).get("type") not in (None, "Image"):
+            continue
+        title = a.get("title") or ""
+        desc = a.get("description") or (a.get("file") or {}).get("description") or ""
+        ctry = attr(a, "Country")
+        taken = attr(a, "Date Created")[:10]
+        code = title[:3].upper() if re.match(r"[A-Za-z]{3}_", title) else ""
+        m = re.match(r"[A-Za-z]{3}_(\d{2})(\d{4})_", title)          # ISO3_MMYYYY_ in OCHA file names
+        # A photo counts for a year if its file name, its date taken or its caption says so: the
+        # camera date is sometimes missing or wrong, the OCHA file name rarely is.
+        years = {taken[:4], m.group(2) if m else ""} | set(re.findall(r"\b(20\d\d)\b", desc))
+        yr = (m.group(2) if m else "") or taken[:4]
+        if country:
+            c = country.strip().lower()
+            ok = (c == code.lower()) or (c == ctry.lower())
+            # caption fallback, without letting "Sudan" match "South Sudan"
+            if not ok and not code and not ctry:
+                ok = bool(re.search(r"(?<!south )\b" + re.escape(c) + r"\b", desc.lower()))
+            if not ok:
+                continue
+        if year and str(year) not in years:
+            continue
+        results.append({"n": len(results) + 1, "asset_id": a["id"], "title": title, "country": ctry or code,
+                        "date_taken": taken or (f"{m.group(2)}-{m.group(1)}" if m else ""),
+                        "photographer": attr(a, "Photographer"), "organisation": attr(a, "Copyright"),
+                        "credit": credit_from(desc), "caption": desc.strip(),
+                        "thumb": (a.get("media") or {}).get("medium") or (a.get("media") or {}).get("small")})
+        if len(results) >= count:
+            break
+
+    os.makedirs(out, exist_ok=True)
+    with open(os.path.join(out, "results.json"), "w") as f:
+        json.dump([{k: v for k, v in r.items() if k != "thumb"} for r in results], f, indent=2, ensure_ascii=False)
+    print(f"{len(found)} photos matched the meaning; {len(results)} kept after filters.")
+    for r in results:
+        print(f"{r['n']:>3}. {r['title']}  [{r['country']} {r['date_taken']}]  {r['credit'] or r['organisation']}")
+        print(f"     {r['caption'][:160]}")
+    if not results:
+        return
+    try:
+        from PIL import Image, ImageDraw
+    except ImportError:
+        print("(Pillow not installed: no contact sheet. Thumbnails are not needed to choose by caption.)")
+        return
+    W, H, cols = 320, 240, 5
+    rows = (len(results) + cols - 1) // cols
+    sheet = Image.new("RGB", (cols * W, rows * (H + 28)), "white")
+    draw = ImageDraw.Draw(sheet)
+    for i, r in enumerate(results):
+        x, y = (i % cols) * W, (i // cols) * (H + 28)
+        try:
+            with urllib.request.urlopen(urllib.request.Request(r["thumb"], headers=UA), timeout=30) as resp:
+                im = Image.open(BytesIO(resp.read())).convert("RGB")
+            im.thumbnail((W - 8, H - 8))
+            sheet.paste(im, (x + (W - im.width) // 2, y + (H - im.height) // 2))
+        except Exception:
+            draw.text((x + 8, y + H // 2), "(no preview)", fill="grey")
+        draw.text((x + 8, y + H + 6), f"{r['n']}. {r['title'][:40]}", fill="black")
+    sheet.save(os.path.join(out, "contact_sheet.jpg"), quality=85)
+    print("Contact sheet:", os.path.join(out, "contact_sheet.jpg"))
+
+
 def asset_id(s):
     ids = UUID.findall(s)
     if not ids:
@@ -298,6 +408,12 @@ def main():
     dl = sub.add_parser("download")
     dl.add_argument("assets", nargs="+")
     dl.add_argument("--out", required=True)
+    s = sub.add_parser("search")
+    s.add_argument("query", help='a plain description, e.g. "aid workers distributing food"')
+    s.add_argument("--out", required=True)
+    s.add_argument("--country", help="ISO3 code or country name, e.g. SDN or Sudan")
+    s.add_argument("--year", help="year the photo was taken, e.g. 2026")
+    s.add_argument("--count", type=int, default=40, help="how many to keep after filters")
     args = ap.parse_args()
     if args.cmd == "setup":
         setup()
@@ -307,6 +423,8 @@ def main():
         print(json.dumps(api_get("/assets/" + asset_id(args.asset), access_token()), indent=2)[:6000])
     elif args.cmd == "download":
         download(args.assets, args.out)
+    elif args.cmd == "search":
+        search(args.query, args.out, args.country, args.year, args.count)
 
 
 if __name__ == "__main__":

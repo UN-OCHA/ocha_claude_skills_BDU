@@ -5,7 +5,7 @@ description: >
   MediaValet (OCHA's photo library at unocha.mediavalet.com): one-time setup and sign-in, downloading the
   TRUE original files from asset links, and reading each photo's credit and caption; the BDU default photo
   enhancement (tone and colour only, offered every time); and photo credits. Use whenever someone shares a
-  MediaValet link, asks to "get the photos", "download from MediaValet", "find the credit", "photo credit",
+  MediaValet link, asks to "find photos", "search MediaValet", "photos of <place/topic>", "get the photos", "download from MediaValet", "find the credit", "photo credit",
   "enhance / improve / colour-correct the photos", "make the photos look better", or any job needs OCHA
   photos. Other OCHA skills (ocha-social-media, ocha-video, ocha-design) use this one for photos.
 ---
@@ -67,6 +67,30 @@ brief 503.
 details → note the credit (end of the description, “Credit: …”) → **Download → Advanced Download →
 Custom → JPG, Original Size, sRGB, no watermark**; the zip arrives once “Ready for download” shows.
 **Never Quick Download** — it gives the 1504 px preview.
+
+## 2b. Search — when there are no links yet
+
+MediaValet’s AI search (the sparkle “Smart Search” in the web app) is available through the API: it
+matches on meaning and on what is in the picture, so a plain description works.
+
+```bash
+python3 ~/.claude/skills/ocha-photo/scripts/mediavalet.py search "aid workers distributing food" \
+    --country Sudan --year 2026 --count 30 --out info/photo_search
+```
+
+- **Write the request as a description** of what should be in the photo (“aid workers unloading
+  food”, “women collecting water”, “a health worker with a child”), not as keywords.
+- **Give `--country` as the country name** (it is also added to the search, which the ranking
+  needs) and `--year` for the year it was taken. The AI ranking alone mixes in South Sudan for
+  “Sudan” and older years; these two filters remove them using the photo’s own metadata.
+- It writes `results.json` (title, country, date, credit, caption per photo) and
+  `contact_sheet.jpg` (numbered thumbnails) in the output folder.
+- **Then shortlist:** read the captions, drop what doesn’t fit the request or the dignity rules
+  (§5), show the person the contact sheet with your shortlist and why, and let **them** choose.
+  Never download or use a photo they haven’t picked.
+- **Download only the picks**, with `download` (§2) using their asset ids from `results.json`.
+- Nothing found? Rephrase the description or widen the year; don’t fall back to photos from
+  another country without saying so.
 
 ## 3. Enhancement — the default, but always ask
 
