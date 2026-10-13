@@ -197,7 +197,7 @@ def api_get(path, token, retry_500=False):
             sys.exit(f"MediaValet API error {e.code} on {path}: {e.read().decode(errors='replace')[:300]}")
 
 
-def credit_from(description):
+def credit_from(description, organisation="", photographer=""):
     """OCHA captions end with 'Credit: UNOCHA/Name'. Partner photos often use '© Name/ WFP' instead:
     that is returned as 'WFP/Name', the OCHA order. '' when there is neither."""
     m = re.search(r"Credit:\s*(.+?)\s*$", description or "", re.S)
@@ -206,6 +206,9 @@ def credit_from(description):
     m = re.search(r"©\s*([^/\n]+?)\s*/\s*([^\n]+?)\s*$", description or "")
     if m:
         return f"{m.group(2).strip()}/{m.group(1).strip()}"
+    # Many photos keep the credit only in MediaValet's Copyright + Photographer fields.
+    if organisation and photographer:
+        return f"{organisation.strip()}/{photographer.strip()}"
     return ""
 
 
@@ -232,15 +235,19 @@ def download(assets, out):
     import zipfile
     os.makedirs(out, exist_ok=True)
     token = access_token()
+    names = attribute_names(token)
     ids = [asset_id(a) for a in assets]
     meta = {}
     for aid, link in zip(ids, assets):
         a = api_get("/assets/" + aid, token)["payload"]
         f = a.get("file") or {}
         desc = a.get("description") or f.get("description") or ""
+        fields = {names.get(k, "").lower(): str(v or "") for k, v in (a.get("attributes") or {}).items()}
         meta[aid] = {"asset_id": aid, "title": a.get("title"), "file": f.get("fileName"),
                      "expected_bytes": f.get("sizeInBytes"), "width": f.get("imageWidth"),
-                     "height": f.get("imageHeight"), "credit": credit_from(desc), "caption": desc, "link": link}
+                     "height": f.get("imageHeight"),
+                     "credit": credit_from(desc, fields.get("copyright", ""), fields.get("photographer", "")),
+                     "caption": desc, "link": link}
     job = api_post("/downloads", token, {"downloadSettingsPostDetail": {
         "allowsAssetDownload": True,
         "images": {"shareOriginals": True, "renditionType": "Original"},
@@ -360,7 +367,8 @@ def search(query, out, country=None, year=None, count=40, pool=400):
         results.append({"n": len(results) + 1, "asset_id": a["id"], "title": title, "country": ctry or code,
                         "date_taken": taken or (f"{m.group(2)}-{m.group(1)}" if m else ""),
                         "photographer": attr(a, "Photographer"), "organisation": attr(a, "Copyright"),
-                        "credit": credit_from(desc), "caption": desc.strip(),
+                        "credit": credit_from(desc, attr(a, "Copyright"), attr(a, "Photographer")),
+                        "caption": desc.strip(),
                         "thumb": (a.get("media") or {}).get("medium") or (a.get("media") or {}).get("small")})
         if len(results) >= count:
             break
