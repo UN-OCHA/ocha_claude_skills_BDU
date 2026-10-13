@@ -198,9 +198,15 @@ def api_get(path, token, retry_500=False):
 
 
 def credit_from(description):
-    """OCHA captions end with 'Credit: UNOCHA/Name' — return 'UNOCHA/Name' or ''."""
+    """OCHA captions end with 'Credit: UNOCHA/Name'. Partner photos often use '© Name/ WFP' instead:
+    that is returned as 'WFP/Name', the OCHA order. '' when there is neither."""
     m = re.search(r"Credit:\s*(.+?)\s*$", description or "", re.S)
-    return m.group(1).strip() if m else ""
+    if m:
+        return m.group(1).strip()
+    m = re.search(r"©\s*([^/\n]+?)\s*/\s*([^\n]+?)\s*$", description or "")
+    if m:
+        return f"{m.group(2).strip()}/{m.group(1).strip()}"
+    return ""
 
 
 def api_post(path, token, body):
@@ -391,6 +397,178 @@ def search(query, out, country=None, year=None, count=40, pool=400):
     print("Contact sheet:", os.path.join(out, "contact_sheet.jpg"))
 
 
+# ---------------------------------------------------------------- changes to MediaValet
+# Everything below WRITES to OCHA's shared library, through the shared BDU team account, so
+# MediaValet itself cannot show who asked. Every write therefore needs --by "<person>" and is
+# logged to the job folder. The confirmation rules (SKILL.md §6) are enforced here too: a write
+# without the right confirmation flags prints what it WOULD do and changes nothing.
+
+def api_send(method, path, token, body=None, content_type="application/json"):
+    d = creds()
+    data = None if body is None else json.dumps(body).encode()
+    req = urllib.request.Request(API + path, method=method, data=data, headers={
+        **UA, "Authorization": "Bearer " + token, "Ocp-Apim-Subscription-Key": d["mediavalet_subscription_key"],
+        "x-mv-api-version": "1.2", "Accept": "application/json", "Content-Type": content_type})
+    try:
+        with urllib.request.urlopen(req) as r:
+            raw = r.read()
+            return json.loads(raw) if raw.strip() else {}
+    except urllib.error.HTTPError as e:
+        sys.exit(f"MediaValet API error {e.code} on {method} {path}: {e.read().decode(errors='replace')[:300]}")
+
+
+def log_change(log, by, action, detail):
+    import datetime
+    os.makedirs(os.path.dirname(os.path.abspath(log)), exist_ok=True)
+    new = not os.path.exists(log)
+    with open(log, "a", encoding="utf-8") as f:
+        if new:
+            f.write("# Changes made in MediaValet\n\nDone through the BDU team account, so MediaValet "
+                    "itself does not show who asked. One line per change.\n\n")
+        stamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        f.write(f"- {stamp} · {by} · {action} · {detail}\n")
+
+
+def lightbox_list(token):
+    p = api_get("/lightboxes?includePermissions=true", token).get("payload", [])
+    return p if isinstance(p, list) else p.get("lightboxes", [])
+
+
+def lightbox_id(ref, token):
+    """A lightbox id, or its exact name (case-insensitive). Ambiguous or unknown names stop."""
+    if UUID.fullmatch(ref.strip().lower()):
+        return ref.strip().lower(), ref
+    hits = [l for l in lightbox_list(token) if (l.get("name") or "").strip().lower() == ref.strip().lower()]
+    if len(hits) != 1:
+        sys.exit(f"{'No' if not hits else str(len(hits))} lightbox(es) named “{ref}”. Use `lightboxes` to list them.")
+    return hits[0]["id"], hits[0].get("name")
+
+
+def cmd_lightboxes(token, filt):
+    for l in lightbox_list(token):
+        if filt and filt.lower() not in (l.get("name") or "").lower():
+            continue
+        print(f"{l.get('name')}  ·  {l.get('assetCount')} photos  ·  {l['id']}")
+
+
+def cmd_lightbox_create(token, name, description, by, log):
+    import uuid
+    lid = str(uuid.uuid4())
+    api_send("POST", "/lightboxes", token, {"id": lid, "name": name, "description": description or ""})
+    log_change(log, by, "created lightbox", f"“{name}” ({lid})")
+    print(f"Created lightbox “{name}”: {lid}")
+
+
+def cmd_lightbox_add(token, ref, assets, by, log):
+    lid, name = lightbox_id(ref, token)
+    ids = [asset_id(a) for a in assets]
+    api_send("POST", f"/lightboxes/{lid}/assets", token, ids)
+    log_change(log, by, "added to lightbox", f"“{name}”: {len(ids)} photo{"s" if len(ids) != 1 else ""} ({', '.join(ids)})")
+    print(f"Added {len(ids)} photo{"s" if len(ids) != 1 else ""} to “{name}”.")
+
+
+def cmd_lightbox_remove(token, ref, assets, confirm, by, log):
+    lid, name = lightbox_id(ref, token)
+    ids = [asset_id(a) for a in assets]
+    if not confirm:
+        print(f"Would take {len(ids)} photo{"s" if len(ids) != 1 else ""} out of “{name}” (the photos stay in the library). "
+              "Nothing changed: re-run with --confirm once the person has said yes.")
+        return
+    for i in ids:
+        api_send("DELETE", f"/lightboxes/{lid}/assets/{i}", token)
+    log_change(log, by, "removed from lightbox", f"“{name}”: {len(ids)} photo{"s" if len(ids) != 1 else ""} ({', '.join(ids)})")
+    print(f"Took {len(ids)} photo{"s" if len(ids) != 1 else ""} out of “{name}”.")
+
+
+def cmd_lightbox_delete(token, ref, confirm, by, log):
+    lid, name = lightbox_id(ref, token)
+    if not confirm:
+        print(f"Would delete the lightbox “{name}” (its photos stay in the library). "
+              "Nothing changed: re-run with --confirm once the person has said yes.")
+        return
+    api_send("DELETE", f"/lightboxes/{lid}", token)
+    log_change(log, by, "deleted lightbox", f"“{name}” ({lid})")
+    print(f"Deleted the lightbox “{name}”.")
+
+
+def cmd_share(token, ref, recipient, expires, originals, confirm, by, log):
+    lid, name = lightbox_id(ref, token)
+    if not confirm:
+        print(f"Would make a share link to the lightbox “{name}” for {recipient}, expiring {expires}, "
+              f"{'original files' if originals else 'web-size images'}. Anyone with the link can see "
+              "these photos. Nothing changed: re-run with --confirm once the person has said yes.")
+        return
+    res = api_send("POST", "/shareLightboxes", token, {
+        "shareTo": "Unknown", "shareVia": "Link", "allowAssetDownload": True,
+        "images": {"shareOriginals": bool(originals), "renditionType": "Original" if originals else "HighDefinition"},
+        "lightboxId": lid, "gallerySettings": {"expiryDate": expires}})
+    p = res.get("payload", res)
+    log_change(log, by, "shared lightbox", f"“{name}” for {recipient}, expires {expires}")
+    print(json.dumps(p, indent=2)[:1500])
+
+
+def new_caption(old, caption=None, credit=None):
+    if caption is not None:
+        text = caption.strip()
+        m = re.search(r"Credit:\s*.+?\s*$", old or "", re.S)       # a new caption keeps the old credit
+        if credit is None and m and "Credit:" not in text:
+            text += "\n" + m.group(0).strip()
+    else:
+        text = old or ""
+    if credit is not None:
+        if re.search(r"Credit:\s*.+?\s*$", text, re.S):
+            text = re.sub(r"Credit:\s*.+?\s*$", "Credit: " + credit.strip(), text, flags=re.S)
+        else:
+            text = text.rstrip() + "\nCredit: " + credit.strip()
+    return text
+
+
+def cmd_edit(token, assets, caption, credit, apply, confirm_count, by, log):
+    if caption is None and credit is None:
+        sys.exit("Give --caption and/or --credit.")
+    plan = []
+    for a in assets:
+        aid = asset_id(a)
+        asset = api_get("/assets/" + aid, token)["payload"]
+        old = asset.get("description") or ""
+        plan.append((aid, asset.get("title"), old, new_caption(old, caption, credit)))
+    for aid, title, old, new in plan:
+        print(f"── {title}\n   BEFORE: {old.strip()[-300:]}\n   AFTER:  {new.strip()[-300:]}")
+    if not apply:
+        print(f"\nNothing changed. Confirmation 1: show this to the person. Confirmation 2: once they've "
+              f"said yes twice, re-run with --apply --confirm-count {len(plan)}.")
+        return
+    if confirm_count != len(plan):
+        sys.exit(f"--confirm-count must be {len(plan)} (the number of photos changing). Nothing changed.")
+    for aid, title, old, new in plan:
+        api_send("PATCH", "/assets/" + aid, token, [{"op": "replace", "path": "/description", "value": new}])
+        log_change(log, by, "edited caption/credit", f"{title} ({aid}). Before: “{old.strip()[-160:]}”")
+    print(f"Changed {len(plan)} photo{"s" if len(plan) != 1 else ""} in MediaValet.")
+
+
+def cmd_delete(token, assets, apply, confirm_count, confirm_names, by, log):
+    plan = []
+    for a in assets:
+        aid = asset_id(a)
+        asset = api_get("/assets/" + aid, token)["payload"]
+        plan.append((aid, (asset.get("file") or {}).get("fileName") or asset.get("title")))
+    print("Would move these photos to MediaValet’s deleted items (an admin can restore them):")
+    for aid, fn in plan:
+        print(f"   {fn}  ({aid})")
+    if not apply:
+        print(f"\nNothing changed. This needs three confirmations from the person (SKILL.md §6); then "
+              f"re-run with --apply --confirm-count {len(plan)} --confirm-names \"<the file names they typed>\".")
+        return
+    typed = {n.strip().lower() for n in (confirm_names or "").split(",") if n.strip()}
+    expected = {fn.strip().lower() for _, fn in plan}
+    if confirm_count != len(plan) or typed != expected:
+        sys.exit("The count or the typed file names don’t match the photos listed. Nothing deleted.")
+    for aid, fn in plan:
+        api_send("DELETE", f"/assets/{aid}?isHardDelete=false", token)   # soft delete only, never hard
+        log_change(log, by, "deleted photo (soft, restorable)", f"{fn} ({aid})")
+    print(f"Moved {len(plan)} photo{"s" if len(plan) != 1 else ""} to deleted items.")
+
+
 def asset_id(s):
     ids = UUID.findall(s)
     if not ids:
@@ -414,6 +592,27 @@ def main():
     s.add_argument("--country", help="ISO3 code or country name, e.g. SDN or Sudan")
     s.add_argument("--year", help="year the photo was taken, e.g. 2026")
     s.add_argument("--count", type=int, default=40, help="how many to keep after filters")
+
+    def writer(p):                           # every command that changes MediaValet
+        p.add_argument("--by", required=True, help="the person who asked (logged)")
+        p.add_argument("--log", default="info/mediavalet_changes.md", help="change log in the job folder")
+        return p
+    lb = sub.add_parser("lightboxes"); lb.add_argument("filter", nargs="?")
+    c = writer(sub.add_parser("lightbox-create")); c.add_argument("name"); c.add_argument("--description")
+    c = writer(sub.add_parser("lightbox-add")); c.add_argument("lightbox"); c.add_argument("assets", nargs="+")
+    c = writer(sub.add_parser("lightbox-remove")); c.add_argument("lightbox"); c.add_argument("assets", nargs="+")
+    c.add_argument("--confirm", action="store_true")
+    c = writer(sub.add_parser("lightbox-delete")); c.add_argument("lightbox"); c.add_argument("--confirm", action="store_true")
+    c = writer(sub.add_parser("share")); c.add_argument("lightbox")
+    c.add_argument("--for", dest="recipient", required=True, help="who the link is for")
+    c.add_argument("--expires", required=True, help="YYYY-MM-DD")
+    c.add_argument("--originals", action="store_true"); c.add_argument("--confirm", action="store_true")
+    c = writer(sub.add_parser("edit")); c.add_argument("assets", nargs="+")
+    c.add_argument("--caption"); c.add_argument("--credit")
+    c.add_argument("--apply", action="store_true"); c.add_argument("--confirm-count", type=int)
+    c = writer(sub.add_parser("delete")); c.add_argument("assets", nargs="+")
+    c.add_argument("--apply", action="store_true"); c.add_argument("--confirm-count", type=int)
+    c.add_argument("--confirm-names")
     args = ap.parse_args()
     if args.cmd == "setup":
         setup()
@@ -425,6 +624,22 @@ def main():
         download(args.assets, args.out)
     elif args.cmd == "search":
         search(args.query, args.out, args.country, args.year, args.count)
+    elif args.cmd == "lightboxes":
+        cmd_lightboxes(access_token(), args.filter)
+    elif args.cmd == "lightbox-create":
+        cmd_lightbox_create(access_token(), args.name, args.description, args.by, args.log)
+    elif args.cmd == "lightbox-add":
+        cmd_lightbox_add(access_token(), args.lightbox, args.assets, args.by, args.log)
+    elif args.cmd == "lightbox-remove":
+        cmd_lightbox_remove(access_token(), args.lightbox, args.assets, args.confirm, args.by, args.log)
+    elif args.cmd == "lightbox-delete":
+        cmd_lightbox_delete(access_token(), args.lightbox, args.confirm, args.by, args.log)
+    elif args.cmd == "share":
+        cmd_share(access_token(), args.lightbox, args.recipient, args.expires, args.originals, args.confirm, args.by, args.log)
+    elif args.cmd == "edit":
+        cmd_edit(access_token(), args.assets, args.caption, args.credit, args.apply, args.confirm_count, args.by, args.log)
+    elif args.cmd == "delete":
+        cmd_delete(access_token(), args.assets, args.apply, args.confirm_count, args.confirm_names, args.by, args.log)
 
 
 if __name__ == "__main__":
