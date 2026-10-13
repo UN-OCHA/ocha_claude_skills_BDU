@@ -622,6 +622,10 @@ def main():
     c.add_argument("--apply", action="store_true"); c.add_argument("--confirm-count", type=int)
     c.add_argument("--confirm-names")
     args = ap.parse_args()
+    # Several ids or links can arrive as ONE argument (zsh doesn't split "$IDS"); asset_id() would
+    # then keep only the last one, silently. Split on whitespace so every photo counts.
+    if getattr(args, "assets", None):
+        args.assets = [part for a in args.assets for part in a.split()]
     if args.cmd == "setup":
         setup()
     elif args.cmd == "login":
