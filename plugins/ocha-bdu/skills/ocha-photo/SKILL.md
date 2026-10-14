@@ -179,14 +179,21 @@ it would do.
 All commands: `python3 ~/.claude/skills/ocha-photo/scripts/mediavalet.py <command> …`. List lightboxes
 with `lightboxes [part of the name]`. A lightbox can be given by its exact name or its id.
 
-**Who needs to see it? Ask every time photos are to be shared:**
-- **People with MediaValet access** → give the **collection** link. It only opens when signed in.
-- **Anyone else** (partners, colleagues without an account, press) → a **public gallery**: no sign-in,
-  view and download. Ask, case by case, with no defaults: **until when** it should work, and **web-size or
-  original** files. The command prints the gallery link (`https://unocha.mediavalet.com/galleries/…`).
-- **A public gallery outlives its collection.** It is a snapshot: deleting the collection does not take
-  it down (tested 14 Oct 2026). It stays open until its expiry date, so keep the expiry short and say
-  so when you ask.
+**How to share photos: three ways, in this order:**
+- **Collection: the default.** For people signed in to MediaValet (colleagues). Give the collection
+  link. It only opens when signed in.
+- **Public gallery: temporary only.** For a short hand-over to someone outside MediaValet (a partner, a
+  journalist, a colleague without an account): no sign-in, view and download. Ask, case by case, with no
+  defaults: **until when** (keep it short) and **web-size or original** files. The command prints the
+  gallery link (`https://unocha.mediavalet.com/galleries/…`).
+- **Long-term public sharing: the MediaValet branded portal, not a gallery.** Don’t make a gallery for
+  this. Point the person to the BDU portal and to a MediaValet admin (ochavisual@un.org). Claude doesn’t
+  add photos to the portal.
+
+**Galleries can’t be taken down early, and MediaValet lists them nowhere.** A gallery is a snapshot:
+deleting its collection doesn’t close it, and there is no page or report that shows the galleries made
+(checked 14 Oct 2026). It closes only on its expiry date (an expired one shows “Sorry, there doesn’t seem
+to be anything here”), so never make one without a short expiry, and say so when you ask.
 
 **Lightbox = collection.** New MediaValet calls lightboxes **collections**; they are the same thing, with
 the same id. Talk to people about “collections”, and always give them the link the commands print:
