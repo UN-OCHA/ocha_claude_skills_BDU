@@ -528,6 +528,128 @@ textarea.cd-form__input { resize: vertical; }
 
 @media (min-width: 768px) { .app-main { padding: 2rem 1.5rem; } }
 
+/* @component cd-coachmark:start */
+/* ===== Coachmark (guided steps) ===== */
+/* A guided walk-through: the page is dimmed except one element, and a small
+   bubble explains it with Back / Next and Skip. Esc closes it.
+   Behaviour: js/cd-coachmark.js — CdCoachmark.start({ steps, … }). The script
+   builds this markup; apps never write it by hand:
+     <div class="cd-coachmark-scrim"></div>        dim layer, hole over the target
+     <div class="cd-coachmark-ring"></div>         outline around the target
+     <div class="cd-coachmark" role="dialog">      the bubble
+       <button class="cd-coachmark__close">…</button>
+       <p class="cd-coachmark__count">Step 2 of 5</p>
+       <h2 class="cd-coachmark__title">…</h2>
+       <div class="cd-coachmark__text">…</div>
+       <div class="cd-coachmark__actions">Skip · Back · Next</div>
+     </div>
+   The highlighted element stays clickable through the hole, so a step can
+   wait for the person to do the thing it describes.
+   Buttons are the app's own (the script takes their class names; default
+   cd-button), so they match the rest of the app.
+   Theming hooks: light-only kit apps need nothing. An app with its own
+   light/dark theme sets these on .cd-coachmark, .cd-coachmark-scrim and
+   .cd-coachmark-ring, mapped to its own tokens: --cd-coachmark-bg / -ink /
+   -muted / -line / -accent / -scrim / -radius / -font.
+   Flat and plain: no drop shadow, no accent bar or coloured outline (Javier,
+   13 Oct 2026: “screams AI”); the scrim is a flat dim layer. Shipped to apps with
+   "scope": "component:cd-coachmark" (sync.py) — this block plus the tokens. */
+.cd-coachmark, .cd-coachmark-scrim, .cd-coachmark-ring {
+  --cd-coachmark-bg:     var(--card);
+  --cd-coachmark-ink:    var(--ink);
+  --cd-coachmark-muted:  var(--muted);
+  --cd-coachmark-line:   var(--line);
+  --cd-coachmark-accent: var(--ocha-cyan);
+  --cd-coachmark-scrim:  color-mix(in srgb, var(--ink) 55%, transparent);
+  --cd-coachmark-radius: var(--radius);
+  --cd-coachmark-font:   var(--app-font);
+}
+.cd-coachmark-scrim {
+  position: fixed; inset: 0; z-index: 2147483000;
+  background: var(--cd-coachmark-scrim);      /* the script cuts a hole over the target (clip-path) */
+}
+/* The ring marks where the hole is; it is drawn invisibly on purpose: the
+   dimming alone shows the element (a coloured outline read as decoration). */
+.cd-coachmark-ring {
+  position: fixed; z-index: 2147483001; pointer-events: none;
+  border-radius: var(--cd-coachmark-radius);
+}
+/* The component carries its own [hidden] rule: apps that take only this
+   component (scope component:cd-coachmark) don't get the kit's base one,
+   and their own button styles would otherwise show a hidden Back button. */
+.cd-coachmark [hidden], .cd-coachmark-ring[hidden] { display: none !important; }
+.cd-coachmark {
+  position: fixed; z-index: 2147483002;
+  inline-size: min(20rem, calc(100vw - 2 * var(--sp-16)));
+  display: grid; gap: var(--sp-8);
+  padding: var(--sp-16);
+  background: var(--cd-coachmark-bg); color: var(--cd-coachmark-ink);
+  border: 1px solid var(--cd-coachmark-line);      /* plain, like the app's own windows: no accent bar */
+  border-radius: var(--cd-coachmark-radius);
+  font-family: var(--cd-coachmark-font);
+  font-size: var(--cd-font-size--small); line-height: 1.5;
+}
+.cd-coachmark:focus { outline: none; }
+.cd-coachmark:focus-visible { outline: 2px solid var(--cd-coachmark-accent); outline-offset: 2px; }
+/* Optional icon above the title (a step's `icon`): a content pictogram, so
+   an OCHA Humanitarian Icon, passed by the app as an <img> (keeps the
+   icon's own styles out of the page). Decorative: aria-hidden. */
+.cd-coachmark__icon { display: block; inline-size: 2.5rem; block-size: 2.5rem; }
+.cd-coachmark__icon img, .cd-coachmark__icon svg { display: block; inline-size: 100%; block-size: 100%; object-fit: contain; }
+.cd-coachmark--intro .cd-coachmark__icon { inline-size: 3rem; block-size: 3rem; margin-bottom: var(--sp-4); }
+.cd-coachmark__count {
+  margin: 0; font-size: var(--cd-font-size--tiny); font-weight: 600;
+  color: var(--cd-coachmark-muted);
+}
+.cd-coachmark__title {
+  margin: 0; padding-inline-end: var(--sp-24);   /* room for the close button */
+  font-size: var(--cd-font-size--ref); font-weight: 700; line-height: 1.3;
+  color: var(--cd-coachmark-ink);
+  white-space: pre-line;          /* a "\n" in the title starts a new line */
+}
+.cd-coachmark__text p { margin: 0 0 var(--sp-8); }
+.cd-coachmark__text p:last-child { margin-bottom: 0; }
+.cd-coachmark__actions {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end;
+  gap: var(--sp-8); margin-top: var(--sp-4);
+}
+.cd-coachmark__skip {
+  margin-inline-end: auto; padding: 0; border: 0; background: none; cursor: pointer;
+  font: inherit; font-size: var(--cd-font-size--tiny); color: var(--cd-coachmark-muted);
+  text-decoration: underline; text-underline-offset: 2px;
+}
+.cd-coachmark__skip:hover { color: var(--cd-coachmark-ink); }
+.cd-coachmark__close {
+  position: absolute; inset-block-start: var(--sp-8); inset-inline-end: var(--sp-8);
+  inline-size: 1.75rem; block-size: 1.75rem; padding: 0;
+  display: grid; place-items: center;
+  border: 0; background: none; cursor: pointer; color: var(--cd-coachmark-muted);
+  border-radius: var(--cd-coachmark-radius);
+}
+.cd-coachmark__close:hover { color: var(--cd-coachmark-ink); }
+.cd-coachmark__close svg { inline-size: 0.875rem; block-size: 0.875rem; }
+/* Intro variant (variant: "intro"): one card in the centre of the dimmed
+   page — a welcome or an announcement, with the app's own buttons (e.g.
+   Start / No thanks) instead of Back / Next. No element is highlighted. */
+.cd-coachmark--intro {
+  inline-size: min(26rem, calc(100vw - 2 * var(--sp-16)));
+  gap: var(--sp-12);
+  padding: var(--sp-24);
+}
+.cd-coachmark--intro .cd-coachmark__title { font-size: var(--cd-font-size--medium); }
+.cd-coachmark--intro .cd-coachmark__text { font-size: var(--cd-font-size--ref); }
+.cd-coachmark--intro .cd-coachmark__actions { margin-top: var(--sp-8); }
+.cd-coachmark__live {                                  /* screen-reader announcements */
+  position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+/* Glide between steps only — never on first appearance (the script adds
+   .is-placed after the first placement). */
+@media (prefers-reduced-motion: no-preference) {
+  .cd-coachmark.is-placed, .cd-coachmark-ring.is-placed { transition: top 0.2s ease, left 0.2s ease, width 0.2s ease, height 0.2s ease; }
+}
+/* @component cd-coachmark:end */
+
 /* ===== Footer (cd-footer) ===== */
 /* The OCHA institutional footer: a UN-blue band with the "Service provided by"
    OCHA lockup, the mandate tagline, and the Creative Commons licence — the

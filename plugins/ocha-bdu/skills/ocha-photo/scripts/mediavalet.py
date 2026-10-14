@@ -437,6 +437,15 @@ def log_change(log, by, action, detail):
         f.write(f"- {stamp} · {by} · {action} · {detail}\n")
 
 
+# New MediaValet calls lightboxes "collections": same object, same id, same API. The web app sends
+# /browse/lightboxes/<id> to /v5/collections/<id> (found in MediaValet's own route table, Oct 2026).
+WEB = "https://unocha.mediavalet.com"
+
+
+def collection_link(lid):
+    return f"{WEB}/v5/collections/{lid}"
+
+
 def lightbox_list(token):
     p = api_get("/lightboxes?includePermissions=true", token).get("payload", [])
     return p if isinstance(p, list) else p.get("lightboxes", [])
@@ -456,7 +465,7 @@ def cmd_lightboxes(token, filt):
     for l in lightbox_list(token):
         if filt and filt.lower() not in (l.get("name") or "").lower():
             continue
-        print(f"{l.get('name')}  ·  {l.get('assetCount')} photos  ·  {l['id']}")
+        print(f"{l.get('name')}  ·  {l.get('assetCount')} photos  ·  {collection_link(l['id'])}")
 
 
 def cmd_lightbox_create(token, name, description, by, log):
@@ -464,7 +473,7 @@ def cmd_lightbox_create(token, name, description, by, log):
     lid = str(uuid.uuid4())
     api_send("POST", "/lightboxes", token, {"id": lid, "name": name, "description": description or ""})
     log_change(log, by, "created lightbox", f"“{name}” ({lid})")
-    print(f"Created lightbox “{name}”: {lid}")
+    print(f"Created collection “{name}”: {collection_link(lid)}")
 
 
 def cmd_lightbox_add(token, ref, assets, by, log):
@@ -500,19 +509,32 @@ def cmd_lightbox_delete(token, ref, confirm, by, log):
 
 
 def cmd_share(token, ref, recipient, expires, originals, confirm, by, log):
+    """A public web gallery of a collection: anyone with the link sees it, no sign-in.
+
+    shareTo MUST be "ExternalUser" and the collection id must be in "ids" too. With "Unknown" MediaValet
+    answers 202 and a shareId, but no gallery exists: the /galleries/ page says "nothing here".
+    With ExternalUser the reply carries payload.link (tested 14 Oct 2026, opened signed out)."""
     lid, name = lightbox_id(ref, token)
+    size = "original files" if originals else "web-size images"
     if not confirm:
-        print(f"Would make a share link to the lightbox “{name}” for {recipient}, expiring {expires}, "
-              f"{'original files' if originals else 'web-size images'}. Anyone with the link can see "
-              "these photos. Nothing changed: re-run with --confirm once the person has said yes.")
+        print(f"Would make a public gallery of “{name}” for {recipient}, expiring {expires}, {size}. "
+              "Anyone with the link can see and download these photos, no sign-in needed. Nothing changed: "
+              "re-run with --confirm once the person has said yes.")
         return
     res = api_send("POST", "/shareLightboxes", token, {
-        "shareTo": "Unknown", "shareVia": "Link", "allowAssetDownload": True,
-        "images": {"shareOriginals": bool(originals), "renditionType": "Original" if originals else "HighDefinition"},
-        "lightboxId": lid, "gallerySettings": {"expiryDate": expires}})
-    p = res.get("payload", res)
-    log_change(log, by, "shared lightbox", f"“{name}” for {recipient}, expires {expires}")
-    print(json.dumps(p, indent=2)[:1500])
+        "shareTo": "ExternalUser", "shareVia": "Link", "allowAssetDownload": True,
+        "images": {"shareOriginals": bool(originals), "spectrum": "SRgb",
+                   "renditionType": "Original" if originals else "HighDefinition",
+                   "resolution": "Print" if originals else "Web"},
+        "videos": {"shareOriginals": bool(originals)}, "audio": {"shareOriginals": bool(originals)},
+        "documents": {"shareOriginals": bool(originals)},
+        "ids": [lid], "lightboxId": lid, "DynamicWebGallery": True,
+        "gallerySettings": {"expiryDate": expires}, "message": {"recipients": [], "text": ""}})
+    link = (res.get("payload") or {}).get("link")
+    if not link:
+        sys.exit("MediaValet accepted the share but returned no gallery link: " + json.dumps(res)[:300])
+    log_change(log, by, "public gallery", f"“{name}” for {recipient}, {size}, expires {expires}: {link}")
+    print(f"Public gallery (no sign-in), expires {expires}, {size}:\n{link}")
 
 
 def new_caption(old, caption=None, credit=None):

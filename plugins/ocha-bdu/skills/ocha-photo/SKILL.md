@@ -172,12 +172,25 @@ it would do.
 |---|---|---|
 | Create a lightbox, add photos to it | The request is enough | `lightbox-create "<name>"`, `lightbox-add "<lightbox>" <ids…>` |
 | Take photos out of a lightbox, delete a lightbox | **One**: say what goes, wait for a yes | `lightbox-remove … --confirm`, `lightbox-delete … --confirm` |
-| Share link | **One**, after asking **who it’s for** and **how long** it should work. Anyone with the link sees the photos | `share "<lightbox>" --for "<who>" --expires YYYY-MM-DD --confirm` (`--originals` only if asked) |
+| Public gallery link | **One**, after asking who it’s for, until when, and web-size or originals. Anyone with the link sees the photos | `share "<collection>" --for "<who>" --expires YYYY-MM-DD [--originals] --confirm` |
 | Edit a caption or a credit | **Two** | `edit <ids…> --credit "WFP/Name"` or `--caption "…"`, then `--apply --confirm-count N` |
 | Delete a photo from the library | **Three** | `delete <ids…>`, then `--apply --confirm-count N --confirm-names "<file names>"` |
 
 All commands: `python3 ~/.claude/skills/ocha-photo/scripts/mediavalet.py <command> …`. List lightboxes
 with `lightboxes [part of the name]`. A lightbox can be given by its exact name or its id.
+
+**Who needs to see it? Ask every time photos are to be shared:**
+- **People with MediaValet access** → give the **collection** link. It only opens when signed in.
+- **Anyone else** (partners, colleagues without an account, press) → a **public gallery**: no sign-in,
+  view and download. Ask, case by case, with no defaults: **until when** it should work, and **web-size or
+  original** files. The command prints the gallery link (`https://unocha.mediavalet.com/galleries/…`).
+- **A public gallery outlives its collection.** It is a snapshot: deleting the collection does not take
+  it down (tested 14 Oct 2026). It stays open until its expiry date, so keep the expiry short and say
+  so when you ask.
+
+**Lightbox = collection.** New MediaValet calls lightboxes **collections**; they are the same thing, with
+the same id. Talk to people about “collections”, and always give them the link the commands print:
+`https://unocha.mediavalet.com/v5/collections/<id>`.
 
 **Captions and credits — two confirmations:**
 1. Run `edit` without `--apply`: it prints BEFORE and AFTER for each photo. Show that to the person; they
