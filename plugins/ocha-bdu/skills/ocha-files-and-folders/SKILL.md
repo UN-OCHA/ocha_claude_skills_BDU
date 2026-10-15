@@ -114,7 +114,7 @@ Use only the parts that apply, always in that order.
 | Rule | Example |
 |---|---|
 | All lowercase, words joined by `_`. No spaces, accents or brackets. | `humanitarian_snapshot` |
-| Countries as three-letter ISO codes | `sdn`, `ukr`, `pse` |
+| Countries as three-letter ISO codes, from `ocha-country-names` | `sdn`, `ukr`, `pse` |
 | Format as page size or pixels | `a4`, `1080x1920` |
 | Dates as year-month-day | `2026-09-14` |
 | Language last, two letters — **only when the job comes in more than one language** | `_en`, `_fr`, `_es`, `_ar`, `_ru`, `_zh` |

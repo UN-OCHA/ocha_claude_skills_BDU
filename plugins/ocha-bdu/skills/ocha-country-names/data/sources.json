@@ -1,0 +1,12 @@
+{
+  "built": "2026-10-15",
+  "unterm": "https://conferences.unite.un.org/untermapi/api/term/downloadCountries",
+  "m49": "https://unstats.un.org/unsd/methodology/m49/overview/",
+  "rows": 248,
+  "by_status": {
+    "Member State": 193,
+    "Other area (M49 only, not in UNTERM)": 51,
+    "Member of specialized agencies": 2,
+    "Observer State": 2
+  }
+}

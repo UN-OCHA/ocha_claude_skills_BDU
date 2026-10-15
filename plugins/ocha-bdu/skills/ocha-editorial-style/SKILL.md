@@ -24,6 +24,9 @@ This file distils the rules that come up constantly. **The guide's exhaustive A�
 spelling list and acronym list are NOT reproduced here** — open the PDF for those
 (spelling list ≈ p.30, acronyms ≈ p.37+).
 
+**Country names:** official names, codes and OCHA’s usage are in `ocha-country-names`. Use it for every
+country named in text, rather than the PDF.
+
 ## Updates since the 3rd edition — these override the PDF
 
 The bundled PDF predates these changes. **Where they conflict, this list wins** — check

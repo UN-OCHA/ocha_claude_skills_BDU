@@ -201,7 +201,9 @@ Only English, French and Spanish are published. For any other language, ask BDU
 
 ## 7. Country and place naming
 
-- Country names from **UNTERM** — https://conferences.unite.un.org/unterm
+- Country names from **UNTERM**: look them up in `ocha-country-names`, which holds the official names
+  in six languages with ISO3 codes, and match map data on ISO3, never on names. Disputed areas stay with
+  this skill.
 - Spell out acronyms; if space is tight use an asterisk and a footnote.
 
 ### Disputed and sensitive territories — always check the guidance
@@ -459,7 +461,7 @@ geometry as GeoJSON (or shapefile/GeoPackage) and styling as `.qml` (QGIS) or `.
 4. Locator globe / inset needed?
 5. Source + "as of" date?
 6. Acronyms spelled out?
-7. Country names from UNTERM?
+7. Country names from UNTERM (`ocha-country-names`)?
 7b. Any disputed territory checked against the internal guidance (§7)?
 8. Boundaries from `polbndl` line layers, not polygon outlines?
 9. Boundary hierarchy correct (international heaviest)?

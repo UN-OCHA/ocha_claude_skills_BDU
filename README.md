@@ -28,6 +28,7 @@ reinstall.
 | `ocha-social-media` | Social media graphics in Canva — carousels and cards from a Trello brief, MediaValet photos, BDU templates, grid and Inter type rules, video-ready slides |
 | `ocha-photo` | OCHA photos — original downloads from MediaValet, photo credits and captions, the BDU photo enhancement, dignity and inclusion when choosing photos |
 | `web-motion` | Motion and interaction for websites and web apps — screen transitions, swipes, presses, sheets, timers, reduced motion, iPhone quirks |
+| `ocha-country-names` | Official UN country names in six languages, ISO3 codes and UN regions, plus OCHA usage (OPT, DRC) and names never to write |
 
 ---
 
@@ -169,7 +170,7 @@ Type this in the Claude Code chat box, like a normal question:
 
 > **what OCHA skills do I have now?**
 
-Claude should list thirteen skills.
+Claude should list fourteen skills.
 
 ---
 
@@ -292,7 +293,7 @@ You can switch models in the middle of a session — the work carries over.
 **"I installed them but Claude doesn't know about them."**
 You need to quit Claude and reopen it (Step 4). The plugin loads at startup.
 
-**"Claude lists fewer than thirteen skills."**
+**"Claude lists fewer than fourteen skills."**
 Your copy is out of date. Tell Claude *“Update the OCHA skills with the latest version from
 the repository”*, then quit Claude and open it again. If you installed the skills by hand
 before September 2026, also do Step 3 once and the clean-up message underneath it.
