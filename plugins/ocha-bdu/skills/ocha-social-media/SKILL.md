@@ -13,9 +13,9 @@ description: >
 
 # OCHA social media graphics (Canva)
 
-The deliverable is a **Canva design link** for the social media team, who review it, edit text if
-needed and export it themselves. BDU does not export PNG/JPEG unless asked (if ever needed: JPEG, it is
-photo-based).
+The deliverable is **only the Canva design link**. The social media team reviews it, edits text if
+needed and downloads the final JPEG themselves. BDU does not export PNG/JPEG unless asked (if ever
+needed: JPEG, it is photo-based), so the job folder never needs an `export/` of finals.
 
 Brand basics come from `ocha-visual-identity`, copy rules from `ocha-editorial-style`, photos (MediaValet,
 enhancement, credits) from `ocha-photo`, job folders and file names from `ocha-files-and-folders`.
@@ -163,6 +163,12 @@ padded frames (in the template: pill text box at 80/75, logo frame at 849/54).
   (credits, fund names, copy questions).
 - Update the job `README.md` (links) and `CLAUDE.md` (decisions, open points).
 - If the post was a new type of content, make sure the briefing for Javier has gone out (§7).
+- **Clean up the job folder once the design is approved** (Javier, 15 Oct 2026). Keep only what the job
+  really needs later: `README.md`, `CLAUDE.md`, `info/photos_and_credits.md`, the original and enhanced
+  photos actually used in the final design, and any script or asset the job made. Remove the rest —
+  draft previews, mockup previews, photo-search contact sheets, rejected photo downloads, test files.
+  List what will be removed and ask before deleting; move to `archive/` instead if the person prefers.
+  The Canva design itself holds the final; no export is kept.
 
 ## 7. New types of content — tell the person, brief Javier
 

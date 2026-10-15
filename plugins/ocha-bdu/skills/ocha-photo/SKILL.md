@@ -80,6 +80,8 @@ python3 ~/.claude/skills/ocha-photo/scripts/mediavalet.py search "aid workers di
 
 - **Write the request as a description** of what should be in the photo (“aid workers unloading
   food”, “women collecting water”, “a health worker with a child”), not as keywords.
+- **Keep the request to 20 words or fewer.** MediaValet rejects longer ones with an error
+  (“Search term too long, maximum 20 words allowed”).
 - **Give `--country` as the country name** (it is also added to the search, which the ranking
   needs) and `--year` for the year it was taken. The AI ranking alone mixes in South Sudan for
   “Sudan” and older years; these two filters remove them using the photo’s own metadata.
