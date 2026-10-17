@@ -10,7 +10,8 @@ description: >
   "swipe between pages", "carousel", "drag", "bottom sheet", "modal animation", "press state",
   "tap feedback", "animate the number", "countdown", "timer ring", "sound on iPhone", "reduce
   motion", "PWA", "iOS Safari", "home screen app", "scroll bar flashes", "the page scrolls
-  sideways". For landing-page choreography and scroll-linked effects use `hallmark`; for films
+  sideways", "smooth scroll", "anchor link", "jump to section", "page load animation", "fade in
+  on load", "skeleton loader". For landing-page choreography and scroll-linked effects use `hallmark`; for films
   rendered to video use `ocha-animation`; for colours, type and OCHA components use
   `ocha-visual-identity`.
 ---
@@ -74,6 +75,22 @@ traps are in `references/ios-and-pwa.md`.
 
 Write the depth of each screen down once (a small route map) and let one function pick the move.
 Don’t decide per screen.
+
+### When a page or its content loads
+
+Google’s Material 3 transitions are the reference here, and they agree with the rules above.
+
+- **A page whose content is already there appears as it is.** No fade-in on load, no elements
+  rising one by one. Hiding content until a script runs delays what people came for, and leaves a
+  blank page when the script fails. Staggered reveals on scroll are a marketing-site habit, not
+  a standard; use them only when someone asks for them.
+- **Content that arrives later** (fetched data, a slow image) gets a **skeleton** if the wait can
+  pass ~300ms: grey shapes where the content will sit, at its real size, with a subtle pulse that
+  runs from the top left to the bottom right. Under reduced motion the skeleton stays still.
+- **When it’s ready, the content fades in over the skeleton,** all at once: opacity only, no
+  movement, `--dur-leave`. Reserve the space first (`width` and `height` on every image), so
+  nothing shifts.
+- Code: `references/recipes.md` § 10.
 
 ## 3. Presses
 
@@ -156,7 +173,18 @@ The full, working pager is in `references/recipes.md`. The rules it follows:
 - `overscroll-behavior: none` on the page, `contain` on layers that scroll themselves.
 - Hide scroll bars only on touch screens (`@media (hover: none) and (pointer: coarse)`), never by
   turning the page into a scroll box.
-- Each new screen starts at the top (`scrollTo(0, 0)`).
+- Each new screen starts at the top with `scrollTo({ top: 0, behavior: "instant" })`. With smooth
+  scrolling switched on, a plain `scrollTo(0, 0)` glides up the whole page instead of jumping.
+- **In-page anchors glide** (“Projects”, “Contact”, a table of contents): `scroll-behavior:
+  smooth` on `html`, inside `@media (prefers-reduced-motion: no-preference)` so it jumps for
+  people who reduce motion. Let the browser handle plain `<a href="#id">` links: it also updates
+  the address bar and moves focus. Don’t replace them with JavaScript.
+- **Leave room for a sticky header:** `scroll-padding-top` on `html`, equal to the header’s height
+  plus a little air. Without it the section’s heading lands hidden under the header.
+- **Don’t smooth the whole page’s scrolling** with a library (Lenis and the like) by default. It
+  takes over the browser’s own scrolling, lags on iPhone and annoys keyboard and trackpad users.
+  Only on a landing page or portfolio whose scroll-linked choreography needs it, and only when
+  asked.
 - Long grids: `content-visibility: auto`, and filter by hiding items, not rebuilding the grid on
   every keystroke.
 

@@ -338,3 +338,41 @@ function countUp(el, to, done) {
   }, 40);
 }
 ```
+
+## 10. Anchors and loading content (CSS and JavaScript)
+
+```css
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }          /* in-page anchors glide; reduced motion jumps */
+}
+html { scroll-padding-top: calc(var(--header-h, 64px) + 16px); }  /* headings clear a sticky header */
+
+/* Skeleton: real size, subtle pulse from top left to bottom right */
+.skeleton {
+  background: linear-gradient(120deg, var(--skel) 30%, var(--skel-hi) 50%, var(--skel) 70%);
+  background-size: 300% 100%;
+  animation: skel 1.6s linear infinite;
+  border-radius: 8px;
+}
+@keyframes skel { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+
+/* Content that arrives later fades in over the skeleton: opacity only, all at once */
+.is-loading .content { opacity: 0; }
+.content { transition: opacity var(--dur-leave) var(--ease-enter); }
+/* Reserve image space: give every <img> width and height attributes; browsers turn them
+   into its aspect ratio, so nothing shifts when it arrives. */
+```
+
+```js
+// New screen in an app: jump to the top, don't glide (smooth scrolling is on for anchors)
+window.scrollTo({ top: 0, behavior: "instant" });
+
+// Swap a skeleton for content once the data is ready
+async function load(box, fetchData, render) {
+  box.classList.add("is-loading");
+  render(box, await fetchData());           // renders under the skeleton, invisible
+  requestAnimationFrame(() => box.classList.remove("is-loading"));  // fades in, all together
+}
+```
+
