@@ -175,6 +175,10 @@ template: kicker text box at left 80, so the blue edge lands on the 72 px margin
   (`create-upload-url`). Insert at top 540, 1080×900 for bottom text (flip for top
   text), then bring the text and credit layers to the front.
 - Keep the gradient behind the OCHA logo subtle (≈30 % opacity).
+- **Always ask the designer about legibility** (Javier, 19 Oct 2026). After building or changing a slide,
+  show the preview and ask, per slide: *“Is the text easy to read here, or should the dark gradient be
+  darker or lighter?”* Don’t decide it alone from the thumbnail — previews are small and photos vary.
+  Adjust only the slides they name (gradient opacity, or switch strong ↔ subtle), save, and show again.
 - Resizing a gradient element crops it instead of squashing it — use `crop_media` to rescale.
 
 ## 6. Hand-off
