@@ -70,7 +70,16 @@ around the font limit. Using the Canva desktop app instead of Chrome does not ch
   change figures — flag doubts instead.
 - Note per slide: copy and photo link. Check the copy against `ocha-editorial-style` and **flag**
   (don’t fix) anything off.
-- Create the job folder per `ocha-files-and-folders` (`source/`, `info/`, `README.md`, `CLAUDE.md`).
+- **Propose where the job lives — in Canva and in Dropbox — and get a yes before creating anything**
+  (Javier, 19 Oct 2026). Don’t rely on a stored list of folders; they change. Scan them fresh each job:
+  - **Canva:** list the folder tree of the shared account (`list-folder-items` from `root`, two levels deep,
+    folders only) and look where similar recent posts live (`search-designs` for the country or topic).
+  - **Dropbox:** follow `ocha-files-and-folders` (`Projects/<year>/<office>/<job_name>/`) and list the
+    sibling jobs in that office folder (e.g. `Projects/2026/FOD/CB/PE/SM/`) to match how they are named.
+  - Then show **one proposal** in a single question: the Canva file name + folder, and the Dropbox job
+    folder path, each with a one-line reason (“other CBPF donor posts are here”). Offer the next-best
+    alternative if two fit. Create, rename and move only after the person confirms.
+- Then create the job folder per `ocha-files-and-folders` (`source/`, `info/`, `README.md`, `CLAUDE.md`).
 
 ## 2. Photos — use `ocha-photo`
 
@@ -101,8 +110,8 @@ Follow the BDU Canva SOP: **make a copy of the template, rename it, move it to t
   timing and **no animation** (re-apply “Apply between all pages” / “Apply to all pages” if not), and keep
   the cover first and the call to action last. Guides apply to every page automatically.
 - **Name:** `YYYYMM_Country_Title` (e.g. `202610_Chad_UNICEF-SAKHAL impact story`).
-- **Folder:** by subject, e.g. pooled-fund posts → Donor Visibility → **CBPF**.
-  Search folders by name when unsure, and ask if two fit.
+- **Folder:** the one the person confirmed in §1 (by subject, e.g. pooled-fund posts → Donor
+  Visibility → **CBPF**). Move the copy there only after that confirmation.
 - After copying through the connector, **re-add the guides in Chrome** — connector copies drop them (§4).
 
 **If no template fits:** this is a new type of content — follow §7 first. Build from the closest existing
