@@ -93,6 +93,13 @@ Follow the BDU Canva SOP: **make a copy of the template, rename it, move it to t
   floods carousel) in `Templates_DONT_CHANGE/Carousel`. 7 slides, 1080×1440: cover (UN blue kicker + caps
   headline + OCHA mark), statement slides with text at the bottom or the top, and a centred call-to-action
   end slide. Delete the slides a post doesn’t need. Page 1 speaker notes hold the rules.
+- **More slides than the template has:** duplicate the closest existing slide (statement with text at
+  the top, or at the bottom) — never build a slide from a blank page, it would miss the gradients, grid
+  positions and fonts. Duplicate in the Canva editor (Chrome): page thumbnail → **⋯ → Duplicate page**,
+  then drag it into place; the connector cannot duplicate a page. Then swap photo, text and credit through
+  the connector. After adding slides, check in Chrome that the new pages also have **Dissolve 0.5 s**, **4 s**
+  timing and **no animation** (re-apply “Apply between all pages” / “Apply to all pages” if not), and keep
+  the cover first and the call to action last. Guides apply to every page automatically.
 - **Name:** `YYYYMM_Country_Title` (e.g. `202610_Chad_UNICEF-SAKHAL impact story`).
 - **Folder:** by subject, e.g. pooled-fund posts → Donor Visibility → **CBPF**.
   Search folders by name when unsure, and ask if two fit.
