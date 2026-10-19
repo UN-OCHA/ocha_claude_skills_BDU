@@ -46,7 +46,7 @@ repeat on every page, then reopen the panel on each page to confirm nothing is s
 
 ## Font and weight
 
-Social media uses **Inter only**.
+Social media uses **Inter**; photo credits stay in Roboto Condensed (Javier, 19 Oct 2026).
 
 1. Select the text box, then click the font selector (accessibility label “Toggle font selector, current font: …”).
 2. Click “Show the font styles for Inter”.

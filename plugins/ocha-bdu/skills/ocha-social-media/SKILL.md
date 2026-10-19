@@ -89,7 +89,10 @@ Follow the BDU Canva SOP: **make a copy of the template, rename it, move it to t
 
 - Templates live in the Canva folder **Templates_DONT_CHANGE** (find it with a folder search). Never edit a
   template itself.
-- **Carousel template:** `Generic_Carousel` in `Templates_DONT_CHANGE/Carousel`. 4 slides, 1080×1440, page 1 speaker notes hold the rules.
+- **Carousel template:** `Generic_Carousel` (design `DAHYcodbDIk`, since 19 Oct 2026, based on the Nepal
+  floods carousel) in `Templates_DONT_CHANGE/Carousel`. 7 slides, 1080×1440: cover (UN blue kicker + caps
+  headline + OCHA mark), statement slides with text at the bottom or the top, and a centred call-to-action
+  end slide. Delete the slides a post doesn’t need. Page 1 speaker notes hold the rules.
 - **Name:** `YYYYMM_Country_Title` (e.g. `202610_Chad_UNICEF-SAKHAL impact story`).
 - **Folder:** by subject, e.g. pooled-fund posts → Donor Visibility → **CBPF**.
   Search folders by name when unsure, and ask if two fit.
@@ -120,29 +123,46 @@ Full click-by-click instructions: `references/chrome-only-steps.md`. Summary —
 - **Guides:** 12 columns, 24 px gap, 72 px margin; 1 row with 72 px margin.
 - **Video-ready:** Dissolve **0.5 s** between all pages, **4 s** per page, **no animations** on any page
   or element (carousels are sometimes posted as video).
-- **Inter only**, at the right weights (§5).
+- **Inter** at the right weights (§5); photo credits stay in Roboto Condensed.
+- **Animation panel trap:** the Animate panel covers the first page thumbnails. Close the panel before
+  clicking a thumbnail, or the click lands on “Apply to all pages” and animates every page.
 
 Before Chrome: close any open connector edit on that design. Never type with the canvas focused
 (Canva’s “T” shortcut creates a text box).
 
 ## 5. Design rules (BDU, Oct 2026)
 
+**Vertical spacing** (Javier, 19 Oct 2026) — measured on the visible letters, not the text boxes:
+- Two text guides at **140** and **1271** (added by hand in the template). Headlines and supporting text
+  stay between them; the 72 px margins are the hard limit for credits, logo and footnotes only.
+- Top-aligned slides: headline capitals start on 140. Bottom-aligned slides: the last line's baseline sits on 1271.
+- **56 px** from a headline baseline to the top of the text below (or text baseline to headline capitals);
+  **40 px** from the blue kicker to the cover headline.
+- Photo credit baseline on the **1368** margin (credit box top 1350).
+- Inter offsets for placing boxes: Black 96 lh 1.0 → capitals start 21 px below the box top, baseline 24 px
+  above the box bottom (104: 23 / 26). 40 px lh 1.35 → letters start 8 px down, baseline 10 px up.
+  Roboto Condensed 20 → baseline 6 px above the box bottom. Check by exporting PNG and measuring.
+
 **Grid** (1080×1440): 72 px margins all round; 12 columns of 56 px with 24 px gutters — column starts
 72, 152, 232 … 952; a span of *n* columns is `80n − 24` px wide. Every position and gap on a **4 px scale**.
-Place elements by what is *visible*: the country pill’s white background and the OCHA mark sit inside
-padded frames (in the template: pill text box at 80/75, logo frame at 849/54).
+Place elements by what is *visible*: the kicker’s blue background sits inside a padded frame (in the
+template: kicker text box at left 80, so the blue edge lands on the 72 px margin).
 
-**Type — Inter only.** Rounded sizes only.
+**Type — Inter, credits in Roboto Condensed.** Rounded sizes only.
 
-| Role | Size | Weight | Line height |
+| Role | Size | Font / weight | Line height |
 |---|---|---|---|
-| Headline | 72 | Black | 1.2 |
-| Kicker (line above headline) | 44 | ExtraBold | 1.35 |
-| Statement / body text | 52 | ExtraBold | 1.35 |
-| Photo credit | 20 | Italic | 1.35 |
-| Country pill | as template | Bold | — |
+| Cover headline | 104 | Inter Black, capitals | 1.0 |
+| Statement headline (inside slides) | 96 | Inter Black, capitals | 1.0 |
+| Kicker (line above the cover headline) | 32 | Inter Bold, capitals, white on UN blue `#009EDB` | 1.2 |
+| Supporting text | 40 | Inter SemiBold | 1.35 |
+| Photo credit (every slide with a photo) | 20 | Roboto Condensed Regular, not italic | 1.35 |
 
-- **Left-aligned** text by default, credits included.
+- Big capitals set at line height 1.0 (1.2 looks loose at this size).
+- **Key words highlighted** (when wanted): white text on a UN blue box, never blue text on a photo
+  (not enough contrast). Partial highlights need their own text box over a `#009EDB` rectangle
+  (`insert_shape`, corner 4) — the connector can’t highlight part of a text box.
+- **Left-aligned** text by default, credits included. Only the closing call to action may be centred.
 - **Credits** at top 1340, left 72 (on the bottom margin). Text ends **≥ 48 px** above the credit.
 - **No orphans.** Fix by choosing another column span for the text box — never by changing the copy.
 
