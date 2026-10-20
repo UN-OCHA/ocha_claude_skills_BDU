@@ -2,3 +2,10 @@
 __pycache__/
 *.pyc
 .venv/
+
+# Mockup templates for the ocha-mockups skill. Licensed Photoshop files: they live here in
+# Dropbox for BDU staff and must NEVER reach the public repository.
+/mockups/
+*.psd
+*.psdt
+*.psb

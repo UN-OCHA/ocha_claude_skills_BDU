@@ -1,0 +1,144 @@
+{
+  "_about": "BDU's curated mockup templates. Paths are relative to the templates folder (Design/Resources/ocha_claude_skills_BDU/mockups in the OCHA DMU Dropbox, git-ignored). The templates are licensed files: never copy them into this skill, a repository or a job folder. Every entry was rendered with a test card and looked at before it was added. design_slots names the smart-object layers that take the design (beats the name guess); background is the default colour for a plain background layer; area fixes the part of the smart object the design fills; hide_layers hides the template author's credit text or an old sample pasted over the smart object.",
+  "templates": {
+    "magazine-a4-flat": {
+      "title": "A4 magazine or report, front cover, flat and front-facing, light grey",
+      "path": "book_magazine/Magazine_A4_front_flat.psd",
+      "format": "A4 portrait, 1 slot, 2436x2854 px",
+      "background": "#D6D6D6",
+      "source": "PS/mockup/04_print products/Magazine_A4_front_flat",
+      "notes": "The approved cover-options look (OCHA Annual Report 2025). Grey #D6D6D6 matches earlier BDU mockup exports; --background keep gives the template's white."
+    },
+    "magazine-a4-spread": {
+      "title": "A4 magazine or report open at a spread, front-facing, gentle page curve",
+      "path": "book_magazine/Spread Update.psd",
+      "format": "Two A4 portrait pages, 2 slots (left, right), 4801x3599 px",
+      "design_slots": [
+        "Left Page (PASTE DESIGN HERE)",
+        "Right Page (PASTE DESIGN HERE)"
+      ],
+      "source": "PS/mockup/04_print products/Magazine-papersize",
+      "notes": "Give a PDF and the first page of the spread: --design report.pdf#4 puts pages 4 and 5 left and right."
+    },
+    "magazine-a4-perspective": {
+      "title": "A4 magazine or report cover on a stack, in perspective",
+      "path": "book_magazine/Stack Update.psd",
+      "format": "A4 portrait, 1 slot, 4801x3599 px",
+      "design_slots": [
+        "Cover (PASTE DESIGN HERE)"
+      ],
+      "source": "PS/mockup/04_print products/Magazine-papersize",
+      "hide_layers": [
+        "Credit"
+      ]
+    },
+    "a4-page": {
+      "title": "Single A4 page (flyer, letter, one-pager), front-facing with a soft shadow",
+      "path": "a4_page/a4-a5-flyer-mockup-02.psd",
+      "format": "A4 portrait, 1 slot, 3090x3112 px",
+      "design_slots": [
+        "Flyer (R1) 1 - A"
+      ],
+      "source": "PS/mockup/04_print products/Flyer a4-a5"
+    },
+    "laptop-website": {
+      "title": "Website on a laptop (MacBook Pro), in perspective, white background",
+      "path": "web_mobile/MacBook Pro Retina.psd",
+      "format": "16:10 landscape screen, 1 slot, 3000x2051 px",
+      "design_slots": [
+        "Screen1"
+      ],
+      "source": "PS/mockup/02_Computers",
+      "notes": "Give a screenshot at 16:10 (e.g. 2560x1600 px). A 16:9 screenshot loses about 10% at the sides."
+    },
+    "phone-app": {
+      "title": "App or mobile website on a phone held in a hand, white background",
+      "path": "web_mobile/iphone-mockup-okorkmaz.psd",
+      "format": "9:16 portrait screen, 1 slot, 3000x2000 px",
+      "design_slots": [
+        "image-here"
+      ],
+      "source": "PS/mockup/01_Phones",
+      "notes": "Give a phone screenshot at about 9:16. The phone is an older iPhone model.",
+      "hide_layers": [
+        "info"
+      ]
+    },
+    "poster-a-portrait": {
+      "title": "A-size poster (A0-A4 portrait) hanging on a grey wall with clips",
+      "path": "poster/Mock-up_Poster_vertical.psd",
+      "format": "A-series portrait, 1 slot, 2700x3271 px",
+      "design_slots": [
+        "Layer 7",
+        "Insert_Poster_Here"
+      ],
+      "source": "PS/mockup/04_print products/Poster_Set"
+    },
+    "poster-a-landscape": {
+      "title": "A-size poster in landscape hanging on a grey wall with clips",
+      "path": "poster/Mock-up_Poster_horizontal.psd",
+      "format": "A-series landscape, 1 slot, 2700x2000 px",
+      "design_slots": [
+        "Layer 9 copy",
+        "Insert_Poster_Here"
+      ],
+      "source": "PS/mockup/04_print products/Poster_Set"
+    },
+    "poster-square": {
+      "title": "Square poster hanging on a grey wall with clips",
+      "path": "poster/Mock-up_Poster_square.psd",
+      "format": "Square, 1 slot, 2700x2000 px",
+      "design_slots": [
+        "Layer 10 copy",
+        "Insert_Poster_Here"
+      ],
+      "source": "PS/mockup/04_print products/Poster_Set"
+    },
+    "business-card-us": {
+      "title": "One US-size business card (3.5x2 in) on a stone ledge, dark background",
+      "path": "business_card/Free_3,5x2in_Business_Card_Mockup_3.psd",
+      "format": "3.5x2 in landscape (1.75:1), 1 slot, 3000x2250 px",
+      "design_slots": [
+        "Project"
+      ],
+      "source": "PS/mockup/04_print products/Business card",
+      "notes": "US size. A European 85x55 mm card (1.55:1) would be cropped about 12%: there is no EU-size template yet."
+    },
+    "business-cards-us-front-back": {
+      "title": "US-size business cards: a stack showing the front, one card leaning showing the back",
+      "path": "business_card/front_back/Free_3,5x2in_Business_Card_Mockup_5.psd",
+      "format": "3.5x2 in landscape (1.75:1), 2 slots (1 stack top, 2 leaning card), 3000x2250 px",
+      "design_slots": [
+        "Project",
+        "Project 2"
+      ],
+      "source": "PS/mockup/04_print products/Business card/MD317_Free_3,5x2in_Business_Card_Mockup",
+      "notes": "Give a 2-page PDF (front, back) or a --spec. US size only."
+    },
+    "rollup-85x200": {
+      "title": "Roll-up banner 85x200 cm, front view, light background",
+      "path": "rollup/Mockup_Rollup_front_85x200.psd",
+      "format": "85x200 cm (0.425:1), 1 slot, 1600x2500 px",
+      "design_slots": [
+        "Layer 3",
+        "Rollup_85x200"
+      ],
+      "source": "PS/mockup/04_print products/Rollup Banner",
+      "notes": "Small canvas (1600x2500): fine for screens and slides.",
+      "hide_layers": [
+        "Layer 5"
+      ]
+    },
+    "rollup-100x200": {
+      "title": "Roll-up banner 100x200 cm, front view, light background",
+      "path": "rollup/Mockup_Rollup_front_100x200.psd",
+      "format": "100x200 cm (0.5:1), 1 slot, 1600x2500 px",
+      "design_slots": [
+        "Layer 3",
+        "Rollup_100x200"
+      ],
+      "source": "PS/mockup/04_print products/Rollup Banner",
+      "notes": "Small canvas (1600x2500): fine for screens and slides."
+    }
+  }
+}

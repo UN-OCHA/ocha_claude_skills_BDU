@@ -41,7 +41,9 @@ to open.
 - **Before a job that needs a Dropbox folder** (one of those, or the job folder itself), tell the user
   which folder and ask them to right-click it and choose **Make available offline**. Only that folder,
   not the whole Dropbox: some are large.
-- **On a Mac, check first when you can:** online-only files show as `dataless` in `ls -lO`.
+- **On a Mac, check first when you can:** online-only files show as `dataless` in `ls -lO`, or (older
+  Dropbox setups) as **0 bytes** with a `com.dropbox.placeholder` attribute in `xattr -l`. No real
+  design file is 0 bytes.
 - **If a file reads as empty, won’t open, or a folder looks incomplete,** stop and ask for the same thing.
   Never work around it with a copy from elsewhere or a download from the web.
 

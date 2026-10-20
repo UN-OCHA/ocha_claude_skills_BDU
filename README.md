@@ -1,8 +1,8 @@
 # OCHA BDU skills for Claude
 
 Adds OCHA brand knowledge to Claude — colours, logo rules, chart and map standards,
-house writing style, logo production, the full video pipeline, and how to name and
-organise files.
+house writing style, logo production, the full video pipeline, mockups, and how to name
+and organise files.
 
 Once installed, you just ask Claude for the work and it follows OCHA standards
 automatically. You don't have to explain them every time. **And they stay current** — we
@@ -29,6 +29,7 @@ reinstall.
 | `ocha-photo` | OCHA photos — original downloads from MediaValet, photo credits and captions, the BDU photo enhancement, dignity and inclusion when choosing photos |
 | `web-motion` | Motion and interaction for websites and web apps — screen transitions, swipes, presses, sheets, timers, reduced motion, iPhone quirks |
 | `ocha-country-names` | Official UN country names in six languages, ISO3 codes and UN regions, plus OCHA usage (OPT, DRC) and names never to write |
+| `ocha-mockups` | Mockups without Photoshop — a cover or page on a magazine, book, poster, business card, roll-up or screen, and cover options as one PDF |
 
 ---
 
@@ -170,7 +171,7 @@ Type this in the Claude Code chat box, like a normal question:
 
 > **what OCHA skills do I have now?**
 
-Claude should list fourteen skills.
+Claude should list fifteen skills.
 
 ---
 
@@ -226,6 +227,7 @@ Nothing to remember. Just ask for what you need:
 > *"How much clear space does the OCHA logo need?"*
 > *"Check this paragraph against our house style"*
 > *"Add subtitles and the OCHA ending to this video"*
+> *"Show this cover on a magazine mockup"* · *"Make cover options with these three covers"*
 
 Claude picks the right skill by itself.
 
@@ -293,7 +295,7 @@ You can switch models in the middle of a session — the work carries over.
 **"I installed them but Claude doesn't know about them."**
 You need to quit Claude and reopen it (Step 4). The plugin loads at startup.
 
-**"Claude lists fewer than fourteen skills."**
+**"Claude lists fewer than fifteen skills."**
 Your copy is out of date. Tell Claude *“Update the OCHA skills with the latest version from
 the repository”*, then quit Claude and open it again. If you installed the skills by hand
 before September 2026, also do Step 3 once and the clean-up message underneath it.
@@ -309,6 +311,12 @@ reinstall** at the bottom of the QuickVid page.
 **"Claude says it can't find the QuickVid engine."**
 On a Mac it should offer to install it — just ask for the video again. On Windows, do the
 install from the QuickVid page (see the video section above).
+
+**"Claude asks me to make a folder available offline."**
+Dropbox keeps big files in the cloud until they are needed, and Claude can't open those. In
+Finder, right-click the folder Claude names, choose **Make available offline**, wait for the
+green tick, and tell Claude. Mockup templates are about 1.2 GB in all, so this takes a few
+minutes the first time.
 
 **"Claude can't open a Dropbox file."**
 Some skills point at shared files in the OCHA DMU Dropbox. You need access to that team
