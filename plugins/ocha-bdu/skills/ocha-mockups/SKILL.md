@@ -106,13 +106,42 @@ page 2 in slot 2). For images, or to choose, use a spec file:
 python3 $M render <key> --spec cards.json --out export/cards_mockup.png
 ```
 
-A template with **one** spread-shaped slot and a PDF of single pages gets two consecutive
-pages side by side automatically.
+A template whose **one** slot is a whole spread takes two consecutive single pages side by
+side with `--spread` (or `"spread": true` in its catalogue entry). Not automatic: a landscape
+A-size poster has the same shape as two pages.
+
+**Cropping and label spot.** `--crop left,top,right,bottom` (template pixels) keeps part of
+the scene; `--crop none` undoes a template’s own crop. A template whose default label spot
+hits something (poster clips) has its own spot in the catalogue.
 
 **When the shapes differ** (a 3:4 slot and an A4 cover): up to 2% is stretched invisibly;
 beyond that the design is cropped to fill, and the script says how much. Choose what
 survives with `--focus x,y` (0–1; `0.5,0.2` keeps the top), or use `--fit fit` (white
 margins) or `--fit stretch`. Tell the person when something was cropped.
+
+**Reshape: when the design’s shape differs from the object (some templates only).**
+`--reshape` changes the poster or page itself to the design’s shape, instead of cropping the
+design or adding margins: an A4 cover on the square poster makes the poster A4. It cuts one
+straight strip out of the whole scene (paper, wall, shadows, lighting), cross-fades the join,
+and fits the design to the new shape.
+
+```bash
+python3 $M render poster-square --design cover.pdf --reshape --out export/cover_poster.png
+```
+
+**It might not always work: it depends on the mockup.** It only looks right where the strip
+crosses plain, repeating things (blank paper, a textured wall, a plain backdrop), never a
+hand, a clip, a device or a diagonal light streak. So:
+- It runs on templates with a **checked reshape zone** in the catalogue: today
+  `poster-a-portrait`, `poster-a-landscape`, `poster-square` and `a4-page` (each tested with
+  A4, A landscape, square, US Letter and 16:9 designs). Anywhere else it stops and says so.
+- It can only cut, never add: an object gets narrower or shorter, by as much as its zone
+  allows. Beyond that it stops and gives the limit; use `--fit` or another template.
+- To try it on another template, give a strip by hand along x or y, in canvas pixels:
+  `--reshape x=1000:1700`. **Always look closely at the result** (zoom on the join), and tell
+  the person it was reshaped. If it looks right and will be reused, add the zone to the
+  catalogue (`reshape`, plus `reshape_hide` for layers a straight cut can’t cross, such as
+  a diagonal gloss).
 
 **Background colour.** Templates with a plain colour background take another one with
 `--background "#D6D6D6"`; `--background keep` uses the template’s own. Photo backgrounds
@@ -133,9 +162,9 @@ Every one was rendered with a test card and with a real OCHA design, and looked 
 | `a4-page` | Single A4 page (flyer, letter, one-pager), soft shadow | A4 portrait | |
 | `laptop-website` | Website on a laptop, in perspective | 16:10 screenshot | 16:9 loses ~10% at the sides |
 | `phone-app` | App or mobile site on a phone held in a hand | 9:16 screenshot | Older iPhone model |
-| `poster-a-portrait` | A-size poster hanging on a wall with clips | A-series portrait | Gentle paper curve |
+| `poster-a-portrait` | A-size poster hanging on a wall with clips | A-series portrait | Gentle paper curve; cropped to a short length of wire |
 | `poster-a-landscape` | Same, landscape | A-series landscape | |
-| `poster-square` | Same, square | Square | |
+| `poster-square` | Same, square | Square | Reshapes well to A4 or landscape |
 | `business-card-us` | One US-size card on a stone ledge, dark background | 3.5×2 in (1.75:1) | |
 | `business-cards-us-front-back` | Card stack (front) and a leaning card (back) | 3.5×2 in, 2 designs | Slot 1 stack, slot 2 leaning card |
 | `rollup-85x200` | Roll-up banner 85×200 cm, front view | 0.425:1 | Small canvas: screens and slides |

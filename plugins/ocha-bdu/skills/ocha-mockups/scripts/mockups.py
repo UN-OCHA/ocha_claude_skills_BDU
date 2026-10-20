@@ -861,18 +861,220 @@ def hide_layers(psd, entry):
                           "Update hide_layers in templates.json.")
 
 
-def render_one(path, assignments, background=None, entry=None, warn=print):
-    """assignments: {slot number: (RGBA design, fit mode, focus, area)}. Returns RGB PIL image."""
+# ---------------------------------------------------------------------------------------
+# Reshaping a scene (optional, per template)
+# ---------------------------------------------------------------------------------------
+# To show a design whose shape differs from the template's object (an A4 cover on a square
+# poster), cut one straight strip out of the WHOLE scene - wall, paper, shadows, masks and
+# the design's placement alike - so the object becomes the design's shape and everything
+# stays consistent. It only looks right where the strip crosses plain, repeating things
+# (blank paper, textured wall, plain backdrop), never a hand, a clip or a device. That safe
+# zone is recorded per template in the catalogue after checking it by eye, or given by hand
+# with --reshape x=1000:1700 to experiment. Cutting only the object leaves a ghost of the old
+# one on the wall: tried and rejected.
+
+def parse_reshape(value, entry):
+    """--reshape [x=A:B | y=A:B] -> {'x': (A, B), 'y': (A, B)}, or None when not asked."""
+    if value is None:
+        return None
+    if value == "catalogue":
+        zones = (entry or {}).get("reshape")
+        if not zones:
+            raise MockupError("This template has no checked reshape zone. It may still work: try one "
+                              "by hand with --reshape x=LEFT:RIGHT (canvas pixels of a plain strip "
+                              "through the object), and look hard at the result.")
+        return {k: tuple(v) for k, v in zones.items()}
+    m_ = re.fullmatch(r"\s*([xy])\s*=\s*(\d+)\s*:\s*(\d+)\s*", value)
+    if not m_:
+        raise MockupError("--reshape takes x=LEFT:RIGHT or y=TOP:BOTTOM (canvas pixels), or nothing "
+                          "to use the template's checked zone.")
+    a, b = int(m_.group(2)), int(m_.group(3))
+    return {m_.group(1): (min(a, b), max(a, b))}
+
+
+def _extent(inst, axis):
+    """The object's size along an axis, measured across its middle (canvas px)."""
+    f = mapper(inst)
+    if axis == "x":
+        pts = f(np.array([0.0, 1.0]), np.array([0.5, 0.5]))
+    else:
+        pts = f(np.array([0.5, 0.5]), np.array([0.0, 1.0]))
+    return float(np.linalg.norm(pts[1] - pts[0]))
+
+
+def plan_reshape(zones, slot, design_aspect):
+    """Which strip to cut so the slot takes the design's shape: (axis, c0, c1, new aspect)."""
+    a = slot.aspect
+    if abs(design_aspect / a - 1) < 0.01:
+        return None
+    axis = "x" if design_aspect < a else "y"    # narrower design: cut width; wider: cut height
+    if axis not in zones:
+        other = "narrower" if axis == "x" else "less tall"
+        raise MockupError(f"This template can't be made {other} here (no reshape zone along {axis}). "
+                          "Use --fit fill or fit, or another template.")
+    z0, z1 = zones[axis]
+    size = _extent(slot.main, axis)
+    keep = size * (design_aspect / a if axis == "x" else a / design_aspect)
+    cut = int(round(size - keep))
+    centre = (z0 + z1) / 2
+    c0, c1 = int(round(centre - cut / 2)), int(round(centre - cut / 2)) + cut
+    # The cut is cross-faded over a band just before it, and that band must stay inside the
+    # checked zone too (else it blends in the object's edge: tried, it ghosts). Centred is
+    # best for symmetric lighting; slide the strip along the zone when the band needs room.
+    want = int(min(cut, max(160, 0.5 * cut), 450))
+    if c0 - z0 < want:
+        c0 = max(c0, min(z0 + want, z1 - cut))
+        c1 = c0 + cut
+    band = max(0, min(want, c0 - z0))
+    if c0 < z0 or c1 > z1:
+        most = (size - (z1 - z0)) / size
+        limit = a * most if axis == "x" else a / most
+        raise MockupError(f"The design is too different in shape for this template: it can be reshaped "
+                          f"to an aspect of {limit:.2f} at most (design {design_aspect:.2f}). "
+                          "Use --fit fill or fit, or another template.")
+    new_aspect = a * (keep / size) if axis == "x" else a * (size / keep)
+    return axis, c0, c1, new_aspect, band
+
+
+class _MaskView:
+    """A layer's mask seen through a cut: same mask, new box."""
+    def __init__(self, orig, bbox):
+        self._orig, self._bbox = orig, bbox
+
+    def __getattr__(self, name):
+        return getattr(self._orig, name)
+
+    bbox = property(lambda self: self._bbox)
+    left = property(lambda self: self._bbox[0])
+    top = property(lambda self: self._bbox[1])
+    right = property(lambda self: self._bbox[2])
+    bottom = property(lambda self: self._bbox[3])
+    width = property(lambda self: self._bbox[2] - self._bbox[0])
+    height = property(lambda self: self._bbox[3] - self._bbox[1])
+    size = property(lambda self: (self.width, self.height))
+
+
+def reshape_scene(psd, slots, axis, c0, c1, band):
+    """Remove canvas columns (x) or rows (y) c0..c1 from every layer, cross-fading over `band`
+    pixels before the strip. Returns the new canvas size."""
+    d = c1 - c0
+    k = 0 if axis == "x" else 1
+
+    def nmap(v):
+        return v if v < c0 else (c0 if v < c1 else v - d)
+
+    def box_after(box, kept):
+        b = list(box)
+        b[k] = nmap(box[k])
+        b[k + 2] = b[k] + kept
+        return tuple(b)
+
+
+    def cut(arr, start):
+        """Remove the strip. Where the layer covers both sides, cross-fade the last `band`
+        pixels before the strip into the last ones inside it: a light gradient across the cut
+        (lamp, vignette) then joins smoothly instead of leaving a visible step."""
+        ax = 1 - k
+        n = arr.shape[ax]
+        coords = np.arange(start, start + n)
+        keep = (coords < c0) | (coords >= c1)
+        i0, i1 = c0 - start, c1 - start
+        if band == 0 or i0 - band < 0 or i1 > n:
+            return (arr[:, keep] if axis == "x" else arr[keep]), int(keep.sum())
+        a = np.take(arr, range(i0 - band, i0), axis=ax).astype(np.float32)
+        b = np.take(arr, range(i1 - band, i1), axis=ax).astype(np.float32)
+        t = np.linspace(0, 1, band, dtype=np.float32)
+        t = t[None, :, None] if axis == "x" else t[:, None, None]
+        if arr.ndim == 2:
+            t = t[..., 0]
+        mixed = (a * (1 - t) + b * t).astype(arr.dtype)
+        out = np.concatenate([np.take(arr, range(0, i0 - band), axis=ax), mixed,
+                              np.take(arr, range(i1, n), axis=ax)], axis=ax)
+        return out, out.shape[ax]
+
+    def crosses(box):
+        return box[k + 2] > c0 and box[k] < c1 or box[k] >= c1
+
+    for layer in psd.descendants():
+        if not layer.is_visible():
+            continue
+        box = layer.bbox
+        if layer.has_mask() and not layer.mask.disabled and crosses(layer.mask.bbox):
+            m_arr = layer.numpy("mask", real_mask=True)
+            mb = layer.mask.bbox
+            if m_arr is not None and mb[2] > mb[0] and mb[3] > mb[1]:
+                arr, kept = cut(m_arr, mb[k])
+                new_mb = box_after(mb, kept)
+                orig_view = _MaskView(layer.mask, new_mb)
+                layer._mask = orig_view
+                base = type(layer)
+
+                def numpy(self, channel=None, real_mask=True, _arr=arr, _base=base):
+                    return _arr if channel == "mask" else _base.numpy(self, channel, real_mask=real_mask)
+                layer.__class__ = type("Cut" + base.__name__, (base,), {"numpy": numpy})
+        if layer.has_vector_mask() and not layer.vector_mask.disabled and crosses(box) and box != (0, 0, 0, 0):
+            raise MockupError(f"Can't reshape: layer '{layer.name}' is drawn from a vector shape that the "
+                              "strip would cut. Choose a strip that misses it, or don't reshape.")
+        if layer.is_group() or box == (0, 0, 0, 0) or not crosses(box):
+            continue
+        if layer.has_pixels():
+            color, shape = layer.numpy("color"), layer.numpy("shape")
+            if color is None:
+                continue
+            if shape is None:
+                shape = np.ones(color.shape[:2] + (1,), np.float32)
+            color, kept = cut(color, box[k])
+            shape, _ = cut(shape, box[k])
+            swap_pixels(layer, box_after(box, kept), color, shape)
+        else:
+            # A fill without stored pixels is painted over its box: just make the box smaller.
+            lo, hi = box[k], box[k + 2]
+            kept = sum(1 for v in range(lo, hi) if v < c0 or v >= c1)
+            nb = box_after(box, kept)
+            base = type(layer)
+            layer.__class__ = type("Moved" + base.__name__, (base,), {
+                "left": property(lambda self, b=nb: b[0]), "top": property(lambda self, b=nb: b[1]),
+                "right": property(lambda self, b=nb: b[2]), "bottom": property(lambda self, b=nb: b[3]),
+                "width": property(lambda self, b=nb: b[2] - b[0]),
+                "height": property(lambda self, b=nb: b[3] - b[1]),
+                "bbox": property(lambda self, b=nb: b)})
+    for slot in slots:
+        for inst in slot.instances:
+            inst.quad = np.array([[nmap(x), y] if axis == "x" else [x, nmap(y)] for x, y in inst.quad])
+    w, h = psd.width, psd.height
+    return (w - d, h) if axis == "x" else (w, h - d)
+
+
+def render_one(path, assignments, background=None, entry=None, warn=print, reshape=None):
+    """assignments: {slot number: (RGBA design, fit mode, focus, area)}. Returns RGB PIL image.
+
+    reshape: zones from parse_reshape(); the first design's shape decides the cut."""
     psd = open_psd(path)
     hide_layers(psd, entry)
     slots = read_slots(psd, entry)
     profile = doc_profile(psd)
     by_number = {s.number: s for s in slots}
     for number, (img, mode, focus, area) in assignments.items():
-        slot = by_number[number]
         if area is not None:
-            slot.area = area
-        fitted, note = fit_design(img, slot.aspect, mode, focus)
+            by_number[number].area = area
+    size, aspects, cut = (psd.width, psd.height), {}, None
+    if reshape:
+        first = next(iter(assignments))
+        img0 = assignments[first][0]
+        plan = plan_reshape(reshape, by_number[first], img0.width / img0.height)
+        if plan and (entry or {}).get("reshape_hide"):
+            # Features a straight cut can't cross cleanly (a diagonal gloss streak): off when reshaping.
+            hide_layers(psd, {"hide_layers": entry["reshape_hide"]})
+        if plan:
+            axis, c0, c1, new_aspect, band = plan
+            size = reshape_scene(psd, slots, axis, c0, c1, band)
+            aspects[first] = new_aspect
+            cut = (axis, c0, c1)
+            warn(f"  reshaped: removed a {c1 - c0} px strip ({'columns' if axis == 'x' else 'rows'} "
+                 f"{c0}-{c1}) so the object matches the design. Look closely at the result.")
+    for number, (img, mode, focus, area) in assignments.items():
+        slot = by_number[number]
+        fitted, note = fit_design(img, aspects.get(number, slot.aspect), mode, focus)
         if note:
             warn(f"  slot {number} ({slot.name}): {note}")
         fitted = to_doc_space(fitted, profile)
@@ -914,11 +1116,13 @@ def render_one(path, assignments, background=None, entry=None, warn=print):
             color, alpha = parse_color(background), 1.0
             layer_filter = lambda l: l is not bg and l.is_visible()   # noqa: E731
     # ignore_preview: otherwise psd-tools returns the preview Photoshop saved, without our swap.
-    out = psd.composite(ignore_preview=True, color=color, alpha=alpha, layer_filter=layer_filter)
+    out = psd.composite(viewport=(0, 0, *size), ignore_preview=True, color=color, alpha=alpha,
+                        layer_filter=layer_filter)
     if out.mode == "RGBA":
         flat = Image.new("RGB", out.size, (255, 255, 255))
         flat.paste(out, mask=out.getchannel("A"))
         out = flat
+    render_one.last_cut = cut                    # for crop boxes given in template pixels
     return out.convert("RGB"), psd, slots
 
 
@@ -944,7 +1148,7 @@ def label_font(size):
     return ImageFont.load_default(size), None
 
 
-def label_position(img_size, slots, entry, text, override=None):
+def label_position(img_size, slots, entry, text, override=None, offset=(0, 0)):
     """Baseline-left point and size for the label.
 
     First choice: just above the design's top-left corner (as on the approved cover options).
@@ -960,7 +1164,9 @@ def label_position(img_size, slots, entry, text, override=None):
         x, y = entry["label"]
         return (x * w, y * h), size
     live = design_slots(slots)
-    quads = [area_quad(i, s.area) for s in live for i in s.instances if i.renders]
+    # offset: where a crop starts, so design positions match the cropped image.
+    quads = [area_quad(i, s.area) - np.asarray(offset, dtype=np.float64)
+             for s in live for i in s.instances if i.renders]
     # Where the designs are, drawn small: a label must not cover any of them.
     k = 8
     taken = Image.new("L", (max(1, w // k), max(1, h // k)), 0)
@@ -981,7 +1187,7 @@ def label_position(img_size, slots, entry, text, override=None):
         allq = np.vstack(quads)
         top = allq[:, 1].min()
         main = live[0].main if live else None
-        left = area_quad(main, live[0].area)[:, 0].min() if main is not None else allq[:, 0].min()
+        left = (area_quad(main, live[0].area)[:, 0].min() - offset[0]) if main is not None else allq[:, 0].min()
         candidates.append((max(left, w * 0.04), top - h * 0.028))
     candidates += [(w * 0.04, h * 0.04 + size), (w * 0.04, h * 0.96)]
     for x, base in candidates:
@@ -1229,8 +1435,10 @@ def cmd_render(args):
                     raise MockupError(f"{os.path.basename(dpath)} has {n_pages} pages; page {page} needed "
                                       f"for slot {number}.")
                 page_aspect = pdf_page_aspect(dpath, page, args.bleed)
-                if abs(slot.aspect / (2 * page_aspect) - 1) < 0.03 and page < n_pages:
+                spread = args.spread or entry.get("spread")
+                if spread and abs(slot.aspect / (2 * page_aspect) - 1) < 0.03 and page < n_pages:
                     # A one-slot spread template and a PDF of single pages: put two side by side.
+                    # Only when asked: a landscape A-poster has the same shape as two A-pages.
                     left = load_design(dpath, page, longest, args.bleed)
                     right = load_design(dpath, page + 1, longest, args.bleed)
                     img = Image.new("RGBA", (left.width + right.width, max(left.height, right.height)))
@@ -1241,10 +1449,17 @@ def cmd_render(args):
             else:
                 img = load_design(dpath, page, longest)
             designs[number] = (img, args.fit, focus, area)
-        img, _, slots_used = render_one(path, designs, background, entry)
+        img, _, slots_used = render_one(path, designs, background, entry,
+                                        reshape=parse_reshape(args.reshape, entry))
+        crop = parse_crop(args.crop, entry, (img.width, img.height), render_one.last_cut)
+        if crop:
+            # Some scenes carry a lot of empty room (e.g. long poster wires): keep the part
+            # that matters. Template pixels, set per template in the catalogue.
+            img = img.crop(crop)
         if label:
             # Before any scaling: the label is placed in the template's own pixel coordinates.
-            point, size = label_position(img.size, slots_used, entry, label, args.label_pos)
+            point, size = label_position(img.size, slots_used, entry, label, args.label_pos,
+                                         offset=crop[:2] if crop else (0, 0))
             draw_label(img, label, point, size, parse_color(args.label_color) if args.label_color else None)
         if args.width and args.width < img.width:
             img = img.resize((args.width, round(img.height * args.width / img.width)), Image.LANCZOS)
@@ -1299,40 +1514,50 @@ def cmd_selftest(args):
         if not os.path.exists(path) or online_only(path):
             print(f"{key:24} SKIPPED (missing or online-only: run `ready`)")
             continue
-        psd = open_psd(path)
-        slots = read_slots(psd, entry)
-        live = design_slots(slots)
-        assign = {}
-        for s in live:
-            s.area = tuple(entry["area"]) if entry.get("area") else detect_area(s.main)
-            assign[s.number] = (_test_card(s.aspect, label=key[:12]), "stretch", (0.5, 0.5), s.area)
-        img, _, used = render_one(path, assign, entry.get("background"), entry, warn=lambda m: None)
-        px = np.asarray(img, dtype=np.int16)
-        problems = []
-        for s in [u for u in used if u.number in assign]:
-            q = area_quad(s.main, s.area)
-            def at(u, v):
-                return (1 - u) * (1 - v) * q[0] + u * (1 - v) * q[1] + u * v * q[2] + (1 - u) * v * q[3]
+        # The plain render, plus one reshaped render for templates with a checked reshape zone:
+        # a narrower design where the zone allows it, else a wider one.
+        variants = [("", None, 1.0)]
+        if entry.get("reshape"):
+            variants.append((" reshaped", {k: tuple(v) for k, v in entry["reshape"].items()},
+                             0.8 if "x" in entry["reshape"] else 1.25))
+        for suffix, zones, factor in variants:
+            psd = open_psd(path)
+            slots = read_slots(psd, entry)
+            live = design_slots(slots)
+            assign = {}
+            for s in live:
+                s.area = tuple(entry["area"]) if entry.get("area") else detect_area(s.main)
+                assign[s.number] = (_test_card(s.aspect * factor, label=key[:12]), "stretch", (0.5, 0.5), s.area)
+            img, _, used = render_one(path, assign, entry.get("background"), entry, warn=lambda m: None,
+                                      reshape=zones)
+            px = np.asarray(img, dtype=np.int16)
+            problems = []
+            for s in [u for u in used if u.number in assign]:
+                q = area_quad(s.main, s.area)
+                def at(u, v):
+                    return (1 - u) * (1 - v) * q[0] + u * (1 - v) * q[1] + u * v * q[2] + (1 - u) * v * q[3]
 
-            def sample(pt):
-                xi, yi = int(np.clip(pt[0], 0, img.width - 1)), int(np.clip(pt[1], 0, img.height - 1))
-                return px[max(0, yi - 3):yi + 4, max(0, xi - 3):xi + 4].reshape(-1, 3).mean(axis=0)
+                def sample(pt):
+                    xi, yi = int(np.clip(pt[0], 0, img.width - 1)), int(np.clip(pt[1], 0, img.height - 1))
+                    return px[max(0, yi - 3):yi + 4, max(0, xi - 3):xi + 4].reshape(-1, 3).mean(axis=0)
 
-            # Blue somewhere in the lower half, clear of the card's label in the middle. Several
-            # points, because in a scene another object may cover part of a design.
-            blue = [sample(at(u, v)) for u, v in ((0.5, 0.75), (0.25, 0.7), (0.75, 0.7), (0.8, 0.9))]
-            if not any(b > r + 40 for r, g, b in blue):
-                problems.append(f"slot {s.number}: design not found where expected")
-            # 4% in from the top-left corner along the diagonal: inside the yellow square.
-            r, g, b = sample(q[0] + 0.04 * (q[2] - q[0]))
-            if not (r > b + 40 and g > b + 40):
-                problems.append(f"slot {s.number}: top-left is not yellow (upside down or mirrored?)")
-        print(f"{key:24} {'OK' if not problems else 'FAIL  ' + '; '.join(problems)}")
-        if problems:
-            failed.append(key)
-        thumb = img.copy()
-        thumb.thumbnail((800, 800))
-        sheet.append((key, thumb))
+                # Blue somewhere in the lower half, clear of the card's label in the middle. Several
+                # points, because in a scene another object may cover part of a design.
+                blue = [sample(at(u, v)) for u, v in ((0.5, 0.75), (0.25, 0.7), (0.75, 0.7), (0.8, 0.9))]
+                if not any(b > r + 40 for r, g, b in blue):
+                    problems.append(f"slot {s.number}: design not found where expected")
+                # 4% in from the top-left corner along the diagonal: inside the yellow square.
+                r, g, b = sample(q[0] + 0.04 * (q[2] - q[0]))
+                if not (r > b + 40 and g > b + 40):
+                    problems.append(f"slot {s.number}: top-left is not yellow (upside down or mirrored?)")
+            name = key + suffix
+            print(f"{name:24} {'OK' if not problems else 'FAIL  ' + '; '.join(problems)}")
+            if problems:
+                failed.append(name)
+            crop = parse_crop(None, entry, img.size, render_one.last_cut)
+            thumb = img.crop(crop) if crop else img.copy()
+            thumb.thumbnail((800, 800))
+            sheet.append((name, thumb))
     if args.out and sheet:
         cols = 3
         rows = (len(sheet) + cols - 1) // cols
@@ -1347,6 +1572,30 @@ def cmd_selftest(args):
         print("Contact sheet:", args.out)
     if failed:
         sys.exit(1)
+
+
+def parse_crop(value, entry, size, cut=None):
+    """--crop x0,y0,x1,y1 | none, else the catalogue's crop, else no crop.
+    `cut` (axis, c0, c1) moves a crop given in template pixels onto a reshaped scene."""
+    if value and value.lower() == "none":
+        return None
+    box = [float(v) for v in value.split(",")] if value else (entry or {}).get("crop")
+    if not box:
+        return None
+    if len(box) != 4:
+        raise MockupError("--crop needs four numbers: left,top,right,bottom (template pixels).")
+    if cut:
+        axis, c0, c1 = cut
+        i = (0, 2) if axis == "x" else (1, 3)
+        box = list(box)
+        for j in i:
+            box[j] = box[j] if box[j] < c0 else (c0 if box[j] < c1 else box[j] - (c1 - c0))
+    w, h = size
+    x0, y0, x1, y1 = (int(round(v)) for v in box)
+    x0, y0, x1, y1 = max(0, x0), max(0, y0), min(w, x1), min(h, y1)
+    if x1 - x0 < 50 or y1 - y0 < 50:
+        raise MockupError(f"The crop {box} leaves almost nothing of the {w}x{h} template.")
+    return (x0, y0, x1, y1)
 
 
 def cmd_setup(args):
@@ -1393,7 +1642,15 @@ def main(argv=None):
     p.add_argument("--area", choices=["auto", "full"], default="auto",
                    help="full: the design fills the whole smart object, skipping area detection")
     p.add_argument("--bleed", action="store_true", help="show a PDF's bleed instead of trimming to the page")
+    p.add_argument("--reshape", nargs="?", const="catalogue", metavar="x=A:B",
+                   help="cut a plain strip out of the scene so the object takes the design's shape "
+                        "(templates with a checked zone; or give one: x=LEFT:RIGHT / y=TOP:BOTTOM). "
+                        "Works only on some templates: always look at the result")
+    p.add_argument("--spread", action="store_true",
+                   help="one-slot spread template: put this PDF page and the next side by side")
     p.add_argument("--width", type=int, help="scale the result down to this many pixels wide")
+    p.add_argument("--crop", help="keep only left,top,right,bottom of the scene (template pixels), "
+                                  "or 'none' to undo the template's own crop")
     p.add_argument("--label-pos", help="label baseline-left as x,y (pixels, or 0-1 fractions)")
     p.add_argument("--label-color", help="label colour, e.g. #000000 (default: black or white by background)")
 

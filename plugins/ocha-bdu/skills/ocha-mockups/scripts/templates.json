@@ -1,5 +1,5 @@
 {
-  "_about": "BDU's curated mockup templates. Paths are relative to the templates folder (Design/Resources/ocha_claude_skills_BDU/mockups in the OCHA DMU Dropbox, git-ignored). The templates are licensed files: never copy them into this skill, a repository or a job folder. Every entry was rendered with a test card and looked at before it was added. design_slots names the smart-object layers that take the design (beats the name guess); background is the default colour for a plain background layer; area fixes the part of the smart object the design fills; hide_layers hides the template author's credit text or an old sample pasted over the smart object.",
+  "_about": "BDU's curated mockup templates. Paths are relative to the templates folder (Design/Resources/ocha_claude_skills_BDU/mockups in the OCHA DMU Dropbox, git-ignored). The templates are licensed files: never copy them into this skill, a repository or a job folder. Every entry was rendered with a test card and looked at before it was added. design_slots names the smart-object layers that take the design (beats the name guess); background is the default colour for a plain background layer; area fixes the part of the smart object the design fills; label fixes the label's baseline-left as fractions of the image, for scenes where the default spot hits an object (poster clips); crop keeps only part of the scene (template pixels); reshape gives the checked safe zones (canvas px) where a straight strip may be cut to change the object's shape (--reshape), and reshape_hide the layers a straight cut can't cross cleanly, switched off only when reshaping; hide_layers hides the template author's credit text or an old sample pasted over the smart object.",
   "templates": {
     "magazine-a4-flat": {
       "title": "A4 magazine or report, front cover, flat and front-facing, light grey",
@@ -39,7 +39,20 @@
       "design_slots": [
         "Flyer (R1) 1 - A"
       ],
-      "source": "PS/mockup/04_print products/Flyer a4-a5"
+      "source": "PS/mockup/04_print products/Flyer a4-a5",
+      "reshape": {
+        "x": [
+          900,
+          2200
+        ],
+        "y": [
+          450,
+          2450
+        ]
+      },
+      "reshape_hide": [
+        "Gloss"
+      ]
     },
     "laptop-website": {
       "title": "Website on a laptop (MacBook Pro), in perspective, white background",
@@ -67,12 +80,33 @@
     "poster-a-portrait": {
       "title": "A-size poster (A0-A4 portrait) hanging on a grey wall with clips",
       "path": "poster/Mock-up_Poster_vertical.psd",
-      "format": "A-series portrait, 1 slot, 2700x3271 px",
+      "format": "A-series portrait, 1 slot, 2017x2171 px after the crop (template 2700x3271)",
       "design_slots": [
         "Layer 7",
         "Insert_Poster_Here"
       ],
-      "source": "PS/mockup/04_print products/Poster_Set"
+      "source": "PS/mockup/04_print products/Poster_Set",
+      "crop": [
+        341,
+        1100,
+        2358,
+        3271
+      ],
+      "notes": "Cropped to the poster with a short length of hanging wire (the template has a long empty wall above). --crop none shows the whole scene.",
+      "label": [
+        0.045,
+        0.075
+      ],
+      "reshape": {
+        "x": [
+          1095,
+          1620
+        ],
+        "y": [
+          1750,
+          2850
+        ]
+      }
     },
     "poster-a-landscape": {
       "title": "A-size poster in landscape hanging on a grey wall with clips",
@@ -82,7 +116,21 @@
         "Layer 9 copy",
         "Insert_Poster_Here"
       ],
-      "source": "PS/mockup/04_print products/Poster_Set"
+      "source": "PS/mockup/04_print products/Poster_Set",
+      "label": [
+        0.045,
+        0.075
+      ],
+      "reshape": {
+        "x": [
+          950,
+          1715
+        ],
+        "y": [
+          450,
+          1200
+        ]
+      }
     },
     "poster-square": {
       "title": "Square poster hanging on a grey wall with clips",
@@ -92,7 +140,21 @@
         "Layer 10 copy",
         "Insert_Poster_Here"
       ],
-      "source": "PS/mockup/04_print products/Poster_Set"
+      "source": "PS/mockup/04_print products/Poster_Set",
+      "label": [
+        0.045,
+        0.075
+      ],
+      "reshape": {
+        "x": [
+          1010,
+          1690
+        ],
+        "y": [
+          450,
+          1550
+        ]
+      }
     },
     "business-card-us": {
       "title": "One US-size business card (3.5x2 in) on a stone ledge, dark background",
