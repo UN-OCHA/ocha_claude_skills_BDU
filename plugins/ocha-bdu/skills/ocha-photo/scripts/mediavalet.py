@@ -303,6 +303,14 @@ def attribute_names(token):
     return {a["id"]: a.get("name", "") for a in (p if isinstance(p, list) else p.get("attributes", []))}
 
 
+def caption_year(desc):
+    """Year of the date an OCHA caption opens with ("Kebe Town, Oromia, ETHIOPIA. 10 February 2025.",
+    "27 May 2025, China camp…", "Gaza, October 2025."). Only the opening is read: later years in the
+    caption are context ("Since February 2025…", "In August 2025, clashes…"), not when it was taken."""
+    m = re.search(r"\b(20\d\d)\b", (desc or "")[:120])
+    return m.group(1) if m else ""
+
+
 def search(query, out, country=None, year=None, count=40, pool=400):
     """Find photos with MediaValet's AI search (the same as the sparkle "Smart Search" in the web app).
 
@@ -350,10 +358,22 @@ def search(query, out, country=None, year=None, count=40, pool=400):
         taken = attr(a, "Date Created")[:10]
         code = title[:3].upper() if re.match(r"[A-Za-z]{3}_", title) else ""
         m = re.match(r"[A-Za-z]{3}_(\d{2})(\d{4})_", title)          # ISO3_MMYYYY_ in OCHA file names
-        # A photo counts for a year if its file name, its date taken or its caption says so: the
-        # camera date is sometimes missing or wrong, the OCHA file name rarely is.
-        years = {taken[:4], m.group(2) if m else ""} | set(re.findall(r"\b(20\d\d)\b", desc))
-        yr = (m.group(2) if m else "") or taken[:4]
+        # When was the photo TAKEN? Never the upload date (photos are often uploaded months later).
+        # Evidence, strongest first: the date the caption opens with ("Place, Country. 6 May 2025."),
+        # then the ISO3_MMYYYY_ file name, then the camera date (sometimes unset, or stamped 2014/2016).
+        # A year mentioned elsewhere in the caption does NOT count: "In August 2025, clashes forced
+        # them to flee…" sat on a photo taken in May 2026 and slipped into a 2025 search.
+        cap_year = caption_year(desc)
+        file_year = m.group(2) if m else ""
+        yr = cap_year or file_year or taken[:4]
+        known = {y for y in (cap_year, file_year, taken[:4]) if y}
+        # cap/file disagreeing is a real conflict; a lone odd camera year is usually a mis-set clock
+        date_note = ""
+        conflict = bool(cap_year and file_year and cap_year != file_year)
+        if conflict:
+            date_note = f"dates disagree: caption {cap_year}, file name {file_year}, camera {taken[:4] or '?'}"
+        elif len(known) > 1:
+            date_note = f"camera date {taken[:4]} differs from caption/file name {yr}"
         if country:
             c = country.strip().lower()
             ok = (c == code.lower()) or (c == ctry.lower())
@@ -362,10 +382,13 @@ def search(query, out, country=None, year=None, count=40, pool=400):
                 ok = bool(re.search(r"(?<!south )\b" + re.escape(c) + r"\b", desc.lower()))
             if not ok:
                 continue
-        if year and str(year) not in years:
+        # Keep a photo whose sources disagree if any of them matches, flagged: a caption typo
+        # ("12 January 2024" in a shoot of 12 January 2025) must not hide it. The person decides.
+        if year and str(year) != yr and not (conflict and str(year) in known):
             continue
         results.append({"n": len(results) + 1, "asset_id": a["id"], "title": title, "country": ctry or code,
                         "date_taken": taken or (f"{m.group(2)}-{m.group(1)}" if m else ""),
+                        "year_taken": yr, "date_check": date_note,
                         "photographer": attr(a, "Photographer"), "organisation": attr(a, "Copyright"),
                         "credit": credit_from(desc, attr(a, "Copyright"), attr(a, "Photographer")),
                         "caption": desc.strip(),
@@ -378,7 +401,9 @@ def search(query, out, country=None, year=None, count=40, pool=400):
         json.dump([{k: v for k, v in r.items() if k != "thumb"} for r in results], f, indent=2, ensure_ascii=False)
     print(f"{len(found)} photos matched the meaning; {len(results)} kept after filters.")
     for r in results:
-        print(f"{r['n']:>3}. {r['title']}  [{r['country']} {r['date_taken']}]  {r['credit'] or r['organisation']}")
+        print(f"{r['n']:>3}. {r['title']}  [{r['country']} {r['year_taken']}]  {r['credit'] or r['organisation']}")
+        if r["date_check"]:
+            print(f"     ⚠ {r['date_check']}")
         print(f"     {r['caption'][:160]}")
     if not results:
         return

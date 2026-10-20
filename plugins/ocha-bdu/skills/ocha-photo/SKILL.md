@@ -85,6 +85,12 @@ python3 ~/.claude/skills/ocha-photo/scripts/mediavalet.py search "aid workers di
 - **Give `--country` as the country name** (it is also added to the search, which the ranking
   needs) and `--year` for the year it was taken. The AI ranking alone mixes in South Sudan for
   “Sudan” and older years; these two filters remove them using the photo’s own metadata.
+- **The year is when the photo was TAKEN, never when it was uploaded** (photos often reach the library
+  months later). `--year` reads, strongest first: the date the caption opens with (“Kebe, Ethiopia.
+  10 February 2025.”), the `ISO3_MMYYYY_` file name, then the camera date (sometimes unset or wrong:
+  2014, 2016). A year mentioned later in the caption doesn’t count (“In August 2025, clashes forced
+  them to flee…” sat on a May 2026 photo). When the caption and the file name disagree, the photo is
+  kept and flagged ⚠ in `date_check`. Read those flags and tell the person; never pick a side silently.
 - It writes `results.json` (title, country, date, credit, caption per photo) and
   `contact_sheet.jpg` (numbered thumbnails) in the output folder.
 - **Then shortlist:** read the captions, drop what doesn’t fit the request or the dignity rules
