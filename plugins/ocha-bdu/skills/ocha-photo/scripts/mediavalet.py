@@ -247,7 +247,7 @@ def download(assets, out):
                      "expected_bytes": f.get("sizeInBytes"), "width": f.get("imageWidth"),
                      "height": f.get("imageHeight"),
                      "credit": credit_from(desc, fields.get("copyright", ""), fields.get("photographer", "")),
-                     "caption": desc, "link": link}
+                     "caption": desc, "link": link, "web_link": asset_link(aid)}
     job = api_post("/downloads", token, {"downloadSettingsPostDetail": {
         "allowsAssetDownload": True,
         "images": {"shareOriginals": True, "renditionType": "Original"},
@@ -391,7 +391,7 @@ def search(query, out, country=None, year=None, count=40, pool=400):
                         "year_taken": yr, "date_check": date_note,
                         "photographer": attr(a, "Photographer"), "organisation": attr(a, "Copyright"),
                         "credit": credit_from(desc, attr(a, "Copyright"), attr(a, "Photographer")),
-                        "caption": desc.strip(),
+                        "caption": desc.strip(), "web_link": asset_link(a["id"]),
                         "thumb": (a.get("media") or {}).get("medium") or (a.get("media") or {}).get("small")})
         if len(results) >= count:
             break
@@ -465,6 +465,12 @@ def log_change(log, by, action, detail):
 # New MediaValet calls lightboxes "collections": same object, same id, same API. The web app sends
 # /browse/lightboxes/<id> to /v5/collections/<id> (found in MediaValet's own route table, Oct 2026).
 WEB = "https://unocha.mediavalet.com"
+
+
+def asset_link(aid):
+    """The asset's page in the MediaValet web app (works when signed in). Route taken from the web
+    app's own build manifest (/browse/assets/[assetId]); /v5/assets/<id> does NOT exist."""
+    return f"{WEB}/v5/browse/assets/{aid}"
 
 
 def collection_link(lid):

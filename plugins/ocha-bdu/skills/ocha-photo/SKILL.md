@@ -52,9 +52,11 @@ python3 ~/.claude/skills/ocha-photo/scripts/mediavalet.py download <asset links 
 
 - Accepts MediaValet asset links as people paste them (`…/assets/<id>/…`) or bare asset ids.
 - Fetches the **true original** of each photo and checks its size against MediaValet’s record.
-- Writes `credits.json` next to the photos: title, file, size, credit, caption, link per photo. Put the
+- Writes `credits.json` next to the photos: title, file, size, credit, caption, link and `web_link` per photo. Put the
   credits, in the OCHA format (§4), into `info/photos_and_credits.md`.
 - `info <link>` prints an asset’s full metadata (keywords, categories, upload date…) when more is needed.
+- **Giving someone a photo’s link:** use its `web_link` (`https://unocha.mediavalet.com/v5/browse/assets/<id>`;
+  opens when signed in). Never build a MediaValet link by hand: `/v5/assets/<id>` looks right and doesn’t exist.
 - **Downloading never changes anything** in MediaValet. Changes (lightboxes, share links, captions,
   credits, deleting) only happen when the person asks, with the confirmations in §6.
 
@@ -91,7 +93,7 @@ python3 ~/.claude/skills/ocha-photo/scripts/mediavalet.py search "aid workers di
   2014, 2016). A year mentioned later in the caption doesn’t count (“In August 2025, clashes forced
   them to flee…” sat on a May 2026 photo). When the caption and the file name disagree, the photo is
   kept and flagged ⚠ in `date_check`. Read those flags and tell the person; never pick a side silently.
-- It writes `results.json` (title, country, date, credit, caption per photo) and
+- It writes `results.json` (title, country, date, credit, caption, `web_link` per photo) and
   `contact_sheet.jpg` (numbered thumbnails) in the output folder.
 - **Then shortlist:** read the captions, drop what doesn’t fit the request or the dignity rules
   (§5), show the person the contact sheet with your shortlist and why, and let **them** choose.
