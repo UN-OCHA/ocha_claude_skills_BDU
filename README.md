@@ -206,11 +206,14 @@ to do anything:
 - The session you have open keeps the version it started with. Your **next** session has
   the new one.
 
-**Think your skills are out of date?** Tell Claude:
+**Think your skills are out of date?** Either:
+- open **+** → **Plugins** → **Manage plugins**, click **⋮** next to **OCHA BDU** → **Check for
+  updates**, then quit Claude and open it again; or
+- tell Claude: *“Update the OCHA skills with the latest version from the repository.”* Then start a
+  new session.
 
-> Update the OCHA skills with the latest version from the repository.
-
-Then start a new session.
+**On Windows**, an old or broken Git installation can stop updates; see *“Check for updates”
+gives an error* below.
 
 Use more than one computer? Do Step 6 on each one.
 
@@ -302,6 +305,12 @@ before September 2026, also do Step 3 once and the clean-up message underneath i
 
 **"My skills never seem to get the latest changes."**
 Automatic updates aren't on for this computer. Do Step 6.
+
+**"Check for updates" gives an error (Windows).**
+An old or broken Git installation can block updates, while the skills keep working on the old
+version. Update Git for Windows (git-scm.com), or uninstall it if you don't use Git for anything
+else: Claude can download updates without it. Then quit Claude, open it again, and check for
+updates. *(Found with a colleague’s Windows laptop, October 2026.)*
 
 **"QuickVid keeps asking me to restart and never works."**
 You have an old version, and restarting won't fix it. On a Mac, tell Claude *"QuickVid
