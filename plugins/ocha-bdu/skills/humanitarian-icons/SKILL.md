@@ -64,6 +64,14 @@ All SVGs are monochrome — recolour via CSS `fill` or `filter`, don't add gradi
 4. **If the local copy may be stale**, fetch the latest `metadata.json` from the repo raw
    URL before answering — it is the single source of truth.
 
+**An icon's name is a label, not a limit** (Javier, 22 October 2026). Icons are named after
+one use, but each can serve many purposes. When no icon carries the exact name you need
+(e.g. there is no “People prioritized”), never conclude that there is no icon, and never
+fall back to repeating a neighbouring icon by default. Look for an existing icon whose
+**picture** fits the meaning (search tags and inventory by concept, and look at the
+drawings themselves), propose one to three candidates with a short reason each, and let the
+user choose. Only if nothing fits, say so and ask; still never draw or invent one.
+
 ## Naming patterns to know
 
 - **Damage-state variants:** many infrastructure icons have `-affected`, `-destroyed`,
