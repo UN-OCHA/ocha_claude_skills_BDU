@@ -360,6 +360,31 @@ XXL:    1400px   --cd-bp--xxl
 - Do not add accent colours beyond the defined palette. Most products need only blue + grey + black.
 - Do not use drop shadows, 3D, or decorative effects on OCHA branded products.
 
+### 5b. Avoid the tells of AI-made design
+
+AI tools produce a recognisable look. Keep it out of OCHA products. These are **defaults**: a
+designer can break one on purpose, but only with a BDU designer’s sign-off, never by default.
+
+**Any design** (screens, slides, reports, documents, social posts):
+- **Contrast, not one hue everywhere.** Mostly neutrals, OCHA blue for structure, one accent
+  used sparingly, all from the palette in section 1.
+- **No decorative icon tiles.** No icon or emoji in a small coloured rounded square just to
+  decorate a card or slide. Humanitarian Icons where they carry meaning, Font Awesome on actions.
+- **No emoji as design elements** (bullets, section markers, card art).
+- **No side-stripe callout boxes** — a thick coloured border down one side of a box. Set a
+  callout apart with a tint, a small label, hairline rules or space. A full, even border is fine
+  when a box really needs one.
+- **No gradient text.**
+
+**Screens only** (websites, apps, dashboards, HTML pages):
+- **No frosted glass** — no blurred see-through panels over gradients with thin light borders.
+- **No gradient buttons, no shadows** (as above). A solid button is enough.
+- **No cards inside cards.** One level of container; quieten secondary text instead of boxing it.
+- **No serif hero by habit.** Roboto for UI and headings (section 2).
+- **Motion only with a purpose** — see `web-motion`.
+
+Source: Yuwen Lu, “Signs of vibe coded UI” (April 2026).
+
 ---
 
 ## 6. Setting up a new OCHA web project
