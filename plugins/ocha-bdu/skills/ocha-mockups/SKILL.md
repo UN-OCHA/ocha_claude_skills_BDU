@@ -162,6 +162,7 @@ Every one was rendered with a test card and with a real OCHA design, and looked 
 | `a4-page` | Single A4 page (flyer, letter, one-pager), soft shadow | A4 portrait | |
 | `laptop-website` | Website on a laptop, in perspective | 16:10 screenshot | 16:9 loses ~10% at the sides |
 | `phone-app` | App or mobile site on a phone held in a hand | 9:16 screenshot | Older iPhone model |
+| `phone-iphone16` | Modern phone (iPhone 16 Pro), front-facing, flat, light grey | 19.5:9 screenshot (0.46) | Social media in context (Instagram grid, post, story). Added 26 October 2026; four more angles of the same phone sit uncurated in `web_mobile/iphone16/` |
 | `poster-a-portrait` | A-size poster hanging on a wall with clips | A-series portrait | Gentle paper curve; cropped to a short length of wire |
 | `poster-a-landscape` | Same, landscape | A-series landscape | |
 | `poster-square` | Same, square | Square | Reshapes well to A4 or landscape |

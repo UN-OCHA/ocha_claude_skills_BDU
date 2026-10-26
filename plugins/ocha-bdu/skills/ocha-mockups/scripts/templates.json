@@ -77,6 +77,25 @@
         "info"
       ]
     },
+    "phone-iphone16": {
+      "title": "Modern phone (iPhone 16 Pro), front-facing and flat, light grey background",
+      "path": "web_mobile/iphone16/iphone16_front_flat.psd",
+      "format": "19.5:9 portrait screen (948x2049), 1 slot, 1220x2340 px after the crop (template 4000x3000)",
+      "design_slots": [
+        "Design"
+      ],
+      "source": "mockups-design.com MD942 Free iPhone 16 Mockup (5 variants in web_mobile/iphone16/, licence beside them)",
+      "crop": [
+        1380,
+        420,
+        2600,
+        2760
+      ],
+      "notes": "Give a modern phone screenshot (1179x2556 or any 0.46 shape). Best for social media in context: Instagram grid, a single post, a story. Cropped to the phone; --crop none shows the whole grey scene.",
+      "hide_layers": [
+        "Delete this layer"
+      ]
+    },
     "poster-a-portrait": {
       "title": "A-size poster (A0-A4 portrait) hanging on a grey wall with clips",
       "path": "poster/Mock-up_Poster_vertical.psd",
