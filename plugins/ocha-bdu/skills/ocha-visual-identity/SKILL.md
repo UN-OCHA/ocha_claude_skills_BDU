@@ -42,7 +42,8 @@ just blue, grey, black, and white. **Resist adding accent colours.**
 
 ### Accessible text variants (WCAG AA / AAA on white)
 
-`#009EDB` **fails WCAG AA for body text on white**. For text on white use:
+`#009EDB` **fails WCAG AA for body text on white**, but passes for large text (3.04:1; 24px+, or 19px+
+bold), so headlines and big bold text can use UN Blue. For body and small text on white use:
 
 | Original | AA text variant | AAA text variant |
 |---|---|---|
@@ -98,7 +99,7 @@ accent sits in the middle slot (step 4 or 5 depending on the ramp).
 |---|---|---|---|
 | **Common users** (everyone) | **Arial** (Regular, Italic, Bold, Bold Italic, Black) | — | Ships with every OS. Use for anything collaborative or that will be edited by others. |
 | **Advanced users** (designers) | **Roboto** (Thin → Black, with italics) | **Crimson Pro** (ExtraLight → Black, with italics) | Roboto for UI/body. Crimson Pro for long-form print reading. |
-| **Infographics** (space-tight) | **Roboto Condensed** | — | Only for infographics; not for body text. |
+| **Infographics** (space-tight) | **Roboto Condensed** | — | Infographics, and long headlines where it keeps a title to fewer lines. Not for body text. |
 | **Code / credits / captions** | **Roboto Mono** | — | — |
 | **Display / headings (optional)** | **Roboto Slab** | — | Slab variant for headings when a distinct heading style is needed. |
 | **Social media** | **Montserrat** (titles), **Raleway** (body), **Roboto Condensed** (photo credits) | — | — |

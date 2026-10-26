@@ -122,6 +122,8 @@ want me to do it? I can show you a before/after first.”*
 - If they want to see it first, make side-by-side before/after images in `info/` and show them.
 - If no, use the originals as they are.
 - Never retouch content (removing people, objects, logos), never use generative fill on documentary photos.
+- Stylised tints and colour grades are allowed when used on purpose and consistently across a set. They are a
+  design choice on top of the enhancement, not a replacement for it.
 
 ## 4. Credits, captions and names — OCHA brand rules
 
