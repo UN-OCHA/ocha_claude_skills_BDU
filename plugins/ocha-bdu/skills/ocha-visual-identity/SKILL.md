@@ -391,21 +391,32 @@ designer can break one on purpose, but only with a BDU designer’s sign-off, ne
 
 **Any design** (screens, slides, reports, documents, social posts):
 - **Contrast, not one hue everywhere.** Mostly neutrals, OCHA blue for structure, one accent
-  used sparingly, all from the palette in section 1.
+  used sparingly, all from the palette in section 1. Don’t stack tints of one hue (a pale-blue
+  icon in a blue box in a blue card). Let background tones separate elements instead of borders.
 - **No decorative icon tiles.** No icon or emoji in a small coloured rounded square just to
-  decorate a card or slide. Humanitarian Icons where they carry meaning, Font Awesome on actions.
+  decorate a card or slide. Icons earn their place on actions: Font Awesome on buttons and
+  controls, Humanitarian Icons where they carry meaning. Informational elements often need no
+  icon at all: drop it.
 - **No emoji as design elements** (bullets, section markers, card art).
-- **No side-stripe callout boxes** — a thick coloured border down one side of a box. Set a
-  callout apart with a tint, a small label, hairline rules or space. A full, even border is fine
-  when a box really needs one.
+- **No side-stripe callout boxes** — a thick coloured border down one side of a box (often
+  `border-left` plus `border-radius`). Set a callout apart with a tint, a small label, hairline
+  rules or space. A full, even border is fine when a box really needs one.
 - **No gradient text.**
+- **Clear visual hierarchy.** The eye knows where to look first, second and third from size,
+  weight and colour; secondary text is quieter than what it supports.
 
 **Screens only** (websites, apps, dashboards, HTML pages):
-- **No frosted glass** — no blurred see-through panels over gradients with thin light borders.
-- **No gradient buttons, no shadows** (as above). A solid button is enough.
+- **No frosted glass** — no blurred see-through panels over gradients with thin light borders,
+  on cards, badges or buttons. It also hurts readability.
+- **No gradient buttons, no shadows** (as above), and none behind a button. A solid button with
+  no extra border or shadow is enough.
 - **No cards inside cards.** One level of container; quieten secondary text instead of boxing it.
-- **No serif hero by habit.** Roboto for UI and headings (section 2).
-- **Motion only with a purpose** — see `web-motion`.
+- **No serif display face by habit**, in a hero or in a component. Roboto for UI and headings
+  (section 2).
+- **No floating chat or assistant button** pinned to a bottom corner.
+- **Motion only with a purpose.** A hover that moves two things in different directions (card
+  up, image zooms) reads as random. Slow, staggered entrance animations tire people, and an
+  entrance that never plays when you scroll past it is a bug. See `web-motion`.
 
 Source: Yuwen Lu, “Signs of vibe coded UI” (April 2026).
 
