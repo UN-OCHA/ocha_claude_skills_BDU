@@ -261,6 +261,29 @@ Dropbox for the `Design/Logos` folder.
   the logo isn’t in the folder, or the folder isn’t on the user’s machine, ask BDU
   (ochavisual@un.org).
 
+### OCHA sub-brands (UNDAC, CERF, CBPF…)
+
+Logos: `Design/Logos/ocha_family/` (one folder per sub-brand, same Dropbox rules as above).
+Guidelines: brand.unocha.org has a page per sub-brand, e.g. UNDAC:
+https://brand.unocha.org/document/474337#/-/undac
+
+- **Fonts and colours are OCHA’s.** Within them, the layout is free.
+  Exception: **CERF uses yellow as its complementary colour** (check its brand page for the value).
+- **Short or spelled-out logo by audience.** Use the short logo (e.g. “UNDAC” without
+  “United Nations Disaster Assessment and Coordination”) for audiences who already know the
+  sub-brand: trainings, rosters, partners, donors. Keep the spelled-out version for the general
+  public.
+- **Add the OCHA logo alongside** the sub-brand logo, following the co-branding rules above.
+
+### Event posters and roll-ups (defaults; adapt per situation)
+
+- **Confirm the print size before designing.** Event materials are often roll-ups or large
+  posters, not A4 (the UNDAC Induction Course has used roll-ups).
+- **Design for where it will hang.** At the event itself the audience already knows the
+  organisation: lead with the event name, put place and year right under the title (not in a
+  footer), and cut explanatory text so the photo and title carry it.
+- **The event title dominates.** Logos and partner credits come second.
+
 ### UN emblem authorisation
 - UN System entities (including OCHA) don't need written authorisation for official use — see **ST/AI/189/Add.21**.
 - Non-UN entities (governments, IGOs, NGOs, private sector) must request authorisation from the Office of Legal Affairs: **gld@un.org**.
