@@ -77,7 +77,7 @@ for true highlights.
 
 ## 3. Typography (dataviz-specific)
 
-- **Titles, labels, UI text**: Roboto (advanced users) or Arial (collaborative docs).
+- **Titles, labels, UI text**: Roboto; Arial where Roboto isn’t installed.
 - **Tight spaces / compact infographics**: Roboto Condensed — infographic-only.
 - **Captions, photo credits, small meta text**: Roboto Mono.
 - **Long-form body text in a print report**: Crimson Pro.

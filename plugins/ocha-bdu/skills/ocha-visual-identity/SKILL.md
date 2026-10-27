@@ -93,16 +93,18 @@ accent sits in the middle slot (step 4 or 5 depending on the ramp).
 
 ## 2. Typography
 
-### Font tier system (pick by audience, not by preference)
+### Font tier system
 
-| User level | Primary | Secondary | Why |
+**Roboto is the default for everyone; Arial where Roboto isn’t installed** (Javier, 27 October 2026).
+
+| Use | Primary | Secondary | Why |
 |---|---|---|---|
-| **Common users** (everyone) | **Arial** (Regular, Italic, Bold, Bold Italic, Black) | — | Ships with every OS. Use for anything collaborative or that will be edited by others. |
-| **Advanced users** (designers) | **Roboto** (Thin → Black, with italics) | **Crimson Pro** (ExtraLight → Black, with italics) | Roboto for UI/body. Crimson Pro for long-form print reading. |
+| **Default** (everyone) | **Roboto** (Thin → Black, with italics) | **Crimson Pro** (ExtraLight → Black, with italics) | Roboto for UI, body and headings. Crimson Pro for long-form print reading. |
+| **Fallback** | **Arial** (Regular, Italic, Bold, Bold Italic, Black) | — | Only where Roboto isn’t installed. Ships with every OS. |
 | **Infographics** (space-tight) | **Roboto Condensed** | — | Infographics, and long headlines where it keeps a title to fewer lines. Not for body text. |
 | **Code / credits / captions** | **Roboto Mono** | — | — |
 | **Display / headings (optional)** | **Roboto Slab** | — | Slab variant for headings when a distinct heading style is needed. |
-| **Social media** | **Montserrat** (titles), **Raleway** (body), **Roboto Condensed** (photo credits) | — | — |
+| **Social media** | **Inter** (titles and text), **Roboto Condensed** (photo credits) | — | Replaces Montserrat and Raleway (Javier, 27 October 2026). Sizes and weights: `ocha-social-media` §5. |
 | **Arabic** | **Almarai** (titles and display), **Noto Sans Arabic** (body and longer text) | — | Adobe USA/EU mis-renders Arabic — use the conversion tool referenced on brand.unocha.org. Both fonts are on Google Fonts (Noto Kufi Arabic and Dubai were dropped from the 2026 hierarchy). |
 | **Chinese** | **Noto Sans CJK SC** | — | — |
 | **Russian** | **Noto Sans** | — | — |

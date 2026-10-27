@@ -98,15 +98,28 @@ Follow the BDU Canva SOP: **make a copy of the template, rename it, move it to t
 
 - Templates live in the Canva folder **Templates_DONT_CHANGE** (find it with a folder search). Never edit a
   template itself.
-- **Carousel template:** `Generic_Carousel` (design `DAHYcodbDIk`, since 19 Oct 2026, based on the Nepal
-  floods carousel) in `Templates_DONT_CHANGE/Carousel`. 7 slides, 1080×1440: cover (UN blue kicker + caps
-  headline + OCHA mark), statement slides with text at the bottom or the top, and a centred call-to-action
-  end slide. Delete the slides a post doesn’t need. Page 1 speaker notes hold the rules.
+- **Carousel template:** `Generic_Carousel` (design `DAHYcodbDIk`, since 19 Oct 2026; page variants added
+  27 Oct 2026 from the Sudan El Fasher carousel) in `Templates_DONT_CHANGE/Carousel`. **One template, several
+  page variants** — pick one cover, the statements you need and one closing slide; delete the rest.
+  11 pages, 1080×1440:
+
+  | Page | Variant | Use it for |
+  |---|---|---|
+  | 1 | Cover A | Blue kicker + big headline at the bottom, OCHA logo |
+  | 2 | Cover B | Country label (theme colour) + lead line + big headline at the top, OCHA logo |
+  | 3–7 | Statements | Headline + supporting text, text at the top or the bottom |
+  | 8 | Statement A | Big headline, then smaller supporting text in a narrow column |
+  | 9 | Statement B | Small lead-in line, then the big statement |
+  | 10 | Closing A | Centred call to action |
+  | 11 | Closing B | Heading + short list of asks with thin separator lines |
+
+  Page 1 speaker notes hold the rules. Backup of the 7-page version: `OLD_Generic_Carousel_before_variants_20261027`
+  (`DAHZM6FCuoM`) in `Templates_DONT_CHANGE/_Archived templates`.
 - **More slides than the template has:** duplicate the closest existing slide (statement with text at
   the top, or at the bottom) — never build a slide from a blank page, it would miss the gradients, grid
   positions and fonts. Duplicate in the Canva editor (Chrome): page thumbnail → **⋯ → Duplicate page**,
-  then drag it into place; the connector cannot duplicate a page. Then swap photo, text and credit through
-  the connector. After adding slides, check in Chrome that the new pages also have **Dissolve 0.5 s**, **4 s**
+  then drag it into place; the connector cannot duplicate a page. Then swap photo and text through
+  the connector, and add the photographer to the single credit pill on the last slide. After adding slides, check in Chrome that the new pages also have **Dissolve 0.5 s**, **4 s**
   timing and **no animation** (re-apply “Apply between all pages” / “Apply to all pages” if not), and keep
   the cover first and the call to action last. Guides apply to every page automatically.
 - **Name:** `YYYYMM_Country_Title` (e.g. `202610_Chad_UNICEF-SAKHAL impact story`).
@@ -118,7 +131,7 @@ Follow the BDU Canva SOP: **make a copy of the template, rename it, move it to t
 design (copy it first). When the post is final, the decision to turn it into a template is Javier’s (§7);
 only when he says yes: copy the final design into
 `Templates_DONT_CHANGE/<type folder>`, name it `Generic_<Type>`, make the country pill and credits generic
-(“Country”, “Photo: Org/Photographer”), add the rules to page 1 speaker notes, and check guides, transitions
+(“Country”, “Photos: Org/First Last, Org/First Last”), add the rules to page 1 speaker notes, and check guides, transitions
 and timing in Chrome.
 
 **Uploading photos:** `create-upload-url` → POST the raw bytes (`Content-Type: application/octet-stream`)
@@ -170,21 +183,45 @@ template: kicker text box at left 80, so the blue edge lands on the 72 px margin
 |---|---|---|---|
 | Cover headline | 104 | Inter Black, capitals | 1.0 |
 | Statement headline (inside slides) | 96 | Inter Black, capitals | 1.0 |
-| Kicker (line above the cover headline) | 32 | Inter Bold, capitals, white on UN blue `#009EDB` | 1.2 |
-| Supporting text | 40 | Inter SemiBold | 1.35 |
-| Photo credit (every slide with a photo) | 20 | Roboto Condensed Regular, not italic | 1.35 |
+| Kicker / country label | 32 | Inter Bold, capitals, on a colour pill (Canva text Background effect) | 1.2 |
+| Supporting text, lead lines, list items | 40 | Inter SemiBold | 1.35 |
+| Photo credit (last slide only) | 20 | Roboto Condensed Regular, not italic, on a pill | 1.35 |
 
-- Big capitals set at line height 1.0 (1.2 looks loose at this size).
+- **Clearly different scales** (Javier, 27 Oct 2026): 104/96 headlines, 40 text, 32 labels, 20 credit —
+  nothing in between. Snap any other size to the nearest of these.
+- Big capitals set at line height 1.0 (1.2 looks loose at this size). The canvas toolbar shows sizes ×0.75
+  (96 px reads “72”); the connector uses px.
+- **No drop shadows or other text effects** on headlines or text — legibility comes from the gradient.
+  Designs copied from older posts often carry a Drop shadow: remove it in Chrome (Effects → Remove effect).
 - **Key words highlighted** (when wanted): white text on a UN blue box, never blue text on a photo
   (not enough contrast). Partial highlights need their own text box over a `#009EDB` rectangle
   (`insert_shape`, corner 4) — the connector can’t highlight part of a text box.
-- **Left-aligned** text by default, credits included. Only the closing call to action may be centred.
-- **Credits** at top 1340, left 72 (on the bottom margin). Text ends **≥ 48 px** above the credit.
-- **No orphans.** Fix by choosing another column span for the text box — never by changing the copy.
+- **Left-aligned** text by default, credits included. Centred only for a heading-only cover or the closing
+  call to action — and **not** when the photo’s subject is centred too (too symmetrical; left-align instead).
+- **Photo credit — one pill, last slide only** (Javier, 27 Oct 2026; replaces the 19 Oct “every slide” rule).
+  If several photographers, the one pill lists them all: “Photos: UNOCHA/First Last, WFP/First Last”.
+  Build it as the credit text’s own **Background** effect (black, roundness 65, spread 50, transparency 50)
+  so the pill resizes with the text — not a separate shape. Text box top 1350, left 80 (the pill edge then
+  lands on the 72 margin). Text ends **≥ 48 px** above the pill.
+- **OCHA logo on slide 1 only** (bottom, on the margin).
+- **Country label** (Cover B): a pill in the post’s **theme colour**, picked by the designer:
+  Generic `#009EDB` · Conflict `#ED1847` · Climate `#72BF44` · Food insecurity `#FFC800` · Gender `#A05FB4`.
+  White text on blue, red and purple; **black** text on green and yellow (white fails contrast there).
+  These are the brand-portal themes snapped to the `ocha-visual-identity` palette (the portal’s
+  `#FF004B`/`#BD8CBF`/`#64BDEA` are off-palette — see the Canva cleanup audit). Label box at left 80 so the
+  pill edge lands on 72.
+- **Lists** (closing slide): thin separator lines (white, 2 px, 60 %) between items, not pills. Pills only
+  for short items of one to three words. 88 px per row: line, then the item 20 px below it.
+- **No orphans or split names.** Fix by choosing another text box width — never by changing the copy. Keep
+  the left edge on the grid; the (invisible) right edge may sit between columns if that’s what keeps a name
+  like “EL FASHER” together.
 
 **Photos and text placement**
-- Put text over the most uniform part of the photo (sky, a wall, the ground). Reframe the photo (crop)
-  so faces and busy areas sit away from the text.
+- **Every photo has a subject** — a person, or a telling object (a burnt car, an empty school). Never a
+  merely decorative background (Javier, 27 Oct 2026).
+- **Text never touches faces or the photo’s main action.** Put text over the most uniform part of the
+  photo (sky, a wall, the ground). Reframe the photo (move/crop it) so faces and busy areas sit away from the
+  text — e.g. lower the photo when a 3-line headline would reach a head.
 - **Always a gradient behind text, subtle by default.** Over people or busy colour use the **strong**
   gradient; over sky/wall/ground the **subtle** one. Files: `assets/text_gradient_strong_1080x900.png`
   (80 %) and `assets/text_gradient_subtle_1080x900.png` (45 %). Upload them to Canva once per design

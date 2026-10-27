@@ -67,7 +67,7 @@ Purple:   #A05FB4   (Purple AA text: #9A58AF, Purple AAA: #733D96)
 - **Infographics:** Roboto Condensed (saves space)
 - **Code / credits:** Roboto Mono
 - **Print long-form:** Crimson Pro (serif)
-- **Fallback:** Arial (common users, collaborative docs)
+- **Fallback:** Arial, only where Roboto isn’t installed
 - **Arabic titles/display:** Almarai. **Arabic body/longer text:** Noto Sans Arabic
 - **Chinese:** Noto Sans CJK SC
 - **Russian:** Noto Sans
