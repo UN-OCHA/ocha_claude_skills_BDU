@@ -89,6 +89,9 @@
       <feMerge><feMergeNode in="sh"/><feMergeNode in="cut"/></feMerge></filter>`).join("")).join("");
   stage.appendChild(defs);
   const backdrop = document.createElement("div"); backdrop.id = "backdrop"; stage.appendChild(backdrop);
+  // Decoration, not reading text: its "+" shapes drift under words on purpose. The marker keeps them out
+  // of check_film.mjs's overlap and off-frame checks; without it every scene reports false overlaps.
+  backdrop.dataset.checkSkip = "";
   const world = document.createElement("div"); world.id = "world"; stage.appendChild(world);
   const el = (tag, cls, parent, html) => {
     const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html;

@@ -24,6 +24,11 @@ description: >
 One skill for any OCHA video job. This file holds what is true **every time**; the deep
 procedure for a particular kind of job lives in `references/` and is read on demand.
 
+**These are defaults, not laws.** The designer on the job can change any rule here, case by
+case, when their judgement says the piece needs it. Say which rule is being set aside and why, so
+the choice is deliberate and the next person can see it. A rule that keeps being broken is a sign
+it should change: tell ochavisual@un.org.
+
 Everything runs locally with `ffmpeg` + `cairosvg`/`resvg` + `faster-whisper`. **The footage
 never leaves the machine.**
 

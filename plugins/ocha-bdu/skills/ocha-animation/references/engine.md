@@ -35,6 +35,9 @@ document.fonts.ready.then(() => {
 - **Load fonts the page needs** (Google Fonts link or embedded), so headless Chrome renders the
   real typefaces.
 - **Canvas is fine for large fields of dots**; draw them every frame from `t`.
+- **Mark decorative text** (background glyphs, a cloud of numbers meant to overlap) with a
+  `data-check-skip` attribute on it or a parent, so `check_film.mjs` measures only the text people
+  read. Canvas text is not measured by its text checks.
 
 Helpers for all of this are in `scripts/motion.js`.
 

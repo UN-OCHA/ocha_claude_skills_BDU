@@ -24,7 +24,12 @@ How OCHA animated graphics should **move**. The look comes from the other OCHA s
 smoothness, sequencing, transitions and getting a frame-perfect file out.
 
 Every rule here was learned the hard way on a real 75-second data film and corrected more
-than once. Follow them by default; break one only when the user asks.
+than once. Follow them by default.
+
+**These are defaults, not laws.** The designer on the job can change any rule here, case by
+case, when their judgement says the piece needs it. Say which rule is being set aside and why, so
+the choice is deliberate and the next person can see it. A rule that keeps being broken is a sign
+it should change: tell ochavisual@un.org.
 
 - `references/motion-rules.md` — every rule with the reason behind it, and a timing and
   easing table. **Read it before building any motion.**
@@ -33,6 +38,8 @@ than once. Follow them by default; break one only when the user asks.
 - `references/engine.md` — how to build an animation that renders frame-accurately.
 - `scripts/motion.js` — drop-in helpers: reversible entrances and exits, counters, the marker
   highlight, the wipe-cover calculation.
+- `scripts/check_film.mjs` — the automatic checks run before anything is shown (§5): text on
+  text, text past the edge, type too small, the loop seam, long stills.
 - `scripts/render_frames.mjs` + `scripts/encode.sh` — capture every frame with headless
   Chrome, then encode with ffmpeg (full BT.709 colour tags; it warns if a tag goes missing).
 - `references/cutout-style.md`, `references/cutout-process.md`, `templates/cutout/`,
@@ -132,15 +139,31 @@ Films run on meeting-room screens, projectors and laptops nobody has calibrated.
 - **Render at 1920×1080 by default. Offer 4K (3840×2160) only if the user finds HD not sharp
   enough** on their screens — it quadruples render time and file size.
 
-## 4 · Workflow
+## 4 · Other formats: rebuild, never crop
+
+A film needed in 9:16 or 1:1 as well as 16:9 gets a **layout per format on the same timeline**: the
+same `render(t)` clock, the scenes rearranged for the frame. Never crop or letterbox the 16:9
+render. (Footage is different: cropping a filmed reel is right, see `ocha-video`.)
+
+- **Vertical (9:16):** bigger type, fewer elements per scene, one idea per screen; stack what sat
+  side by side. On a 1080×1920 frame keep text out of the top ~250 px and the bottom ~400 px,
+  where the apps put their names, captions and buttons.
+- **Square (1:1):** tighter holds; trim secondary elements rather than shrinking them.
+- **Wide (16:9):** the most room for spatial context: maps, comparisons side by side.
+- Run the checks (§5) on **every** format: a layout that passes in 16:9 often overlaps in 9:16.
+
+## 5 · Workflow
 
 1. **Script and storyboard as stills** before any motion — one frame per scene, approved.
 2. **Build the motion**, following §2.
-3. **Show stills for approval before any full render** — key frames, and frames just before,
+3. **Check it yourself before showing anything.** Run `scripts/check_film.mjs` and fix what it
+   finds; then look at the contact sheet as a critic, against the list in
+   `references/review-workflow.md`, and fix the worst problems. Only then show it.
+4. **Show stills for approval before any full render** — key frames, and frames just before,
    during and after every scene handover. Put them on one contact sheet.
-4. **Check the data** if the film shows live figures: every statement still true, rankings
+5. **Check the data** if the film shows live figures: every statement still true, rankings
    unchanged since approval.
-5. **Render**, then **verify frames pulled from the encoded file**, not from the page.
+6. **Render**, then **verify frames pulled from the encoded file**, not from the page.
 
 The checklist for each step: `references/review-workflow.md`.
 

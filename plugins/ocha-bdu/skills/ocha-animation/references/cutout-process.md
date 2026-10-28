@@ -36,6 +36,8 @@ the same steps; each one lists what to hand the person and what to check. The lo
 
 - **Stills are exact frames of the film** (the page at `?t=`): name one settled moment per scene in
   `FILM.KEYS`, then `stills.mjs` and `contact_sheet.py` put them on one sheet in `info/`.
+- Before the sheet goes out, run `check_film.mjs` and do the self-review: `review-workflow.md`
+  → “Before showing anything”. The kit’s backdrop shapes are already marked `data-check-skip`.
 - The person approves the sheet **before** motion is finished. The scenes sit on the voice
   (`timeline.py`: lead-in, beats, the ending), so the storyboard is already on the film’s clock.
 

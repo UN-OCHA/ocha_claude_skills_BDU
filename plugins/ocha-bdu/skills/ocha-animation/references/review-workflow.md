@@ -3,6 +3,35 @@
 Render time is expensive and a full render hides mistakes in motion. Show exact frames,
 get approval, then render once.
 
+## Before showing anything: check it yourself
+
+The person's review rounds are for taste. Mistakes that can be found without them should never
+reach them.
+
+1. **Run the automatic checks** on the page (each format, if there are several):
+
+   ```bash
+   node --experimental-websocket scripts/check_film.mjs --page film.html [--loop]
+   # a vertical or square version: add --width 1080 --height 1920 (or 1080 1080)
+   ```
+
+   It seeks through the whole film and reports, as time windows: **text on text**, **text past
+   the edge**, **settled type under 22 px**, with `--loop` a **loop seam** that pops, and
+   **stills** of 3 s or more. Fix every error. A still is a question, not an error: a headline
+   held to be read is fine, a stretch where nothing happens is not. Text that overlaps on purpose
+   (a cloud of numbers, decorative shapes) gets a `data-check-skip` attribute in the page, so the
+   report stays readable; mark only what is truly decoration.
+2. **Critique the contact sheet.** Look at it as a reviewer would, scene by scene, and write down
+   what is wrong before fixing anything:
+   - text that is hard to read: too small, low contrast, on a busy background, cut by an edge;
+   - two things arriving at once (rule 10), or a move with no reason to be there;
+   - an element that slides with no easing, or an exit that is not its entrance reversed (rule 1);
+   - type that looks soft or blurred because it was scaled up;
+   - a scene where the eye does not know where to look first;
+   - anything left behind a transition (rule 8).
+3. **Fix the three worst**, re-run the checks, then build the sheet for approval. Say in a line what
+   was found and fixed, so the person knows the sheet has been checked.
+
 ## Before any full render
 
 - [ ] **Stills for approval on one contact sheet.** Key frames of every scene, fully settled,
