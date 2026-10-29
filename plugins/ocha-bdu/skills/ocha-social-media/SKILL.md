@@ -70,6 +70,10 @@ around the font limit. Using the Canva desktop app instead of Chrome does not ch
   change figures — flag doubts instead.
 - Note per slide: copy and photo link. Check the copy against `ocha-editorial-style` and **flag**
   (don’t fix) anything off.
+- **Long copy: propose the split, get an OK** (Javier, 29 Oct 2026). Slides have a big line (96/104 px)
+  and smaller text (40 px), but cards often give one long sentence per slide. Which words go big is an
+  editorial choice: propose the split per slide, with words and order unchanged, and wait for a yes.
+  Never shrink the type to make copy fit.
 - **Propose where the job lives — in Canva and in Dropbox — and get a yes before creating anything**
   (Javier, 19 Oct 2026). Don’t rely on a stored list of folders; they change. Scan them fresh each job:
   - **Canva:** list the folder tree of the shared account (`list-folder-items` from `root`, two levels deep,
@@ -90,7 +94,11 @@ Get, enhance and credit the photos with the **`ocha-photo`** skill:
 - **ask** whether to apply the BDU photo enhancement (the default) and, if yes, use the files in
   `source/photos_enhanced/`;
 - write the credits in the OCHA format from `ocha-photo` (“Photo: UNOCHA/First Last”) and tell the
-  requester when the MediaValet record differs.
+  requester when the MediaValet record differs;
+- **check each photo against its slide before building** (Javier, 29 Oct 2026). Compare each caption
+  (place, country, date, what it shows) with its slide’s copy. The file name’s country code and date are a
+  fast first signal (`BAN_032018_…` on a Sudan card). Flag every mismatch to the requester before any Canva
+  work; never swap a photo on your own.
 
 ## 3. Canva: template → copy → name → file → build
 
@@ -198,8 +206,10 @@ template: kicker text box at left 80, so the blue edge lands on the 72 px margin
   (`insert_shape`, corner 4) — the connector can’t highlight part of a text box.
 - **Left-aligned** text by default, credits included. Centred only for a heading-only cover or the closing
   call to action — and **not** when the photo’s subject is centred too (too symmetrical; left-align instead).
-- **Photo credit — one pill, last slide only** (Javier, 27 Oct 2026; replaces the 19 Oct “every slide” rule).
-  If several photographers, the one pill lists them all: “Photos: UNOCHA/First Last, WFP/First Last”.
+- **Photo credit — one pill on the last slide by default** (Javier, 27 Oct 2026; replaces the 19 Oct
+  “every slide” rule). If several photographers, the one pill lists them all: “Photos: UNOCHA/First Last,
+  WFP/First Last”. When a job needs credits per slide (Javier, 29 Oct 2026), each slide gets its own photo’s
+  credit in the same pill and position.
   Build it as the credit text’s own **Background** effect (black, roundness 65, spread 50, transparency 50)
   so the pill resizes with the text — not a separate shape. Text box top 1350, left 80 (the pill edge then
   lands on the 72 margin). Text ends **≥ 48 px** above the pill.
@@ -222,11 +232,18 @@ template: kicker text box at left 80, so the blue edge lands on the 72 px margin
 - **Text never touches faces or the photo’s main action.** Put text over the most uniform part of the
   photo (sky, a wall, the ground). Reframe the photo (move/crop it) so faces and busy areas sit away from the
   text — e.g. lower the photo when a 3-line headline would reach a head.
-- **Always a gradient behind text, subtle by default.** Over people or busy colour use the **strong**
-  gradient; over sky/wall/ground the **subtle** one. Files: `assets/text_gradient_strong_1080x900.png`
-  (80 %) and `assets/text_gradient_subtle_1080x900.png` (45 %). Upload them to Canva once per design
-  (`create-upload-url`). Insert at top 540, 1080×900 for bottom text (flip for top
-  text), then bring the text and credit layers to the front.
+- **Tight portraits** (a face fills the frame): text at the bottom only. Align the photo to the bottom of
+  the page, keep the big line to 2 lines at most, and keep the small text below the chin. If it still
+  touches the face, use another page variant or ask for another photo.
+- **No room for text?** Reframe the photo, choose another layout, or extend a plain background (sky,
+  ground, sea) under the exception in `ocha-photo` §3. Never extend or invent the subject.
+- **Always a gradient behind text, subtle by default.** Reuse the template’s own gradient layer on each
+  page (Javier, 29 Oct 2026): keep it, move it or flip it. Rotation 0 at top 405, left −206 for bottom
+  text; rotation −180 at top −196, left −176 for top text. It must sit above the photo and below the text
+  (`layer_element`). Over people or busy colour make it stronger (raise the opacity); over sky, wall or
+  ground keep it subtle. Fallback for a page with no gradient layer: `assets/text_gradient_strong_1080x900.png`
+  (80 %) or `assets/text_gradient_subtle_1080x900.png` (45 %), uploaded once per design, inserted at top
+  540, 1080×900 for bottom text (flip for top text), then text and credit layers to the front.
 - Keep the gradient behind the OCHA logo subtle (≈30 % opacity).
 - **Always ask the designer about legibility** (Javier, 19 Oct 2026). After building or changing a slide,
   show the preview and ask, per slide: *“Is the text easy to read here, or should the dark gradient be

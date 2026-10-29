@@ -37,7 +37,8 @@ After copying a template with the connector, check File → Rulers and guides: i
 
 1. Click the transition marker between page 1 and 2 thumbnails (accessibility label “Change transition”).
 2. Choose **Dissolve**, duration **0.5**, then **Apply between all pages**.
-3. Select a page, click the clock icon on the page toolbar, set **4.0 s**, switch on **Apply to all pages**.
+3. Select a page, click the clock icon on the page toolbar, type **4** in the value field and press
+   Return, then click the **Apply to all pages** button.
 
 ## Remove animations
 

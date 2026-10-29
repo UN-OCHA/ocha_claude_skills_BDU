@@ -121,7 +121,12 @@ want me to do it? I can show you a before/after first.”*
   Use the enhanced files in the design; keep the originals untouched.
 - If they want to see it first, make side-by-side before/after images in `info/` and show them.
 - If no, use the originals as they are.
-- Never retouch content (removing people, objects, logos), never use generative fill on documentary photos.
+- Never retouch content (removing people, objects, logos), and never use generative fill on what a
+  documentary photo shows.
+- **Exception: plain background** (Javier, 29 Oct 2026). Sky, ground, sand, sea or a plain wall may be
+  extended (Photoshop Generative Fill or Expand, or a gradient extension) to make room for text, because it
+  is almost a background. Check the result: the fill must not add people, buildings, vehicles or other
+  objects the photo didn’t show. If it does, generate again or remove them.
 - Stylised tints and colour grades are allowed when used on purpose and consistently across a set. They are a
   design choice on top of the enhancement, not a replacement for it.
 
@@ -145,7 +150,9 @@ can be discreet:
   `UNOCHA/Irène Ndilnodji`. Tell the person whenever the MediaValet record differs from the standard,
   so the library record can be corrected too.
 - In social media designs the credit line reads `Photo: UNOCHA/First Last`.
-- One credit per photo, on the slide/page where that photo appears.
+- One credit per photo, on the page where that photo appears. **Multi-page social posts (carousels):**
+  by default one credit pill on the last slide lists every photographer; credits per slide only when a job
+  needs them (Javier, 29 Oct 2026). Details in `ocha-social-media`.
 - If the credit is missing, or names a different organisation than the brief, **ask** — never invent or
   guess a credit.
 
