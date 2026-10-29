@@ -245,6 +245,17 @@ app.executeMenuCommand("compoundPath");
 
 - **One colour per unite.** Unite gives everything the top object’s colour. In a
   multi-colour logo, select and unite each colour separately.
+- **⚠ Multi-colour logos: be careful, and warn the designer.** The unite step has only
+  been proven on one- and two-colour logos (IASC, Oct 2026). With more colours it
+  can go wrong in ways a log won’t show: shapes of one colour that sit **on top of**
+  another colour get merged and the lower one loses the area they covered; gradients,
+  strokes, images, transparency and overlapping coloured parts make the template
+  refuse the file (`NOT EXPORTED … reason`) rather than guess. Before shipping a
+  multi-colour logo: (1) tell the designer in the report that it was united per
+  colour and which colours were found; (2) compare a render of the united file with
+  the editable master pixel for pixel, looking at every overlap; (3) if anything is
+  off, or the logo has gradients or overlaps, leave that file outlined but not united
+  and say so, or ask the designer. Never ship a united multi-colour file unchecked.
 - **Traps found testing the template:** `document.groupItems` and `document.textFrames`
   miss nested items (walk `layer.pageItems` and recurse); copying into another
   document shifts the art by a fixed offset (move the artboard by the same amount);
