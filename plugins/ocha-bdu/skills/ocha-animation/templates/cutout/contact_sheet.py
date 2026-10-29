@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Storyboard contact sheet for approval: every still on one page, labelled with its moment.
 
-    node --experimental-websocket assets/build/stills.mjs       # one still per named moment (FILM.KEYS)
-    python3 assets/build/contact_sheet.py
-Reads  assets/build/stills/*.png
+    node --experimental-websocket tools/stills.mjs       # one still per named moment (FILM.KEYS)
+    python3 tools/contact_sheet.py
+Reads  tools/stills/*.png
 Writes info/<name>_storyboard.png (name from film.json)
 
 Stills are exact frames of the film (the page at ?t=), so what is approved is what will render.
@@ -15,7 +15,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 HERE = Path(__file__).resolve().parent
 FILM = json.loads((HERE / "film.json").read_text(encoding="utf-8"))
-OUT = HERE.parents[1] / f"info/{FILM['name']}_storyboard.png"
+OUT = HERE.parent / f"info/{FILM['name']}_storyboard.png"
 LABELS = {   # key → what the still shows (the demo's)
     "a": "1 · A crisis, and its questions",
     "b": "2 · The data answers them",
@@ -37,7 +37,7 @@ def font(weight, size):
 f_title, f_label, f_time = font("Black", 40), font("Medium", 24), font("Regular", 20)
 stills = sorted((HERE / "stills").glob("*.png"))
 if not stills:
-    raise SystemExit("No stills in assets/build/stills: run stills.mjs first.")
+    raise SystemExit("No stills in tools/stills: run stills.mjs first.")
 rows = -(-len(stills) // COLS)
 W = PAD * 2 + COLS * TW + (COLS - 1) * GAP
 H = PAD + 90 + rows * (TH + LABEL_H + GAP)
@@ -57,4 +57,4 @@ for i, p in enumerate(stills):
     d.text((x, y + TH + 42), f"{int(t // 60)}:{t % 60:04.1f}", font=f_time, fill="#6E6259")
 OUT.parent.mkdir(parents=True, exist_ok=True)
 sheet.save(OUT, optimize=True)
-print(f"{OUT.relative_to(HERE.parents[1])} · {W}x{H} · {len(stills)} stills")
+print(f"{OUT.relative_to(HERE.parent)} · {W}x{H} · {len(stills)} stills")

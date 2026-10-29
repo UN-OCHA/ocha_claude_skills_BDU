@@ -8,7 +8,7 @@ description: >
   or finishing a job. Trigger on "save this", "export", "where should this go", "name
   the file", "folder structure", "organise the folder", "clean up the folder", "final
   version", "archive", "we're done", "PNG or JPEG", "which format", "file too big", "re-export", "update the file",
-  "pick up this job", "where does this stand", "make available offline", "online only", "file is empty", "README", "CLAUDE.md", "project notes",
+  "pick up this job", "take over this job", "hand this over", "where does this stand", "make available offline", "online only", "file is empty", "README", "CLAUDE.md", "project notes",
   "document this", "editable .ai", "Illustrator file", "export to Illustrator", "send it to the
   designer", "they want to edit it". Also use when starting a job or coming back to one: every job keeps a
   README.md and a CLAUDE.md. The other OCHA skills point here for every file and
@@ -53,8 +53,10 @@ to open.
 <job_name>/
   source/    what we received: footage, data, documents, with their original names
   info/      brief, approvals, feedback, transcripts, notes
-  assets/    what is needed to rebuild the work: .ai / .indd / .aep masters, logos,
-             fonts, cleaned data, scripts
+  assets/    what a designer edits or places by hand: .ai / .indd / .aep masters, logos,
+             fonts, images, cleaned data, voice recordings
+  tools/     what produces the finals: scripts, HTML templates and the files they link
+             to, film pages, previews and intermediate renders
   export/    the finals only, one file per deliverable
   archive/   optional: older versions worth keeping
   .claude/   Claude’s own files, out of the way (a hidden folder):
@@ -95,18 +97,44 @@ long session its early parts get condensed; the notes keep the details.
 - Write down decisions, not a diary. Use full dates, never “yesterday” or “last week”.
 - Never put a password or token in them: job folders are shared.
 
-### Generated work: build files stay in `assets/`, only the result goes to `export/`
+### Ready for someone else to take over
+
+Any BDU colleague must be able to open a job folder, start Claude there and carry on, with
+nothing from the first person’s computer or conversation. Check this every time the notes are
+updated:
+
+- **The job is in the shared BDU Dropbox**, under `Projects/<year>/…`, never on a Desktop, in
+  Downloads or in a private folder. A colleague can only connect what they can open.
+- **Tools are named, not pointed to.** When a final was made with a skill’s script, the notes
+  name the skill and the step (“`ocha-mockups`, the 85×200 cm roll-up template”), never a path
+  into one person’s skill folder: installed skills sit in a different place on every computer.
+- **Tools made for this job live in the job, where people can see them:** scripts, templates
+  and their linked files go in `tools/`, never only in `.claude/`.
+  `.claude/` is hidden in Finder and its `scratch/` is emptied when the job closes, so a tool
+  kept there is invisible to a colleague and gets deleted.
+- **The notes say how to run each tool:** the one command, run from the job folder, and what it
+  needs installed (Illustrator, ffmpeg, the QuickVid engine).
+- **Sign-ins are listed, never stored.** Name every service the job depends on (ElevenLabs,
+  Flippermusic, MediaValet, Datawrapper…) and say whether to use your own account or ask BDU.
+- **Nothing lives only in the conversation.** If the next person would have to ask “why is it
+  like this?”, the answer belongs in `CLAUDE.md`.
+
+### Generated work: the tools live in `tools/`, only the result goes to `export/`
 
 When a final is produced by something else — an HTML page printed to PDF, an SVG rendered
 to PNG, a script that draws a chart — everything doing the producing is **build
 material**, not a final:
 
-- HTML and CSS templates, the logos and images they link to, scripts, data and
-  intermediate renders all live in `assets/`. A subfolder such as `assets/build/` is fine.
-- Build from `assets/` and write **only the final file** into `export/`. Never render from
+- HTML and CSS templates, the logos and images they link to, scripts and intermediate
+  renders all live in `tools/`, at the top of the job where a colleague will find them.
+  Hand-made masters and source material the tools read stay in `assets/`.
+- Build from `tools/` and write **only the final file** into `export/`. Never render from
   inside `export/`: a template there pulls its linked files in beside it.
 - A template that links to local files by relative path keeps those files next to it,
-  **inside `assets/`**.
+  **inside `tools/`**.
+- The README lists each tool with the one command that runs it, from the job folder.
+- **Older jobs** may keep their tools in `assets/build/` or `assets/scripts/`. Leave them
+  there: their notes and commands point to that place, and moving them breaks both.
 - If a web page *is* the deliverable (something that will be hosted), make it
   self-contained, with images and styles embedded, so it goes into `export/` as one file
   with no folder beside it.
@@ -203,7 +231,7 @@ Aim for the best quality at the smallest file size.
 
 - **One raster file per image.** Never deliver a PNG and a JPEG of the same thing: deliver the lighter
   one at the highest quality. Pick the format from the table. When it’s a close call, test both in
-  `assets/`, keep the lighter one that looks identical at full size, and delete the test. Only the
+  `.claude/scratch/`, keep the lighter one that looks identical at full size, and delete the test. Only the
   winner goes into `export/`.
 - **Don’t rasterise what can stay vector.** PNG and JPEG are for destinations that need an
   image: social media, slides, email, some web tools.
@@ -261,12 +289,12 @@ When the work is delivered, go through this before calling it done:
 
 1. `export/` holds only the finals, named to §3, in the one format §5 calls for (never a PNG and a JPEG of the same image), with no version numbers. No templates,
    asset folders, scripts or intermediate renders (see “Generated work” in §2).
-2. The top level holds only `source/`, `info/`, `assets/`, `export/`, `archive/`, `.claude/`
-   and `README.md`. Tooling folders such as `build/` move into `assets/`; Claude’s own files
-   are in `.claude/`.
+2. The top level holds only `source/`, `info/`, `assets/`, `tools/`, `export/`, `archive/`,
+   `.claude/` and `README.md`. Stray tooling folders such as `build/` move into `tools/`;
+   Claude’s own files are in `.claude/`.
 3. Older versions: ask whether to delete them or move them to `archive/`.
 4. Empty `.claude/scratch/`. Delete what nobody will open again: tests, previews, logs,
-   temporary renders, one-off scripts. Scripts needed to rebuild the work stay, in `assets/`.
+   temporary renders, one-off scripts. Tools needed to rebuild the work stay, in `tools/`.
 5. Delete your own throwaway files without asking. Ask before deleting anything someone
    else made, or anything you’re not sure about.
 6. If you moved build files or rebuilt anything, run the build once more and confirm it

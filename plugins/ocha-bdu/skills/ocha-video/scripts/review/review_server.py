@@ -2,7 +2,7 @@
 """Review tool for OCHA videos and animations: watch a render, click the frame, leave a comment.
 
     python3 review_server.py --videos <folder of renders> --comments <job>/info/review/<name>_review.json \\
-        [--timeline <job>/assets/build/timeline.json] [--title "Film name"] [--author "Name"] [--port 8765]
+        [--timeline <job>/tools/timeline.json] [--title "Film name"] [--author "Name"] [--port 8765]
     # then open http://localhost:8765
 
 Every comment keeps the render it was made on, the exact frame, and the point (or box) clicked on

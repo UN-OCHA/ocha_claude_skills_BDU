@@ -1,7 +1,7 @@
 /**
  * Render approval stills from the film page: one settled frame per scene window.
  *
- *   node --experimental-websocket assets/build/stills.mjs [--page film/index.html] [--out stills]
+ *   node --experimental-websocket tools/stills.mjs [--page film/index.html] [--out stills]
  *
  * Reads window.WINDOWS from the page and grabs each scene 0.35 s before its window ends,
  * when everything in it has arrived. Same headless-Chrome/DevTools approach as the

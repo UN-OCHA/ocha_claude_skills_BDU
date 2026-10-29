@@ -3,7 +3,7 @@
 
 Run with QuickVid's venv, which has faster-whisper and numpy (QuickVid is installed by the
 ocha-video skill; `render_social_video.py --check` there says where it is):
-    "<ocha_quick_vid>/.venv/bin/python" assets/build/word_timings.py
+    "<ocha_quick_vid>/.venv/bin/python" tools/word_timings.py
 The script text: one script line per text line (a line may hold several short sentences: "An
 earthquake. A hurricane. Floods."), exactly as sent to the voice ("Ocha", not "OCHA"); blank lines skipped.
 Reads  assets/voice/voiceover.mp3 and assets/voice/voiceover_tts_plain.txt
@@ -34,7 +34,7 @@ from pathlib import Path
 
 import numpy as np
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]   # the job folder (this file lives in <job>/tools/)
 AUDIO = ROOT / "assets/voice/voiceover.mp3"
 TEXT = ROOT / "assets/voice/voiceover_tts_plain.txt"
 OUT = ROOT / "assets/voice/voiceover_timings.json"

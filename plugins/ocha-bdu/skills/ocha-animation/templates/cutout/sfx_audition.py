@@ -67,7 +67,7 @@ def main():
         sys.exit(f"The score (score.js) has no cue of {kinds}.")
     clip = A.get("clip") or (max(0.0, times[0] - 0.6), times[0] + 2.0)
     music = FILM.get("music", {})
-    track = BUILD.parents[1] / music["file"] if music.get("file") else None   # relative to the job folder
+    track = BUILD.parent / music["file"] if music.get("file") else None   # relative to the job folder
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     keep = {k: (X.PALETTE[k], X.TRIM.get(k), X.LEVEL[k]) for k in kinds}
     stem, full, out0 = OUT_DIR / "_stem.wav", OUT_DIR / "_full.mp4", X.OUT

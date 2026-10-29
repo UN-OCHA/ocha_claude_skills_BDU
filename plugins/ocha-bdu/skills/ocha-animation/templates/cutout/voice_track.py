@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """The voice, placed on the film clock: one WAV as long as the film.
 
-    python3 assets/build/voice_track.py
-Reads  assets/voice/voiceover.mp3, assets/voice/voiceover_timings.json, assets/build/timeline.json
-Writes assets/build/audio/voice_track.wav (48 kHz stereo, the length of the film)
+    python3 tools/voice_track.py
+Reads  assets/voice/voiceover.mp3, assets/voice/voiceover_timings.json, tools/timeline.json
+Writes tools/audio/voice_track.wav (48 kHz stereo, the length of the film)
 
 timeline.py places the voice in blocks (the lead-in, and a block after each beat: in the SG film,
 the music-only beat after the tool and the held beat after "saves lives"). Each block is cut from
@@ -13,13 +13,18 @@ clipped, and delayed to its place in the film. The mix (mix.py), later, lays mus
 import json, shutil, subprocess
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]   # the job folder (this file lives in <job>/tools/)
 VOICE = ROOT / "assets/voice/voiceover.mp3"
-OUT = ROOT / "assets/build/audio/voice_track.wav"
+OUT = ROOT / "tools/audio/voice_track.wav"
 FFMPEG = shutil.which("ffmpeg") or "/opt/homebrew/bin/ffmpeg"   # found on this Mac, never assumed (Intel Macs: /usr/local/bin)
 
-T = json.loads((ROOT / "assets/build/timeline.json").read_text(encoding="utf-8"))
+T = json.loads((ROOT / "tools/timeline.json").read_text(encoding="utf-8"))
 V = json.loads((ROOT / "assets/voice/voiceover_timings.json").read_text(encoding="utf-8"))
+# The kit's demo timings come without a recording (and without its duration): this step only
+# makes sense once the real voice exists, so say that instead of failing on a missing key.
+if not VOICE.exists() or "duration" not in V:
+    raise SystemExit("No recorded voice yet: run this once assets/voice/voiceover.mp3 exists and "
+                     "word_timings.py has measured it.")
 raw = {l["line"]: l for l in V["lines"]}
 blocks = T["voice_blocks"]
 

@@ -9,8 +9,8 @@ the same steps; each one lists what to hand the person and what to check. The lo
 
 - The job folder first: `ocha-files-and-folders` (`Projects/<year>/<office>/<job_name>`, with a README).
 - Then the kit: `python3 <this skill>/scripts/new_cutout_film.py "<job>" --title "<Film title>"`. It copies
-  the engine, the tools, the shared audio tools and the review tool into `assets/build/`, and a demo
-  film that builds at once: open `assets/build/film/world.html` to see the style running.
+  the engine, the tools, the shared audio tools and the review tool into `tools/`, and a demo
+  film that builds at once: open `tools/film/world.html` to see the style running.
 
 ## 1 · Script
 

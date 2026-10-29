@@ -13,10 +13,10 @@ Local only: it runs on this Mac and the video never leaves it.
 
 ```bash
 python3 <this skill>/scripts/review/review_server.py \
-  --videos "<job>/assets/build/previews" \
+  --videos "<job>/tools/previews" \
   --comments "<job>/info/review/<job_name>_review.json" \
   --title "<Film name>" --author "<reviewer’s first name>" \
-  [--timeline "<job>/assets/build/timeline.json"]   # an animation: shows the scene and the words spoken
+  [--timeline "<job>/tools/timeline.json"]   # an animation: shows the scene and the words spoken
 # → http://localhost:8765
 ```
 

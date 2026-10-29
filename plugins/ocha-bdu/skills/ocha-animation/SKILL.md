@@ -62,7 +62,7 @@ When someone asks for “cut-out” or “like the SG Awards Dataviz animation�
   music and export: `references/cutout-process.md`.
 - **Start from the kit, never from scratch:**
   `python3 scripts/new_cutout_film.py "<job folder>" --title "<Film title>"` copies the film’s engine,
-  its tools and a 9-second demo into the job’s `assets/build/`, with the shared audio and review tools
+  its tools and a 9-second demo into the job’s `tools/`, with the shared audio and review tools
   from `ocha-video`. `templates/cutout/README.md` lists every file and command.
 
 ## Voice, music, sound effects and review — shared with `ocha-video`

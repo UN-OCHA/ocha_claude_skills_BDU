@@ -3,14 +3,14 @@
 
     python3 <ocha-animation skill>/scripts/new_cutout_film.py "<job folder>" --title "Film title"
 
-Copies into <job>/assets/build/:
+Copies into <job>/tools/:
   - this skill's templates/cutout/ (the engine, the demo film, the build tools)
   - from the ocha-video skill beside this one: scripts/audio/mix.py and voice_clarity.py (the mix and
     the voice check, shared by every OCHA video) and scripts/review/ (the review tool) as review/
 and, if the job has no voice timings yet, the demo's into assets/voice/voiceover_timings.json, so the
 demo film builds before any voice exists. NEVER overwrites a file that is already there: re-running it
-on a job only adds what is missing. The job keeps its own copy of every tool (assets/ = what is needed
-to rebuild the work: ocha-files-and-folders).
+on a job only adds what is missing. The job keeps its own copy of every tool (tools/ = what produces
+the finals, so a colleague can rebuild the film: ocha-files-and-folders).
 """
 import argparse
 import json
@@ -45,7 +45,7 @@ def main():
     ap.add_argument("--title", help="the film's title (default: from the folder name)")
     a = ap.parse_args()
     job = Path(a.job).expanduser().resolve()
-    build = job / "assets" / "build"
+    build = job / "tools"
     if not KIT.exists():
         sys.exit(f"The cut-out kit is missing: {KIT}")
     shared = {VIDEO / "scripts/audio/mix.py": build / "mix.py",

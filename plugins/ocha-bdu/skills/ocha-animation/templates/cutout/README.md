@@ -2,7 +2,7 @@
 
 The engine and tools of the **cut-out** animation style, as they made the SG Awards 2026 Dataviz film
 ([watch it](https://www.dropbox.com/scl/fi/a7a1kd3fhx60f35xyecl2/sg_awards_2026_film_1920x1080.mp4?rlkey=xm4o8g38esx4a94jsmyvms8aq&dl=0)).
-`new_cutout_film.py` (in the skill’s `scripts/`) copies it into a job’s `assets/build/` with the
+`new_cutout_film.py` (in the skill’s `scripts/`) copies it into a job’s `tools/` with the
 shared tools; it ships with a 9-second demo film that builds before any voice exists.
 
 The style: `references/cutout-style.md`. The whole process, script to export: `references/cutout-process.md`.
@@ -26,19 +26,19 @@ Open `film/world.html` in Chrome to play it; `world.html?t=12.5` freezes a momen
 ## The tools — run from the job folder
 
 ```bash
-python3 assets/build/timeline.py              # voice timings → the film's timeline (scenes, beats, ending)
-python3 assets/build/icons.py                 # the icons the film uses (NAMES at the top)
-node --experimental-websocket assets/build/check_sync.mjs    # every word painted on its sound, or it fails
-node --experimental-websocket assets/build/stills.mjs        # one still per named moment (FILM.KEYS)
-python3 assets/build/contact_sheet.py         # the storyboard sheet → info/
-node --experimental-websocket assets/build/probe.mjs --times 5.9 --expr "…"   # measure the page, don't eyeball it
-python3 assets/build/voice_track.py           # the voice on the film's clock (once the voice exists)
-python3 assets/build/sfx_mix.py               # the effects track from the score (+ --strikes to vet sounds)
-python3 assets/build/sfx_audition.py <set>    # short clips of one moment, one per candidate sound
-python3 assets/build/music_fit.py <track>     # where a track lifts, against the scenes
-python3 assets/build/mix.py --picture … --voice … --music … --sfx … --out …   # voice, effects, music
-python3 assets/build/voice_clarity.py --voice … --music … --sfx … --words assets/build/timeline.json
-python3 assets/build/review/review_server.py --videos assets/build/previews --comments info/review/<name>_review.json --timeline assets/build/timeline.json --title "…"
+python3 tools/timeline.py              # voice timings → the film's timeline (scenes, beats, ending)
+python3 tools/icons.py                 # the icons the film uses (NAMES at the top)
+node --experimental-websocket tools/check_sync.mjs    # every word painted on its sound, or it fails
+node --experimental-websocket tools/stills.mjs        # one still per named moment (FILM.KEYS)
+python3 tools/contact_sheet.py         # the storyboard sheet → info/
+node --experimental-websocket tools/probe.mjs --times 5.9 --expr "…"   # measure the page, don't eyeball it
+python3 tools/voice_track.py           # the voice on the film's clock (once the voice exists)
+python3 tools/sfx_mix.py               # the effects track from the score (+ --strikes to vet sounds)
+python3 tools/sfx_audition.py <set>    # short clips of one moment, one per candidate sound
+python3 tools/music_fit.py <track>     # where a track lifts, against the scenes
+python3 tools/mix.py --picture … --voice … --music … --sfx … --out …   # voice, effects, music
+python3 tools/voice_clarity.py --voice … --music … --sfx … --words tools/timeline.json
+python3 tools/review/review_server.py --videos tools/previews --comments info/review/<name>_review.json --timeline tools/timeline.json --title "…"
 ```
 
 Rendering: the ocha-animation skill’s `scripts/render_frames.mjs` and `scripts/encode.sh`.

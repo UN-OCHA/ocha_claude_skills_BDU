@@ -1,7 +1,7 @@
 /**
  * Check the film page against the voice, frame by frame, on what is actually painted.
  *
- *   node --experimental-websocket assets/build/check_sync.mjs [--page film/world.html] [--fps 30]
+ *   node --experimental-websocket tools/check_sync.mjs [--page film/world.html] [--fps 30]
  *
  * 1. Sync: every spoken word must be painted (visible, mostly opaque, full size) on the first
  *    frame at or after (its voice start - one frame), and never after its voice start. Voice

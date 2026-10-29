@@ -1,7 +1,7 @@
 /**
  * Ask the film page a question at given moments, and print the answer.
  *
- *   node --experimental-websocket assets/build/probe.mjs --times 5.9,6.4,6.9 \
+ *   node --experimental-websocket tools/probe.mjs --times 5.9,6.4,6.9 \
  *        --expr "document.querySelectorAll('#decor path').length"
  *
  * Why this exists: a still only shows what a fixed crop of the SCREEN contains, and the camera

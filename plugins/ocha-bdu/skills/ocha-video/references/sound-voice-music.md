@@ -89,7 +89,7 @@ outside that group; mixed into a finished film they are fine.
 
 - Audio **Apple AAC 320k** (`mix.py` does it): ffmpeg’s own AAC at 192k blurred sharp sounds — on the
   SG film its error on a keystroke was as loud as the keystroke. It falls back, loudly, off a Mac.
-- 48 kHz stereo throughout; stems as WAV (24-bit) in `assets/build/audio/`.
+- 48 kHz stereo throughout; stems as WAV (24-bit) in `tools/audio/`.
 
 ## 6 · Tools — `scripts/audio/`
 
