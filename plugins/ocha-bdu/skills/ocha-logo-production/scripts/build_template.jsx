@@ -25,6 +25,10 @@
 
     var REQUIRED_FONTS = ["Roboto-Medium"];      // PostScript names, not menu names
 
+    // Vector deliverables are outlined AND united (Pathfinder > Unite), one shape
+    // per colour. Set false only for a file that must keep live text.
+    var UNITE_SVG = true;
+
     // Illustrator default artboard names -> the filenames you want.
     var MAP = {
         // "Artboard 1": "PRODUCT_EN",
@@ -44,6 +48,110 @@
         white: [255, 255, 255]
     };
     // ==================================================
+
+    // ---------- helpers: outline + unite (Pathfinder > Unite) ----------
+    // Every vector deliverable is one shape per colour: fonts like Roboto build
+    // letters from overlapping parts, which plain outlining leaves in the file.
+    function colourKey(it) {
+        var c = (it.typename === "CompoundPathItem") ? it.pathItems[0].fillColor : it.fillColor;
+        if (!c) { return "none"; }
+        switch (c.typename) {
+            case "RGBColor":  return "rgb " + Math.round(c.red) + " " + Math.round(c.green) + " " + Math.round(c.blue);
+            case "CMYKColor": return "cmyk " + Math.round(c.cyan) + " " + Math.round(c.magenta) + " " + Math.round(c.yellow) + " " + Math.round(c.black);
+            case "GrayColor": return "gray " + Math.round(c.gray);
+            case "SpotColor": return "spot " + c.spot.name + " " + Math.round(c.tint);
+            default:          return c.typename;
+        }
+    }
+    // Outline every text frame, descending into groups (document.textFrames can miss some).
+    function outlineAll(container) {
+        for (var i = container.pageItems.length - 1; i >= 0; i--) {
+            var it = container.pageItems[i];
+            if (it.typename === "TextFrame") { it.createOutline(); }
+            else if (it.typename === "GroupItem") { outlineAll(it); }
+        }
+    }
+    // Walk the layer's own items: document.groupItems misses groups here.
+    function ungroupAll(d) {
+        var guard = 0, found = true;
+        while (found && guard++ < 500) {
+            found = false;
+            var items = d.layers[0].pageItems;
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].typename === "GroupItem") {
+                    d.selection = null; items[i].selected = true;
+                    app.executeMenuCommand("ungroup");
+                    found = true; break;
+                }
+            }
+        }
+    }
+    // Returns "" when done, or the reason it refused (the file then must not ship).
+    function uniteByColour(d) {
+        outlineAll(d.layers[0]);
+        if (d.rasterItems.length || d.placedItems.length || d.meshItems.length) { return "contains images or meshes"; }
+        ungroupAll(d);
+        var L = d.layers[0], keys = [], seen = {}, i, it;
+        for (i = 0; i < L.pageItems.length; i++) {
+            it = L.pageItems[i];
+            if (it.typename !== "PathItem" && it.typename !== "CompoundPathItem") { return "unexpected " + it.typename; }
+            var p = (it.typename === "PathItem") ? it : it.pathItems[0];
+            if (p.stroked) { return "stroked path: outline strokes in the master first"; }
+            var k = colourKey(it);
+            if (!seen[k]) { seen[k] = true; keys.push(k); }
+        }
+        for (var kk = 0; kk < keys.length; kk++) {
+            d.selection = null;
+            for (i = 0; i < L.pageItems.length; i++) {
+                it = L.pageItems[i];
+                if (it.name.indexOf("united ") !== 0 && colourKey(it) === keys[kk]) { it.selected = true; }
+            }
+            app.executeMenuCommand("group");
+            app.executeMenuCommand("Live Pathfinder Add");
+            app.executeMenuCommand("expandStyle");
+            var guard = 0;
+            while (guard++ < 50) {
+                var hasGroup = false, sel = d.selection;
+                for (i = 0; i < sel.length; i++) { if (sel[i].typename === "GroupItem") { hasGroup = true; } }
+                if (!hasGroup) { break; }
+                app.executeMenuCommand("ungroup");
+            }
+            // Unite leaves letters that don't touch as separate shapes: combine them
+            app.executeMenuCommand("compoundPath");
+            d.selection[0].name = "united " + keys[kk];
+        }
+        d.selection = null;
+        return "";
+    }
+    function exportUnited(src, abIndex, folder, opts) {
+        var ab = src.artboards[abIndex], rect = ab.artboardRect, name = ab.name;
+        src.artboards.setActiveArtboardIndex(abIndex);
+        src.selection = null;
+        src.selectObjectsOnActiveArtboard();        // visible, unlocked art only
+        var sel = src.selection, tmp = app.documents.add(src.documentColorSpace, 100, 100);
+        try {
+            var dx = 0, dy = 0, first = true;
+            for (var i = 0; i < sel.length; i++) {
+                // Skip non-printing layers (e.g. the background behind a white logo):
+                // step 2 unlocked every layer, so they would otherwise be swept in.
+                if (!sel[i].layer.printable) { continue; }
+                var dup = sel[i].duplicate(tmp.layers[0], ElementPlacement.PLACEATEND);
+                // duplicate() into another document shifts the art by a fixed offset:
+                // measure it on the first item and move the artboard with it.
+                if (first) { dx = dup.geometricBounds[0] - sel[i].geometricBounds[0]; dy = dup.geometricBounds[1] - sel[i].geometricBounds[1]; first = false; }
+            }
+            tmp.artboards[0].artboardRect = [rect[0] + dx, rect[1] + dy, rect[2] + dx, rect[3] + dy];
+            tmp.artboards[0].name = name;
+            var why = uniteByColour(tmp);
+            if (why) { return "NOT EXPORTED " + name + ": " + why; }
+            var one = new ExportForScreensItemToExport(); one.artboards = "1"; one.document = false;
+            tmp.exportForScreens(folder, ExportForScreensType.SE_SVG, opts, one, "");
+            return name + " united into " + tmp.compoundPathItems.length + " shape(s)";
+        } finally {
+            tmp.close(SaveOptions.DONOTSAVECHANGES);
+            src.selection = null;
+        }
+    }
 
     var log = [];
     function say(s) { log.push(s); }
@@ -191,7 +299,17 @@
         svgOpts.coordinatePrecision = 3;
         svgOpts.svgMinify = false;
         svgOpts.svgResponsive = false;
-        doc.exportForScreens(svgFolder, ExportForScreensType.SE_SVG, svgOpts, what, "");
+        if (!UNITE_SVG) {
+            doc.exportForScreens(svgFolder, ExportForScreensType.SE_SVG, svgOpts, what, "");
+        } else {
+            // One temporary document per artboard: copy, outline, unite, export.
+            // The master keeps its live text.
+            for (var u = 0; u < indices.length; u++) {
+                var res = exportUnited(doc, indices[u] - 1, svgFolder, svgOpts);
+                say("SVG " + res);
+            }
+            app.activeDocument = doc;
+        }
 
         say("exported " + indices.length + " artboards x (PNG + SVG)" +
             " | not exported (" + skipped.length + "): " + skipped.join(", "));

@@ -9,9 +9,11 @@ description: >
   year, export artboards from an .ai file, or automate Illustrator. Trigger on
   "logo package", "multilingual logo", "export the logo", "update the 2027 logo",
   "add Arabic", "logo variants", "white version", "export artboards", "batch
-  export", "exportForScreens", ".ai file", "JSX", "ExtendScript", and on symptoms
-  like "the Arabic looks wrong", "the font changed", "the yellow is not right",
-  "my export is cropped". For logo usage rules, clear space and brand colours use
+  export", "exportForScreens", ".ai file", "JSX", "ExtendScript", "outline the
+  fonts", "unite", "editable logo", "rebuild the logo", "recreate this logo from
+  the PDF / PNG", "fix the logo fonts", and on symptoms like "the Arabic looks
+  wrong", "the font changed", "the logo doesn't look like Montserrat", "the spacing
+  is off", "the yellow is not right", "my export is cropped". For logo usage rules, clear space and brand colours use
   `ocha-visual-identity`; for charts `ocha-dataviz`; for maps `ocha-mapping`.
 ---
 
@@ -26,7 +28,23 @@ multi-artboard export; the defaults and examples assume a logo or lockup.
 **The one rule everything else serves: verify in pixels, never in logs.** Every
 defect this skill exists to prevent produced a clean, successful log. A missing
 font, a shifted colour, a cropped image and a stray guide layer all export
-"successfully". Look at the output.
+“successfully”. Look at the output.
+
+**Every logo job leaves two kinds of file — never one without the other:**
+
+- **`<name>_editable.ai`** — the master, with **live fonts**. The `_editable`
+  suffix tells everyone this is the file with real type and the only file anyone
+  edits. It holds every colour version on its own artboard, the brand colours as
+  global swatches named with their values (“IASC Blue (RGB #002E6E)”), and, for
+  white versions, a locked **non-printing** background layer so the white logo is
+  visible while editing.
+- **The deliverables** (EPS, SVG, PNG, PDF) — always generated from the editable
+  master, never hand-edited, and every one **outlined and united into a single
+  shape** (section 4). They carry no font dependency and no overlapping glyph
+  parts.
+
+An outlined file with no editable master behind it is how a logo ends up rebuilt
+from a guideline PDF years later. Save the master first.
 
 ## 1. Drive Illustrator from the shell
 
@@ -81,6 +99,23 @@ More that bit on 22 Sept 2026 (building `export_ai`, in `ocha-files-and-folders`
   its clipping path’s bounds.
 - `app.redraw()` crashed Illustrator when called from a script run through `osascript`.
 
+More from rebuilding the IASC logo (29 Oct 2026):
+
+- **`osascript` gives up after 2 minutes** with “AppleEvent timed out (−1712)”. For a
+  long run, wrap the call: `osascript -e 'with timeout of 600 seconds' -e 'tell
+  application "…" to do javascript file (POSIX file "…")' -e 'end timeout'`. A run
+  that died this way can leave nothing behind: check `app.documents.length`, don’t
+  assume the work happened.
+- **A text frame’s bounds are not the letters’ bounds** — they include ascender
+  and descender space. To measure ink: duplicate, `createOutline()`, read
+  `geometricBounds`, remove. `createOutline()` exists only on a `TextFrame`: for a
+  group, outline each `textFrames[n]` of the duplicate, then read the group.
+- **Point text sits on its baseline**: `textFrame.anchor` is the start of the first
+  baseline. Position type with `translate(target − anchor)`, not by its bounds.
+- **`exportFile` PNG24 with a percentage scale rounds up** (1,001 px instead of
+  1,000). When the pixel width matters, use `exportForScreens` with
+  `ExportForScreensScaleType.SCALEBYWIDTH`.
+
 `scripts/build_template.jsx` is an annotated skeleton with all of this wired up.
 
 ## 2. Fonts — the trap that costs the most
@@ -104,7 +139,59 @@ Use **PostScript names** (`Roboto-Medium`, `Dubai-Medium`), not menu names. Non-
 faces are the usual casualty because nobody notices the shapes are wrong —
 especially Arabic, where a substituted face changes stroke weight and line breaks.
 
-## 3. Artboards become filenames
+## 3. Rebuild a logo from a reference
+
+When the only correct version is a guideline PDF, an old export or a PNG someone
+sent — and the files in use have the wrong fonts or spacing — rebuild it with live
+fonts and prove the match. Don’t trace it, and don’t eyeball it. IASC, Oct 2026: the
+shared files had been exported with substituted fonts; the 2019 guideline PDF had the
+right type, so the logo was rebuilt from that PDF’s geometry.
+
+**1. Measure the reference.** `scripts/reference_geometry.py`:
+
+- **PDF:** live text gives the font’s PostScript name, size, colour and baseline;
+  outlined text gives one shape per letter, so cap heights, ink edges and baselines
+  can still be read. Measure in points, keep the PDF’s y-down coordinates.
+- **PNG/JPG:** the script lists each letter as a blob in pixels. A PNG never names
+  its font: shortlist candidates (the brand guide, the family’s other logos, your
+  eye), render the text in each, and score each one against the PNG with
+  `overlay_reference.py` — the lowest score wins. If no candidate matches cleanly,
+  **stop and ask**; a near-miss font is worse than none. Expect ±1 px: a 1,000 px
+  PNG is plenty, a 200 px web logo gives only approximate spacing, and say so.
+- **Graphic marks** (emblems, symbols) are never auto-traced into a deliverable.
+  Find the original vector, or ask.
+
+**2. Turn measurements into type settings.** `scripts/fit_type.py FONT.ttf "TEXT"
+CAP_HEIGHT INK_WIDTH`:
+
+- **Size from cap height**, using the font’s own cap-height ratio (OS/2
+  `sCapHeight`: Montserrat 0.700, Roboto Condensed 0.711). Never from line height.
+- **Tracking from ink width.** Width is linear in tracking, so one measurement gives
+  the value: set tracking 0 in Illustrator, outline a duplicate, measure, then
+  `tracking = (target − measured) / (letters − 1) / size × 1000`. A loop that tries
+  values and outlines each one timed out `osascript` and left nothing behind.
+- **Leading** = baseline-to-baseline distance in the reference.
+
+**3. Place by baselines and ink edges** (section 1: `anchor`, outlined bounds), not
+by text-frame bounds. Record where each element sat in the reference — e.g. IASC:
+the tagline’s second baseline sits on the “IASC” baseline; the tagline starts
+15 pt right of the C.
+
+**4. Prove it.** Render the reference at high resolution (`pdftoppm -r 288`), crop,
+then `scripts/overlay_reference.py REF.png NEW.png out.png`. Look at the overlay:
+black = match, red = only in the reference, cyan = only in the rebuild. Thin
+fringes are antialiasing; a whole coloured letter is a real difference. IASC scored
+8.6% (right fonts) against 46.5% for the wrong-font files.
+
+**5. Keep the colours from the source you trust.** A guideline can carry the right
+type in outdated colours. Decide per attribute which source is correct, and say
+which one each value came from.
+
+Then save `<name>_editable.ai` and export from it. A rebuild can change proportions
+— IASC’s new tagline is a deeper “g”, so the logo became 3% taller at the same
+width. Say so when replacing files: anything placed by height will shift.
+
+## 4. Artboards become filenames
 
 `exportForScreens` names each file after its artboard, so **name the artboards and
 the exports name themselves**. Do the renaming inside the `.ai` once and it holds
@@ -133,11 +220,46 @@ Settings that match OCHA practice: PNG24, transparency on, scale by width to
 1024 px, art-optimized anti-aliasing; SVG web-optimized with **text outlined**
 (`SVGFontType.OUTLINEFONT`) so the file carries no font dependency.
 
+### Outlined means outlined AND united
+
+Every vector deliverable (SVG, EPS, PDF) is outlined, then **united with Pathfinder
+into one shape per colour** — a single-colour logo becomes one compound path. Plain
+outlining is not enough: fonts like Roboto build letters from overlapping parts (the
+stem and bowl of “n”, “t”, “g”), and those overlaps show up as extra anchor points and
+seams in anyone’s editor. (Javier, 29 Oct 2026.)
+
+Don’t outline in the master. Copy the artwork into a temporary document per variant,
+then:
+
+```javascript
+// after outlining every textFrames[n] of the copied group g
+doc.selection = null; g.selected = true;
+app.executeMenuCommand("Live Pathfinder Add");   // Pathfinder > Unite, as an effect
+app.executeMenuCommand("expandStyle");           // make it real paths
+while (doc.groupItems.length) { doc.selection = null; doc.groupItems[0].selected = true; app.executeMenuCommand("ungroup"); }
+// Unite leaves letters that don't touch as separate shapes: combine them
+doc.selection = null;
+for (var q = 0; q < doc.layers[0].pageItems.length; q++) doc.layers[0].pageItems[q].selected = true;
+app.executeMenuCommand("compoundPath");
+```
+
+- **One colour per unite.** Unite gives everything the top object’s colour. In a
+  multi-colour logo, select and unite each colour separately.
+- **Traps found testing the template:** `document.groupItems` and `document.textFrames`
+  miss nested items (walk `layer.pageItems` and recurse); copying into another
+  document shifts the art by a fixed offset (move the artboard by the same amount);
+  and a script that unlocked every layer will sweep a locked non-printing
+  background into the export (skip `layer.printable === false`).
+- **Check it:** the document has one top-level `CompoundPathItem` per colour; the
+  SVG has that many `<path>` elements; and a render of the united file matches the
+  previous export pixel for pixel. That proves the counters of A, e, o, g survived.
+  `scripts/build_template.jsx` does all of this (`uniteByColour`).
+
 **Preserve layer visibility.** Unlocking every layer to work on a document is
 fine; forcing every layer *visible* is not — it switches on guide and working
 layers. Record the original state and restore it before saving or exporting.
 
-## 4. Colour across RGB and CMYK
+## 5. Colour across RGB and CMYK
 
 Decide which space the master lives in, and generate the other from it rather than
 maintaining two by hand.
@@ -161,7 +283,14 @@ in the log instead of silently leaving one object off-brand.
 Get the target values from `ocha-visual-identity` — never retype a brand colour
 from memory.
 
-## 5. Editing text without wrecking it
+**Or skip conversion entirely.** For a small package (one logo, a few colour
+versions), build each export document directly in its target space and set the
+colours by value: a CMYK document with the CMYK values for EPS/print, an RGB
+document with the exact hex for SVG/PNG. Nothing is converted, so nothing shifts,
+and both sides land exactly on brand (IASC: EPS at CMYK 100/80/0/40, SVG and PNG
+at #002E6E).
+
+## 6. Editing text without wrecking it
 
 To roll a year forward, or change one word, **edit only the characters that
 change**. Replacing `textFrame.contents` wholesale resets per-character styling
@@ -174,7 +303,7 @@ tf.characters[idx + 3].contents = "7";   // 2026 -> 2027, final digit only
 Wrap it in `try/catch` with a full-string replace as the fallback, and make the
 whole step a no-op when the text already reads correctly, so re-running is safe.
 
-## 6. Verify — the battery that catches real defects
+## 7. Verify — the battery that catches real defects
 
 Bundled in `scripts/`, all Pillow-based:
 
@@ -196,8 +325,20 @@ What each is for:
   substitution. Shapes must match, with only the changed characters differing.
   **Keep a copy of the previous version's non-Latin export before rebuilding**, or
   there is nothing to compare against.
+- **Overlay against a reference** (`overlay_reference.py REF.png NEW.png out.png`) —
+  after a rebuild (section 3): red/cyan overlay plus a score.
 
-## 7. Handing the files onward
+Vector files, without extra apps:
+
+- **SVG** — render with `cairosvg` (`cairosvg.svg2png(url=…, output_width=2000)`) and
+  look at it. Count `<path` elements and confirm no `<text`. Don’t use `qlmanage`
+  for previews: it hangs.
+- **EPS** — Illustrator writes it with old Mac line endings, so convert before
+  searching: `tr '\r' '\n' < file.eps | grep -a "^%%HiResBoundingBox\|^%%DocumentFonts"`.
+  An empty `DocumentFonts` means the text is outlined. The fill colours appear in
+  the print data as `c m y k cmyk` lines (`1 .8 0 .4 cmyk`).
+
+## 8. Handing the files onward
 
 - Public download links → `dropbox-public-link`. Never the Dropbox MCP's
   `create_shared_link`.
@@ -217,13 +358,20 @@ What each is for:
 a live page, renaming or recreating it breaks that page. Change files inside it
 freely; leave the folder alone, and say so in the project README.
 
-## 8. Leave the project rebuildable
+**Replacing published files keeps their links** if the new file goes to the exact
+same path, under the same name. Export to a temporary folder, verify, then copy
+each file over the old one and `cmp` it at its destination. Before overwriting,
+**copy** (never move) the old files to `archive/<name>_<date>_<reason>/`, e.g.
+`archive/IASC_logo_2026-05_wrong_fonts/`: moving them breaks the links.
+
+## 9. Leave the project rebuildable
 
 Folders, file names, versions and the end-of-job clean-up follow
 **`ocha-files-and-folders`**.
 
 A year later nobody remembers any of this. Ship with the assets:
 
+- the `<name>_editable.ai` master with live fonts (see the top of this skill)
 - one idempotent build script — safe to re-run, reporting zeros when nothing changed
 - the verification scripts
 - a README naming the fonts, the colour values, what is published where (block ids,
