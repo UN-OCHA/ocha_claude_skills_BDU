@@ -422,6 +422,14 @@ designer can break one on purpose, but only with a BDU designer’s sign-off, ne
 
 Source: Yuwen Lu, “Signs of vibe coded UI” (April 2026).
 
+### 5c. Finding the direction
+
+- **Challenge the brief when it is unclear.** Before designing, ask what the product is for, what
+  its one message or goal is, who will read it and where (print, web, phone). One short round of
+  questions, not a gate on quick jobs.
+- **BDU designers may bring references or their own sketches** to set the direction. Use them as
+  the starting point, and ask for them when a job’s direction is open.
+
 ---
 
 ## 6. Setting up a new OCHA web project

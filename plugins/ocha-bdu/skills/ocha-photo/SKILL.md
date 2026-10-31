@@ -127,6 +127,9 @@ want me to do it? I can show you a before/after first.”*
   extended (Photoshop Generative Fill or Expand, or a gradient extension) to make room for text, because it
   is almost a background. Check the result: the fill must not add people, buildings, vehicles or other
   objects the photo didn’t show. If it does, generate again or remove them.
+- **Generated images** (Javier, 31 Oct 2026). Generated illustrations are fine. By default, never
+  generate people, above all people doing things, and never make an image that shows a real event, place
+  or crisis as if it happened. If a case seems to need it, ask Javier.
 - Stylised tints and colour grades are allowed when used on purpose and consistently across a set. They are a
   design choice on top of the enhancement, not a replacement for it.
 

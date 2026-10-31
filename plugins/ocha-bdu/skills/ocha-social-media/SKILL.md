@@ -122,7 +122,9 @@ Follow the BDU Canva SOP: **make a copy of the template, rename it, move it to t
   | 11 | Closing B | Heading + short list of asks with thin separator lines |
 
   Page 1 speaker notes hold the rules. Backup of the 7-page version: `OLD_Generic_Carousel_before_variants_20261027`
-  (`DAHZM6FCuoM`) in `Templates_DONT_CHANGE/_Archived templates`.
+  (`DAHZM6FCuoM`) in `Templates_DONT_CHANGE/_Archived templates`. On 29 Oct 2026 the text gradient was moved
+  above the photo on pages 5, 6, 8 and 10, and every page set to 4 s; backup of the version before:
+  `OLD_Generic_Carousel_before_layer_fix_20261029` (`DAHZaEJMZu8`), same folder.
 - **More slides than the template has:** duplicate the closest existing slide (statement with text at
   the top, or at the bottom) — never build a slide from a blank page, it would miss the gradients, grid
   positions and fonts. Duplicate in the Canva editor (Chrome): page thumbnail → **⋯ → Duplicate page**,
@@ -143,7 +145,10 @@ only when he says yes: copy the final design into
 and timing in Chrome.
 
 **Uploading photos:** `create-upload-url` → POST the raw bytes (`Content-Type: application/octet-stream`)
-→ use the returned `mediaId` with `update_fill`. **Swapping a photo resets its crop** — re-apply the crop
+→ use the returned `mediaId` with `update_fill`. The template’s photo frames are bigger than the page and
+sit off-centre: first set the frame to top 0, left 0, 1080×1440 (`position_element`, `resize_element`), then
+`update_fill`, then `crop_media` (portrait 1080×1620 at top −180 keeps the bottom; landscape 2160×1440, left
+offset chosen to keep the subject). **Swapping a photo resets its crop** — re-apply the crop
 afterwards.
 
 **Saving:** when the person asks for an edit, **apply it and save (commit) in the same step**, then show

@@ -301,6 +301,31 @@ from both ends.
 - Overfill the page — leave breathing room.
 - Invent new accent colours beyond the defined palette.
 
+### Critique checklist — before handing over an infographic
+
+From the critique sessions of the BDU’s VIZCOM training. Go through it on the finished piece.
+
+- **One clear title**, and no competing titles fighting for first place.
+- **The summary says what the product is** and why it matters, not only the figures.
+- **Every chart has a title**; every percentage says “of what”.
+- **Headers stand out** from the rows they head; no heavy dark header backgrounds.
+- **Tables:** a light zebra stripe or none, enough space between rows, figures right-aligned,
+  data sorted.
+- **Everything aligns** to the grid; separate charts are clearly separated.
+- **Nothing deceives:** sizes and areas match the values (a donut where a small slice looks like
+  the total is wrong), and the chart type fits the data (a trend over few points may read
+  better as bars).
+- **Labels directly on the chart** by default; a legend only where it is genuinely clearer (many
+  series, tiny marks).
+- **No text the reader must tilt their head to read.**
+- **Icons are OCHA Humanitarian Icons**, never stretched, and only where they add meaning.
+- **Few colours**, from the palette.
+- **Acronyms spelled out** the first time.
+- **Reading flow starts top-left** (top-right for Arabic), with enough margin around the page;
+  decorative shapes that
+  don’t add meaning are removed.
+- **Orientation fits the content**: try the other one if the layout fights it.
+
 ---
 
 ## 9. Decision aids
