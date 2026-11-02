@@ -129,6 +129,7 @@ Films run on meeting-room screens, projectors and laptops nobody has calibrated.
 - **Contrast well above the minimum.** Aim for 7:1 for text greys, never under 4.5:1. Darken
   thin separator lines and "empty" states (unlit dots, empty bars) so they survive a washed-out
   projector.
+- **Avoid orphans** in titles and on-screen text: `ocha-visual-identity` §5b.
 - **Numbers in tabular figures** (`font-variant-numeric: tabular-nums`), so a counting value
   doesn't jitter sideways.
 - **Marker highlights sit on the text, not on the box.** Measure the baseline and set the

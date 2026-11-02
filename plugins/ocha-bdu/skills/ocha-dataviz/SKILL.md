@@ -198,6 +198,7 @@ Every chart needs:
 - **Source line** (footer): "Source: OCHA, HNRP 2025 — as of 15 Dec 2024"
 - **Data date** — always include the "as of" date.
 - **Footnotes for acronyms** — avoid acronyms in labels; if unavoidable, mark with `*` and footnote.
+- **Avoid orphans** in titles and annotations: `ocha-visual-identity` §5b.
 
 ---
 

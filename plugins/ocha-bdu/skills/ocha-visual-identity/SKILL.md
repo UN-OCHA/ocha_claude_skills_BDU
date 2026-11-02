@@ -391,7 +391,7 @@ XXL:    1400px   --cd-bp--xxl
 AI tools produce a recognisable look. Keep it out of OCHA products. These are **defaults**: a
 designer can break one on purpose, but only with a BDU designer’s sign-off, never by default.
 
-**Any design** (screens, slides, reports, documents, social posts):
+**Any design** (screens, slides, reports, infographics, documents, social posts, video):
 - **Contrast, not one hue everywhere.** Mostly neutrals, OCHA blue for structure, one accent
   used sparingly, all from the palette in section 1. Don’t stack tints of one hue (a pale-blue
   icon in a blue box in a blue card). Let background tones separate elements instead of borders.
@@ -406,6 +406,11 @@ designer can break one on purpose, but only with a BDU designer’s sign-off, ne
 - **No gradient text.**
 - **Clear visual hierarchy.** The eye knows where to look first, second and third from size,
   weight and colour; secondary text is quieter than what it supports.
+- **Avoid orphans.** Try not to leave one word alone on the last line of a heading, card line,
+  caption, lower third or paragraph. Fix it with the box width or a line break, never by changing
+  the copy. On screens: `text-wrap: balance` for headings and short text, `text-wrap: pretty` for
+  paragraphs, then check a real screenshot at phone width. Not an absolute: long text, narrow
+  columns or tight layouts can make it unavoidable. If in doubt, ask.
 
 **Screens only** (websites, apps, dashboards, HTML pages):
 - **No frosted glass** — no blurred see-through panels over gradients with thin light borders,
