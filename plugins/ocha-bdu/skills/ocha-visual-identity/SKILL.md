@@ -400,9 +400,9 @@ designer can break one on purpose, but only with a BDU designer’s sign-off, ne
   controls, Humanitarian Icons where they carry meaning. Informational elements often need no
   icon at all: drop it.
 - **No emoji as design elements** (bullets, section markers, card art).
-- **No side-stripe callout boxes** — a thick coloured border down one side of a box (often
-  `border-left` plus `border-radius`). Set a callout apart with a tint, a small label, hairline
-  rules or space. A full, even border is fine when a box really needs one.
+- **No coloured stripes on boxes.** Never a coloured line along any side of a rounded box (left,
+  right, top or bottom), however it’s made: border, inset shadow or extra element. Set boxes apart
+  with their background, a label or space.
 - **No gradient text.**
 - **Clear visual hierarchy.** The eye knows where to look first, second and third from size,
   weight and colour; secondary text is quieter than what it supports.
