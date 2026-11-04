@@ -9,15 +9,19 @@ on:
     paths: ["plugins/ocha-bdu/skills/ocha-mapping/**"]
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   stamp:
     runs-on: ubuntu-latest
     steps:
+      # A deploy key, not the workflow's own token: the rules on main refuse direct pushes, and the
+      # deploy key is the only automation they let through. To replace it: make a new key pair, add
+      # the public half under the repo's Deploy keys (write access), the private half as this secret.
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ssh-key: ${{ secrets.STAMP_DEPLOY_KEY }}
       - run: python3 .github/scripts/stamp_plugin_version.py .
       - name: Commit the new version
         run: |
