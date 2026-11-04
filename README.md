@@ -31,6 +31,7 @@ reinstall.
 | `ocha-country-names` | Official UN country names in six languages, ISO3 codes and UN regions, plus OCHA usage (OPT, DRC) and names never to write |
 | `ocha-mockups` | Mockups without Photoshop — a cover or page on a magazine, book, poster, business card, roll-up or screen, and cover options as one PDF |
 | `ocha-frontify` | BDU only: editing the OCHA brand site. Needs a BDU account on the site |
+| `ocha-utilities` | Small BDU tools. Today: study a video from a link or file, with frames, a transcript with timings, the caption and its cuts |
 
 ---
 
@@ -172,7 +173,7 @@ Type this in the Claude Code chat box, like a normal question:
 
 > **what OCHA skills do I have now?**
 
-Claude should list sixteen skills.
+Claude should list seventeen skills.
 
 ---
 
@@ -303,7 +304,7 @@ You can switch models in the middle of a session — the work carries over.
 **"I installed them but Claude doesn't know about them."**
 You need to quit Claude and reopen it (Step 4). The plugin loads at startup.
 
-**"Claude lists fewer than sixteen skills."**
+**"Claude lists fewer than seventeen skills."**
 Your copy is out of date. Tell Claude *“Update the OCHA skills with the latest version from
 the repository”*, then quit Claude and open it again. If you installed the skills by hand
 before September 2026, also do Step 3 once and the clean-up message underneath it.
