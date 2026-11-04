@@ -227,7 +227,6 @@ Aim for the best quality at the smallest file size.
 | Needs a transparent background | **PNG** — JPEG can’t do transparency |
 | Photos, grain, textures, blur, soft shadows | **JPEG**, quality 80–85 |
 | A photo with crisp text on top | JPEG at higher quality, or PNG if that is lighter — test both, deliver one |
-| Someone will edit it in Illustrator (a designer, a partner, a country office) | An **editable .ai** as well, next to the PDF or SVG — see below |
 
 - **One raster file per image.** Never deliver a PNG and a JPEG of the same thing: deliver the lighter
   one at the highest quality. Pick the format from the table. When it’s a close call, test both in
@@ -240,6 +239,30 @@ Aim for the best quality at the smallest file size.
 - **JPEG above quality 90 buys almost nothing** but makes the file much bigger.
 - **Export at the size the destination shows it** (twice that only when a high-density
   version is asked for). An oversized image is the most common reason a file is heavy.
+
+### Always deliver an editable version
+
+Someone without Claude must be able to change the work. So every final goes out with a version a
+designer can open and edit in ordinary software, next to the final in `export/`, under the same name.
+Make it every time, without being asked: the person who would ask often forgets.
+
+| Final | Editable version |
+|---|---|
+| Poster, chart, map, infographic, social graphic, short document made in code | **`.ai`**: see below |
+| Long report | **`.indd`**: build it in InDesign from a template from the start, so the `.indd` is the master. There is no export from HTML to InDesign: turning an HTML report into an `.indd` is a rebuild, so say so |
+| Slides | **`.pptx`** |
+| The data behind a chart | **`.xlsx`** |
+| Video | No true equivalent: a clean version without burned-in text, plus the subtitle files |
+| Animation built in code | No tested equivalent yet: the video and stills. Say plainly that changing it needs the code |
+| Website or web app | The source files are the editable version |
+
+- **Check it before calling it done.** Open what was made and compare it with the final. A file that
+  only looks editable (text turned to outlines, a single flattened image) is a failure, not a deliverable.
+- **If it can't be made,** deliver the final anyway and say what is missing and why, for example when
+  the software isn't on this computer. Never skip it silently, and never hold up the final for it.
+- **On Windows,** the `.ai` export below can't run today: it drives Illustrator with a Mac-only script,
+  and so does the scripted route into InDesign. Say so, and ask a colleague on a Mac to make the file.
+- The README says where the editable version is and what opens it. It can be left out on request, case by case.
 
 ### Editable Illustrator file (.ai)
 
