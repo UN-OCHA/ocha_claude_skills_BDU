@@ -1,5 +1,5 @@
 ---
-name: frontify-operations
+name: ocha-frontify
 description: Drive the OCHA Frontify brand portal (brand.unocha.org) — the MCP driver setup, and the hard-won operations matrix for what works via personal token (REST and public GraphQL) vs Chrome session vs "no path exists, do it in the editor". Use whenever the user asks to read, create, update, or troubleshoot any Frontify page, block, section, or brand-portal content, or mentions Frontify, brand.unocha.org, guideline pages, or content blocks.
 ---
 
@@ -26,7 +26,7 @@ The code is `server.py` in the shared `frontify-mcp` folder (BDU’s Dropbox, un
 
 ```bash
 export PYTHONDONTWRITEBYTECODE=1  # the folder is shared on Dropbox: leave nothing behind
-cd "$(python3 -c "import os; h=os.path.expanduser('~/.claude'); m=os.path.join(h,'frontify_server_folder.txt'); p=os.path.join(h,'skills/frontify-operations'); f=os.path.join(p,'server_folder.txt'); print(open(m).read().strip() if os.path.exists(m) else open(f).read().strip() if os.path.exists(f) else os.path.realpath(p+'/../..'))")"
+cd "$(python3 -c "import os; h=os.path.expanduser('~/.claude'); m=os.path.join(h,'frontify_server_folder.txt'); p=os.path.join(h,'skills/ocha-frontify'); f=os.path.join(p,'server_folder.txt'); print(open(m).read().strip() if os.path.exists(m) else open(f).read().strip() if os.path.exists(f) else os.path.realpath(p+'/../..'))")"
 uv run --with httpx --with mcp python3 <<'PY'   # uv is usually in ~/.local/bin
 import asyncio, server
 async def main():

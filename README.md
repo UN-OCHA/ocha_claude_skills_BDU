@@ -30,7 +30,7 @@ reinstall.
 | `web-motion` | Motion and interaction for websites and web apps — screen transitions, swipes, presses, sheets, timers, reduced motion, iPhone quirks |
 | `ocha-country-names` | Official UN country names in six languages, ISO3 codes and UN regions, plus OCHA usage (OPT, DRC) and names never to write |
 | `ocha-mockups` | Mockups without Photoshop — a cover or page on a magazine, book, poster, business card, roll-up or screen, and cover options as one PDF |
-| `frontify-operations` | BDU only: editing the OCHA brand site. Needs a BDU account on the site |
+| `ocha-frontify` | BDU only: editing the OCHA brand site. Needs a BDU account on the site |
 
 ---
 

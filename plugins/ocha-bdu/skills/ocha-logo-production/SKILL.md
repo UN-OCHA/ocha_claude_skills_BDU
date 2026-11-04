@@ -353,7 +353,7 @@ Vector files, without extra apps:
 
 - Public download links → `dropbox-public-link`. Never the Dropbox MCP's
   `create_shared_link`.
-- Brand portal → `frontify-operations`. Image/asset blocks are UI-only; text
+- Brand portal → `ocha-frontify`. Image/asset blocks are UI-only; text
   blocks are updatable, and anchors need `class="link"` or they render as grey chips.
 - **Canva** has two traps worth knowing:
   - Frames **crop to fill**, so an image whose aspect differs from its frame loses
