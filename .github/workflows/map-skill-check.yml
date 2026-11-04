@@ -1,0 +1,46 @@
+name: map-skill-check
+
+# pull_request_target, not pull_request: the check must run from main's copy of itself, or a pull
+# request could change the check that judges it. So it must never run anything from the pull
+# request: check_map_pr.py only reads those files as data.
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Fetch the pull request as data
+        run: git fetch --no-tags "https://github.com/$GITHUB_REPOSITORY" "refs/pull/$PR_NUMBER/head"
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+      - name: Check it
+        id: check
+        run: python3 .github/scripts/check_map_pr.py "$BASE_SHA" "$HEAD_SHA"
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      # The rules on main require this status. It is posted on the pull request's own commit
+      # because a pull_request_target run belongs to main's commit, not the pull request's.
+      - name: Report the result
+        if: always()
+        run: |
+          [ "$OUTCOME" = "success" ] && STATE=success || STATE=failure
+          gh api "repos/$GITHUB_REPOSITORY/statuses/$HEAD_SHA" -f state="$STATE" -f context=map-skill-check \
+            -f description="Only the map skill changed, no keys or personal paths" \
+            -f target_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+        env:
+          OUTCOME: ${{ steps.check.outcome }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          GH_TOKEN: ${{ github.token }}

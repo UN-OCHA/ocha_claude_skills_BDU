@@ -1,0 +1,28 @@
+name: stamp-plugin-version
+
+# LOAD-BEARING: colleagues only get an update when the plugin's version changes, and a merged map
+# skill change doesn't change it (the publish script stamps only its own publishes). Remove this
+# and merged map skill updates stop reaching people, with no error anywhere.
+on:
+  push:
+    branches: [main]
+    paths: ["plugins/ocha-bdu/skills/ocha-mapping/**"]
+
+permissions:
+  contents: write
+
+jobs:
+  stamp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: python3 .github/scripts/stamp_plugin_version.py .
+      - name: Commit the new version
+        run: |
+          git diff --quiet && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -qam "Stamp plugin version after a map skill update"
+          git push origin main

@@ -1,0 +1,3 @@
+# Who is told about a pull request. Being listed sends a review request (and so an email), but
+# review is NOT required to merge: the rules on main only require the map-skill-check to pass.
+/plugins/ocha-bdu/skills/ocha-mapping/ @javicueto
