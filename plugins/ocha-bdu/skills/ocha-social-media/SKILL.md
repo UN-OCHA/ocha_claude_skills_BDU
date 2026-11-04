@@ -107,24 +107,27 @@ Follow the BDU Canva SOP: **make a copy of the template, rename it, move it to t
 - Templates live in the Canva folder **Templates_DONT_CHANGE** (find it with a folder search). Never edit a
   template itself.
 - **Carousel template:** `Generic_Carousel` (design `DAHYcodbDIk`, since 19 Oct 2026; page variants added
-  27 Oct 2026 from the Sudan El Fasher carousel) in `Templates_DONT_CHANGE/Carousel`. **One template, several
-  page variants** — pick one cover, the statements you need and one closing slide; delete the rest.
-  11 pages, 1080×1440:
+  27 Oct 2026 from the Sudan El Fasher carousel and 4 Nov 2026 from the Insurance AA carousel) in `Templates_DONT_CHANGE/Carousel`. **One template, several
+  page variants** — pick one cover, the content slides you need and one closing slide; delete the rest.
+  13 pages, 1080×1440:
 
   | Page | Variant | Use it for |
   |---|---|---|
   | 1 | Cover A | Blue kicker + big headline at the bottom, OCHA logo |
   | 2 | Cover B | Country label (theme colour) + lead line + big headline at the top, OCHA logo |
-  | 3–7 | Statements | Headline + supporting text, text at the top or the bottom |
+  | 3–7 | Statements | Headline + supporting text, text at the top or the bottom. Text low with the subject above suits photos without open sky |
   | 8 | Statement A | Big headline, then smaller supporting text in a narrow column |
   | 9 | Statement B | Small lead-in line, then the big statement |
-  | 10 | Closing A | Centred call to action |
-  | 11 | Closing B | Heading + short list of asks with thin separator lines |
+  | 10 | Section label | Label pill (“THE CHALLENGE”, “THE SOLUTION”), then one sentence across two sizes |
+  | 11 | Quotes | Label pill, up to three short quotes with a small attribution under each |
+  | 12 | Closing A | Centred call to action |
+  | 13 | Closing B | Heading + short list of asks with thin separator lines |
 
   Page 1 speaker notes hold the rules. Backup of the 7-page version: `OLD_Generic_Carousel_before_variants_20261027`
   (`DAHZM6FCuoM`) in `Templates_DONT_CHANGE/_Archived templates`. On 29 Oct 2026 the text gradient was moved
   above the photo on pages 5, 6, 8 and 10, and every page set to 4 s; backup of the version before:
-  `OLD_Generic_Carousel_before_layer_fix_20261029` (`DAHZaEJMZu8`), same folder.
+  `OLD_Generic_Carousel_before_layer_fix_20261029` (`DAHZaEJMZu8`), same folder. Backup of the 11-page
+  version: `OLD_Generic_Carousel_11_pages_20261104` (`DAHZ9ksjiSs`), same folder.
 - **More slides than the template has:** duplicate the closest existing slide (statement with text at
   the top, or at the bottom) — never build a slide from a blank page, it would miss the gradients, grid
   positions and fonts. Duplicate in the Canva editor (Chrome): page thumbnail → **⋯ → Duplicate page**,
@@ -198,10 +201,15 @@ template: kicker text box at left 80, so the blue edge lands on the 72 px margin
 | Statement headline (inside slides) | 96 | Inter Black, capitals | 1.0 |
 | Kicker / country label | 32 | Inter Bold, capitals, on a colour pill (Canva text Background effect) | 1.2 |
 | Supporting text, lead lines, list items | 40 | Inter SemiBold | 1.35 |
+| Quote | 40 | Inter Black, italic, sentence case | 1.35 |
+| Quote attribution | 32 | Roboto Condensed Regular | 1.2 |
 | Photo credit (last slide only) | 20 | Roboto Condensed Regular, not italic, on a pill | 1.35 |
 
 - **Clearly different scales** (Javier, 27 Oct 2026): 104/96 headlines, 40 text, 32 labels, 20 credit —
   nothing in between. Snap any other size to the nearest of these.
+- **One sentence across two sizes:** small text sets up the point, large text delivers it. The key point
+  always goes in the large text. Both start on the same left edge. Headlines stay in capitals, including
+  when the sentence continues from the small text — no mixed capitals and sentence case, no lowercase start.
 - Big capitals set at line height 1.0 (1.2 looks loose at this size). The canvas toolbar shows sizes ×0.75
   (96 px reads “72”); the connector uses px.
 - **No drop shadows or other text effects** on headlines or text — legibility comes from the gradient.
@@ -225,13 +233,26 @@ template: kicker text box at left 80, so the blue edge lands on the 72 px margin
   These are the brand-portal themes snapped to the `ocha-visual-identity` palette (the portal’s
   `#FF004B`/`#BD8CBF`/`#64BDEA` are off-palette — see the Canva cleanup audit). Label box at left 80 so the
   pill edge lands on 72.
+- **Section labels** (page 10, “THE CHALLENGE”, “THE SOLUTION”, “WHAT PARTNERS ARE SAYING”): the same pill as
+  the country label.
+- **Label colours have two allowed uses** (Javier, 27 Oct–4 Nov 2026): the theme colour above, or a colour by
+  meaning (e.g. red for challenge, green for solution, blue for neutral). Colours are free, but there must
+  always be enough contrast: never white on a light green or yellow.
+- **Quote page** (page 11): big quotation marks in the background in a lighter tone (white, about 22 %
+  opacity), with the quotes on top in italic. Keep the marks clear of the label: label on the 140 guide, marks
+  below it, first quote overlapping the marks. Darken the photo enough for the text to read (a full-page dark
+  layer, about 60 %). Up to three short quotes; 56 px between one attribution and the next quote.
 - **Lists** (closing slide): thin separator lines (white, 2 px, 60 %) between items, not pills. Pills only
   for short items of one to three words. 88 px per row: line, then the item 20 px below it.
 - **No orphans or split names.** Fix by choosing another text box width — never by changing the copy. Keep
   the left edge on the grid; the (invisible) right edge may sit between columns if that’s what keeps a name
   like “EL FASHER” together.
 
+**Explainers — storyline** (Javier, 4 Nov 2026): question on the cover → how it works → the challenge → the
+solution → what it means for people → what partners say → closing message.
+
 **Photos and text placement**
+- **Photos follow the story**, moving from threat to relief.
 - **Every photo has a subject** — a person, or a telling object (a burnt car, an empty school). Never a
   merely decorative background (Javier, 27 Oct 2026).
 - **Text never touches faces or the photo’s main action.** Put text over the most uniform part of the
