@@ -312,6 +312,17 @@ version. Update Git for Windows (git-scm.com), or uninstall it if you don't use 
 else: Claude can download updates without it. Then quit Claude, open it again, and check for
 updates. *(Found with a colleague’s Windows laptop, October 2026.)*
 
+**The update button is greyed out, but you know a newer version exists.**
+Claude thinks you’re already up to date. Reinstall the plugin; this keeps your settings:
+1. Open **+** → **Plugins** → **Manage plugins**, find **OCHA BDU** and click **Uninstall**.
+2. Install **OCHA BDU** again from the same list. If it has disappeared, click **Add** → **Add
+   marketplace** → **Add from a repository**, paste `UN-OCHA/ocha_claude_skills_BDU`, click
+   **Sync**, then install it.
+3. Quit Claude and open it again.
+
+If you fall behind again after a later update, check Step 6, then let us know:
+**ochavisual@un.org**. *(Found with a colleague’s laptop, November 2026.)*
+
 **"QuickVid keeps asking me to restart and never works."**
 You have an old version, and restarting won't fix it. On a Mac, tell Claude *"QuickVid
 isn't working, please repair it"*. On Windows, delete the app and reinstall from **Help &
