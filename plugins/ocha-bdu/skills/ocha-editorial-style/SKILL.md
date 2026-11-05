@@ -147,6 +147,10 @@ Three-way distinction the guide is strict about:
 - *capacity-building* is always hyphenated, noun or adjective.
 - Spell-check won't catch *chef* for *chief* — search for it explicitly.
 
+## French
+
+Number formats, capitals and general terms for French OCHA products: `references/french.md`.
+
 ## When the answer isn't here
 
 First check **Updates since the 3rd edition** at the top of this file — the PDF is

@@ -98,6 +98,9 @@ for true highlights.
 
 ### Tables
 - Universally accessible. Don't dismiss — good for exact values and small multiples.
+- **Bars inside a table with values:** each column can have its own small bar instead of one stacked
+  or nested bar. It’s simpler to read. Decide case by case.
+- **Prioritized bars are solid red** (OCHA red), with no hatching or stripes, also in key swatches.
 
 ### Bar chart (horizontal or vertical)
 - The default chart for category comparisons. Most common in humanitarian work.
