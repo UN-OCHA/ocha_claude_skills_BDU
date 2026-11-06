@@ -49,8 +49,15 @@ bash scripts/encode.sh frames film_1920x1080.mp4 30
 ```
 
 - `render_frames.mjs` launches the Chrome already on the machine in headless mode, calls
-  `seek(t)` for every frame and saves a PNG. No npm install. Set `CHROME` if Chrome is not in
-  the standard macOS location. `--scale 2` gives 3840×2160 frames.
+  `seek(t)` for every frame and saves a PNG. No npm install; Mac and Windows (set `CHROME` if
+  Chrome is not in a standard install place). `--scale 2` gives 3840×2160 frames.
+- **Several Chromes at once** (`--workers`, default half the computer’s cores), each on one stretch
+  of the film: the 80 s SG Awards film renders in about 1 minute instead of nearly 5. Each Chrome first
+  rehearses the 5 s before its stretch (`--warmup`), because Chrome keeps a scaling word at the
+  raster quality it first drew it with; with the rehearsal every frame is byte-identical to a
+  one-Chrome render. Every run checks the joins between Chromes and warns if a frame there differs
+  from a continuous render: then raise `--warmup`. The Chrome code is shared with `check_film.mjs` in
+  `scripts/headless_chrome.mjs` (software drawing on purpose: GPU drawing was not repeatable).
 - `encode.sh` makes an H.264 MP4 (CRF 16, yuv420p, BT.709, fast-start) that plays everywhere. It
   writes all three BT.709 tags into the stream and checks them afterwards: on ffmpeg 8.1 the usual
   `-color_*` options alone left two of them “unknown”, which QuickTime can show washed out.

@@ -27,17 +27,18 @@
  *
  * Only HTML/SVG text is measured; text drawn on a canvas is invisible to the text checks
  * (the STILL and LOOP checks still see it). Exit code 1 when an error-type finding remains.
- * Same page contract and no-npm DevTools client as render_frames.mjs; needs ffmpeg for the
- * picture comparisons.
+ * Same page contract and headless Chrome as render_frames.mjs (headless_chrome.mjs, beside it);
+ * needs ffmpeg for the picture comparisons.
  *
  * Maintained by: OCHA Brand and Design Unit (BDU) — ochavisual@un.org
  */
 
-import { spawn, spawnSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import os from "node:os";
+import { openFilm } from "./headless_chrome.mjs";
 
 const argv = process.argv.slice(2);
 const arg = (name, fallback) => {
@@ -54,47 +55,9 @@ const FPS = Number(arg("fps", 30));
 const WIDTH = Number(arg("width", 1920));
 const HEIGHT = Number(arg("height", 1080));
 const REPORT = arg("report", null);
-const PORT = 9323 + (Number(process.env.CDP_PORT_OFFSET) || 0);
-const CHROME = process.env.CHROME || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 // Mean absolute difference (0–255) on a 64×36 grey thumbnail below which two pictures count as
 // the same. Calibrated so a 1 px rise on a headline still counts as movement.
 const SAME = 0.35;
-
-if (!existsSync(PAGE)) { console.error(`No page at ${PAGE}`); process.exit(1); }
-if (!existsSync(CHROME)) { console.error(`Chrome not found at ${CHROME} — set CHROME=/path/to/chrome`); process.exit(1); }
-
-class CDP {
-  constructor(ws) {
-    this.ws = ws; this.id = 0; this.pending = new Map();
-    ws.addEventListener("message", ev => {
-      const msg = JSON.parse(ev.data);
-      const p = this.pending.get(msg.id);
-      if (!p) return;
-      this.pending.delete(msg.id);
-      msg.error ? p.reject(new Error(JSON.stringify(msg.error))) : p.resolve(msg.result);
-    });
-  }
-  send(method, params = {}, sessionId) {
-    const id = ++this.id, msg = { id, method, params };
-    if (sessionId) msg.sessionId = sessionId;
-    this.ws.send(JSON.stringify(msg));
-    return new Promise((resolve, reject) => this.pending.set(id, { resolve, reject }));
-  }
-  static async attach(url) {
-    const ws = new WebSocket(url);
-    await new Promise((res, rej) => { ws.addEventListener("open", res, { once: true }); ws.addEventListener("error", rej, { once: true }); });
-    return new CDP(ws);
-  }
-}
-
-const sleep = ms => new Promise(r => setTimeout(r, ms));
-async function fetchJSON(url, tries = 60) {
-  for (let i = 0; i < tries; i++) {
-    try { const r = await fetch(url); if (r.ok) return await r.json(); } catch {}
-    await sleep(250);
-  }
-  throw new Error(`Chrome did not answer on ${url}`);
-}
 
 // Runs inside the page at each sample. Measures text by its glyph boxes (a Range over each text
 // node), not by its element box: a full-width paragraph box would "overlap" everything beside it.
@@ -140,14 +103,9 @@ const MEASURE = `(() => {
   return { over, off, small };
 })()`;
 
-const profile = path.join(os.tmpdir(), `ocha-animation-check-${process.pid}`);
+if (!existsSync(PAGE)) { console.error(`No page at ${PAGE}`); process.exit(1); }
+
 const thumbs = path.join(os.tmpdir(), `ocha-animation-thumbs-${process.pid}`);
-const chrome = spawn(CHROME, [
-  "--headless=new", `--remote-debugging-port=${PORT}`, "--remote-allow-origins=*",
-  "--hide-scrollbars", "--disable-gpu", "--force-device-scale-factor=1",
-  `--window-size=${WIDTH},${HEIGHT}`, "--no-first-run", "--no-default-browser-check",
-  `--user-data-dir=${profile}`, "about:blank",
-], { stdio: "ignore" });
 
 // Grey 64×36 thumbnails of every sample, decoded in one ffmpeg call.
 function greyThumbs(dir, count) {
@@ -175,29 +133,13 @@ function ranges(hitsBySample, times, minLen) {
 }
 const fmt = s => s.toFixed(2) + "s";
 
-let cdp, failed = false;
+let film, failed = false;
 const lines = [];
 const say = s => { lines.push(s); console.log(s); };
 try {
-  const version = await fetchJSON(`http://127.0.0.1:${PORT}/json/version`);
-  cdp = await CDP.attach(version.webSocketDebuggerUrl);
-  const { targetId } = await cdp.send("Target.createTarget", { url: "about:blank" });
-  const { sessionId } = await cdp.send("Target.attachToTarget", { targetId, flatten: true });
-  const call = (m, p) => cdp.send(m, p, sessionId);
-  const evaluate = async expr => (await call("Runtime.evaluate", { expression: expr, returnByValue: true })).result.value;
+  film = await openFilm({ page: PAGE, width: WIDTH, height: HEIGHT });
+  const { call, evaluate, duration: dur } = film;
 
-  await call("Page.enable");
-  await call("Runtime.enable");
-  await call("Emulation.setDeviceMetricsOverride", { width: WIDTH, height: HEIGHT, deviceScaleFactor: 1, mobile: false });
-  await call("Page.navigate", { url: "file://" + PAGE + "?t=0" });
-  for (let i = 0; i < 80; i++) {
-    if (await evaluate("document.readyState==='complete' && document.fonts.status==='loaded' && typeof window.seek==='function'")) break;
-    await sleep(250);
-  }
-  await sleep(400);
-
-  const dur = await evaluate("window.DURATION");
-  if (!(dur > 0)) throw new Error("The page must set window.DURATION (seconds).");
   const times = [];
   for (let t = 0; t < dur - 1e-9; t += STEP) times.push(Math.round(t * 1000) / 1000);
   const lastFrame = (Math.round(dur * FPS) - 1) / FPS;
@@ -261,10 +203,11 @@ try {
   say(stills.length ? `• STILL stretches of ${STILL}s or more — on purpose? ${stills.length}` : `✓ STILL stretches of ${STILL}s or more: none`);
   stills.forEach(s => say(s));
   if (REPORT) await writeFile(path.resolve(REPORT), lines.join("\n") + "\n");
+} catch (e) {
+  console.error(e.message);   // a plain message for the person running it, not a stack trace
+  failed = true;
 } finally {
-  try { await cdp?.send("Browser.close"); } catch {}
-  chrome.kill("SIGTERM");
-  await rm(profile, { recursive: true, force: true }).catch(() => {});
+  await film?.close();
   await rm(thumbs, { recursive: true, force: true }).catch(() => {});
 }
 process.exit(failed ? 1 : 0);

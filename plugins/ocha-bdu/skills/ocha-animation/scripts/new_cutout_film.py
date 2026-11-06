@@ -5,8 +5,9 @@
 
 Copies into <job>/tools/:
   - this skill's templates/cutout/ (the engine, the demo film, the build tools)
-  - from the ocha-video skill beside this one: scripts/audio/mix.py and voice_clarity.py (the mix and
-    the voice check, shared by every OCHA video) and scripts/review/ (the review tool) as review/
+  - from the ocha-video skill beside this one: scripts/audio/mix.py, voice_clarity.py and beats.py (the
+    mix, the voice check and the beat finder, shared by every OCHA video) and scripts/review/ (the
+    review tool) as review/
 and, if the job has no voice timings yet, the demo's into assets/voice/voiceover_timings.json, so the
 demo film builds before any voice exists. NEVER overwrites a file that is already there: re-running it
 on a job only adds what is missing. The job keeps its own copy of every tool (tools/ = what produces
@@ -48,8 +49,7 @@ def main():
     build = job / "tools"
     if not KIT.exists():
         sys.exit(f"The cut-out kit is missing: {KIT}")
-    shared = {VIDEO / "scripts/audio/mix.py": build / "mix.py",
-              VIDEO / "scripts/audio/voice_clarity.py": build / "voice_clarity.py"}
+    shared = {VIDEO / f"scripts/audio/{name}": build / name for name in ("mix.py", "voice_clarity.py", "beats.py")}
     if not all(p.exists() for p in shared) or not (VIDEO / "scripts/review/review_server.py").exists():
         sys.exit(f"The ocha-video skill's shared tools were not found next to this skill ({VIDEO}). "
                  "Install or update the OCHA skills, then run this again.")

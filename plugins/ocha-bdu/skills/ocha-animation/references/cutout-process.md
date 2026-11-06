@@ -63,8 +63,8 @@ the same steps; each one lists what to hand the person and what to check. The lo
 ## 6 · Review rounds
 
 - **Render** (`render_frames.mjs` → `encode.sh` → `mix.py`) into `previews/<name>_film_vNN.mp4`.
-  A picture change needs a re-render (about 5 minutes for 1:20); a sound change copies the picture and
-  takes seconds.
+  A picture change needs a re-render (about a minute for 1:20, plus the encode); a sound change copies
+  the picture and takes seconds.
 - **The review tool** (`ocha-video` → `references/review-tool.md`): the person comments on exact frames;
   Claude fixes, renders the next version, and answers every comment with it. Options first when the
   choice is theirs — nothing changes in the film until they pick.
@@ -82,6 +82,10 @@ the same steps; each one lists what to hand the person and what to check. The lo
 
 - Flippermusic — the login and password are on our Trello (shared guide). Shortlist, measure the fit
   (`music_fit.py`), put two or three under the film, pick by ear, license and download the WAV.
+- **On the beat:** once the track and its `offset` in `film.json` are set, `beats.py --offset <offset>`
+  gives every beat on the film's clock (`tools/audio/beats.json`). Nudge scene covers and big camera
+  moves onto the nearest beat where it helps; never move a word off its sound to do it. Listen to the
+  click track (`--click`) before trusting the beats.
 
 ## 9 · Mix and check
 

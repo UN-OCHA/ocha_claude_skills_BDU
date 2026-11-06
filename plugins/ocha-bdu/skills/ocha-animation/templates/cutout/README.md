@@ -36,6 +36,7 @@ python3 tools/voice_track.py           # the voice on the film's clock (once the
 python3 tools/sfx_mix.py               # the effects track from the score (+ --strikes to vet sounds)
 python3 tools/sfx_audition.py <set>    # short clips of one moment, one per candidate sound
 python3 tools/music_fit.py <track>     # where a track lifts, against the scenes
+python3 tools/beats.py <track> --offset <music offset> --out tools/audio/beats.json --click tools/audio/beats_click.wav   # the beats, on the film's clock
 python3 tools/mix.py --picture … --voice … --music … --sfx … --out …   # voice, effects, music
 python3 tools/voice_clarity.py --voice … --music … --sfx … --words tools/timeline.json
 python3 tools/review/review_server.py --videos tools/previews --comments info/review/<name>_review.json --timeline tools/timeline.json --title "…"

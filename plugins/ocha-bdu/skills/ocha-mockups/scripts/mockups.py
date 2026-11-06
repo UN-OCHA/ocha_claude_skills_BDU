@@ -45,7 +45,7 @@ CONFIG = os.path.join(os.path.expanduser("~"), ".claude", "ocha-mockups.json")
 ENV_FOLDER = "OCHA_MOCKUPS_FOLDER"
 # The curated templates sit in the BDU skills folder in the OCHA DMU Dropbox. That folder is
 # also the public GitHub repo, and mockups/ is git-ignored there: the PSDs are licensed.
-FOLDER_TAIL = os.path.join("Design", "Resources", "ocha_claude_skills_BDU", "mockups")
+FOLDER_TAIL = os.path.join("Design", "AI_skills_and_prompts", "bdu", "ocha_claude_skills_BDU", "mockups")
 
 
 class MockupError(Exception):
@@ -113,7 +113,7 @@ def find_folder(explicit=None, required=True):
         return None
     raise MockupError(
         "Can't find the OCHA mockup templates folder in Dropbox.\n"
-        "It normally lives at  ~/OCHA DMU Dropbox/<your-name>/Design/Resources/ocha_claude_skills_BDU/mockups\n"
+        "It normally lives at  ~/OCHA DMU Dropbox/<your-name>/Design/AI_skills_and_prompts/bdu/ocha_claude_skills_BDU/mockups\n"
         + ("Tried:\n" + "\n".join(tried) + "\n" if tried else "")
         + "Fix it one of these ways:\n"
         "  - Make sure the OCHA DMU Dropbox is syncing on this computer and you can see that\n"

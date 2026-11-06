@@ -41,9 +41,12 @@ it should change: tell ochavisual@un.org.
 - `scripts/check_film.mjs` — the automatic checks run before anything is shown (§5): text on
   text, text past the edge, type too small, the loop seam, long stills.
 - `scripts/render_frames.mjs` + `scripts/encode.sh` — capture every frame with headless
-  Chrome, then encode with ffmpeg (full BT.709 colour tags; it warns if a tag goes missing).
+  Chrome (several at once: an 80 s film in about a minute, frames identical to a one-Chrome render),
+  then encode with ffmpeg (full BT.709 colour tags; it warns if a tag goes missing).
 - `references/cutout-style.md`, `references/cutout-process.md`, `templates/cutout/`,
   `scripts/new_cutout_film.py` — the cut-out style (below).
+- Music with a beat: `ocha-video` → `scripts/audio/beats.py` gives every beat in seconds, so scene
+  changes and big moves can land on it.
 
 ---
 

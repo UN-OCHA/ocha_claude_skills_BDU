@@ -31,6 +31,7 @@ reinstall.
 | `ocha-country-names` | Official UN country names in six languages, ISO3 codes and UN regions, plus OCHA usage (OPT, DRC) and names never to write |
 | `ocha-mockups` | Mockups without Photoshop — a cover or page on a magazine, book, poster, business card, roll-up or screen, and cover options as one PDF |
 | `ocha-frontify` | BDU only: editing the OCHA brand site. Needs a BDU account on the site |
+| `ocha-layout` | Laying out OCHA reports and templates in InDesign or Word — grid, styles, key figures, tables, chart frames, template checks |
 | `ocha-utilities` | Small BDU tools. Today: study a video from a link or file, with frames, a transcript with timings, the caption and its cuts |
 
 ---
