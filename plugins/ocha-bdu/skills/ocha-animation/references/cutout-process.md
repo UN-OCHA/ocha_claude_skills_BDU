@@ -83,9 +83,10 @@ the same steps; each one lists what to hand the person and what to check. The lo
 - Flippermusic — the login and password are on our Trello (shared guide). Shortlist, measure the fit
   (`music_fit.py`), put two or three under the film, pick by ear, license and download the WAV.
 - **On the beat:** once the track and its `offset` in `film.json` are set, `beats.py --offset <offset>`
-  gives every beat on the film's clock (`tools/audio/beats.json`). Nudge scene covers and big camera
-  moves onto the nearest beat where it helps; never move a word off its sound to do it. Listen to the
-  click track (`--click`) before trusting the beats.
+  gives every beat and bar start on the film's clock (`tools/audio/beats.json`). Nudge scene covers
+  onto the nearest bar start, and big camera moves onto a bar start or a beat, where it helps; never
+  move a word off its sound to do it. Listen to the click track (`--click`; the higher click is the
+  bar start) before trusting them.
 
 ## 9 · Mix and check
 

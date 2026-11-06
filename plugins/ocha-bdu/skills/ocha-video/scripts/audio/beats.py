@@ -5,8 +5,9 @@
     python3 beats.py track.wav --out beats.json         # every beat, in seconds, for the film to read
     python3 beats.py track.wav --offset 3.0 --out …     # the music starts 3 s into the film: times on
                                                         # the film's clock instead of the track's
-    python3 beats.py track.wav --click check.wav        # the track with a click on every beat: listen
-                                                        # to it before trusting the beats
+    python3 beats.py track.wav --click check.wav        # the track with a click on every beat (a higher
+                                                        # click on each bar start): listen before trusting
+    python3 beats.py track.wav --meter 3                # a waltz: 3 beats to the bar (default 4)
 
 Any audio or video file ffmpeg can read works. Use it on the music alone, not on a mix: the voice and
 the effects hide the beat. The JSON holds:
@@ -15,6 +16,9 @@ the effects hide the beat. The JSON holds:
     pulse       0–1, how clear the beat is. Under ~0.3 the music has no steady pulse (ambient, rubato):
                 don't cut to these beats without listening
     beats       every beat, in seconds (plus --offset)
+    bars        where each bar starts (its "ONE", the strongest beat), in seconds: the best moments for a cut
+    meter       beats per bar (4 unless --meter says otherwise)
+    bar_clarity 0–1, how sure the bar starts are. Under ~0.2 it is a guess: check by ear (the higher click)
 
 How it works (the standard method, built here on numpy so nothing new has to be installed):
   1. how much new sound starts in each 12 ms slice (spectral flux on a mel spectrum, in dB)
@@ -22,7 +26,10 @@ How it works (the standard method, built here on numpy so nothing new has to be 
      preference for 120 BPM so a track is not read at half or double its speed
   3. the beats: the chain of onsets that best fits that tempo (dynamic programming, Ellis 2007 —
      the same method as librosa's beat_track)
-A tool can still land on half or double the tempo a person would tap. The click track settles it.
+  4. the bar starts: of the 4 (or --meter) ways to group the beats, the one whose first beats carry the
+     most kick drum and the most change in sound (chords and sections change on the ONE)
+A tool can still land on half or double the tempo a person would tap, or put the ONE on the wrong beat
+(the bars assume the meter stays the same through the track). The click track settles both.
 
 Needs numpy and ffmpeg. Run it with any Python that has numpy; without one, it runs itself again with
 OCHA QuickVid's Python (which has numpy, and ffmpeg through static_ffmpeg). QuickVid is found the
@@ -116,7 +123,7 @@ def mel_filters():
 
 
 def onset_envelope(x):
-    """Step 1: how much new sound starts in each slice."""
+    """Step 1: how much new sound starts in each slice. Also returns the mel spectrum (dB) for step 4."""
     if x.size < N_FFT * 4:
         sys.exit("The track is too short to find a beat (under half a second).")
     pad = np.pad(x, N_FFT // 2, mode="reflect")
@@ -133,7 +140,7 @@ def onset_envelope(x):
     # Take away the slow swell (a crescendo is not a beat): subtract a 1 s moving average.
     w = int(round(SR / HOP))
     env = np.maximum(0.0, env - np.convolve(env, np.ones(w) / w, mode="same"))
-    return env / (env.std() or 1.0)
+    return env / (env.std() or 1.0), db
 
 
 def tempo(env):
@@ -192,17 +199,40 @@ def track(env, period):
     return beats[np.argmax(keep):beats.size - np.argmax(keep[::-1])]
 
 
-def write_click(ffmpeg, src, beat_times, out):
-    """The track with a short click on every beat, as a 16-bit stereo WAV, to check by ear."""
+def bar_starts(db, beats, meter):
+    """Step 4: which beat of each group of `meter` is the ONE. Returns (index of the first ONE, clarity 0–1).
+    Two signs of a bar start, each scaled to its own median so neither drowns the other:
+      kick    a burst of low sound (under ~150 Hz) on the beat
+      change  how different the sound of the next two beats is from the last two (new chord, new section)"""
+    if beats.size < 2 * meter:
+        return 0, 0.0
+    low = np.maximum(0.0, np.diff(db[:, :6], axis=0)).mean(axis=1)   # the lowest mel bands: the kick
+    kick = np.array([low[max(0, b - 3):b + 3].max() for b in beats])
+    edges = np.concatenate([beats, [db.shape[0]]])
+    per_beat = np.array([db[edges[i]:max(edges[i + 1], edges[i] + 1)].mean(axis=0) for i in range(beats.size)])
+    change = np.zeros(beats.size)
+    for i in range(2, beats.size - 1):
+        change[i] = np.linalg.norm(per_beat[i:i + 2].mean(axis=0) - per_beat[i - 2:i].mean(axis=0))
+    sign = kick / (np.median(kick) or 1.0) + change / (np.median(change[2:-1]) or 1.0)
+    score = np.array([sign[k::meter].mean() for k in range(meter)])
+    order = np.sort(score)[::-1]
+    clarity = float(np.clip((order[0] - order[1]) / (order[0] - order[-1] or 1.0), 0.0, 1.0))
+    return int(np.argmax(score)), clarity
+
+
+def write_click(ffmpeg, src, beat_times, bar_times, out):
+    """The track with a short click on every beat and a higher, louder one on every bar start,
+    as a 16-bit stereo WAV, to check by ear."""
     rate = 44100
     x = decode(ffmpeg, src, rate, 2).astype(np.float64)
-    n = int(0.03 * rate)
-    t = np.arange(n) / rate
-    click = 0.5 * np.sin(2 * np.pi * 1500 * t) * np.exp(-t / 0.006)
+    t = np.arange(int(0.03 * rate)) / rate
+    tick = lambda hz, gain: gain * np.sin(2 * np.pi * hz * t) * np.exp(-t / 0.006)
+    beat, one = tick(1500, 0.5), tick(2500, 0.8)
+    bar_set = {int(round(b * rate)) for b in bar_times}
     for b in beat_times:
         i = int(round(b * rate))
         if 0 <= i < len(x):
-            seg = click[: len(x) - i]
+            seg = (one if i in bar_set else beat)[: len(x) - i]
             x[i:i + seg.size] += seg[:, None]
     x = np.clip(x * 0.8, -1, 1)
     with wave.open(str(out), "wb") as w:
@@ -216,13 +246,17 @@ def main():
     ap.add_argument("--out", type=pathlib.Path, help="write the beats here as JSON")
     ap.add_argument("--offset", type=float, default=0.0,
                     help="seconds to add to every time: where the music starts on the film's clock")
-    ap.add_argument("--click", type=pathlib.Path, help="write the track with a click on every beat (WAV)")
+    ap.add_argument("--click", type=pathlib.Path,
+                    help="write the track with a click on every beat, a higher one on each bar start (WAV)")
+    ap.add_argument("--meter", type=int, default=4, help="beats per bar: 4 (default), 3 for a waltz, 2, 6…")
     a = ap.parse_args()
     if not a.track.is_file():
         sys.exit(f"No file at {a.track}")
+    if a.meter < 2:
+        sys.exit("--meter must be 2 or more")
 
     ffmpeg = find_ffmpeg()
-    env = onset_envelope(decode(ffmpeg, a.track, SR, 1).astype(np.float64))
+    env, db = onset_envelope(decode(ffmpeg, a.track, SR, 1).astype(np.float64))
     period, pulse = tempo(env)
     idx = track(env, period)
     times = idx * HOP / SR
@@ -232,13 +266,20 @@ def main():
     # one tempo. (The median gap between beats rounds to whole slices: 129.2 instead of 131.)
     step = float(np.polyfit(np.arange(times.size), times, 1)[0])
     bpm = 60.0 / step
+    first_one, clarity = bar_starts(db, idx, a.meter)
+    bars = times[first_one::a.meter]
 
     print(f"{a.track.name}: {bpm:.1f} BPM (a beat every {step:.3f} s), {times.size} beats "
           f"from {times[0]:.2f} s to {times[-1]:.2f} s, pulse {pulse:.2f}"
           + ("  — weak: listen before cutting to these beats" if pulse < 0.3 else ""))
+    print(f"  {bars.size} bars of {a.meter} (a bar every {step * a.meter:.3f} s), first bar start at "
+          f"{bars[0]:.2f} s on the track, bar clarity {clarity:.2f}"
+          + ("  — a guess: listen for the higher click" if clarity < 0.2 else ""))
     # On the film's clock. A negative offset cuts the track's start: beats before 0 are not in the film.
     film = times + a.offset
     film = film[film >= 0]
+    film_bars = bars + a.offset
+    film_bars = film_bars[film_bars >= 0]
     print("  first beats" + (f" (film clock, {a.offset:+g} s)" if a.offset else "") + ": "
           + ", ".join(f"{t:.3f}" for t in film[:8]) + " …")
     if a.out:
@@ -246,11 +287,12 @@ def main():
         a.out.write_text(json.dumps({
             "track": a.track.name, "bpm": round(bpm, 2), "period": round(step, 4), "pulse": round(pulse, 2),
             "offset": a.offset, "beats": [round(float(t), 3) for t in film],
+            "meter": a.meter, "bar_clarity": round(clarity, 2), "bars": [round(float(t), 3) for t in film_bars],
         }, indent=1) + "\n", encoding="utf-8")
         print(f"  wrote {a.out}")
     if a.click:
-        write_click(ffmpeg, a.track, times, a.click)
-        print(f"  wrote {a.click} — listen: every click should sit on the beat")
+        write_click(ffmpeg, a.track, times, bars, a.click)
+        print(f"  wrote {a.click} — listen: every click should sit on the beat, the higher one on each ONE")
 
 
 if __name__ == "__main__":

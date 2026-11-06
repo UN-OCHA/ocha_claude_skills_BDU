@@ -45,8 +45,8 @@ it should change: tell ochavisual@un.org.
   then encode with ffmpeg (full BT.709 colour tags; it warns if a tag goes missing).
 - `references/cutout-style.md`, `references/cutout-process.md`, `templates/cutout/`,
   `scripts/new_cutout_film.py` — the cut-out style (below).
-- Music with a beat: `ocha-video` → `scripts/audio/beats.py` gives every beat in seconds, so scene
-  changes and big moves can land on it.
+- Music with a beat: `ocha-video` → `scripts/audio/beats.py` gives every beat and bar start in seconds,
+  so scene changes and big moves can land on them.
 
 ---
 

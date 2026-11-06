@@ -47,10 +47,14 @@ an OCHA film should sound:
   track’s loudness up with the scenes.
 - **Put two or three under the film and let the person pick by ear.** Offset a track so its lift
   lands on a moment of the film, not near it.
-- **Cut on the beat once the track is chosen:** `beats.py` (§6) gives its tempo and every beat in
-  seconds, on the film's clock with `--offset`. Use it when cuts, scene changes or big moves should
-  land with the music: a cut-out film's scene covers, a reel's cuts, a counter that should finish on a
-  downbeat. Not for the words: the voice sets those. Listen to its click track first (`--click`).
+- **Cut on the beat once the track is chosen:** `beats.py` (§6) gives its tempo, every beat and every
+  bar start in seconds, on the film's clock with `--offset`. Use it when cuts, scene changes or big
+  moves should land with the music: a cut-out film's scene covers, a reel's cuts, a counter that should
+  finish on a downbeat. Not for the words: the voice sets those. Listen to its click track first
+  (`--click`).
+- **Bar starts first, then beats.** Music counts in groups of beats, usually 4: a bar. Its first beat
+  (the ONE) is the strongest, and chords and sections change on it, so a scene change or a big move
+  lands best on a bar start (`bars`); a smaller move can take any beat (`beats`).
 - **License and download the full-quality WAV** while the subscription is active, into
   `assets/audio/`; note the track’s title and code in the README. Previews are for judging only.
 
@@ -103,13 +107,16 @@ outside that group; mixed into a finished film they are fine.
   `timeline.json`, or any word list), or phrase by phrase when there is no word list (coarser: use
   words when you have them). Aim for every word ≥ 10 LU; it lists the words that miss and, with
   `--cues`, the effects sounding under each. It checks its own meter against ffmpeg’s first.
-- **`beats.py`** — the tempo (BPM) and every beat of a music track, as seconds in a JSON file
-  (`--out`), shifted onto the film's clock with `--offset` (where the music starts in the film).
-  `--click check.wav` writes the track with a click on each beat: listen before trusting it — any beat
-  finder can land on half or double the tempo a person would tap. A `pulse` under 0.3 means no steady
+- **`beats.py`** — the tempo (BPM), every beat and every bar start of a music track, as seconds in a
+  JSON file (`--out`), shifted onto the film's clock with `--offset` (where the music starts in the
+  film). Bars are 4 beats unless `--meter` says otherwise (3 for a waltz). `--click check.wav` writes
+  the track with a click on each beat and a higher one on each bar start: listen before trusting it —
+  any beat finder can land on half or double the tempo a person would tap, or put the ONE on the wrong
+  beat. A `bar_clarity` under 0.2 means the bar starts are a guess. A `pulse` under 0.3 means no steady
   beat (ambient, free time): don't cut to it. Run it on the music file alone, never on a mix. Needs
   only numpy and ffmpeg: it uses OCHA QuickVid's when the Python running it has no numpy. Checked on
-  the SG film's Flippermusic track (*Waiting Game*): 131.0 BPM, the kick drum on every beat found.
+  the SG film's Flippermusic track (*Waiting Game*): 131.0 BPM, the kick drum on every beat found;
+  bars start on the track's first beat, and its section changes fall on them.
 - Measure a codec against the **uncompressed** mix, block by block (50 ms): a whole-film average hides
   a 50 ms defect.
 

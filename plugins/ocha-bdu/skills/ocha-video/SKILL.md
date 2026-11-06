@@ -308,8 +308,8 @@ Any video that gets a voiceover, music or sound effects, and any job with review
   middle, music lowest; nothing ducks. Read **`references/sound-voice-music.md`** first.
 - **Review** — the frame-comment review tool: **`references/review-tool.md`**.
 - Tools: `scripts/audio/mix.py` (the mix under the picture), `scripts/audio/voice_clarity.py` (does
-  the voice stand out, word by word), `scripts/audio/beats.py` (the beats and tempo of a music track,
-  to cut on the beat), `scripts/review/` (the review tool).
+  the voice stand out, word by word), `scripts/audio/beats.py` (the beats, bar starts and tempo of a
+  music track, to cut on the beat), `scripts/review/` (the review tool).
 - The reference for all of it is the SG Awards 2026 Dataviz film:
   [watch it](https://www.dropbox.com/scl/fi/a7a1kd3fhx60f35xyecl2/sg_awards_2026_film_1920x1080.mp4?rlkey=xm4o8g38esx4a94jsmyvms8aq&dl=0).
 
