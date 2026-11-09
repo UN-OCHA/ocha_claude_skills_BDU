@@ -3,12 +3,12 @@ name: ocha-visual-identity
 description: >
   Apply OCHA's visual identity — brand colours, typography, logo rules, and the
   OCHA Common Design System — to any product Javier or the BDU is making.
-  Use this skill whenever the user asks about OCHA brand colours, UN Blue,
+  Use this skill whenever the user asks about OCHA brand colours, OCHA Blue,
   colour ramps, the OCHA logo, Roboto/Crimson Pro/Arial font choices, design
   tokens, the `cd-*` component library, accessibility (WCAG) requirements for
   OCHA products, or when building/editing any OCHA-branded HTML, CSS, slide,
   document, poster, social media graphic, or web page. Trigger on phrases
-  like "OCHA brand", "OCHA colours", "UN Blue", "brand guidelines", "design
+  like "OCHA brand", "OCHA colours", "OCHA Blue", "brand guidelines", "design
   system", "use our brand", "OCHA logo", "clear space", "one OCHA", "partner logo", "donor logo",
   "co-branding", "font size", "leading", "line height", "spacing", "margins", "padding", "rule of 4",
   "4-point grid", or the logo of any UN agency, donor, NGO or cluster. For
@@ -31,19 +31,19 @@ components before introducing anything new. Only introduce new colours / fonts
 ## 1. Brand colours
 
 ### Primary
-The brand is **UN Blue** — use it predominantly. Most OCHA products work with
+The brand is **OCHA Blue** — use it predominantly. Most OCHA products work with
 just blue, grey, black, and white. **Resist adding accent colours.**
 
 | Role | Hex | RGB | CMYK | PMS |
 |---|---|---|---|---|
-| UN Blue (signature) | `#009EDB` | 0, 158, 219 | 80, 20, 0, 0 | 2925 |
+| OCHA Blue (signature; same colour as the UN’s blue) | `#009EDB` | 0, 158, 219 | 80, 20, 0, 0 | 2925 |
 | Black | `#000000` | 0, 0, 0 | 0, 0, 0, 100 | — |
 | White | `#FFFFFF` | 255, 255, 255 | 0, 0, 0, 0 | — |
 
 ### Accessible text variants (WCAG AA / AAA on white)
 
 `#009EDB` **fails WCAG AA for body text on white**, but passes for large text (3.04:1; 24px+, or 19px+
-bold), so headlines and big bold text can use UN Blue. For body and small text on white use:
+bold), so headlines and big bold text can use OCHA Blue. For body and small text on white use:
 
 | Original | AA text variant | AAA text variant |
 |---|---|---|
@@ -71,7 +71,7 @@ bold), so headlines and big bold text can use UN Blue. For body and small text o
 Use these for maps, choropleths, and data visualization tints. The named
 accent sits in the middle slot (step 4 or 5 depending on the ramp).
 
-**UN Blue** `#002E6E` · `#004987` · `#0074B7` · `#009EDB` · `#64BDEA` · `#C5DFEF` · `#E3EDF6`
+**OCHA Blue** `#002E6E` · `#004987` · `#0074B7` · `#009EDB` · `#64BDEA` · `#C5DFEF` · `#E3EDF6`
 **Red** `#520000` · `#780B20` · `#A71F36` · `#ED1847` · `#F3859B` · `#F9C0C5` · `#F7DFDF`
 **Green** `#003425` · `#004D35` · `#006747` · `#338C46` · `#72BF44` · `#CEE3A0` · `#E6EFD0`
 **Orange** `#70200C` · `#90371C` · `#C15025` · `#F58220` · `#F9A870` · `#FEDCBD` · `#FFEAD5`
@@ -84,7 +84,7 @@ accent sits in the middle slot (step 4 or 5 depending on the ramp).
 
 | Family | Key | Primary |
 |---|---|---|
-| OCHA (general) | `ocha` | `#009EDB` UN Blue |
+| OCHA (general) | `ocha` | `#009EDB` OCHA Blue |
 | HNRP (Humanitarian Needs & Response Plans) | `hnrp` | `#F58220` Orange |
 | Flash Appeal | `flash` | `#ED1847` Red |
 | GHO (Global Humanitarian Overview) | `gho` | `#FFC800` Yellow/Gold |

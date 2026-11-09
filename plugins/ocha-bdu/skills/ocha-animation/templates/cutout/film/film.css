@@ -15,7 +15,7 @@
   --blue: #009EDB;
   --blue-mid: #0074B7;  /* white text 4.9:1; shapes 4.2:1 on --ground */
   --blue-deep: #004987; /* white text 8.9:1 */
-  --blue-light: #C5DFEF; /* UN Blue ramp: the sign-off sheet */
+  --blue-light: #C5DFEF; /* OCHA Blue ramp: the sign-off sheet */
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ground); }

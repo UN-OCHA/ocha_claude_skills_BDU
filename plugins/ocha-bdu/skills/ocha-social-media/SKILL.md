@@ -214,7 +214,7 @@ template: kicker text box at left 80, so the blue edge lands on the 72 px margin
   (96 px reads “72”); the connector uses px.
 - **No drop shadows or other text effects** on headlines or text — legibility comes from the gradient.
   Designs copied from older posts often carry a Drop shadow: remove it in Chrome (Effects → Remove effect).
-- **Key words highlighted** (when wanted): white text on a UN blue box, never blue text on a photo
+- **Key words highlighted** (when wanted): white text on an OCHA Blue box, never blue text on a photo
   (not enough contrast). Partial highlights need their own text box over a `#009EDB` rectangle
   (`insert_shape`, corner 4) — the connector can’t highlight part of a text box.
 - **Left-aligned** text by default, credits included. Centred only for a heading-only cover or the closing

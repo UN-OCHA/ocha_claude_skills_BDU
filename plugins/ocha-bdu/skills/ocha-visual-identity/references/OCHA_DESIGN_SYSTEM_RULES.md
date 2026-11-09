@@ -21,7 +21,7 @@
 
 ## Brand colours
 
-Primary colour is **UN Blue `#009EDB`** (Pantone 2925). Use it for fills, backgrounds, and brand moments.
+Primary colour is **OCHA Blue `#009EDB`** (Pantone 2925). Use it for fills, backgrounds, and brand moments.
 
 For **text on white backgrounds**, use the accessible variant `#0077B8` (WCAG AA). Never use `#009EDB` for body text — it fails contrast.
 

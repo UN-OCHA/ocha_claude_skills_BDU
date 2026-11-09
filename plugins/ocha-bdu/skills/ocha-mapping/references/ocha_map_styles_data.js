@@ -36,7 +36,7 @@ var OCHA_MAP_STYLES = {
   ],
 
   colors: [
-    { id: "un_blue",    name: "UN Blue",            hex: "#009EDB", cmyk: "80, 20, 0, 0",   usage: "Ocean labels, water features, rivers" },
+    { id: "un_blue",    name: "OCHA Blue",            hex: "#009EDB", cmyk: "80, 20, 0, 0",   usage: "Ocean labels, water features, rivers" },
     { id: "ocean_fill", name: "Ocean / sea fill",   hex: "#E1E8F6", cmyk: "10, 2, 0, 0",    usage: "Ocean and sea water fill" },
     { id: "coast",      name: "Coastline stroke",   hex: "#64BEEB", cmyk: "55, 8, 0, 0",    usage: "Coastline and water feature strokes" },
     { id: "black_100",  name: "Black 100%",         hex: "#000000", cmyk: "0, 0, 0, 100",   usage: "Capital city symbol" },

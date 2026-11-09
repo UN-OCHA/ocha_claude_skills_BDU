@@ -105,13 +105,13 @@ That set is incomplete; if a map needs a symbol that isn't there, ask rather tha
 | Sea / water feature | Crimson Pro | Italic | 8 | `#009EDB` | 100 | Title |
 | River | Crimson Pro | Italic | 8 | `#009EDB` | 100 | Title |
 
-Water labels are UN Blue italic. Never blue text on a blue fill of similar value.
+Water labels are OCHA Blue italic. Never blue text on a blue fill of similar value.
 
 ### Palette
 
 | Role | Hex | CMYK |
 |---|---|---|
-| UN Blue — ocean/water labels, rivers | `#009EDB` | 80, 20, 0, 0 |
+| OCHA Blue — ocean/water labels, rivers | `#009EDB` | 80, 20, 0, 0 |
 | Ocean / sea fill | `#E1E8F6` | 10, 2, 0, 0 |
 | Coastline stroke | `#64BEEB` | 55, 8, 0, 0 |
 | Black 100% — capital symbol | `#000000` | 0, 0, 0, 100 |
@@ -135,7 +135,7 @@ Water labels are UN Blue italic. Never blue text on a blue fill of similar value
 software’s “natural breaks” (Jenks) classes, which give values like `47,382`.
 
 **Bubbles** scale by area (π × r²), not radius. Legend with 2–3 representative sizes.
-**Choropleth** uses a sequential ramp (UN Blue ramp — see `ocha-visual-identity`), darker
+**Choropleth** uses a sequential ramp (OCHA Blue ramp — see `ocha-visual-identity`), darker
 = higher, capped at 5–7 classes.
 
 ## 6. Required map elements (full layout)

@@ -64,7 +64,7 @@ direct labelling) are shared.
 
 | Family | Key | Primary | Typical use |
 |---|---|---|---|
-| OCHA (general) | `ocha` | `#009EDB` UN Blue | General OCHA products, Situation Reports |
+| OCHA (general) | `ocha` | `#009EDB` OCHA Blue | General OCHA products, Situation Reports |
 | HNRP (Humanitarian Needs & Response Plans) | `hnrp` | `#F58220` Orange | Country HNRP documents |
 | Flash Appeal | `flash` | `#ED1847` Red | Flash Appeal documents |
 | GHO (Global Humanitarian Overview) | `gho` | `#FFC800` Gold | GHO flagship report |
