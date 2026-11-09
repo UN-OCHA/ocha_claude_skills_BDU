@@ -9,7 +9,7 @@ description: >
   OCHA products, or when building/editing any OCHA-branded HTML, CSS, slide,
   document, poster, social media graphic, or web page. Trigger on phrases
   like "OCHA brand", "OCHA colours", "OCHA Blue", "brand guidelines", "design
-  system", "use our brand", "OCHA logo", "clear space", "one OCHA", "partner logo", "donor logo",
+  system", "use our brand", "OCHA logo", "clear space", "one OCHA", "save the date", "invitation", "partner logo", "donor logo",
   "co-branding", "font size", "leading", "line height", "spacing", "margins", "padding", "rule of 4",
   "4-point grid", or the logo of any UN agency, donor, NGO or cluster. For
   specifically humanitarian maps, use `ocha-mapping`. For specifically charts
@@ -286,6 +286,12 @@ https://brand.unocha.org/document/474337#/-/undac
   footer), and cut explanatory text so the photo and title carry it.
 - **The event title dominates.** Logos and partner credits come second.
 
+**Save the dates and invitations.** The job is what, when, where and who invites. The date comes first
+in the hierarchy: larger than the time and venue, which stay regular. Bold the hosts’ names in the
+invitation line. Keep host logos together on the same side. Registration links, the concept note and
+access requirements go in the email. For an event about accessibility or disability, make sure the
+email includes them.
+
 ### UN emblem authorisation
 - UN System entities (including OCHA) don't need written authorisation for official use — see **ST/AI/189/Add.21**.
 - Non-UN entities (governments, IGOs, NGOs, private sector) must request authorisation from the Office of Legal Affairs: **gld@un.org**.
@@ -434,6 +440,46 @@ Source: Yuwen Lu, “Signs of vibe coded UI” (April 2026).
   questions, not a gate on quick jobs.
 - **BDU designers may bring references or their own sketches** to set the direction. Use them as
   the starting point, and ask for them when a job’s direction is open.
+
+### 5d. Before you deliver a design
+
+- **See it first.** Never deliver a design you haven’t looked at as a real image. Measurements don’t
+  count. If you can’t render it, say so plainly and ask the person to check it.
+- **Check every version.** A template repeats text and shapes, but each photo is different. Look at
+  each one separately.
+- **One thing stands out.** Decide what the reader must take away and make only that the strongest
+  element. If everything is bold, nothing stands out. Use bold for one level in a block and regular for
+  the rest.
+- **Nothing sits on a face.** Banners, labels and logos never cover a person’s face or head, or touch
+  it. Zoom or move the photo in its frame until they clear it.
+- **No fades over photos.** Don’t lay a white or dark fade over a photo to make room for text. Put a
+  clean photo beside a plain panel.
+- **Keep what the piece must do, cut the rest.** Ask how it will be sent. An image can’t be clicked, so
+  no “click here”, links or instructions. Details go in the message that carries it.
+- **Check the text against the supplied copy.** Flag anything added, removed or changed.
+- **Reviewers see a clean design.** Editing instructions go in the speaker notes or the handover, not on
+  the design. A missing logo is a plain box with its name.
+- **Start from an OCHA template when one exists.** Don’t build the layout from scratch.
+
+### 5e. How people read and use what we make
+
+**Any design**
+- **People remember 3 to 5 things.** Keep a piece to that. If there’s more, group it under a few labels.
+- **The first and last things stick.** Put what matters at the start or the end, not in the middle.
+- **Close together means related.** Leave clearly more space between groups than inside them.
+- **Same look means same job.** Give things that do the same job the same style, every time.
+- **People skip what looks like decoration or an ad.** Don’t style key information that way.
+- **People trust what looks cared for.** Polish makes a design seem easier to use and more credible.
+
+**Apps, tools and forms**
+- **Fewer choices, faster decisions.** One main action per screen, with a sensible default.
+- **People expect it to work like everything else they use.** Keep the standard patterns.
+- **People don’t read instructions.** Explain things at the moment they’re needed.
+- **Respond at once.** Show something within half a second, even if the result takes longer.
+- **Tap targets at least 44px.** Anything people tap or click: buttons, icons, links in lists. A small
+  icon gets a 44px hit area around it.
+- **Show progress, and end well.** People remember the finish, so give a clear done message and a kind error.
+- **Accept messy input.** The form should cope with extra spaces and different formats, not the user.
 
 ---
 

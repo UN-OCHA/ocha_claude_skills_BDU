@@ -180,6 +180,11 @@ When choosing or suggesting photos (not only when given links):
 - **Diversity and inclusion.** Follow OCHA’s *Diversity and Inclusivity in Imagery Guide* (PDF on the brand
   portal, OCHA staff only) — balanced representation of gender, age, disability and roles (people as
   actors, not only recipients).
+- **The photo must show the theme, not only the people in it.** Ask what the picture says on its own. A
+  photo of someone receiving help says assistance, not inclusion. For an event on inclusion, participation
+  or leadership, choose people speaking, leading, working or deciding.
+- **Crop for meaning.** Don’t crop away what gives the photo its sense, such as the person someone is
+  working with. When OCHA staff are part of the story, keep the vest visible.
 - The image and its text work together: a dignified photo can be undone by its caption or copy, and vice versa.
 
 ## 6. Changing MediaValet — lightboxes, share links, captions, credits, deleting
