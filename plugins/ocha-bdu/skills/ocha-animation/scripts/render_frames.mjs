@@ -76,6 +76,7 @@ try {
   if (failure) throw failure.reason;
 
   const dur = films[0].duration;
+  if (!(dur > 0)) throw new Error("The page must set window.DURATION (seconds).");
   if (films.some(f => f.duration !== dur)) throw new Error("The workers read different window.DURATION values — the page is not deterministic.");
   const frames = Math.round(dur * FPS);
 

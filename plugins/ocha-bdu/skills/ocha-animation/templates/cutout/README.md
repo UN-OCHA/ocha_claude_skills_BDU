@@ -25,6 +25,8 @@ Open `film/world.html` in Chrome to play it; `world.html?t=12.5` freezes a momen
 
 ## The tools — run from the job folder
 
+`stills.mjs`, `probe.mjs` and `check_sync.mjs` drive Chrome through `headless_chrome.mjs`, copied in beside them (from the skill’s `scripts/`). Keep it in `tools/`.
+
 ```bash
 python3 tools/timeline.py              # voice timings → the film's timeline (scenes, beats, ending)
 python3 tools/icons.py                 # the icons the film uses (NAMES at the top)

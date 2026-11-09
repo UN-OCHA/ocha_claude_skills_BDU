@@ -1,6 +1,7 @@
 /**
  * Open a pure-function-of-time HTML film in the Chrome already installed on the machine, headless,
- * and drive it over the DevTools protocol. Shared by render_frames.mjs and check_film.mjs.
+ * and drive it over the DevTools protocol. Shared by render_frames.mjs, check_film.mjs and the cut-out
+ * kit's stills, probe and check_sync tools (new_cutout_film.py copies it into each job's tools/).
  *
  *   import { openFilm } from "./headless_chrome.mjs";
  *   const film = await openFilm({ page: "/abs/film.html", width: 1920, height: 1080 });
@@ -31,7 +32,7 @@ import path from "node:path";
 import os from "node:os";
 import { pathToFileURL } from "node:url";
 
-const sleep = ms => new Promise(r => setTimeout(r, ms));
+export const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 /** The Chrome binary: CHROME if set, otherwise the standard install places on macOS, Windows, Linux. */
 function findChrome() {
@@ -80,9 +81,11 @@ class CDP {
 
 /**
  * Launch Chrome, open the page and wait until it is ready to seek (fonts loaded, window.seek present).
- * Returns { call, evaluate, duration, close }. Always call close(), also on errors.
+ * `query` adds URL parameters ("pills=word"); load(query) reopens the same page with others.
+ * Returns { call, evaluate, load, duration, close }; duration is window.DURATION, undefined if the page
+ * has none (the tools that need it check). Always call close(), also on errors.
  */
-export async function openFilm({ page, width = 1920, height = 1080, scale = 1 }) {
+export async function openFilm({ page, width = 1920, height = 1080, scale = 1, query = "" }) {
   const chromePath = findChrome();
   if (!existsSync(page)) throw new Error(`No page at ${page}`);
   if (!existsSync(chromePath)) throw new Error(`Chrome not found at ${chromePath} — set CHROME=/path/to/chrome`);
@@ -100,7 +103,8 @@ export async function openFilm({ page, width = 1920, height = 1080, scale = 1 })
   const close = async () => {
     try { await cdp?.send("Browser.close"); } catch {}
     if (chrome.exitCode === null) {
-      const done = await Promise.race([exited.then(() => true), sleep(5000).then(() => false)]);
+      // unref: a timer still waiting would hold the tool open for 5 s after Chrome has gone.
+      const done = await Promise.race([exited.then(() => true), new Promise(r => setTimeout(r, 5000, false).unref())]);
       if (!done) { chrome.kill(); await exited; }
     }
     // Windows keeps the profile locked for a moment after Chrome exits: retry the delete.
@@ -134,21 +138,24 @@ export async function openFilm({ page, width = 1920, height = 1080, scale = 1 })
     await call("Page.enable");
     await call("Runtime.enable");
     await call("Emulation.setDeviceMetricsOverride", { width, height, deviceScaleFactor: scale, mobile: false });
-    await call("Page.navigate", { url: pathToFileURL(page).href + "?t=0" });
-
     // Wait for fonts and the seek hook before the first grab: frames taken earlier use
     // fallback fonts and wrong measurements.
-    let ready = false;
-    for (let i = 0; i < 80 && !ready; i++) {
-      ready = await evaluate("document.readyState==='complete' && document.fonts.status==='loaded' && typeof window.seek==='function'");
-      if (!ready) await sleep(250);
-    }
-    if (!ready) throw new Error("The page was not ready after 20 s: fonts still loading, or no window.seek.");
-    await sleep(400);
+    const load = async (params = "") => {
+      // Ready only on a NEW document: on a reload the old page would answer "ready" just the same.
+      const old = await evaluate("performance.timeOrigin");
+      await call("Page.navigate", { url: pathToFileURL(page).href + "?t=0" + (params ? "&" + params : "") });
+      let ready = false;
+      for (let i = 0; i < 80 && !ready; i++) {
+        ready = await evaluate(`performance.timeOrigin !== ${old} && document.readyState==='complete' && document.fonts.status==='loaded' && typeof window.seek==='function'`);
+        if (!ready) await sleep(250);
+      }
+      if (!ready) throw new Error("The page was not ready after 20 s: fonts still loading, or no window.seek.");
+      await sleep(400);
+    };
+    await load(query);
 
     const duration = await evaluate("window.DURATION");
-    if (!(duration > 0)) throw new Error("The page must set window.DURATION (seconds).");
-    return { call, evaluate, duration, close };
+    return { call, evaluate, load, duration, close };
   } catch (e) {
     await close();
     throw e;

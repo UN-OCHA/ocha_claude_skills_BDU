@@ -4,7 +4,8 @@
     python3 <ocha-animation skill>/scripts/new_cutout_film.py "<job folder>" --title "Film title"
 
 Copies into <job>/tools/:
-  - this skill's templates/cutout/ (the engine, the demo film, the build tools)
+  - this skill's templates/cutout/ (the engine, the demo film, the build tools) and
+    scripts/headless_chrome.mjs (the Chrome driver the stills, probe and check_sync tools use)
   - from the ocha-video skill beside this one: scripts/audio/mix.py, voice_clarity.py and beats.py (the
     mix, the voice check and the beat finder, shared by every OCHA video) and scripts/review/ (the
     review tool) as review/
@@ -50,9 +51,11 @@ def main():
     if not KIT.exists():
         sys.exit(f"The cut-out kit is missing: {KIT}")
     shared = {VIDEO / f"scripts/audio/{name}": build / name for name in ("mix.py", "voice_clarity.py", "beats.py")}
-    if not all(p.exists() for p in shared) or not (VIDEO / "scripts/review/review_server.py").exists():
-        sys.exit(f"The ocha-video skill's shared tools were not found next to this skill ({VIDEO}). "
-                 "Install or update the OCHA skills, then run this again.")
+    shared[HERE / "headless_chrome.mjs"] = build / "headless_chrome.mjs"
+    missing = [str(p) for p in [*shared, VIDEO / "scripts/review/review_server.py"] if not p.exists()]
+    if missing:
+        sys.exit("Shared tools are missing:\n  " + "\n  ".join(missing)
+                 + "\nInstall or update the OCHA skills, then run this again.")
 
     added, kept = copy_tree(KIT, build, skip=("demo",))
     for src, dst in shared.items():
@@ -67,7 +70,9 @@ def main():
     cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
     if cfg.get("name") == "cutout_demo":   # a fresh copy: make it this job's
         cfg["name"] = job.name
-        cfg["title"] = a.title or job.name.replace("_", " ").capitalize()
+        # Only the first letter is raised: .capitalize() lowers the rest, and "SG_awards" became "Sg awards".
+        default = job.name.replace("_", " ")
+        cfg["title"] = a.title or default[:1].upper() + default[1:]
         cfg_path.write_text(json.dumps(cfg, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
     voice = job / "assets" / "voice" / "voiceover_timings.json"

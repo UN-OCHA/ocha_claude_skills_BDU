@@ -511,21 +511,21 @@ def cmd_lightbox_add(token, ref, assets, by, log):
     lid, name = lightbox_id(ref, token)
     ids = [asset_id(a) for a in assets]
     api_send("POST", f"/lightboxes/{lid}/assets", token, ids)
-    log_change(log, by, "added to lightbox", f"“{name}”: {len(ids)} photo{"s" if len(ids) != 1 else ""} ({', '.join(ids)})")
-    print(f"Added {len(ids)} photo{"s" if len(ids) != 1 else ""} to “{name}”.")
+    log_change(log, by, "added to lightbox", f"“{name}”: {len(ids)} photo{'s' if len(ids) != 1 else ''} ({', '.join(ids)})")
+    print(f"Added {len(ids)} photo{'s' if len(ids) != 1 else ''} to “{name}”.")
 
 
 def cmd_lightbox_remove(token, ref, assets, confirm, by, log):
     lid, name = lightbox_id(ref, token)
     ids = [asset_id(a) for a in assets]
     if not confirm:
-        print(f"Would take {len(ids)} photo{"s" if len(ids) != 1 else ""} out of “{name}” (the photos stay in the library). "
+        print(f"Would take {len(ids)} photo{'s' if len(ids) != 1 else ''} out of “{name}” (the photos stay in the library). "
               "Nothing changed: re-run with --confirm once the person has said yes.")
         return
     for i in ids:
         api_send("DELETE", f"/lightboxes/{lid}/assets/{i}", token)
-    log_change(log, by, "removed from lightbox", f"“{name}”: {len(ids)} photo{"s" if len(ids) != 1 else ""} ({', '.join(ids)})")
-    print(f"Took {len(ids)} photo{"s" if len(ids) != 1 else ""} out of “{name}”.")
+    log_change(log, by, "removed from lightbox", f"“{name}”: {len(ids)} photo{'s' if len(ids) != 1 else ''} ({', '.join(ids)})")
+    print(f"Took {len(ids)} photo{'s' if len(ids) != 1 else ''} out of “{name}”.")
 
 
 def cmd_lightbox_delete(token, ref, confirm, by, log):
@@ -604,7 +604,7 @@ def cmd_edit(token, assets, caption, credit, apply, confirm_count, by, log):
     for aid, title, old, new in plan:
         api_send("PATCH", "/assets/" + aid, token, [{"op": "replace", "path": "/description", "value": new}])
         log_change(log, by, "edited caption/credit", f"{title} ({aid}). Before: “{old.strip()[-160:]}”")
-    print(f"Changed {len(plan)} photo{"s" if len(plan) != 1 else ""} in MediaValet.")
+    print(f"Changed {len(plan)} photo{'s' if len(plan) != 1 else ''} in MediaValet.")
 
 
 def cmd_delete(token, assets, apply, confirm_count, confirm_names, by, log):
@@ -627,7 +627,7 @@ def cmd_delete(token, assets, apply, confirm_count, confirm_names, by, log):
     for aid, fn in plan:
         api_send("DELETE", f"/assets/{aid}?isHardDelete=false", token)   # soft delete only, never hard
         log_change(log, by, "deleted photo (soft, restorable)", f"{fn} ({aid})")
-    print(f"Moved {len(plan)} photo{"s" if len(plan) != 1 else ""} to deleted items.")
+    print(f"Moved {len(plan)} photo{'s' if len(plan) != 1 else ''} to deleted items.")
 
 
 def asset_id(s):

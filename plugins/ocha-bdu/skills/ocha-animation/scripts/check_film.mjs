@@ -35,7 +35,6 @@
 
 import { spawnSync } from "node:child_process";
 import { mkdir, rm, writeFile } from "node:fs/promises";
-import { existsSync } from "node:fs";
 import path from "node:path";
 import os from "node:os";
 import { openFilm } from "./headless_chrome.mjs";
@@ -103,16 +102,15 @@ const MEASURE = `(() => {
   return { over, off, small };
 })()`;
 
-if (!existsSync(PAGE)) { console.error(`No page at ${PAGE}`); process.exit(1); }
-
 const thumbs = path.join(os.tmpdir(), `ocha-animation-thumbs-${process.pid}`);
 
 // Grey 64×36 thumbnails of every sample, decoded in one ffmpeg call.
 function greyThumbs(dir, count) {
   const out = spawnSync("ffmpeg", ["-v", "error", "-start_number", "0", "-i", path.join(dir, "%05d.jpg"),
     "-vf", "scale=64:36,format=gray", "-f", "rawvideo", "-"], { maxBuffer: 1 << 30 });
-  if (out.status !== 0) throw new Error("ffmpeg could not read the thumbnails: " + out.stderr);
   const px = 64 * 36, frames = [];
+  // A failed or short read must stop the check: empty pictures compare as "different", a false error.
+  if (out.status !== 0 || out.stdout.length < count * px) throw new Error("ffmpeg could not read the thumbnails: " + (out.error?.message || out.stderr));
   for (let i = 0; i < count; i++) frames.push(out.stdout.subarray(i * px, (i + 1) * px));
   return frames;
 }
@@ -139,6 +137,7 @@ const say = s => { lines.push(s); console.log(s); };
 try {
   film = await openFilm({ page: PAGE, width: WIDTH, height: HEIGHT });
   const { call, evaluate, duration: dur } = film;
+  if (!(dur > 0)) throw new Error("The page must set window.DURATION (seconds).");
 
   const times = [];
   for (let t = 0; t < dur - 1e-9; t += STEP) times.push(Math.round(t * 1000) / 1000);
@@ -146,16 +145,16 @@ try {
 
   await rm(thumbs, { recursive: true, force: true });
   await mkdir(thumbs, { recursive: true });
-  const shoot = async (t, name) => {
+  const shoot = async (t, n) => {
     await evaluate(`window.seek(${t})`);
     const shot = await call("Page.captureScreenshot", { format: "jpeg", quality: 80, clip: { x: 0, y: 0, width: WIDTH, height: HEIGHT, scale: 0.125 } });
-    await writeFile(path.join(thumbs, name), Buffer.from(shot.data, "base64"));
+    await writeFile(path.join(thumbs, String(n).padStart(5, "0") + ".jpg"), Buffer.from(shot.data, "base64"));
   };
 
   console.log(`Checking ${path.basename(PAGE)}: ${dur}s, a sample every ${STEP}s (${times.length} samples)`);
   const over = [], off = [], small = [];
   for (let i = 0; i < times.length; i++) {
-    await shoot(times[i], String(i).padStart(5, "0") + ".jpg");
+    await shoot(times[i], i);
     const m = await evaluate(MEASURE);
     over.push(m.over); off.push(m.off); small.push(m.small);
   }
@@ -181,12 +180,13 @@ try {
   report("OFF-FRAME (text past the edge)", ranges(off, times, PERSIST));
   report(`SMALL TYPE (settled text under ${MIN_TYPE}px)`, ranges(small, times, PERSIST));
 
-  const grey = greyThumbs(thumbs, times.length);
+  // The loop's two frames go through the same one ffmpeg read as the samples, after them.
+  const n = times.length;
+  if (LOOP) { await shoot(0, n); await shoot(lastFrame, n + 1); }
+  const decoded = greyThumbs(thumbs, n + (LOOP ? 2 : 0));
+  const grey = decoded.slice(0, n);
   if (LOOP) {
-    await shoot(0, "first.jpg"); await shoot(lastFrame, "last.jpg");
-    const pair = spawnSync("ffmpeg", ["-v", "error", "-i", path.join(thumbs, "first.jpg"), "-i", path.join(thumbs, "last.jpg"),
-      "-filter_complex", "[0][1]concat=n=2:v=1,scale=64:36,format=gray", "-f", "rawvideo", "-"], { maxBuffer: 1 << 24 });
-    const px = 64 * 36, d = diff(pair.stdout.subarray(0, px), pair.stdout.subarray(px, 2 * px));
+    const [first, last] = decoded.slice(n), d = diff(first, last);
     if (d <= SAME) say(`✓ LOOP SEAM: last frame (${fmt(lastFrame)}) matches the first`);
     else { failed = true; say(`✗ LOOP SEAM: last frame (${fmt(lastFrame)}) differs from the first (difference ${d.toFixed(2)})`); }
   }
@@ -194,7 +194,9 @@ try {
   const stills = [];
   let start = 0;
   for (let i = 1; i <= grey.length; i++) {
-    if (i === grey.length || diff(grey[i], grey[i - 1]) > SAME) {
+    // Against the stretch's FIRST picture, not the sample before: a slow drift changes too little
+    // between two neighbours to count, and would be reported as a still.
+    if (i === grey.length || diff(grey[i], grey[start]) > SAME) {
       const from = times[start], to = i === grey.length ? dur : times[i];
       if (to - from >= STILL) stills.push(`    ${fmt(from)}–${fmt(to)}  (${(to - from).toFixed(1)}s without change)`);
       start = i;
@@ -210,4 +212,4 @@ try {
   await film?.close();
   await rm(thumbs, { recursive: true, force: true }).catch(() => {});
 }
-process.exit(failed ? 1 : 0);
+if (failed) process.exitCode = 1;   // not process.exit(): on Windows that can cut off piped output
