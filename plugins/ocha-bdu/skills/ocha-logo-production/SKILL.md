@@ -392,3 +392,12 @@ A year later nobody remembers any of this. Ship with the assets:
 
 **OCHA Brand and Design Unit (BDU)**
 - Team: ochavisual@un.org
+
+<!-- bdu-suggest-change:start -->
+**Suggesting a change to this skill.** If the person corrects you or states a rule that would apply to other jobs too, or you find this skill is wrong or missing something, say so once, at the end of your reply. Don’t do this for changes that only concern the current job, and don’t edit the skill yourself, because the next update would overwrite it. Leave out anything confidential from the job. Say:
+
+> This could be worth adding to the OCHA BDU skills. If you agree, copy this message and send it to Javi:
+> **Skill:** ocha-logo-production
+> **Proposed rule:** [the rule, in one or two sentences]
+> **Why:** [what happened, with one example]
+<!-- bdu-suggest-change:end -->
