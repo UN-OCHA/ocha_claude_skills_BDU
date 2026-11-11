@@ -288,6 +288,9 @@ Tested on the Ebola funding carousel (Nov 2026). Pick what tells the story; none
 
 - **Dots as units** (one dot = $1 million): the total becomes a texture. A regular brick (offset-row)
   grid reads as a pattern; a random scatter reads as stars, so avoid it. The count must be exact.
+  **Write the unit legend as a plain sentence:** “One dot equals $1 million”, not “Each dot: $1 million”
+  or “= $1 million”. It reads naturally, translates cleanly and works for people who don’t read charts
+  often. Keep “=” only where space is very tight (Joel Opulencia / Javier, 11 Nov 2026).
 - **Flow (Sankey) for money reaching places:** funds on the left, countries on the right, band width =
   money. A money icon above the sources and a flag icon above the destinations explain it at a glance.
 - **One area-proportional block for a split** (sectors): the biggest share as one tall box, the rest

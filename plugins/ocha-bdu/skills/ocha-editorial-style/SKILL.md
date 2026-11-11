@@ -138,6 +138,8 @@ Three-way distinction the guide is strict about:
 - **Avoid ambiguous frequency words** — *biannual*, *bimonthly*, *biweekly* can mean
   either twice-per or every-other. Write *twice a year* / *every two years* instead.
 - It is fine to start a sentence with *and* or *but* — just not often.
+- **Spell out symbols in social copy and chart legends** (11 Nov 2026): write *equals*, *and*, *or*
+  instead of =, & and /. *One dot equals $1 million*, not *1 dot = $1M*. Currency signs and % stay.
 
 ## Common OCHA-specific traps
 
