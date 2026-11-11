@@ -8,6 +8,8 @@ Pull figures from the OCHA FTS Visualization Tool (PreCheck) Power BI dashboard.
     python3 fts.py visual PAGE VISUAL_ID     one visual                   -> one CSV
     python3 fts.py pages                     list the report's pages
     python3 fts.py visuals [PAGE]            list a page's visuals and their ids
+    python3 fts.py tables                    list the named tables (plans, sectors, countries, donors…)
+    python3 fts.py table NAME|all            one named table, or all of them   -> fts_<name>.csv
 
 Output goes to ./fts_data/ under the current directory (override with --out). Run it from
 the project folder, so the figures land beside the work that uses them. The report
@@ -186,6 +188,114 @@ def cmd_donors(args):
         print(f'  {r["rank"]:>2}  {r["donor"][:44]:<44} ${r["funding_usd"] / 1e6:>8,.1f}M')
 
 
+# --------------------------------------------------------------------------------------------
+# Named tables. Only 7 of the report's 49 pages are published (the rest are hidden drafts with
+# no stored query, so they cannot be read, e.g. the Ebola one-pager). These are the useful tables
+# on the published pages, mapped and checked on 11 Nov 2026. All show the dashboard's default
+# view: 2026, global, pledges and outgoing flows excluded. Ids change if the FTS team rebuilds a
+# page: `fts.py visuals PAGE` lists the current ones; update here and in reference/fts_report_map.md.
+# --------------------------------------------------------------------------------------------
+PAGE_PLANS = "9fc1ea690b6b64c05d51"      # "OnePager (Plans) V2" — GHO view
+PAGE_WEEKLY = "ReportSection353c4b8293ee828c3e33"   # "Weekly"
+
+TABLES = {
+    # name: (page, visual id, first-column label, what it is)
+    "plans": (PAGE_PLANS, "6bed06e2ab84e322e4ab", None,
+              "every GHO plan: funding, requirements, coverage, plan type"),
+    "plan-groups": (PAGE_WEEKLY, "b0a4c298653e5af791f7", None,
+                    "GHO totals by plan group (HRPs, flash appeals, RRPs, other) and plan"),
+    "years": (PAGE_WEEKLY, "a1521b8314273109b300", "Year",
+              "inside GHO, outside GHO and total funding, requirements, coverage: 2024–2026"),
+    "gho-sectors": (PAGE_PLANS, "a34334a12674240b4562", "Global sector",
+                    "GHO funding, requirements and coverage by global sector"),
+    "gho-countries": (PAGE_PLANS, "738054d9e4be236263d6", "Country",
+                      "GHO funding, requirements and coverage by country"),
+    "gho-donors": (PAGE_PLANS, "d6056b9a407734ebd7a0", None,
+                   "GHO funding by donor, with donor category and share"),
+    "gho-recipients": (PAGE_PLANS, "4addea0cb2d50c9b44e9", None,
+                       "GHO funding by recipient organization"),
+    "sectors": (pbi.PAGE_DONORS, "2424b9b1fb04e1d50ec1", None,
+                "all humanitarian funding by global sector: total, inside and outside GHO"),
+    "countries": (pbi.PAGE_DONORS, "08e5cbc1c6d2484c0f9c", None,
+                  "all humanitarian funding by country: total, inside and outside GHO"),
+    "donors": (pbi.PAGE_DONORS, "df0c7d1c3857fe6d533a", None,
+               "all humanitarian funding by donor: total, share, inside and outside GHO"),
+    "recipients": (pbi.PAGE_RECIPIENTS, "0c0b656c878e836bbe45", "Recipient",
+                   "all humanitarian funding by recipient organization, with share"),
+    "donor-types": (pbi.PAGE_RECIPIENTS, "53027e57bba09c3a177f", None,
+                    "all humanitarian funding by donor type (governments, pooled funds…)"),
+    "recipient-types": (pbi.PAGE_DONORS, "0cf191c67290a24d6d26", "Recipient type",
+                        "all humanitarian funding by recipient type (UN, NGOs…)"),
+    "earmarking": (pbi.PAGE_DONORS, "10b8addaa6002310360d", None,
+                   "earmarked vs unearmarked share (Grand Bargain definition)"),
+}
+
+# Power BI's internal column names, as the decoder passes them through, -> plain names.
+COLUMN_NAMES = {
+    "%GT _calc_FINAL_USD_TotalFunding_MEAS": "Share",
+    "FINAL USD TotalFunding MEAS1": "Total Funding",
+    "%1": "Share",
+    "%": "Share",
+    "Org Destination Parent Display V2": "Recipient",
+    "Org Destination Display V3 OrgType": "Recipient type",
+    "_Dim_Plan_Group_Year": "Year",
+    "Plan GroupType LONG": "Plan group",
+    "Plan Year STR": "Plan year",
+    "Meta IsEarmarked": "Earmarking",
+}
+# Classifier columns that only repeat one value on every row.
+DROP_COLUMNS = {"GlobalCluster Classif NotSpec", "Country Classif SeparateNotSpec", "Plan IsEstimate"}
+
+
+def tidy(rows: list, first_label) -> list:
+    """Plain column names; the pivot's grand-total row (blank first cell) labelled 'Total'."""
+    out = []
+    for row in rows:
+        new = {}
+        for i, (k, v) in enumerate(row.items()):
+            if k in DROP_COLUMNS:
+                continue
+            name = COLUMN_NAMES.get(k, k)
+            if i == 0 and (first_label or k in ("..", "")):
+                name = first_label or "Name"
+            v = pbi.to_number(v)
+            if "year" in name.lower() and isinstance(v, float) and v.is_integer():
+                v = int(v)   # years arrive as numbers, 2026.0; write them as 2026
+            new[name] = v
+        first = next(iter(new))
+        if new[first] in (None, ""):
+            new[first] = "Total"
+        out.append(new)
+    return out
+
+
+def cmd_tables(args):
+    for name, (_, _, _, what) in TABLES.items():
+        print(f"  {name:<16} {what}")
+    print("\nAll: the dashboard's default view — 2026, global, pledges excluded.")
+
+
+def cmd_table(args):
+    d = out_dir(args)
+    model = pbi.fetch_model(args.refresh)
+    date = first_value(pbi.run_visual(model, pbi.PAGE_87_DAYS, DATA_DATE_VISUAL))
+    names = list(TABLES) if args.name == "all" else [args.name]
+    for name in names:
+        if name not in TABLES:
+            raise SystemExit(f"No table '{name}'. `fts.py tables` lists them.")
+        page, vid, label, what = TABLES[name]
+        try:
+            rows = tidy(pbi.run_visual(model, page, vid), label)
+        except pbi.PowerBIError as exc:
+            raise SystemExit(f"STOP: table '{name}' ({what}) could not be read: {exc}. The FTS team may have "
+                             f"rebuilt the page; `fts.py visuals {page}` lists the current visual ids. Update TABLES "
+                             f"in fts.py and reference/fts_report_map.md, and tell Javier.")
+        path = os.path.join(d, f"fts_{name.replace('-', '_')}.csv")
+        write_csv(path, rows)
+        print(f"{len(rows):>5} rows  {name:<16} -> {path}")
+    print(f"Data as of {date}")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", default="fts_data", help="output folder (default ./fts_data)")
@@ -197,10 +307,13 @@ def main():
     one = sub.add_parser("visual"); one.add_argument("page"); one.add_argument("visual_id")
     sub.add_parser("headline")
     dn = sub.add_parser("donors"); dn.add_argument("--top", type=int, default=15)
+    sub.add_parser("tables")
+    tb = sub.add_parser("table"); tb.add_argument("name", help="a name from `fts.py tables`, or 'all'")
     args = ap.parse_args()
     try:
         {"pages": cmd_pages, "visuals": cmd_visuals, "visual": cmd_visual, "page": cmd_page,
-         "headline": cmd_headline, "donors": cmd_donors}[args.cmd](args)
+         "headline": cmd_headline, "donors": cmd_donors,
+         "tables": cmd_tables, "table": cmd_table}[args.cmd](args)
     except pbi.PowerBIError as exc:
         raise SystemExit(f"Could not read the FTS dashboard: {exc}")
 

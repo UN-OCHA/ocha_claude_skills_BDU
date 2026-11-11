@@ -95,6 +95,9 @@ python3 ~/.claude/skills/ocha-photo/scripts/mediavalet.py search "aid workers di
   kept and flagged ⚠ in `date_check`. Read those flags and tell the person; never pick a side silently.
 - It writes `results.json` (title, country, date, credit, caption, `web_link` per photo) and
   `contact_sheet.jpg` (numbered thumbnails) in the output folder.
+- **Favour the strongest photographers.** When several photos fit, put work by these photographers
+  first (read the credit in `results.json`): **Giles Clark** and **Vincent Tremeau**. Other good
+  photos still count; this decides the order, not what gets in.
 - **Then shortlist:** read the captions, drop what doesn’t fit the request or the dignity rules
   (§5), show the person the contact sheet with your shortlist and why, and let **them** choose.
   Never download or use a photo they haven’t picked.

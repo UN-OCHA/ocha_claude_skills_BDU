@@ -121,7 +121,29 @@ python3 …/fts.py donors --top 15       # donor table -> donors.csv, ranking ->
 python3 …/fts.py page                  # every visual on the one-pager, one CSV each
 python3 …/fts.py visual PAGE ID        # one visual
 python3 …/fts.py pages | visuals [PAGE]
+python3 …/fts.py tables                # the named tables below
+python3 …/fts.py table plans           # one table -> fts_plans.csv; `table all` for every one
 ```
+
+| Table | What it holds |
+|---|---|
+| `plans` | every GHO plan: funding, requirements, coverage, plan type |
+| `plan-groups` | GHO totals by plan group (HRPs, flash appeals, RRPs, other) |
+| `years` | inside, outside and total humanitarian funding, requirements, coverage, 2024–2026 |
+| `gho-sectors`, `gho-countries` | GHO funding, requirements and coverage by global sector / country |
+| `gho-donors`, `gho-recipients` | GHO funding by donor / recipient organization |
+| `sectors`, `countries` | all humanitarian funding (inside and outside GHO) by sector / country |
+| `donors`, `recipients` | all humanitarian funding by donor / recipient organization |
+| `donor-types`, `recipient-types` | by type: governments, pooled funds… / UN, NGOs… |
+| `earmarking` | earmarked vs unearmarked share |
+
+**What “the whole dashboard” covers.** Only 7 of the report’s 49 pages are published; the
+rest are hidden drafts (a country one-pager for Ebola, Venezuela, Nepal…) that cannot be read.
+Every table shows the dashboard’s **default view: 2026, global, pledges and outgoing flows
+excluded**. Other years or one country need the dashboard’s filters, which these commands don’t
+set. The tables use different measures, so their totals differ (GHO funding is $15.7bn in
+`plan-groups` and $14.1bn in `gho-donors`, Nov 2026): quote a total from the same table as its
+rows, and state the data date.
 
 The **OCHA FTS Visualization Tool (PreCheck)** is a public Power BI report and the source of truth
 for OCHA’s published funding figures:

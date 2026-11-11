@@ -82,3 +82,33 @@ a page's title before relying on it.
 The plans table returns plan names in full and in the plan's own language — "République
 Démocratique du Congo Besoins Humanitaires et Plan de Réponse 2026". Shorten for display;
 never translate or rename a plan without checking.
+
+## Named tables (`fts.py tables`) — mapped 11 November 2026
+
+Only 7 of the 49 pages are published and carry stored queries: OnePager (87 Days), OnePager
+(Horiz) V2, OnePager (Plans) V2 `9fc1ea690b6b64c05d51`, Org_Donors_V2 `5bedb7e690789f789ba8`,
+Org_Recipients_V2 `56d95b34860b7ad5cf15`, Weekly `ReportSection353c4b8293ee828c3e33`, Home. The
+other 42 (country one-pagers such as Ebola, DataTables, ByGlobClus…) have no query and cannot be
+read. All tables below are the default view: `Item = 2026`, global analysis, pledges, outgoing
+and multi-year flows excluded.
+
+| Name | Page | Visual |
+|---|---|---|
+| plans | Plans V2 | `6bed06e2ab84e322e4ab` By GHO Plans |
+| plan-groups | Weekly | `b0a4c298653e5af791f7` 2026 GHO Funding Progress |
+| years | Weekly | `a1521b8314273109b300` Funding Overview |
+| gho-sectors | Plans V2 | `a34334a12674240b4562` By Global Sectors |
+| gho-countries | Plans V2 | `738054d9e4be236263d6` By Locations |
+| gho-donors | Plans V2 | `d6056b9a407734ebd7a0` By Donors / Source Organizations |
+| gho-recipients | Plans V2 | `4addea0cb2d50c9b44e9` By Recipient Organizations |
+| sectors | Org_Donors_V2 | `2424b9b1fb04e1d50ec1` By Global Clusters |
+| countries | Org_Donors_V2 | `08e5cbc1c6d2484c0f9c` By Locations |
+| donors | Org_Donors_V2 | `df0c7d1c3857fe6d533a` By Source Organizations |
+| recipients | Org_Recipients_V2 | `0c0b656c878e836bbe45` By Recipient Organizations |
+| donor-types | Org_Recipients_V2 | `53027e57bba09c3a177f` By Donor/Source Type |
+| recipient-types | Org_Donors_V2 | `0cf191c67290a24d6d26` By Recipient Type |
+| earmarking | Org_Donors_V2 | `10b8addaa6002310360d` Earmarking |
+
+Weekly also has 2025 and 2024 GHO Funding Progress tables (`4108253c3e6e9624b3b4`,
+`90e9959a469805b0430e`); several other Weekly tables return no rows in the default view.
+

@@ -164,6 +164,11 @@ def text_space(f):
         return None
     q %= 360
     (ax, ay), b = f["anchor"], f["bounds"]
+    # Illustrator reports no bounds for some fragments (seen: empty or whitespace-only text in
+    # an HTML table, 11 Nov 2026). Treat them like angled text: left as imported and listed in
+    # the report as not converted. Without this check the whole export crashed.
+    if not b or None in b:
+        return None
     w = b[2] - b[0] if q in (0, 180) else b[1] - b[3]
     x, y = {0: (ax, ay), 90: (ay, -ax), 180: (-ax, -ay), 270: (-ay, ax)}[q]
     return q, x, y, w
