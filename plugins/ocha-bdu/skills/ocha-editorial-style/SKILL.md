@@ -37,6 +37,7 @@ it before quoting anything from the PDF.
 | Occupied Palestinian Territory | **Occupied Palestinian Territory** — title case, every word | *occupied Palestinian territory* — in the Capitalization list and the spelling list | 2026-09-11 |
 | OPT (acronym) | **OPT** — all capitals | *oPt* — in the spelling list | 2026-09-11 |
 | OCHA’s pooled funds | **OCHA Pooled Funds (Humanitarian Country and Regional Funds and CERF)** | *country-based pooled funds* — in the hyphenation list | 2026-09-18 |
+| CERF in public-facing comms (social, web, campaigns) | **UN Global Emergency Fund** — the simplified public name; *UN Global Emergency Fund (CERF)* when the acronym is used again | *Central Emergency Response Fund (CERF)* — the official name | 2026-11-11 |
 
 **Pooled funds:** *Country-Based Pooled Funds and CERF* (and *CBPFs*) is still the funds’
 official name, but communications use the new term above.
