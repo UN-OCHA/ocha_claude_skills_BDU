@@ -282,6 +282,22 @@ from both ends.
 
 ---
 
+### 4b. Chart ideas for social media (a library, not rules)
+
+Tested on the Ebola funding carousel (Nov 2026). Pick what tells the story; none is mandatory.
+
+- **Dots as units** (one dot = $1 million): the total becomes a texture. A regular brick (offset-row)
+  grid reads as a pattern; a random scatter reads as stars, so avoid it. The count must be exact.
+- **Flow (Sankey) for money reaching places:** funds on the left, countries on the right, band width =
+  money. A money icon above the sources and a flag icon above the destinations explain it at a glance.
+- **One area-proportional block for a split** (sectors): the biggest share as one tall box, the rest
+  stacked so even the smallest box stays wide enough for its label. White borders, the same inner
+  margin in every box, icons in three sizes by box size.
+- **Ring of bubbles around a hub** for “one system” (CERF and the agencies it funds): bubble area =
+  money, thin spokes to the hub.
+- **Table bar chart** for a top-10: name, amount, share, and a bar, columns on the 12-column grid.
+- **Label each item directly** and keep a one-line footnote saying what size or width means.
+
 ## 8. Do / Don't cheat sheet
 
 **DO**

@@ -311,6 +311,47 @@ def caption_year(desc):
     return m.group(1) if m else ""
 
 
+# The library spells countries many ways: "DR CONGO", "DRC" and "Democratic Republic of the Congo" all
+# appear for the same country, and OCHA file names use "DRC_" rather than the ISO3 "COD_". A plain
+# string match found 0 of 40 Ebola photos of the Democratic Republic of the Congo (11 Nov 2026), so
+# --country is matched against every known spelling. Add new library spellings here when found.
+LIBRARY_SPELLINGS = {
+    "COD": ["drc", "dr congo", "d.r. congo", "rdc", "democratic republic of congo", "congo, democratic republic of the"],
+    "CAF": ["car"],
+    "PSE": ["opt", "occupied palestinian territory", "palestine", "state of palestine"],
+    "SYR": ["syria"], "IRN": ["iran"], "TUR": ["turkey"], "RUS": ["russia"], "VEN": ["venezuela"],
+    "PRK": ["north korea", "dprk"], "LAO": ["laos"], "TZA": ["tanzania"], "MDA": ["moldova"],
+}
+
+
+def norm_country(s):
+    s = (s or "").strip().lower()
+    s = re.sub(r"\s*\((the|le|la|les|el|l')\)\s*$", "", s)
+    return re.sub(r"^the\s+", "", s)
+
+
+def country_aliases(country):
+    """Every spelling of `country` (ISO3 code or any name): ISO3, UN short/formal names from the
+    ocha-country-names data, and the library's own spellings above. Lower-case."""
+    c = norm_country(country)
+    rows = []
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "ocha-country-names",
+                        "data", "country_names.csv")
+    if os.path.exists(path):
+        import csv
+        with open(path, encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+    for r in rows:
+        names = {r["iso3"].lower(), norm_country(r["name_en_short"]), norm_country(r["name_en_formal"]),
+                 norm_country(r.get("name_m49", ""))} | set(LIBRARY_SPELLINGS.get(r["iso3"], []))
+        if c in names:
+            return {n for n in names if n}
+    for iso, extra in LIBRARY_SPELLINGS.items():   # data file missing: fall back to the table above
+        if c == iso.lower() or c in extra:
+            return {iso.lower(), *extra}
+    return {c}
+
+
 def search(query, out, country=None, year=None, count=40, pool=400):
     """Find photos with MediaValet's AI search (the same as the sparkle "Smart Search" in the web app).
 
@@ -375,11 +416,12 @@ def search(query, out, country=None, year=None, count=40, pool=400):
         elif len(known) > 1:
             date_note = f"camera date {taken[:4]} differs from caption/file name {yr}"
         if country:
-            c = country.strip().lower()
-            ok = (c == code.lower()) or (c == ctry.lower())
+            names = country_aliases(country)
+            ok = (code.lower() in names) or (norm_country(ctry) in names)
             # caption fallback, without letting "Sudan" match "South Sudan"
             if not ok and not code and not ctry:
-                ok = bool(re.search(r"(?<!south )\b" + re.escape(c) + r"\b", desc.lower()))
+                ok = any(re.search(r"(?<!south )\b" + re.escape(n) + r"\b", desc.lower())
+                         for n in names if len(n) > 3)
             if not ok:
                 continue
         # Keep a photo whose sources disagree if any of them matches, flagged: a caption typo

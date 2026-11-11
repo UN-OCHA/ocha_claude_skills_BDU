@@ -53,12 +53,13 @@ to open.
 <job_name>/
   source/    what we received: footage, data, documents, with their original names
   info/      brief, approvals, feedback, transcripts, notes
-  assets/    what a designer edits or places by hand: .ai / .indd / .aep masters, logos,
-             fonts, images, cleaned data, voice recordings
+  assets/    what a designer places by hand: logos, fonts, images, cleaned data, voice
+             recordings (and .indd / .aep masters)
   tools/     what produces the finals: scripts, HTML templates and the files they link
              to, film pages, previews and intermediate renders
   export/    the finals only, one file per deliverable
-  archive/   optional: older versions worth keeping
+  archive/   optional: older versions worth keeping; process_history/ for design jobs (below)
+  <name>.ai  the editable master of a design job sits at the TOP level, not in assets/ or export/
   .claude/   Claude’s own files, out of the way (a hidden folder):
                CLAUDE.md   decisions, sources, how to rebuild, what is still open
                notes/      handoffs, decision log, session summaries
@@ -66,7 +67,14 @@ to open.
   README.md  for people: what it is, who asked for it, where the finals are, how to edit them
 ```
 
-- Create only the folders the job needs. Nothing else at the top level.
+- Create only the folders the job needs. Nothing else at the top level except the editable master.
+- **Editable master at the top level** (Javier, 11 Nov 2026): a design job’s `.ai` (one file, one
+  artboard per page or slide) sits next to `README.md`, named like the finals without page number,
+  date or pixel size: `ebola_funding_carousel_1080x1440.ai`.
+- **Process history for design jobs** (Javier, 11 Nov 2026): save a preview of every review round to
+  `archive/process_history/`, numbered and described (`07_v7_single_rule_text_pills.png`), never
+  overwritten, so the process can be shown to BDU later. At the end, export the session transcript
+  into the same folder (`00_session_transcript.zip`).
 - Recurring outputs (a weekly email, a monthly update) get a dated folder inside
   `export/`: `export/2026-09-14_priorities/`.
 
@@ -146,7 +154,7 @@ doesn’t belong there.
 
 For every file BDU produces:
 
-`<subject>_<detail>_<format>_<date or version>_<language>.<ext>`
+`<subject>_<detail>_<format>_<version>_<language>.<ext>`
 
 Use only the parts that apply, always in that order.
 
@@ -155,7 +163,7 @@ Use only the parts that apply, always in that order.
 | All lowercase, words joined by `_`. No spaces, accents or brackets. | `humanitarian_snapshot` |
 | Countries as three-letter ISO codes, from `ocha-country-names` | `sdn`, `ukr`, `pse` |
 | Format as page size or pixels | `a4`, `1080x1920` |
-| Dates as year-month-day | `2026-09-14` |
+| **No dates in final file names** (Javier, 11 Nov 2026). A date goes in only for a dated folder of recurring outputs (`export/2026-09-14_priorities/`), as year-month-day | — |
 | Language last, two letters — **only when the job comes in more than one language** | `_en`, `_fr`, `_es`, `_ar`, `_ru`, `_zh` |
 | Never `final`, `new`, `latest` or `copy` | — |
 
@@ -170,7 +178,7 @@ same deliverable exists in two or more languages, and then give every language i
 
 Examples:
 
-- `sdn_humanitarian_snapshot_a4_2026-09-14.pdf` — one language, no code
+- `sdn_humanitarian_snapshot_a4.pdf` — one language, no code, no date
 - `ukr_asg_security_council_1080x1920.mp4` — one language, no code
 - `gho2026_funding_by_sector_chart_en.svg` and `gho2026_funding_by_sector_chart_fr.svg` —
   the same chart in two languages, so both carry a code
@@ -237,13 +245,15 @@ Aim for the best quality at the smallest file size.
 - **Flat graphics can often go smaller** with a reduced colour palette (8-bit PNG) and no
   visible change. Check smooth gradients afterwards: a reduced palette can make them band.
 - **JPEG above quality 90 buys almost nothing** but makes the file much bigger.
-- **Export at the size the destination shows it** (twice that only when a high-density
-  version is asked for). An oversized image is the most common reason a file is heavy.
+- **Raster finals at 2x** (Javier, 11 Nov 2026): twice the size the destination shows, so they stay sharp
+  on high-density screens (a 1080×1440 post exports as 2160×2880). The file name carries the real pixel
+  size. Make the photos inside at 2x too, from the original, not an upscaled working copy.
 
 ### Always deliver an editable version
 
 Someone without Claude must be able to change the work. So every final goes out with a version a
-designer can open and edit in ordinary software, next to the final in `export/`, under the same name.
+designer can open and edit in ordinary software: for a design job, one master at the top of the job
+folder (§2); otherwise next to the final in `export/`, under the same name.
 Make it every time, without being asked: the person who would ask often forgets.
 
 | Final | Editable version |
@@ -274,8 +284,15 @@ python3 <skill>/scripts/export_ai/export_ai.py page.html -o export/<name>.ai
 python3 <skill>/scripts/export_ai/export_ai.py chart.svg -o export/<name>.ai
 ```
 
-`<skill>` is the folder this file is in. Give the `.ai` the same name as the PDF or SVG it goes
-with, in `export/`.
+`<skill>` is the folder this file is in.
+
+**Several pages or slides → one .ai, one artboard each.** Export each page into a temporary folder,
+then merge them into the master at the top of the job folder (layers are prefixed with the page number,
+live text stays live):
+
+```bash
+python3 <skill>/scripts/export_ai/merge_ai.py /tmp/x/01.ai /tmp/x/02.ai … -o <job>/<name>.ai
+```
 
 **What you get:** the artwork exactly as Chrome draws it. The text is live, one text object per
 block (heading, paragraph, label), in the real fonts, sizes, colours and spacing, with bold
@@ -299,7 +316,22 @@ The tags don’t change how the page looks, so add them to the build template on
   imported letters in the layer “Text (not converted)”. Nothing is ever dropped.
 - Close the `.ai` in Illustrator before exporting over it. It needs macOS, Chrome, Illustrator
   (2024 or later) and the fonts installed, so it can’t run in a Cowork cloud session.
-- One page per export.
+- One page per export: set `@page { size: <width>px <height>px; margin: 0 }` in the page, or
+  it may print as two pages and stop.
+- **Build the page so it converts** (lessons from the Ebola carousel, 11 Nov 2026):
+  - **Fonts installed locally, static TTF** (in `/Library/Fonts/<Family>/`), and the page uses them by
+    name. Never load them from Google Fonts: the print starts before they arrive and the text goes
+    missing. OTF (CFF) fonts print as Type 3 and none of their text converts.
+  - **Inter:** turn off contextual alternates (`font-feature-settings: "calt" 0`), or “(” and “*”
+    print as alternate glyphs and those lines stay unconverted.
+  - **No `text-shadow`** (the text prints twice), **no outline or box-shadow borders** (use `border`),
+    and **no CSS gradient over a photo**: bake the gradient into the photo, or the stacking breaks.
+  - **Backgrounds in document order,** each in its own tagged `div`, never pushed back with a negative
+    `z-index` (the tags are then ignored and the background lands above the text).
+  - **Keep separate text blocks at least one font size apart** on a line (e.g. two table columns):
+    closer ones merge into one fragment and don’t convert.
+- **Check the merged file:** export each artboard from Illustrator back to PNG and compare it with the
+  finals. Only anti-aliasing should differ.
 - **Known limits.** CSS gradients arrive as pattern fills. Underlines and highlights are separate
   shapes, so move them with the text. Text at angles other than 0, 90, 180 or 270 degrees stays as
   imported letters. Large headings may sit up to about 1pt off, because Illustrator kerns slightly
@@ -313,7 +345,7 @@ When the work is delivered, go through this before calling it done:
 1. `export/` holds only the finals, named to §3, in the one format §5 calls for (never a PNG and a JPEG of the same image), with no version numbers. No templates,
    asset folders, scripts or intermediate renders (see “Generated work” in §2).
 2. The top level holds only `source/`, `info/`, `assets/`, `tools/`, `export/`, `archive/`,
-   `.claude/` and `README.md`. Stray tooling folders such as `build/` move into `tools/`;
+   `.claude/`, `README.md` and the editable master (`<name>.ai`). Stray tooling folders such as `build/` move into `tools/`;
    Claude’s own files are in `.claude/`.
 3. Older versions: ask whether to delete them or move them to `archive/`.
 4. Empty `.claude/scratch/`. Delete what nobody will open again: tests, previews, logs,

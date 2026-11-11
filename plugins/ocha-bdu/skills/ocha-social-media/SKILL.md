@@ -286,6 +286,24 @@ solution → what it means for people → what partners say → closing message.
   Adjust only the slides they name (gradient opacity, or switch strong ↔ subtle), save, and show again.
 - Resizing a gradient element crops it instead of squashing it — use `crop_media` to rescale.
 
+## 5b. Data carousels: a library of resources (not rules)
+
+From the Ebola funding carousel (Nov 2026, job `Projects/2026/FOD/CB/PE/SM/Ebola_funding_infographic`,
+whose `tools/mockup_v2.py` builds every piece below). These are **options to pick from**, not a
+standard: choose what fits the story, and propose it to Javier with a preview.
+
+- **Built in HTML, not Canva,** when the slides are charts: figures read straight from the requester’s
+  Excel, exported to PNG/JPEG at 2x and to one editable `.ai` (see `ocha-files-and-folders`).
+- **Photo cover with the key figure as hero:** the big number in Inter Black, the photo full-bleed with a
+  subtle black gradient behind the text (baked into the photo for the `.ai`), and dark gradient
+  **pills, one per line,** behind the smaller text that sits over the photo.
+- **Rhythm:** dark navy (`#002E6E`) slides alternating with white ones keep a long carousel lively.
+- **Subtle background pattern** on the plain slides: a fine dot grid (white or navy, about 12–14 %).
+- **A single rule under the big capital line** separates the headline from the chart.
+- **A 24 px OCHA-blue bar** across the top of the inside slides.
+- **Unit legend as a white pill** with a thin leader line to one highlighted mark (what one dot is worth).
+- **Chart ideas for social:** see `ocha-dataviz` §4b.
+
 ## 6. Hand-off
 
 - Share the **Canva link** of the post (not the template). Mention anything flagged for the requester

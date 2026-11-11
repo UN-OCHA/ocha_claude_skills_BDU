@@ -135,6 +135,10 @@ Dropbox for `svg_2025`. The folder must be available offline (see “Files from 
 **Use them to** mark which country a card, chart, dashboard tile or report section is
 about, or as a small locator inset.
 
+**They vanish on white.** The country itself is drawn white, so on a white or very light background
+only the grey neighbours show (seen on the Ebola carousel, Nov 2026). Use them on a dark or tinted
+background, or leave them out; they can’t be recoloured.
+
 **Rules**
 
 - **Only the 2025 set.** Never use anything under `Country_icons/archive/` — the 2018 and
