@@ -189,7 +189,7 @@ Still worth asking per job: destination and format, length, and anything about t
 
 ---
 
-## 4 · How we work with Javi
+## 4 · How we work (with Javi or any colleague)
 
 - **Show a framing sheet before you render a cut.** Each shot type the edit will use, with
   two or three crop alternatives each, side by side, labelled A / B / C. The subject is
@@ -200,9 +200,14 @@ Still worth asking per job: destination and format, length, and anything about t
   hides the trade-off is worse than no sheet.
 - **Sample options at more than one moment** — a crop that frames him well at 0:05 can be
   wrong at 0:50 once he has shifted in his seat.
-- **Positions come from a real rendered frame, never from a preset.** Lower-third size and
-  height, caption height, the drop while the LT is up — all of it decided on stills of the
-  actual footage (`brand_preview`, in `references/branding.md`).
+- **Start from the preset, then confirm it on a real rendered frame.** The per-format
+  numbers in `engine/statement.py` `PRESETS` are the starting point (they keep the lower third
+  clear of the captions); a still of the actual footage (`brand_preview`, in
+  `references/branding.md`) decides whether they work for THIS speaker. Change a number only
+  when the frame shows a reason.
+- **The lower third must clear the chin.** Check the frame where it is up: if any of it sits on
+  the face, move it (and the captions with it) down, or offer the **left-aligned** version when
+  the speaker is centred, before anything else. (Ramunion Rescue Brigade, Nov 2026.)
 - **Verify the export, not the recipe.** Check the finished file with `ffprobe` and by
   looking at real frames — especially the last one.
 
@@ -256,9 +261,10 @@ Still worth asking per job: destination and format, length, and anything about t
 - **Captions carry the exact words SAID**, from the transcript — never the speechwriter
   script; principals deviate. **Max 2 lines**, balanced wrap with no orphan word, fuller
   blocks held ~2.5–5s. Captions **hard-cut, never fade**.
-- **Ending = OCHA logo over footage or black**: modest (**0.055·H**), centred, clear of the
-  face, **snap on with no fade**, plus the OCHA click on the snap, **never a scrim or layer
-  behind it**. [[ocha-ending-logo-rules]]
+- **Ending = OCHA logo**: modest (**0.055·H**), **centred by default**, **snap on with no
+  fade**, plus the OCHA click on the snap, **never a scrim or layer behind it**. If the centred
+  logo would land on a face, offer the two alternatives: **over black**, or **top right**
+  (`"logo_pos": "top_right"`). Never nudge it to some other height. [[ocha-ending-logo-rules]]
 - **Ending tail:** footage keeps rolling under the logo but the sound **fades to mute** right
   after the last kept word — the next speaker in the room is never heard. If the principal
   closes with "I thank you", keep it so it is heard.

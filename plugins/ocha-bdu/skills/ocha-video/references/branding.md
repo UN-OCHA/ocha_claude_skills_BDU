@@ -93,14 +93,17 @@ gives you cairosvg + PIL + faster-whisper; ffmpeg is `/opt/homebrew/bin/ffmpeg`.
   "ending": { "style": "over_footage",   // "over_footage" | "over_black" | "none"
               "at": 69.9,                // logo snap time; default = footage_end
               "hold": 2.0, "click": true,
-              "logo_y_frac": 0.5 }       // over_footage only; 0.5 = centred (the standard)
+              "logo_pos": "centre" }     // over_footage only; "centre" (standard) | "top_right"
 }
 ```
 
-> The `subtitle` numbers above are the raw engine defaults. For a real job prefer the
-> **per-format** ones in `engine/statement.py` `PRESETS[<fmt>]["sub"]` — they carry the right
-> size, wrap width and caption row for each canvas, and `sub_config()` scales them if you
-> export larger. Legacy `"ending": {"logo": true}` still works (auto-translated).
+> The `subtitle` numbers above are the raw engine defaults. For a real job START from the
+> **per-format** ones in `engine/statement.py` `PRESETS[<fmt>]` (`sub` and `lt.bottom`) — they
+> carry the right size, wrap width, caption row and lower-third height for each canvas, and
+> `sub_config()` scales them if you export larger — then confirm them on a real frame
+> (`SKILL.md` §4). Square and 16:9 since 11 Nov 2026: captions end at **1025**, lower third at
+> **872** (on 1080 tall). Always pass `lower_thirds[].bottom` from the preset: without it the
+> engine falls back to 0.90·H, which sits on the captions. Legacy `"ending": {"logo": true}` still works (auto-translated).
 
 Caption look per format is in `SKILL.md` §2 — it is a standard, not a per-job choice.
 
