@@ -18,6 +18,29 @@ Run them from the project folder, so the CSVs land beside the work (`./ocha_data
 the cache. In the shared plugin, the scripts sit in this skill’s `scripts/` folder; on Javi’s Mac
 that is `~/.claude/skills/ocha-data/scripts/`.
 
+## The two pooled-fund sites — why two similar names
+
+They are closely related, and share their data:
+
+- **CBPF data hub** (cbpf.data.unocha.org) — the older site, **CBPFs only**. OCHA’s donor
+  visibility team goes here first for **donor data on the CBPFs** (who gave what to which fund).
+  It runs on the CBPF API, which also holds the project-level detail this skill reads.
+- **Pooled Funds Data Hub** (pfdata.unocha.org) — the newer **umbrella portal for CBPFs and CERF
+  together**, linked from the CBPF hub. Use it to see both funds side by side, and for the
+  operational level: by country, month, sector, partner type and location.
+- **CERF data hub** (cerf.data.unocha.org) is CERF’s own site, built on the same files and lookups.
+
+Both CBPF and pfdata show the same “last updated” stamp, from the same back end, so their figures
+agree. They differ in grain: the pfdata download files are summaries, filed by country, so they
+can’t say which fund window (Kenya vs Kenya (ESAHF)) or which emergency a figure belongs to. For
+that, use the CBPF hub (projects and allocation rounds) or the CERF hub (projects).
+
+Donor contributions to the CBPFs agree between the two sites (checked 2025 and 2026, Nov 2026: totals
+within a few hundred dollars, from rounding). Only labels differ: “United States” on the CBPF hub is
+“United States of America” on pfdata, the two sites swap the labels “PRIVATE SECTOR” and “Private
+Contributions”, and a donor missing from pfdata’s donor list shows as “donor id N”. For donor
+figures on the CBPFs, quote the CBPF hub’s names.
+
 ## Which source for what
 
 | Need | Source | Command |

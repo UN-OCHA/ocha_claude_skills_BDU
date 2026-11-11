@@ -327,7 +327,10 @@ def pf_contributions(year: Optional[int] = None) -> List[dict]:
         d = donors.get(as_int(r.get("DonorId")), {})
         pid = as_int(r.get("PooledFundId"))
         out.append({"year": as_int(r.get("FiscalYear")), "pledge_paid_month": r.get("PledgePaidDate"),
-                    "donor": d.get("donorName"), "donor_type": d.get("donorType"),
+                    # A donor can be missing from pfdata's lookup (Isle of Man, Nov 2026): keep its
+                    # money visible under its id instead of a blank name. The CBPF hub has the name.
+                    "donor": d.get("donorName") or f"donor id {r.get('DonorId')} (not in pfdata's donor list)",
+                    "donor_type": d.get("donorType"),
                     "fund": "CERF" if names.get(pid) == "CERF" else f"CBPF {names.get(pid)}",
                     "pledged_usd": num(r.get("PledgeAmt")), "paid_usd": num(r.get("PaidAmt"))})
     return out
