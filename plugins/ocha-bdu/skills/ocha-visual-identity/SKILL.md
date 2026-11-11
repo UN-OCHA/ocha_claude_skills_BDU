@@ -184,14 +184,15 @@ Folder structure:
 | `3_Other_uses_RGB/full_text/` | PNG rasters of the spelled-out logos (per language × horizontal/vertical × blue/white) |
 
 Rule of thumb: **SVG for web/digital, EPS for print, PNG only when SVG isn't accepted.**
-Use `2_Web_RGB/main/` for almost all digital work; use `full_text/` only when the OCHA
-acronym needs spelling out; match the language file to the product's language.
+Use `2_Web_RGB/main/` for almost all digital work; match the language file to the product's language.
+**Never use a spelled-out (`full_text/`) logo unless Javier or the requester asks for it**
+(Javier, 11 Nov 2026). The default is always the `main/` logo.
 
 ### Variants (4 shapes × 2 colours = 8 files on brand.unocha.org)
 
 1. **Horizontal** — default, for most products.
 2. **Vertical** — for tall, narrow spaces.
-3. **Spelled-out horizontal** — with "United Nations Office for the Coordination of Humanitarian Affairs". Use when the OCHA acronym may not be recognised. Only at medium/large sizes so the descriptor is readable.
+3. **Spelled-out horizontal** — with "United Nations Office for the Coordination of Humanitarian Affairs". Only when someone asks for it (see the rule above). Only at medium/large sizes so the descriptor is readable.
 4. **Spelled-out vertical** — same purpose, vertical format.
 
 Each is available in **positive (blue)** and **negative (white)**. Blue on

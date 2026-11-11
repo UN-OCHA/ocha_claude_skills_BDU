@@ -45,7 +45,10 @@ three levers only:
 - **Position** — top-left is read first; follow the **"Z" path** (upper-left → upper-right → diagonal → lower-right)
 
 ### Layout
-- **12-column grid** as the base; subdivide into 2, 3, 4-column or combinations (3+6+3).
+- **12-column grid as the base, ALWAYS** (Javier, 11 Nov 2026) — every product, every size, including
+  social cards. Every element starts and ends on a column edge: titles, text boxes, chart label columns,
+  where bars start, the widest bar plus its value, keys, footnotes and logo. Subdivide into 2, 3, 4-column
+  or combinations (3+6+3). Social 1080×1440: 72 px margins, 12 columns of 56 px, 24 px gutters.
 - **Minimum margins**: 1 cm on all sides for print.
 - **Alignment**: every element must line up against something — never placed randomly.
 - **Proximity**: related items close; unrelated separated (by space or a subtle divider).

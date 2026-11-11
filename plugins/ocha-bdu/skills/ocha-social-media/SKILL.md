@@ -205,6 +205,12 @@ template: kicker text box at left 80, so the blue edge lands on the 72 px margin
 | Quote attribution | 32 | Roboto Condensed Regular | 1.2 |
 | Photo credit (last slide only) | 20 | Roboto Condensed Regular, not italic, on a pill | 1.35 |
 
+- **Lettering fonts are allowed on social media** (Javier, 11 Nov 2026). On social, a big headline or a
+  key figure can be treated as a graphic, as art, so a display or lettering font may replace Inter Black
+  there. Inter stays the font for supporting text, labels, chart text and credits. Keep it to one
+  lettering font per post, used for the big line or the key figure only. It must stay legible at phone
+  size, and it must be a font the people who edit the file have: in Canva for Canva jobs, installed or
+  on Adobe Fonts for `.ai` jobs. Propose the font to Javier with a preview before using it.
 - **Clearly different scales** (Javier, 27 Oct 2026): 104/96 headlines, 40 text, 32 labels, 20 credit —
   nothing in between. Snap any other size to the nearest of these.
 - **One sentence across two sizes:** small text sets up the point, large text delivers it. The key point

@@ -32,6 +32,7 @@ reinstall.
 | `ocha-mockups` | Mockups without Photoshop — a cover or page on a magazine, book, poster, business card, roll-up or screen, and cover options as one PDF |
 | `ocha-frontify` | BDU only: editing the OCHA brand site. Needs a BDU account on the site |
 | `ocha-layout` | Laying out OCHA reports and templates in InDesign or Word — grid, styles, key figures, tables, chart frames, template checks |
+| `ocha-data` | Humanitarian funding figures from the official sources — CERF, the country-based pooled funds, the Pooled Funds hub and FTS: check a figure, see which fund and allocation it came from, pull tables for charts |
 | `ocha-utilities` | Small BDU tools. Today: study a video from a link or file, with frames, a transcript with timings, the caption and its cuts |
 
 ---
@@ -174,7 +175,7 @@ Type this in the Claude Code chat box, like a normal question:
 
 > **what OCHA skills do I have now?**
 
-Claude should list seventeen skills.
+Claude should list nineteen skills.
 
 ---
 
@@ -305,7 +306,7 @@ You can switch models in the middle of a session — the work carries over.
 **"I installed them but Claude doesn't know about them."**
 You need to quit Claude and reopen it (Step 4). The plugin loads at startup.
 
-**"Claude lists fewer than seventeen skills."**
+**"Claude lists fewer than nineteen skills."**
 Your copy is out of date. Tell Claude *“Update the OCHA skills with the latest version from
 the repository”*, then quit Claude and open it again. If you installed the skills by hand
 before September 2026, also do Step 3 once and the clean-up message underneath it.
