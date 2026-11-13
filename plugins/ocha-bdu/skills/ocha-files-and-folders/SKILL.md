@@ -245,6 +245,8 @@ Aim for the best quality at the smallest file size.
 - **Flat graphics can often go smaller** with a reduced colour palette (8-bit PNG) and no
   visible change. Check smooth gradients afterwards: a reduced palette can make them band.
 - **JPEG above quality 90 buys almost nothing** but makes the file much bigger.
+- **PDF too heavy** (a Canva export is often 100 MB+)? Compress it with the `ocha-utilities` PDF tool. It
+  keeps full resolution and the original colours.
 - **Raster finals at 2x** (Javier, 11 Nov 2026): twice the size the destination shows, so they stay sharp
   on high-density screens (a 1080×1440 post exports as 2160×2880). The file name carries the real pixel
   size. Make the photos inside at 2x too, from the original, not an upscaled working copy.

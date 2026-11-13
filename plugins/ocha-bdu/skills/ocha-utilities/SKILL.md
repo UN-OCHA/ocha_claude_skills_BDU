@@ -3,7 +3,9 @@ name: ocha-utilities
 description: >
   Small practical tools for BDU jobs that don’t belong to one discipline. Today: video references,
   which study a reel or video from a link or file and give back frames, a transcript with timings, the
-  caption, shot lengths and cut points, then delete the download. Use whenever someone shares an Instagram,
+  caption, shot lengths and cut points, then delete the download. PDF compression, which makes heavy PDFs
+  (Canva exports above all) much smaller with no visible loss and the same colours. Use for “compress this
+  PDF”, “the PDF is too big”, “make it smaller to send”. Use whenever someone shares an Instagram,
   YouTube, TikTok, X or Facebook video link, or a video file, and asks “can you see this?”, “watch this”,
   “look at this reel”, “use this as a reference”, “I like the style of this video”, “how is this cut?”,
   “what does it say?”, “transcribe this” or “analyse this video”. Not for making or editing OCHA videos
@@ -18,6 +20,7 @@ guide for the tool you need.
 | Tool | What it does | Guide |
 |---|---|---|
 | Video references | Study a video from a link or file: frames, transcript with timings, caption, cuts and pauses | `references/video-reference.md` |
+| Compress a PDF | Make a heavy PDF (above all Canva exports) 6–8× smaller with no visible loss and the same colours | `references/compress-pdf.md` |
 
 **Adding a tool:** one row here, one guide in `references/`, and scripts in `scripts/`. Add the triggers
 to the description above, so the skill is picked up for the new job. A tool used in only one job stays in that
