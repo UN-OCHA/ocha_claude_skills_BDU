@@ -147,13 +147,20 @@ for true highlights.
   - **Maximum 5 slices** (top 4 + "Others").
   - Must sum to 100%.
   - Largest slice starts at **12 o'clock**, then clockwise, largest → smallest.
-  - Use a **colour ramp (tints)**, not distinct colours.
-  - With direct labels + values, tints aren't needed — just highlight the key slice.
+  - **Colour:** prefer **one colour for every slice**, with a clear white border between slices and
+    direct labels. Second choice: tints of one colour, darkest for the largest slice. Avoid a different
+    colour per slice.
+  - **Exception, met vs unmet:** when the slices are two opposite states (funded vs unmet, reached vs
+    not reached), use OCHA Blue for the met part and grey `#E6E6E6` for the unmet part (`#BFBFBF` if it
+    needs more contrast). On HNRP, Flash Appeal and GHO products the met part takes the product colour
+    (orange, red, yellow) instead of blue.
 - **Never** 3D, never multi-pie comparisons, never >5 slices.
 
 ### Donut chart
 - A pie with a hole in the middle. Use the hole for the total / key figure.
 - Good for **binary data only** (funded vs unfunded, yes vs no). For length comparisons use a bar.
+- **Best choice for funded vs unmet:** the funded part in OCHA Blue (or the product colour), the unmet
+  part in grey `#E6E6E6` (`#BFBFBF` if it needs more contrast), and the total in the middle.
 
 ### Bubble / surface-area charts
 - Good for **maps** (communication only; simple, no scale needed).
@@ -317,7 +324,7 @@ Tested on the Ebola funding carousel (Nov 2026). Pick what tells the story; none
 
 **DON'T**
 - 3D charts. Drop shadows. Drop shadows on 3D. Ever.
-- Pie with >5 slices, unsorted, or multi-pie comparisons.
+- Pie with >5 slices, unsorted, a different colour per slice, or multi-pie comparisons.
 - Clipped Y-axis on a bar chart.
 - Rotated X-axis labels (switch to horizontal bars).
 - More than 4 lines on one chart.
