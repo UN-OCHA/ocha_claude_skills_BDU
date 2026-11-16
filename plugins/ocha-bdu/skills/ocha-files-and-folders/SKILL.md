@@ -58,7 +58,7 @@ to open.
   tools/     what produces the finals: scripts, HTML templates and the files they link
              to, film pages, previews and intermediate renders
   export/    the finals only, one file per deliverable
-  archive/   optional: older versions worth keeping; process_history/ for design jobs (below)
+  archive/   optional: older versions worth keeping
   <name>.ai  the editable master of a design job sits at the TOP level, not in assets/ or export/
   .claude/   Claude’s own files, out of the way (a hidden folder):
                CLAUDE.md   decisions, sources, how to rebuild, what is still open
@@ -71,10 +71,6 @@ to open.
 - **Editable master at the top level** (Javier, 11 Nov 2026): a design job’s `.ai` (one file, one
   artboard per page or slide) sits next to `README.md`, named like the finals without page number,
   date or pixel size: `ebola_funding_carousel_1080x1440.ai`.
-- **Process history for design jobs** (Javier, 11 Nov 2026): save a preview of every review round to
-  `archive/process_history/`, numbered and described (`07_v7_single_rule_text_pills.png`), never
-  overwritten, so the process can be shown to BDU later. At the end, export the session transcript
-  into the same folder (`00_session_transcript.zip`).
 - Recurring outputs (a weekly email, a monthly update) get a dated folder inside
   `export/`: `export/2026-09-14_priorities/`.
 
