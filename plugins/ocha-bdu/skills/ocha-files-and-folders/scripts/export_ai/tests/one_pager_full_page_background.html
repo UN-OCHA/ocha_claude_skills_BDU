@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HNPW 2027 one-pager</title>
+<style>
+  /* Test for export_ai: a full-page tagged SVG background under logos and text (HNPW 2027
+     one-pager, Nov 2026). Uses the installed Roboto. The Background layer must end up at the
+     bottom, with no solid pixel differences. */
+
+  /* HNPW colours, brand.unocha.org (HNPW page), plus steps of its OCHA Blue ramp */
+  :root {
+    --hnpw-indigo: #004987;
+    --hnpw-blue:   #009EDB;
+    --hnpw-green:  #72BF44;
+    --hnpw-yellow: #FFC800;
+    --blue-mid:    #0074B7;   /* ramp step 3: sidebar, white text passes AA */
+    --blue-dark:   #002E6E;   /* ramp step 1: text on green and yellow */
+    --blue-pale:   #C5DFEF;   /* ramp step 6 */
+    --blue-text:   #0077B8;   /* AA text variant of OCHA Blue */
+    --green-text:  #27833A;   /* AA text variant of Green */
+    --text:        #262626;
+  }
+
+  @page { size: 794px 1123px; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 794px; height: 1123px; background: #fff; }
+  body {
+    font-family: "Roboto", Arial, sans-serif;
+    color: var(--text);
+    font-size: 13px; line-height: 20px;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    position: relative; overflow: hidden;
+  }
+  p, li { text-wrap: pretty; }
+  h1, h2 { text-wrap: balance; }
+
+  .shapes { position: absolute; left: 0; top: 0; width: 794px; height: 1123px; display: block; }
+
+  /* ---------- Header ---------- */
+  .logo { position: absolute; left: 48px; top: 32px; width: 248px; display: block; }
+
+  /* ---------- Main column ---------- */
+  .main { position: absolute; left: 48px; top: 180px; width: 436px; }
+  h1 {
+    font-size: 36px; line-height: 40px; font-weight: 700; color: var(--hnpw-indigo);
+    letter-spacing: -0.2px;
+  }
+  .sub { margin-top: 12px; font-size: 15px; line-height: 20px; font-weight: 500; color: var(--blue-text); }
+  .sub .g { color: var(--green-text); }
+  .sub .sep { color: var(--text); padding: 0 4px; }
+
+  .main h2 { font-size: 15px; line-height: 20px; font-weight: 700; color: #1B1B1A; margin-bottom: 4px; }
+  .main .first { margin-top: 24px; }
+  .main .gap16 { margin-top: 16px; }
+  .main .gap20 { margin-top: 20px; }
+
+  /* Date table (the 2018 day-by-day table) */
+  .when { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .when .head {
+    background: var(--hnpw-indigo); color: #fff;
+    font-size: 13px; line-height: 16px; font-weight: 700; text-align: center;
+    padding: 8px;
+  }
+  .when .cell { padding: 8px 8px 12px; text-align: center; }
+  .when .virtual { background: var(--blue-mid); color: #fff; }
+  .when .inperson { background: var(--hnpw-green); color: var(--blue-dark); }
+  .when .date { font-size: 20px; line-height: 24px; font-weight: 700; }
+  .when .place { font-size: 13px; line-height: 16px; font-weight: 500; margin-top: 4px; }
+
+  /* Key objectives (the 2018 puzzle) */
+  .objectives { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 8px; }
+  .objectives div {
+    padding: 12px; min-height: 64px;
+    font-size: 13px; line-height: 16px; font-weight: 500;
+    display: flex; align-items: center;
+  }
+  .objectives .o1 { background: var(--hnpw-indigo); color: #fff; }
+  .objectives .o2 { background: var(--blue-mid); color: #fff; }
+  .objectives .o3 { background: var(--hnpw-green); color: var(--blue-dark); }
+  .objectives .o4 { background: var(--hnpw-yellow); color: var(--blue-dark); }
+
+  /* ---------- Sidebar ---------- */
+  .side { position: absolute; left: 540px; top: 196px; width: 230px; color: #fff; }
+  .side h2 { font-size: 15px; line-height: 20px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .side section + section { margin-top: 20px; }
+  .side a { color: #fff; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+  .expect { list-style: none; margin-top: 4px; }
+  .expect li { position: relative; padding-left: 20px; font-size: 14px; line-height: 20px; font-weight: 500; }
+  .expect li + li { margin-top: 4px; }
+  .expect li::before { content: ""; position: absolute; left: 0; top: 5px; width: 10px; height: 10px; }
+  .expect li:nth-child(1)::before { background: var(--hnpw-green); }
+  .expect li:nth-child(2)::before { background: var(--hnpw-yellow); }
+  .expect li:nth-child(3)::before { background: var(--hnpw-indigo); }
+  .expect li:nth-child(4)::before { background: var(--hnpw-green); }
+  .expect li:nth-child(5)::before { background: var(--hnpw-yellow); }
+
+  .figure { font-size: 36px; line-height: 40px; font-weight: 900; color: #fff; }
+  .figure-lbl { font-size: 13px; line-height: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+
+  .free { font-weight: 700; }
+  .url { font-size: 12px; line-height: 16px; }
+
+  .hosts-lbl { font-size: 13px; line-height: 16px; font-weight: 700; margin-bottom: 8px; }
+  .hosts {
+    background: #fff; padding: 12px 16px;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+  }
+  .hosts .ocha { height: 32px; display: block; }
+  .hosts .sdc { height: 52px; display: block; }
+</style>
+</head>
+<body>
+
+  <!-- Background shapes, after the 2018 flyer -->
+  <svg class="shapes" data-ai-layer="Background" viewBox="0 0 794 1123" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- header band -->
+    <polygon points="0,0 516,0 516,140 0,156" fill="#004987"/>
+    <polygon points="0,0 344,0 0,100" fill="#0074B7"/>
+    <!-- sidebar -->
+    <rect x="516" y="0" width="278" height="1123" fill="#0074B7"/>
+    <polygon points="652,0 794,0 794,168" fill="#72BF44"/>
+    <!-- bottom corners -->
+    <polygon points="0,1060 0,1123 452,1123" fill="#004987"/>
+    <polygon points="232,1123 794,1123 794,1044" fill="#72BF44"/>
+  </svg>
+
+  <img class="logo" data-ai-layer="Logo" src="one_pager_logos/HNPW2027_logo_horizontal_year_white.svg" alt="HNPW 2027, Humanitarian Networks and Partnerships Week">
+
+  <main class="main" data-ai-layer="Main text">
+    <h1>Humanitarian Networks and Partnerships Weeks</h1>
+    <p class="sub">Geneva<span class="sep">|</span>Hybrid<span class="sep">|</span>Remote<span class="sep">|</span><span class="g">Co-hosted by OCHA and SDC</span></p>
+
+    <section class="first">
+      <h2>What is Humanitarian Networks and Partnerships Week (HNPW)?</h2>
+      <p>HNPW is an annual gathering that brings together the full spectrum of humanitarian actors, including UN agencies, NGOs, the Red Cross and Red Crescent Movement, governments, academia and private sector. HNPW hosts over 300 sessions organized by over 70 humanitarian networks both online and in-person, facilitating an inter-network platform to exchange knowledge, share experiences, identify innovative solutions, and strengthen partnerships.</p>
+    </section>
+
+    <section class="gap16">
+      <h2>What makes HNPW unique</h2>
+      <p>Sessions are led and shaped by practitioners themselves. HNPW prioritizes a bottom-up space for networks to shape the event programme, bring diverse perspectives to the table and influence discussions on the future of humanitarian action.</p>
+    </section>
+
+    <div class="when gap20">
+      <div class="head">Virtual week</div>
+      <div class="head">In person</div>
+      <div class="cell virtual"><div class="date">22–26 February 2027</div><div class="place">Online</div></div>
+      <div class="cell inperson"><div class="date">2–4 March 2027</div><div class="place">Geneva, Switzerland</div></div>
+    </div>
+
+    <section class="gap20">
+      <h2>Key objectives</h2>
+      <div class="objectives">
+        <div class="o1">Exchange expertise across sectors</div>
+        <div class="o2">Share best practices from field operations and policy work</div>
+        <div class="o3">Co-create innovative solutions to emerging and persistent humanitarian challenges</div>
+        <div class="o4">Strengthen coordination among global and local actors</div>
+      </div>
+    </section>
+
+    <section class="gap20">
+      <h2>Why should you join?</h2>
+      <p>HNPW offers a unique opportunity to network, discuss innovative ideas and develop new partnerships with humanitarians from all over the world.</p>
+    </section>
+  </main>
+
+  <aside class="side" data-ai-layer="Sidebar">
+    <section>
+      <h2>What to expect</h2>
+      <ul class="expect">
+        <li>Online events</li>
+        <li>Network days</li>
+        <li>Exhibition hall</li>
+        <li>Community day and keynote</li>
+        <li>Networking reception</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Who can attend?</h2>
+      <div class="figure">7,700+</div>
+      <div class="figure-lbl">participants at the last HNPW</div>
+      <p>HNPW is open to the entire humanitarian community. An event programme will be published in January 2027, allowing participants to explore the sessions, identify areas of interest, and plan their engagement. At the last HNPW, there were more than 7,700 participants representing Governments, UN, NGOs, private sector and academia, throughout the whole event.</p>
+    </section>
+
+    <section>
+      <h2>How to register</h2>
+      <p class="free">Attendance is free of charge.</p>
+      <p>Register at: [Link to be provided]</p>
+    </section>
+
+    <section>
+      <h2>Contact us</h2>
+      <p>Email: <a href="mailto:ocha-hnpw@un.org">ocha-hnpw@un.org</a></p>
+      <p>Follow us on LinkedIn:</p>
+      <p class="url"><a href="https://www.linkedin.com/company/humanitarian-networks-and-partnerships-weeks-hnpw">linkedin.com/company/<wbr>humanitarian-networks-and-<wbr>partnerships-weeks-hnpw</a></p>
+    </section>
+
+    <section>
+      <div class="hosts-lbl">Co-hosted by:</div>
+      <div class="hosts" data-ai-layer="Host logos">
+        <img class="ocha" src="one_pager_logos/OCHA_logo_horizontal_blue.svg" alt="OCHA">
+        <img class="sdc" src="one_pager_logos/SDC_logo.svg" alt="Swiss Agency for Development and Cooperation SDC">
+      </div>
+    </section>
+  </aside>
+
+</body>
+</html>

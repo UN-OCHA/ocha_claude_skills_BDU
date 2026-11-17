@@ -336,6 +336,10 @@ The tags don’t change how the page looks, so add them to the build template on
 - **Read the report it prints.** “Check” compares every letter with the PDF: expect a median
   offset around 0.1pt and no solid pixel differences. Anything listed as “NOT converted” stays as
   imported letters in the layer “Text (not converted)”. Nothing is ever dropped.
+- **The pixel comparison needs Pillow and numpy.** Without them the report says “NOT CHECKED” and
+  ends with a warning: the letter check alone can’t see text hidden under another layer. Offer to
+  install them (`python3 -m pip install --user Pillow numpy`, a minute, no password) and run the
+  export again. Never treat a report without the pixel comparison as a pass.
 - Close the `.ai` in Illustrator before exporting over it. It needs macOS, Chrome, Illustrator
   (2024 or later) and the fonts installed, so it can’t run in a Cowork cloud session.
 - One page per export: set `@page { size: <width>px <height>px; margin: 0 }` in the page, or

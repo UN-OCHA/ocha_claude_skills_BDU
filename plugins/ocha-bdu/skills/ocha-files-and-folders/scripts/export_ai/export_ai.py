@@ -24,6 +24,9 @@ Tests, after changing anything here - each should report no solid pixel differen
     python3 export_ai.py tests/bar_chart.svg -o /tmp/bar_chart.ai     (SVG, tags, rotated label)
     python3 export_ai.py tests/features.html -o /tmp/features.ai      (untagged page: centred,
         letter-spaced, justified, text round floats, bullets, forced line break)
+    python3 export_ai.py tests/one_pager_full_page_background.html -o /tmp/one_pager.ai
+        (full-page tagged SVG background under logos and text: Background must be the bottom
+        layer; it once ended up on top, hiding every word)
 """
 import argparse, glob, json, os, re, shutil, statistics, subprocess, sys, tempfile, time
 
@@ -448,6 +451,12 @@ def assign_layers(dump, structure, matched_frames, frame_layer, plans_layers, sc
     assign, where = [], []
     for s, it in enumerate(dump["items"]):
         b = it["bounds"]
+        # Draws nothing (no fill, no stroke): removed, and kept out of the layer-order votes.
+        # Load-bearing: Chrome's invisible page-sized leftovers otherwise outvote the real
+        # stacking and the Background layer ends up on top of the text.
+        if it.get("blank"):
+            assign.append(None)
+            continue
         if it["type"] == "TextFrame":
             if it["text"] in matched_frames:
                 assign.append(None)
@@ -522,7 +531,7 @@ def check(stage, pdf, out):
             report["diff_image"] = os.path.splitext(out)[0] + "_differences.png"
             over.save(report["diff_image"])
     except ImportError:
-        report["solid_differences"] = "not checked (needs Pillow and numpy)"
+        report["solid_differences"] = None
     return report
 
 
@@ -584,9 +593,18 @@ def main():
             print(f"  Warning: {clash_note}. Run without --no-check to see if it shows.")
         if not a.no_check:
             r = check(stage, pdf, out)
+            seen = r["solid_differences"]
             print(f"Check: {r['letters_ai']} letters vs {r['letters_pdf']} in the PDF; median offset "
                   f"{r['median']:.2f}pt, worst {r['worst']:.2f}pt, {r['over_half_pt']} over 0.5pt; "
-                  f"solid pixel differences: {r['solid_differences']}")
+                  f"solid pixel differences: {'NOT CHECKED' if seen is None else seen}")
+            if seen is None:
+                # The letter check can't see hidden text (a layer on top of it); only the picture
+                # comparison can. Never let a skipped picture check read as a pass.
+                print("  WARNING: the picture comparison did not run (it needs Pillow and numpy:"
+                      " python3 -m pip install --user Pillow numpy). Letters can be in place and"
+                      " still be covered by another layer: open the .ai and look before using it.")
+                if clash_note:
+                    print(f"  Also: {clash_note}.")
             if r.get("diff_image"):
                 print(f"  Differences marked in red: {r['diff_image']}")
                 if clash_note:

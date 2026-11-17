@@ -66,10 +66,18 @@ function round2(b) {
   return o;
 }
 
+// A compound clipping path carries the flag on its sub-paths, not on itself: reading only
+// `.clipping` misses it (HNPW 2027 one-pager, Nov 2026: four page-sized compound clips survived
+// unwrapping and flipped the layer order).
+function isClipping(it) {
+  if (it.typename == "CompoundPathItem") return it.pathItems.length > 0 && it.pathItems[0].clipping;
+  return !!it.clipping;
+}
+
 // A clipping group's bounds include everything it hides; what you see is its clipping path.
 function seenBounds(it) {
   if (it.typename == "GroupItem" && it.clipped)
-    for (var k = 0; k < it.pageItems.length; k++) if (it.pageItems[k].clipping) return it.pageItems[k].geometricBounds;
+    for (var k = 0; k < it.pageItems.length; k++) if (isClipping(it.pageItems[k])) return it.pageItems[k].geometricBounds;
   return it.geometricBounds;
 }
 
@@ -87,7 +95,7 @@ function unwrapPageGroups(doc) {
         if (g.typename != "GroupItem" || !isPage(seenBounds(g))) continue;
         while (g.pageItems.length) {
           var c = g.pageItems[0];
-          if (c.clipping) c.remove(); else c.move(g, ElementPlacement.PLACEBEFORE);
+          if (isClipping(c)) c.remove(); else c.move(g, ElementPlacement.PLACEBEFORE);
         }
         g.remove();
         changed = true;

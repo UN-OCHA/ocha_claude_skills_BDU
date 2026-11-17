@@ -19,10 +19,21 @@ function readPdf() {
     for (var i = 0; i < items.length; i++) {
       var it = items[i];
       R.items.push({ type: it.typename, text: it.typename == "TextFrame" ? +it.name.substr(3) : null,
-                     bounds: round2(seenBounds(it)) });
+                     bounds: round2(seenBounds(it)), blank: drawsNothing(it) });
     }
   } finally { doc.close(SaveOptions.DONOTSAVECHANGES); }
   return R;
+}
+
+// A path or compound path with no fill and no stroke, standing alone after unwrapping (so a
+// leftover clipping path has nothing to clip). It draws nothing, but a page-sized one high in the
+// stack would be read as a background on top of the text and flip the layer order (HNPW 2027
+// one-pager, Nov 2026). Safety net behind isClipping(); these are removed.
+function drawsNothing(it) {
+  var paths = it.typename == "PathItem" ? [it] : it.typename == "CompoundPathItem" ? it.pathItems : null;
+  if (!paths) return false;
+  for (var k = 0; k < paths.length; k++) if (paths[k].filled || paths[k].stroked) return false;
+  return true;
 }
 
 // Illustrator 2026 sometimes fails the first text read after opening a document ("MRAP"
