@@ -68,6 +68,19 @@ Polygon fills with borders double the stroke at shared edges — always use the 
 
 Weight hierarchy: International > Admin 1 > Admin 2 > Admin 3.
 
+**Clean lines: round joins, continuous paths, detail to match the size.** Without these, borders show
+sharp spikes at corners and notches or gaps where two border pieces meet:
+
+1. **Round joins and round caps on every boundary, coast and river line.** The default miter join shoots
+   a spike out of every sharp turn. OCHA location maps use round joins (see `afg_OCHA`).
+2. **Merge the line pieces into continuous paths before styling.** Boundary layers come as one piece per
+   border (DRC–Uganda, Uganda–South Sudan…); drawn separately, their ends leave notches at each meeting
+   point. In code: `shapely.ops.linemerge` on the union of the lines; in QGIS: *Dissolve*, then
+   *Merge lines*.
+3. **Pick the data detail by the map’s size, not the most detailed available.** `simple` / `xsimple`
+   layers for insets, locator maps and small slide maps; `1m` for full-page country maps. Extra detail
+   at small size only makes lines busier and files heavier; it doesn’t fix spikes or gaps.
+
 > ⚠️ Unresolved: the palette below lists international boundaries as `#737373` while the
 > table above says `#8A8C8E`. Both values are in `ocha_map_styles_data.js`. Awaiting
 > cartographer sign-off — flag it to the user if it matters to the output.
