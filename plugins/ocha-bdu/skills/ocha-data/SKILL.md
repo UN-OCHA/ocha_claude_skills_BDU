@@ -51,7 +51,8 @@ figures on the CBPFs, quote the CBPF hub’s names.
 | CERF and CBPF side by side, per country or month | Pooled Funds hub (summary files) | `ocha_data.py allocations` |
 | Who gave to CERF or a CBPF | Pooled Funds hub | `ocha_data.py contributions` |
 | GHO funding, coverage, requirements, top donors | FTS dashboard | `fts.py` |
-| Funding for one emergency tagged with an FTS keyword (e.g. EBOLA2026) | FTS API | `fts.py keyword` |
+| Funding for one emergency (e.g. Ebola 2026) | FTS PreCheck dashboard, the emergency’s one-pager (browser) | see “Emergency pages on the dashboard” |
+| Cross-check of one emergency, or an emergency without a dashboard page | FTS API, by keyword (e.g. EBOLA2026) | `fts.py keyword` |
 
 ## Check a figure
 
@@ -152,10 +153,27 @@ https://app.powerbi.com/view?r=eyJrIjoiNGE3NGU5OWItNWIwYy00NGJlLWI5ZTUtNGJhYzBiY
 `fts.py` replays each visual’s own stored query, so every figure matches the dashboard exactly.
 **Always state the data date** with any figure; `headline` returns it.
 
-### Emergency funding by FTS keyword (the one use of the FTS API)
+### Emergency pages on the dashboard: look there first
 
-Some responses have no dashboard page and no usable FTS emergency page; FTS tags their flows
-with a **keyword** instead (the 2026 Ebola response: `EBOLA2026`). For these:
+**The PreCheck dashboard is the more reliable source, also for single emergencies** (Javier,
+17 Nov 2026). It has one-pagers for some emergencies (Ebola, Venezuela, Nepal, Iran, Cuba…; list them
+with `fts.py pages`). They are **hidden pages**: the public report definition carries no visuals for
+them, so `fts.py page` can’t run them. They still open in a browser with the page name added to the
+dashboard link:
+
+`…/view?r=<the dashboard’s key>&pageName=<page id from fts.py pages>`
+
+e.g. Ebola 2026: `pageName=aff35d160c8cbceb151d`. Open it in the browser, read the figures off the
+page (its text holds every table: total, donors, recipients, pooled funds, sectors, locations) and
+save them as a CSV in the job, with the page’s **snapshot date** (top of the page) as the data date.
+This is the figure OCHA Comms quote. Checked 17 Nov 2026: the dashboard showed OCHA at $10.2M among
+the Ebola recipients, where the API keyword count below gave $8.2M; everything else matched.
+
+### Emergency funding by FTS keyword (API cross-check, not the published figure)
+
+**The FTS API may not match the latest published figures.** Use this only to cross-check, or when
+an emergency has no dashboard page. FTS tags an emergency’s flows with a **keyword** (the 2026 Ebola
+response: `EBOLA2026`). For these:
 
 ```bash
 python3 …/fts.py keyword EBOLA2026 --year 2026 --by recipient   # or donor, country, sector, plan, flow
