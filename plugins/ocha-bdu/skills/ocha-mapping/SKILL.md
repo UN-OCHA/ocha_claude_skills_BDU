@@ -107,6 +107,15 @@ That set is incomplete; if a map needs a symbol that isn't there, ask rather tha
 
 Water labels are OCHA Blue italic. Never blue text on a blue fill of similar value.
 
+**Labels over boundaries: cut the line, never paint a halo.** Where a boundary line passes under a
+label, cut the line around the letter shapes, with a small margin (about 0.15 of the type size), and
+leave the fills untouched. Cut only where the line actually reaches a letter, not around a box drawn
+round the word. A white or coloured halo behind the text shows a visible edge as soon as the label
+sits across two fills (featured white and neighbour grey). See Kunduz and Jalalabad on
+`location_maps_2024/afg/afg_OCHA`. When generating a map in code, cut the line geometry itself
+(draw the labels into a mask, grow it by the margin, drop the line where it enters the mask): the
+gaps then stay plain paths in Illustrator, with no effects to break.
+
 ### Palette
 
 | Role | Hex | CMYK |
