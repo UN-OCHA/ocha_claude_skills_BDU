@@ -7,7 +7,7 @@ description: >
   tidying a job folder, naming a file, handling draft versions, archiving old versions,
   or finishing a job. Trigger on "save this", "export", "where should this go", "name
   the file", "folder structure", "organise the folder", "clean up the folder", "final
-  version", "archive", "we're done", "PNG or JPEG", "which format", "file too big", "re-export", "update the file",
+  version", "archive", "we're done", "PNG or JPEG", "which format", "file too big", "re-export", "update the file", "review round", "before and after", "page to comment on",
   "pick up this job", "take over this job", "hand this over", "where does this stand", "make available offline", "online only", "file is empty", "README", "CLAUDE.md", "project notes",
   "document this", "editable .ai", "Illustrator file", "export to Illustrator", "send it to the
   designer", "they want to edit it". Also use when starting a job or coming back to one: every job keeps a
@@ -222,6 +222,18 @@ the copy doesn’t carry the original’s tag.
 - **After replacing a file that has been shared,** check Dropbox’s version history shows a
   new version of the same file rather than a new file: the file id must be unchanged. The
   file on the Mac staying the same proves nothing; only Dropbox’s id does.
+
+### Review rounds: offer a page people can comment on
+
+For any product with changes to approve (a carousel, an infographic, a map, a report, a video), offer a
+**private review page** that shows the proposal: each slide, page or frame, with the current version
+next to it when there is one. People comment straight on the page.
+
+- Build the proposal on a **working copy**, never on the live file or design. Change the live version
+  only once the comments are settled, all in one go.
+- Afterwards, delete the working copy yourself (a Canva copy goes to the Bin through Chrome:
+  File → Move to Bin). Never ask the person to clean it up.
+- Videos: the review tool in `ocha-video` does the same job with comments on the timeline.
 
 ### Shared Word files on OneDrive or SharePoint (review documents)
 

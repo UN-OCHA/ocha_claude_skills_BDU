@@ -105,6 +105,9 @@ Get, enhance and credit the photos with the **`ocha-photo`** skill:
   (place, country, date, what it shows) with its slide’s copy. The file name’s country code and date are a
   fast first signal (`BAN_032018_…` on a Sudan card). Flag every mismatch to the requester before any Canva
   work; never swap a photo on your own.
+- **Choosing photos:** look first at the photo sources listed on the Trello card, then MediaValet. Show
+  the candidates cropped to the slide format with the gradient on, so the choice is made on the real
+  result.
 
 ## 3. Canva: template → copy → name → file → build
 
@@ -225,7 +228,8 @@ template: kicker text box at left 80, so the blue edge lands on the 72 px margin
 - **One sentence across two sizes:** small text sets up the point, large text delivers it. The key point
   always goes in the large text. Both start on the same left edge. Headlines stay in capitals, including
   when the sentence continues from the small text — no mixed capitals and sentence case, no lowercase start.
-- Big capitals set at line height 1.0 (1.2 looks loose at this size). The canvas toolbar shows sizes ×0.75
+- Big capitals set at line height 1.0 in Canva, always. 1.15 or 1.2 looks loose at this size and makes
+  the slide look off (Javier, 17 Nov 2026). The canvas toolbar shows sizes ×0.75
   (96 px reads “72”); the connector uses px.
 - **No drop shadows or other text effects** on headlines or text — legibility comes from the gradient.
   Designs copied from older posts often carry a Drop shadow: remove it in Chrome (Effects → Remove effect).
@@ -278,13 +282,18 @@ solution → what it means for people → what partners say → closing message.
   touches the face, use another page variant or ask for another photo.
 - **No room for text?** Reframe the photo, choose another layout, or extend a plain background (sky,
   ground, sea) under the exception in `ocha-photo` §3. Never extend or invent the subject.
-- **Always a gradient behind text, subtle by default.** Reuse the template’s own gradient layer on each
+- **Always a gradient behind text: readable first, subtle second** (Javier, 17 Nov 2026). Start with
+  enough strength that the text reads clearly on a phone; gradients that were too light were the most
+  common fix in reviews. Over people or busy colour, use two layers or raise the opacity (70 % is
+  normal); over sky, wall or ground it can be lighter. The gradient runs to the very edge of the page,
+  or past it: one that stops short leaves a visible band, above all behind the logo. Reuse the template’s own gradient layer on each
   page (Javier, 29 Oct 2026): keep it, move it or flip it. Rotation 0 at top 405, left −206 for bottom
   text; rotation −180 at top −196, left −176 for top text. It must sit above the photo and below the text
   (`layer_element`). Over people or busy colour make it stronger (raise the opacity); over sky, wall or
   ground keep it subtle. Fallback for a page with no gradient layer: `assets/text_gradient_strong_1080x900.png`
   (80 %) or `assets/text_gradient_subtle_1080x900.png` (45 %), uploaded once per design, inserted at top
   540, 1080×900 for bottom text (flip for top text), then text and credit layers to the front.
+  Pick the strong one over people or busy colour.
 - Keep the gradient behind the OCHA logo subtle (≈30 % opacity).
 - **Always ask the designer about legibility** (Javier, 19 Oct 2026). After building or changing a slide,
   show the preview and ask, per slide: *“Is the text easy to read here, or should the dark gradient be
@@ -309,9 +318,13 @@ standard: choose what fits the story, and propose it to Javier with a preview.
 - **A 24 px OCHA-blue bar** across the top of the inside slides.
 - **Unit legend as a white pill** with a thin leader line to one highlighted mark (what one dot is worth).
 - **Chart ideas for social:** see `ocha-dataviz` §4b.
+- **Figures:** use the official dashboard’s figures, and put the “as of” date on the slide.
 
 ## 6. Hand-off
 
+- **Changes to approve?** Offer the commentable review page, built on a working copy, from
+  `ocha-files-and-folders` §4 (“Review rounds”).
+- Check that no two slides repeat the same photo and heading.
 - Share the **Canva link** of the post (not the template). Mention anything flagged for the requester
   (credits, fund names, copy questions).
 - Update the job `README.md` (links) and `CLAUDE.md` (decisions, open points).
