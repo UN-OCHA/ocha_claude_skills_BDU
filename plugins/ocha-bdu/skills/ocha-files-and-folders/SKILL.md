@@ -60,11 +60,10 @@ to open.
   export/    the finals only, one file per deliverable
   archive/   optional: older versions worth keeping
   <name>.ai  the editable master of a design job sits at the TOP level, not in assets/ or export/
-  .claude/   Claude’s own files, out of the way (a hidden folder):
-               CLAUDE.md   decisions, sources, how to rebuild, what is still open
-               notes/      handoffs, decision log, session summaries
-               scratch/    tests and throwaway work, emptied when the job closes
   README.md  for people: what it is, who asked for it, where the finals are, how to edit them
+  CLAUDE.md  for Claude: decisions, sources, how to rebuild, what is still open
+  .claude/   throwaway only (a hidden folder): scratch/ for tests and previews, emptied
+             when the job closes, plus the app’s own settings
 ```
 
 - Create only the folders the job needs. Nothing else at the top level except the editable master.
@@ -76,21 +75,25 @@ to open.
 
 ### Notes for next time: `README.md` and `CLAUDE.md`
 
-Every job has a `README.md` at the top level and a `CLAUDE.md` inside `.claude/`. They are
+Every job has a `README.md` and a `CLAUDE.md`, both at the top level. They are
 what the next session, a colleague or another computer starts from. A conversation stays on one computer, and over a
 long session its early parts get condensed; the notes keep the details.
 
 - **`README.md`, for people:** what it is, who asked for it, where the finals are, how to
   edit them.
-- **`.claude/CLAUDE.md`, for Claude:** what was decided and why, the cleared wording and where
+- **`CLAUDE.md`, for Claude:** what was decided and why, the cleared wording and where
   the figures came from, how to rebuild each final, what is still open, and who is working on
-  it now. Claude Code reads it from `.claude/` exactly as it would at the top level. Keep ONE
-  `CLAUDE.md`, never one at each level.
-- **Claude’s other working files** (handoff notes, a decision log, test renders, logs) go in
-  `.claude/notes/` and `.claude/scratch/`, never in `info/`, `assets/` or the top level.
-  `info/` is for what people gave you (brief, approvals, feedback), not Claude’s own notes.
-- **An older job with `CLAUDE.md` still at the top:** offer once to move it into `.claude/`,
-  and move it only after a yes.
+  it now. Handoffs and session summaries go in it too, not in separate files. Keep ONE
+  `CLAUDE.md`.
+- **Nothing worth keeping goes in `.claude/`.** It is hidden in Finder: copying a folder’s
+  contents leaves it behind, and sharing the folder sends it along unseen. Only throwaway work
+  (test renders, previews, logs) goes there, in `.claude/scratch/`. `info/` is for what people
+  gave you (brief, approvals, feedback), not Claude’s own notes.
+- **An older job with `CLAUDE.md` or notes inside `.claude/`:** when you work on it, move
+  `CLAUDE.md` to the top level, fold any notes into it, and say so in one line.
+- **`CLAUDE.md` travels with the folder.** Before a job folder is shared outside BDU (with a
+  client, a partner, another agency), read it and remove anything they shouldn’t see:
+  internal discussion, people’s names, rejected wording.
 
 - **Create both when the job starts,** without being asked.
 - **Update them before the end of every working session,** not only when the job closes.
@@ -343,8 +346,8 @@ When the work is delivered, go through this before calling it done:
 1. `export/` holds only the finals, named to §3, in the one format §5 calls for (never a PNG and a JPEG of the same image), with no version numbers. No templates,
    asset folders, scripts or intermediate renders (see “Generated work” in §2).
 2. The top level holds only `source/`, `info/`, `assets/`, `tools/`, `export/`, `archive/`,
-   `.claude/`, `README.md` and the editable master (`<name>.ai`). Stray tooling folders such as `build/` move into `tools/`;
-   Claude’s own files are in `.claude/`.
+   `.claude/`, `README.md`, `CLAUDE.md` and the editable master (`<name>.ai`). Stray tooling folders such as `build/` move into `tools/`;
+   `.claude/` holds nothing worth keeping.
 3. Older versions: ask whether to delete them or move them to `archive/`.
 4. Empty `.claude/scratch/`. Delete what nobody will open again: tests, previews, logs,
    temporary renders, one-off scripts. Tools needed to rebuild the work stay, in `tools/`.
@@ -353,8 +356,9 @@ When the work is delivered, go through this before calling it done:
 6. If you moved build files or rebuilt anything, run the build once more and confirm it
    still writes the final into `export/`. Then compare the new file with the previous
    final: a browser or tool update can change the output even when nothing else did.
-7. Update `README.md` and `.claude/CLAUDE.md` so they describe the job as it now stands: the
-   folders, what was decided, and anything left open.
+7. Update `README.md` and `CLAUDE.md` so they describe the job as it now stands: the
+   folders, what was decided, and anything left open. If the folder will be shared outside
+   BDU, read `CLAUDE.md` and remove anything the recipient shouldn’t see.
 8. **Look before calling it done.** List the job folder and `export/`, and check what is
    actually there against this list. Having followed the steps is not the same as the
    folder being right.
