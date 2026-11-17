@@ -223,6 +223,27 @@ the copy doesn’t carry the original’s tag.
   new version of the same file rather than a new file: the file id must be unchanged. The
   file on the Mac staying the same proves nothing; only Dropbox’s id does.
 
+### Shared Word files on OneDrive or SharePoint (review documents)
+
+A Word file that several people comment on is co-authored in the cloud. Changing the copy on
+the Mac (swapping images, marking comments resolved) works only until someone who has it open
+saves again: their Word writes its own version back over yours, minutes later, with no warning.
+On the Ebola carousel (Nov 2026) this undid an update twice while every check right after
+writing passed.
+
+1. **Before editing,** check for Word’s lock file next to the document (`~$` + the name). If it
+   is there, ask the person to close the file first. Other people’s open copies can’t be seen
+   from the Mac: say so.
+2. **Edit in place,** keeping everything else: swap the image data inside the file, never
+   rebuild the document, so comments, replies and resolved marks survive. Write into the
+   existing file (don’t delete and recreate it), so OneDrive keeps it as the same file.
+3. **After editing,** wait for OneDrive to sync and check again a few minutes later, not only
+   right after writing. If the change was overwritten, say so; never report it as updated.
+4. **While a review is active** (several people commenting), don’t replace content from
+   outside Word. Hand the person the new image to put in with Word’s own **Change Picture**
+   (right-click the image → Change Picture → From a File), which goes through co-authoring
+   and can’t be overwritten.
+
 ## 5. Export formats
 
 Aim for the best quality at the smallest file size.
