@@ -51,6 +51,7 @@ figures on the CBPFs, quote the CBPF hub’s names.
 | CERF and CBPF side by side, per country or month | Pooled Funds hub (summary files) | `ocha_data.py allocations` |
 | Who gave to CERF or a CBPF | Pooled Funds hub | `ocha_data.py contributions` |
 | GHO funding, coverage, requirements, top donors | FTS dashboard | `fts.py` |
+| Funding for one emergency tagged with an FTS keyword (e.g. EBOLA2026) | FTS API | `fts.py keyword` |
 
 ## Check a figure
 
@@ -150,6 +151,27 @@ for OCHA’s published funding figures:
 https://app.powerbi.com/view?r=eyJrIjoiNGE3NGU5OWItNWIwYy00NGJlLWI5ZTUtNGJhYzBiYWVhNjlmIiwidCI6IjBmOWUzNWRiLTU0NGYtNGY2MC1iZGNjLTVlYTQxNmU2ZGM3MCIsImMiOjh9
 `fts.py` replays each visual’s own stored query, so every figure matches the dashboard exactly.
 **Always state the data date** with any figure; `headline` returns it.
+
+### Emergency funding by FTS keyword (the one use of the FTS API)
+
+Some responses have no dashboard page and no usable FTS emergency page; FTS tags their flows
+with a **keyword** instead (the 2026 Ebola response: `EBOLA2026`). For these:
+
+```bash
+python3 …/fts.py keyword EBOLA2026 --year 2026 --by recipient   # or donor, country, sector, plan, flow
+```
+
+It reads every flow of the year from the FTS API (~25,000 flows, a few minutes the first time,
+then cached for six hours), keeps those carrying the keyword, and counts them the way OCHA Comms
+does: **paid + commitment, incoming + internal flows, no de-duplication**. Checked 17 Nov 2026:
+$486.3M for EBOLA2026, against the $487M OCHA Comms quoted, with WHO and iMC Worldwide matching
+their sheet to the dollar. Pledges are excluded.
+
+Because this is the API, not the PreCheck dashboard, **always say a keyword figure came from the
+FTS API, with the date it was read**. The rule below still holds for everything else. Counting
+internal flows means money passing through a pooled fund can appear twice (into the fund, then
+out of it); that is how the published figure is built, so don’t remove it, but don’t add a
+keyword total to dashboard figures either.
 
 **Why not the FTS API.** The public API (`api.hpc.tools`) **does not reproduce the dashboard’s
 numbers**. The dashboard attributes pooled-fund money back to the original donor and strips

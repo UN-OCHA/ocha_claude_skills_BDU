@@ -10,6 +10,8 @@ Pull figures from the OCHA FTS Visualization Tool (PreCheck) Power BI dashboard.
     python3 fts.py visuals [PAGE]            list a page's visuals and their ids
     python3 fts.py tables                    list the named tables (plans, sectors, countries, donors…)
     python3 fts.py table NAME|all            one named table, or all of them   -> fts_<name>.csv
+    python3 fts.py keyword TAG [--year Y] [--by recipient|donor|country|sector|plan|flow]
+                                             funding tagged with an FTS keyword (FTS API, not the dashboard)
 
 Output goes to ./fts_data/ under the current directory (override with --out). Run it from
 the project folder, so the figures land beside the work that uses them. The report
@@ -26,6 +28,7 @@ Standard library only.
 from __future__ import annotations
 
 import argparse
+import datetime
 import csv
 import json
 import os
@@ -296,6 +299,33 @@ def cmd_table(args):
     print(f"Data as of {date}")
 
 
+def cmd_keyword(args):
+    """Funding tagged with an FTS keyword, from the FTS API (not the dashboard)."""
+    import fts_api   # only this command needs it
+    d = out_dir(args)
+    def progress(page, got, expected):
+        print(f"\r  reading FTS flows {args.year}: page {page}, {got:,} of {expected or '?':,}", end="", file=sys.stderr)
+    try:
+        data = fts_api.year_flows(args.year, os.path.join(d, ".cache"), args.refresh, progress)
+    except fts_api.ApiError as exc:
+        raise SystemExit(f"Could not read the FTS API: {exc}")
+    print(file=sys.stderr)
+    flows = fts_api.keyword_flows(data["flows"], args.tag)
+    if not flows:
+        raise SystemExit(f"No paid or committed {args.year} flows carry the keyword '{args.tag}'. Check the spelling "
+                         f"(FTS keywords look like EBOLA2026).")
+    rows = fts_api.flow_rows(flows) if args.by == "flow" else fts_api.by_group(flows, args.by)
+    path = os.path.join(d, f"fts_keyword_{args.tag.lower()}_{args.year}_by_{args.by}.csv")
+    write_csv(path, rows)
+    total = sum(float(f.get("amountUSD") or 0) for f in flows)
+    print(f"{args.tag} {args.year}: ${total:,.0f} in {len(flows)} flows (paid + commitment, incoming + internal)")
+    print(f"Source: FTS API (api.hpc.tools), read {data['fetched_utc']}. Not the PreCheck dashboard: say so.")
+    if args.by != "flow":
+        for r in rows[:10]:
+            print(f"  ${r['amount_usd']:>16,.0f}  {r[args.by]}")
+    print(f"-> {path}")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", default="fts_data", help="output folder (default ./fts_data)")
@@ -309,11 +339,15 @@ def main():
     dn = sub.add_parser("donors"); dn.add_argument("--top", type=int, default=15)
     sub.add_parser("tables")
     tb = sub.add_parser("table"); tb.add_argument("name", help="a name from `fts.py tables`, or 'all'")
+    kw = sub.add_parser("keyword", help="funding tagged with an FTS keyword, from the FTS API")
+    kw.add_argument("tag", help="the FTS keyword, e.g. EBOLA2026")
+    kw.add_argument("--year", type=int, default=datetime.date.today().year)
+    kw.add_argument("--by", choices=["recipient", "donor", "country", "sector", "plan", "flow"], default="recipient")
     args = ap.parse_args()
     try:
         {"pages": cmd_pages, "visuals": cmd_visuals, "visual": cmd_visual, "page": cmd_page,
          "headline": cmd_headline, "donors": cmd_donors,
-         "tables": cmd_tables, "table": cmd_table}[args.cmd](args)
+         "tables": cmd_tables, "table": cmd_table, "keyword": cmd_keyword}[args.cmd](args)
     except pbi.PowerBIError as exc:
         raise SystemExit(f"Could not read the FTS dashboard: {exc}")
 
