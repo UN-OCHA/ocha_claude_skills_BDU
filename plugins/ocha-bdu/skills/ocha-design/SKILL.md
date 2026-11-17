@@ -45,6 +45,15 @@ Do NOT paraphrase or summarise the skill contents in that confirmation. The
 user already knows what's in them — the point of loading is that you have
 the details ready for the real task that follows.
 
+## Figma connector — which one to use
+
+- **Figma can appear more than once in Connectors.** Use the one with the Figma logo: that’s the
+  claude.ai connector. Plain-letter “F” entries come with installed plugins (the Figma plugin and its
+  `figma:` skills) or the Figma desktop app. One asking to “Authenticate” isn’t needed; ignore it.
+- **If Figma calls start failing partway through a session**, turn the Figma connector off and on in the
+  session’s connector settings, or start a new session. Don’t work around it.
+- Canva has the same double entry: see `ocha-social-media` §0.
+
 ## When NOT to use this skill
 
 - Single-domain questions — the relevant specific skill will auto-trigger and is lighter.

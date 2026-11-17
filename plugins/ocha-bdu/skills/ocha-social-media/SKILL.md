@@ -31,6 +31,12 @@ a job that will stall halfway.
    *“This needs the Canva connector. In the Claude app go to **Settings → Connectors → Canva → Connect**,
    and sign in with the BDU team’s shared Canva account, where the templates live (ask the BDU team if you
    don’t have it). Then start a new conversation.”*
+   - **Canva can appear twice in Connectors.** Use the one with the Canva logo: that’s the claude.ai
+     connector. The plain “C” entry asking to “Authenticate” comes with the Canva plugin (its
+     `canva:` skills). Ignore it; it isn’t needed.
+   - **If Canva calls start failing partway through a session** (tools rejected, only plain text comes
+     back), turn the Canva connector off and on in the session’s connector settings, or start a new
+     session. Don’t work around it.
 2. **Claude in Chrome** — needed for the steps the connector cannot do (fonts, guides, transitions,
    animations; see §4). If it is not connected, ask them to install/enable the Claude in Chrome extension
    and sign in to the same Canva account in Chrome.
