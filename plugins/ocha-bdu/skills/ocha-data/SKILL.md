@@ -139,9 +139,9 @@ python3 …/fts.py table plans           # one table -> fts_plans.csv; `table al
 | `donor-types`, `recipient-types` | by type: governments, pooled funds… / UN, NGOs… |
 | `earmarking` | earmarked vs unearmarked share |
 
-**What “the whole dashboard” covers.** Only 7 of the report’s 49 pages are published; the
-rest are hidden drafts (a country one-pager for Ebola, Venezuela, Nepal…) that cannot be read.
-Every table shows the dashboard’s **default view: 2026, global, pledges and outgoing flows
+**What “the whole dashboard” covers.** Every page of the report can be read, hidden ones included
+(the emergency one-pagers for Ebola, Venezuela, Nepal…; list them with `fts.py pages`). Every table
+in the list above shows the dashboard’s **default view: 2026, global, pledges and outgoing flows
 excluded**. Other years or one country need the dashboard’s filters, which these commands don’t
 set. The tables use different measures, so their totals differ (GHO funding is $15.7bn in
 `plan-groups` and $14.1bn in `gho-donors`, Nov 2026): quote a total from the same table as its
@@ -150,22 +150,24 @@ rows, and state the data date.
 The **OCHA FTS Visualization Tool (PreCheck)** is a public Power BI report and the source of truth
 for OCHA’s published funding figures:
 https://app.powerbi.com/view?r=eyJrIjoiNGE3NGU5OWItNWIwYy00NGJlLWI5ZTUtNGJhYzBiYWVhNjlmIiwidCI6IjBmOWUzNWRiLTU0NGYtNGY2MC1iZGNjLTVlYTQxNmU2ZGM3MCIsImMiOjh9
-`fts.py` replays each visual’s own stored query, so every figure matches the dashboard exactly.
+`fts.py` rebuilds each visual’s query from the report definition (its fields plus the report’s,
+page’s and visual’s filters and the page’s slicer settings), so each figure matches the dashboard.
+Tables come out flat: one row per item, no subtotal rows (add them up yourself).
 **Always state the data date** with any figure; `headline` returns it.
 
 ### Emergency pages on the dashboard: look there first
 
 **The PreCheck dashboard is the more reliable source, also for single emergencies** (Javier,
 17 Nov 2026). It has one-pagers for some emergencies (Ebola, Venezuela, Nepal, Iran, Cuba…; list them
-with `fts.py pages`). They are **hidden pages**: the public report definition carries no visuals for
-them, so `fts.py page` can’t run them. They still open in a browser with the page name added to the
-dashboard link:
+with `fts.py pages`). They are **hidden pages**, but `fts.py` reads them like any other (since 18 Nov 2026):
 
-`…/view?r=<the dashboard’s key>&pageName=<page id from fts.py pages>`
+```bash
+python3 …/fts.py visuals aff35d160c8cbceb151d          # Ebola 2026: what the page holds
+python3 …/fts.py page aff35d160c8cbceb151d             # every table on it, as CSVs
+```
 
-e.g. Ebola 2026: `pageName=aff35d160c8cbceb151d`. Open it in the browser, read the figures off the
-page (its text holds every table: total, donors, recipients, pooled funds, sectors, locations) and
-save them as a CSV in the job, with the page’s **snapshot date** (top of the page) as the data date.
+Use the page’s **snapshot date** (the “FTS API checksum date” card) as the data date. To show
+someone the page itself: `…/view?r=<the dashboard’s key>&pageName=<page id>`.
 This is the figure OCHA Comms quote. Checked 17 Nov 2026: the dashboard showed OCHA at $10.2M among
 the Ebola recipients, where the API keyword count below gave $8.2M; everything else matched.
 

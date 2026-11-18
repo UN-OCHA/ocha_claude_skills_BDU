@@ -22,10 +22,10 @@ resource key in the share URL:
   GET  /public/reports/<resourceKey>/modelsAndExploration   -> full report definition
   POST /public/reports/querydata?synchronous=true           -> run a visual's query
 
-Every visual in the report definition carries a `query` field holding the *resolved*
-DAX-equivalent semantic query, with all report-, page- and visual-level filters already
-merged in. We replay that query verbatim, so a visual read here returns exactly what the
-same visual renders on screen. Nothing is reimplemented, so nothing can drift.
+Each visual's definition holds a prototype query plus its filters. Until Nov 2026 the report
+also published the *resolved* query (all filters merged in), which we replayed verbatim; it
+now does so only for two pages, so `build_query` rebuilds it the way the Power BI client does.
+A stored query, where one exists, is still preferred.
 
 Responses come back as DSR (a compressed row format). `decode_dsr` unpacks it.
 
@@ -45,6 +45,7 @@ import re
 import time
 import urllib.error
 import urllib.request
+from typing import Optional
 
 # --------------------------------------------------------------------------------------
 # Report identity
@@ -127,24 +128,42 @@ def fetch_model(force: bool = False) -> dict:
 def _slim_model(model: dict) -> dict:
     """Strip the response to what we actually query with.
 
-    The full payload is ~13 MB — Power BI feature flags, theme data, and every visual's
-    formatting for all 49 pages. We only ever read a visual's `config` and `query`, and
-    only 9 pages carry a resolved `query` at all. Keeping the rest would sync 13 MB
-    through Dropbox on every refresh for no benefit.
+    The full payload is ~13 MB: feature flags, themes and every visual's formatting. We keep,
+    per visual, its stored `query` when the report publishes one, and otherwise the parts of
+    its definition needed to build one (see build_query): the prototype query, the field
+    roles, the title, slicer selections and filters. Plus each page's and the report's filters.
     """
     sections = []
     for section in model["exploration"]["sections"]:
         containers = section.get("visualContainers") or []
-        kept = [
-            {"config": c["config"], "query": c["query"]}
-            for c in containers
-            if c.get("query") and c.get("config")
-        ]
+        kept = []
+        for c in containers:
+            try:
+                config = json.loads(c.get("config") or "{}")
+            except ValueError:
+                continue
+            single = config.get("singleVisual") or {}
+            if not (c.get("query") or single.get("prototypeQuery")):
+                continue  # text boxes, images, shapes, navigation buttons
+            slim_single = {k: single[k] for k in ("visualType", "prototypeQuery", "projections") if k in single}
+            if "title" in (single.get("vcObjects") or {}):
+                slim_single["vcObjects"] = {"title": single["vcObjects"]["title"]}
+            if single.get("visualType") == "slicer" and "general" in (single.get("objects") or {}):
+                slim_single["objects"] = {"general": single["objects"]["general"]}
+            slim_config = {"name": config.get("name"), "singleVisual": slim_single}
+            if config.get("filters"):
+                slim_config["filters"] = config["filters"]
+            entry = {"config": json.dumps(slim_config)}
+            for key in ("query", "filters"):
+                if c.get(key):
+                    entry[key] = c[key]
+            kept.append(entry)
         sections.append(
             {
                 "name": section["name"],
                 "displayName": section.get("displayName"),
                 "visualCount": len(containers),  # the page's real size, before trimming
+                "filters": section.get("filters"),
                 "visualContainers": kept,
             }
         )
@@ -153,6 +172,7 @@ def _slim_model(model: dict) -> dict:
         "exploration": {
             "id": model["exploration"].get("id"),
             "reportId": model["exploration"]["reportId"],
+            "filters": model["exploration"].get("filters"),
             "sections": sections,
         },
     }
@@ -184,7 +204,7 @@ def _visual_title(single_visual: dict) -> str:
 
 
 def list_visuals(model: dict, page_name: str) -> list[dict]:
-    """Every visual on a page that carries a runnable query."""
+    """Every visual on a page that carries a runnable query (stored, or built from its definition)."""
     section = next(s for s in model["exploration"]["sections"] if s["name"] == page_name)
     out = []
     for container in section["visualContainers"]:
@@ -193,7 +213,7 @@ def list_visuals(model: dict, page_name: str) -> list[dict]:
         except Exception:
             continue
         single = config.get("singleVisual") or {}
-        query = container.get("query")
+        query = container.get("query") or build_query(model, section, container)
         if not query:
             continue  # text boxes, images, shapes, navigation buttons
         out.append(
@@ -202,6 +222,7 @@ def list_visuals(model: dict, page_name: str) -> list[dict]:
                 "title": _visual_title(single),
                 "type": single.get("visualType"),
                 "query": query,
+                "built": not container.get("query"),
             }
         )
     return out
@@ -212,6 +233,165 @@ def find_visual(model: dict, page_name: str, visual_id: str) -> dict:
         if visual["id"] == visual_id:
             return visual
     raise PowerBIError(f"visual {visual_id} not found on page {page_name}")
+
+
+# --------------------------------------------------------------------------------------
+# Building a query from the visual definition
+# --------------------------------------------------------------------------------------
+# Until mid-Nov 2026 the report published each visual's resolved `query`. The FTS team's
+# republish of ~18 Nov 2026 stopped that for every page except "About" and a checksum page,
+# so we rebuild the query the way the Power BI client does: the visual's prototypeQuery,
+# plus the report's, the page's and the visual's own filters and the page's slicer
+# selections. Checked against 75 queries stored before the change: 61 return identical
+# rows. The rest differ only because the output is flat (one row per leaf, no subtotal
+# rows, no collapsed drill levels), or because the old visual returned nothing.
+# Known gap: "edit interactions" settings (a slicer told not to filter one visual) are not
+# applied; no page we read uses them (Nov 2026).
+
+
+def _loads(value):
+    if not value:
+        return []
+    return json.loads(value) if isinstance(value, str) else value
+
+
+def _rename_sources(node, mapping: dict):
+    """Rewrite SourceRef aliases. A Subquery keeps its own aliases, so leave it alone."""
+    if isinstance(node, dict):
+        out = {}
+        for key, value in node.items():
+            if key == "Subquery":
+                out[key] = value
+            elif key == "SourceRef" and isinstance(value, dict) and "Source" in value:
+                out[key] = {**value, "Source": mapping.get(value["Source"], value["Source"])}
+            else:
+                out[key] = _rename_sources(value, mapping)
+        return out
+    if isinstance(node, list):
+        return [_rename_sources(x, mapping) for x in node]
+    return node
+
+
+def _merge_filter(query: dict, flt: dict, target: Optional[list] = None) -> None:
+    """Fold one filter's From + Where into the query, reusing the query's alias per table.
+
+    `target`: for a visual-level filter on a measure, the visual's grouping fields. Power BI
+    tests such a filter at that grain (each plan x country), not on the total, so without
+    it a row the dashboard hides still counts (Syria 3RP came out $2.3M low, 18 Nov 2026).
+    """
+    where = flt.get("Where") or []
+    if not where:
+        return  # a filter card with nothing selected filters nothing
+    frm = query.setdefault("From", [])
+    by_entity = {f["Entity"]: f["Name"] for f in frm if "Entity" in f and f.get("Type", 0) == 0}
+    names = {f["Name"] for f in frm}
+    mapping = {}
+    for f in flt.get("From") or []:
+        if "Entity" in f and f.get("Type", 0) == 0 and f["Entity"] in by_entity:
+            mapping[f["Name"]] = by_entity[f["Entity"]]
+            continue
+        new, i = f["Name"], 1
+        while new in names:
+            new, i = f'{f["Name"]}{i}', i + 1
+        names.add(new)
+        mapping[f["Name"]] = new
+        frm.append({**f, "Name": new})
+        if "Entity" in f and f.get("Type", 0) == 0:
+            by_entity[f["Entity"]] = new
+    where = _rename_sources(where, mapping)
+    if target:
+        where = [{**w, "Target": target} if _on_measure(w) else w for w in where]
+    query.setdefault("Where", []).extend(where)
+
+
+def _on_measure(condition: dict) -> bool:
+    text = json.dumps(condition)
+    return '"Measure"' in text or '"Aggregation"' in text
+
+
+def _filters_for(model: dict, section: dict, container: dict, config: dict) -> list:
+    """[(filter, is the visual's own filter)]: report, page, slicer selections, then the visual's."""
+    found = [f.get("filter") for f in _loads(model["exploration"].get("filters"))]
+    found += [f.get("filter") for f in _loads(section.get("filters"))]
+    for other in section["visualContainers"]:  # slicer selections on the same page
+        single = (json.loads(other["config"]).get("singleVisual") or {})
+        if single.get("visualType") != "slicer":
+            continue
+        try:
+            found.append(single["objects"]["general"][0]["properties"]["filter"]["filter"])
+        except (KeyError, IndexError, TypeError):
+            pass
+    own = [f.get("filter") for f in _loads(container.get("filters"))]
+    own += [f.get("filter") for f in _loads(config.get("filters"))]
+    return [(f, False) for f in found if f] + [(f, True) for f in own if f]
+
+
+def _bare(select: dict) -> dict:
+    return {k: v for k, v in select.items() if k not in ("Name", "NativeReferenceName")}
+
+
+def _resolve_roles(node, role_fields: dict):
+    """ScopedEval(..., [Role.Columns]) names a visual role; replace it with that role's fields."""
+    if isinstance(node, dict):
+        if isinstance(node.get("Scope"), list):
+            scope = []
+            for item in node["Scope"]:
+                if isinstance(item, dict) and "RoleRef" in item:
+                    scope += role_fields.get(item["RoleRef"].get("Role"), [])
+                else:
+                    scope.append(item)
+            node = {**node, "Scope": scope}
+        return {k: _resolve_roles(v, role_fields) for k, v in node.items()}
+    if isinstance(node, list):
+        return [_resolve_roles(x, role_fields) for x in node]
+    return node
+
+
+def build_query(model: dict, section: dict, container: dict) -> Optional[str]:
+    """The visual's query, rebuilt from its definition. None if it has no data fields."""
+    config = json.loads(container["config"])
+    single = config.get("singleVisual") or {}
+    proto = single.get("prototypeQuery")
+    if not proto or not proto.get("Select"):
+        return None
+    query = json.loads(json.dumps(proto))
+    projections = single.get("projections") or {}
+    by_name = {s["Name"]: _bare(s) for s in query["Select"]}
+    grain = [by_name[r["queryRef"]] for refs in projections.values() for r in refs
+             if "Column" in by_name.get(r["queryRef"], {})]
+    for flt, own in _filters_for(model, section, container, config):
+        _merge_filter(query, flt, grain if own else None)
+
+    # Keep only the drill levels the report shows ("active"); the hidden ones would add
+    # columns and multiply rows.
+    hidden, role_of = set(), {}
+    for role, refs in projections.items():
+        for ref in refs:
+            role_of[ref["queryRef"]] = role
+        if any("active" in ref for ref in refs):
+            hidden |= {ref["queryRef"] for ref in refs if not ref.get("active")}
+    query["Select"] = [s for s in query["Select"] if s["Name"] not in hidden]
+    shown = [json.dumps(_bare(s), sort_keys=True) for s in query["Select"]]
+    if query.get("OrderBy"):
+        query["OrderBy"] = [o for o in query["OrderBy"] if json.dumps(o.get("Expression"), sort_keys=True) in shown]
+        if not query["OrderBy"]:
+            del query["OrderBy"]
+
+    role_fields: dict = {}
+    for s in query["Select"]:
+        expr = _bare(s)
+        if "Column" in expr:  # grouping fields only; measures never scope
+            role_fields.setdefault(role_of.get(s["Name"]), []).append(expr)
+    query["Select"] = [_resolve_roles(s, role_fields) for s in query["Select"]]
+
+    # Flat output: one grouping holding every field, so each row is one leaf of the table.
+    binding = {
+        "Primary": {"Groupings": [{"Projections": list(range(len(query["Select"])))}]},
+        "DataReduction": {"DataVolume": 4, "Primary": {"Window": {"Count": 5000}}},
+        "Version": 1,
+    }
+    return json.dumps({"Commands": [{"SemanticQueryDataShapeCommand": {
+        "Query": query, "Binding": binding, "ExecutionMetricsKind": 1}}]})
 
 
 # --------------------------------------------------------------------------------------

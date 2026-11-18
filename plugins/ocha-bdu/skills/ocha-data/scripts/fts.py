@@ -19,8 +19,9 @@ definition is cached there too (~1.2 MB, reused for six hours).
 
 PAGE defaults to the campaign one-pager "OnePager (87 Days)".
 
-Every figure is read from the dashboard's own visuals — the stored query each visual runs,
-replayed verbatim — so it matches the dashboard exactly. Nothing is recalculated.
+Every figure is read from the dashboard's own visuals: each visual's query, rebuilt from the
+report definition with its filters (ocha_fts_pbi.build_query), so it matches the dashboard.
+Nothing is recalculated here.
 
 Standard library only.
 """
@@ -192,9 +193,8 @@ def cmd_donors(args):
 
 
 # --------------------------------------------------------------------------------------------
-# Named tables. Only 7 of the report's 49 pages are published (the rest are hidden drafts with
-# no stored query, so they cannot be read, e.g. the Ebola one-pager). These are the useful tables
-# on the published pages, mapped and checked on 11 Nov 2026. All show the dashboard's default
+# Named tables: the useful tables on the dashboard's main pages, mapped and checked on 11 Nov
+# 2026 (every page, hidden ones included, can be read with `page`/`visual`). All show the dashboard's default
 # view: 2026, global, pledges and outgoing flows excluded. Ids change if the FTS team rebuilds a
 # page: `fts.py visuals PAGE` lists the current ones; update here and in reference/fts_report_map.md.
 # --------------------------------------------------------------------------------------------

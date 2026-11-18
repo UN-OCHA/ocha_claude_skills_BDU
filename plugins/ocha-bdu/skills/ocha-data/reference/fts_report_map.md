@@ -85,11 +85,10 @@ never translate or rename a plan without checking.
 
 ## Named tables (`fts.py tables`) — mapped 11 November 2026
 
-Only 7 of the 49 pages are published and carry stored queries: OnePager (87 Days), OnePager
-(Horiz) V2, OnePager (Plans) V2 `9fc1ea690b6b64c05d51`, Org_Donors_V2 `5bedb7e690789f789ba8`,
-Org_Recipients_V2 `56d95b34860b7ad5cf15`, Weekly `ReportSection353c4b8293ee828c3e33`, Home. The
-other 42 (country one-pagers such as Ebola, DataTables, ByGlobClus…) have no query and cannot be
-read. All tables below are the default view: `Item = 2026`, global analysis, pledges, outgoing
+The tables come from OnePager (Plans) V2 `9fc1ea690b6b64c05d51`, Org_Donors_V2
+`5bedb7e690789f789ba8`, Org_Recipients_V2 `56d95b34860b7ad5cf15` and Weekly
+`ReportSection353c4b8293ee828c3e33`. Since 18 Nov 2026 every page can be read, hidden emergency
+one-pagers included (see `fts_decoding.md`, “Finding the query for a visual”). All tables below are the default view: `Item = 2026`, global analysis, pledges, outgoing
 and multi-year flows excluded.
 
 | Name | Page | Visual |

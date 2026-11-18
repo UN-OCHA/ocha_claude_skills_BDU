@@ -60,6 +60,25 @@ the value is an integer, it is an index into `ValueDicts[DN]`.
 ## Finding the query for a visual
 
 `modelsAndExploration → exploration.sections[] → visualContainers[]`. Each container's
-`config` (a JSON string) holds the title and type; its `query` field (also a JSON string)
-holds the resolved `Commands` to replay. A container with no `query` is a text box, image
-or button.
+`config` (a JSON string) holds the title, type, `prototypeQuery` and `projections`.
+
+Until mid-November 2026 each container also had a `query` field: the resolved `Commands`, all
+filters merged in, ready to replay. The FTS team’s republish of ~18 Nov 2026 removed it from every
+page except “About” and a checksum page. `ocha_fts_pbi.build_query` now rebuilds it:
+
+- start from `prototypeQuery`;
+- add the `Where` of the report filters (`exploration.filters`), the page filters
+  (`section.filters`), each slicer’s selection on the page (`objects.general[0].properties.filter`)
+  and the visual’s own filters, reusing the query’s alias for each table;
+- give the visual's own filters on a measure a `Target`: the visual's grouping fields, hidden
+  levels included. Power BI tests them row by row at that grain (e.g. plan × country), not on the
+  total; without it, Syria 3RP came out $2.3M low (18 Nov 2026);
+- drop hierarchy levels not marked `"active"` in `projections` (collapsed drill levels);
+- resolve `ScopedEval(…, [Role.Columns])` to that role’s fields;
+- bind every field in one flat grouping (one row per leaf, no subtotals).
+
+Checked against 75 queries stored before the change: 61 identical results, the rest differing
+only by subtotal rows, collapsed levels, or an old visual that returned nothing. Not handled:
+“edit interactions” (a slicer set not to filter one visual); no page we read used it in Nov 2026.
+A stored `query`, where present, is still used as is. A container with neither is a text box,
+image or button.

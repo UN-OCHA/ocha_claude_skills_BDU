@@ -45,3 +45,42 @@ PowerShell (Windows without Git Bash).
 - Sonnet, given the note, asked first, changed only the two keys, and kept the file valid. Tested for
   “yes”, “no, stop asking” and no settings file yet.
 - **Not yet tested on Windows.**
+
+# What’s new after each update
+
+After an update, Claude tells each colleague once, in plain words, what changed in the skills.
+
+## Writing the note (every publish)
+
+Before publishing, write `news/next.md`: 2 to 4 bullet lines, one per change a colleague would
+notice, written for designers, not developers (what they can now do, or what works differently).
+`sync_skills_to_github.sh --push` stops if the plugin gets a new version and no note exists.
+
+The publish script runs `.github/scripts/build_whats_new.py`, which:
+
+- moves the note into `news/CHANGES.md` under the plugin’s new version (newest first; colleagues
+  can read the full history there);
+- writes `news/after-<version>.md` for every version: the updates that came after it (at most
+  five), with instructions for Claude. The latest version’s file is empty;
+- writes `news/after-.md` for a computer that has never seen a note: the latest update only.
+
+## How the hook knows what each computer has seen
+
+```
+cat "${CLAUDE_PLUGIN_ROOT}/news/after-${OCHA_BDU_NEWS_SEEN}${env:OCHA_BDU_NEWS_SEEN}.md"
+```
+
+Same two-shell trick as the update check above. After telling the user, Claude sets
+`env.OCHA_BDU_NEWS_SEEN` in their `~/.claude/settings.json` to the latest version. From the next
+session the hook prints that version’s file, which is empty until the next update.
+
+- **Never delete an `after-*.md` file or a `CHANGES.md` entry:** a computer still pointing at that
+  version would get an error at startup instead of the news.
+- **The `after-*.md` files must be plain ASCII** (PowerShell 5.1, as above). The build script
+  converts curly quotes, dashes and accents, and stops on anything else. `CHANGES.md` and
+  `next.md` can use any characters.
+- Versions stamped on GitHub after a map-skill pull request get no note. That is fine: no computer
+  is ever pointed at a version without one.
+
+Tested 18 Nov 2026 on a copy of the repo (bash): first run, an up-to-date computer, two updates in
+a row, and the missing-note stop. **Not yet tested on Windows or in a live session.**
