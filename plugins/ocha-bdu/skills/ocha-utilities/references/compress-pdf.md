@@ -12,7 +12,11 @@ python3 ~/.claude/skills/ocha-utilities/scripts/compress_pdf.py "input.pdf"
 
 - It writes `input_compressed.pdf` next to the original and never changes the original.
 - It prints the new size and a similarity score per page. Above 45 dB the difference can’t be seen.
-- Needs PyMuPDF, Pillow and numpy (`pip install pymupdf pillow numpy` if missing).
+- Needs pikepdf and Pillow to compress, plus PyMuPDF and numpy for the similarity score
+  (`pip install pikepdf pillow pymupdf numpy` if missing).
+- The same script runs inside the Copilot “Compress PDF” agent (BDU `copilot_agents/compress_pdf`), which
+  copies it with its build script. Compression uses pikepdf because Copilot’s PyMuPDF is too slow for
+  Canva images (35 s or more per page).
 
 ## Settings
 

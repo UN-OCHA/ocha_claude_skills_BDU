@@ -2,6 +2,10 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.18.3
+
+- **Compress a PDF (ocha-utilities):** compressing a heavy Canva PDF is now much faster, with the same sharp photos and the same colours as before.
+
 ## 2026.11.18.2
 
 - **Funding data (ocha-data):** reading the FTS funding dashboard works again after the FTS team changed it, and Claude can now also read the dashboard’s hidden emergency pages, such as Ebola 2026.
