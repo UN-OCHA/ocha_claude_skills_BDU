@@ -9,3 +9,7 @@ __pycache__/
 *.psd
 *.psdt
 *.psb
+
+# Caches the skill scripts write (the FTS report definition, API downloads). Never publish.
+.model_cache.json
+.cache/

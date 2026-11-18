@@ -63,7 +63,11 @@ PAGE_DONORS = "5bedb7e690789f789ba8"  # "Org_Donors_V2"
 PAGE_RECIPIENTS = "56d95b34860b7ad5cf15"  # " Org_Recipients_V2"
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_CACHE = os.path.join(SCRIPT_DIR, ".model_cache.json")
+# Default cache lives in the user's own cache folder, NEVER next to this script: the skill
+# folder is published to GitHub, and a cache written here once shipped to every colleague
+# (17 Nov 2026). fts.py points it at the output folder instead; this default only applies
+# when the module is used on its own.
+MODEL_CACHE = os.path.join(os.path.expanduser("~"), ".cache", "ocha-data", ".model_cache.json")
 MODEL_CACHE_TTL = 6 * 3600  # seconds; the report definition changes rarely
 
 _HEADERS = {
@@ -114,6 +118,7 @@ def fetch_model(force: bool = False) -> dict:
     url = f"{CLUSTER}/public/reports/{RESOURCE_KEY}/modelsAndExploration?preferReadOnlySession=true"
     model = _request(url)
     slim = _slim_model(model)
+    os.makedirs(os.path.dirname(MODEL_CACHE), exist_ok=True)
     with open(MODEL_CACHE, "w") as fh:
         json.dump(slim, fh)
     return slim

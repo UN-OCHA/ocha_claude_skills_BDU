@@ -209,6 +209,7 @@ template: kicker text box at left 80, so the blue edge lands on the 72 px margin
 | Cover headline | 104 | Inter Black, capitals | 1.0 |
 | Statement headline (inside slides) | 96 | Inter Black, capitals | 1.0 |
 | Kicker / country label | 32 | Inter Bold, capitals, on a colour pill (Canva text Background effect) | 1.2 |
+| Intro line (completes the figure or headline) | 56 | Inter SemiBold | 1.2 |
 | Supporting text, lead lines, list items | 40 | Inter SemiBold | 1.35 |
 | Quote | 40 | Inter Black, italic, sentence case | 1.35 |
 | Quote attribution | 32 | Roboto Condensed Regular | 1.2 |
@@ -223,11 +224,15 @@ template: kicker text box at left 80, so the blue edge lands on the 72 px margin
   legible at phone size (check figures and capitals especially), and it must be a font the people who
   edit the file have: in Canva for Canva jobs, installed or on Adobe Fonts for `.ai` jobs. Propose two or
   three with a preview on the real slide before using one.
-- **Clearly different scales** (Javier, 27 Oct 2026): 104/96 headlines, 40 text, 32 labels, 20 credit —
-  nothing in between. Snap any other size to the nearest of these.
+- **Clearly different scales** (Javier, 27 Oct 2026; intro added 18 Nov 2026): 104/96 headlines, 56 intro,
+  40 text, 32 labels, 20 credit — nothing in between. Snap any other size to the nearest of these.
 - **One sentence across two sizes:** small text sets up the point, large text delivers it. The key point
   always goes in the large text. Both start on the same left edge. Headlines stay in capitals, including
   when the sentence continues from the small text — no mixed capitals and sentence case, no lowercase start.
+- **Title – intro – body** (Javier, 18 Nov 2026). Figure slides can use three levels: the figure as title
+  (96, Inter Black), an intro line that completes it (56, SemiBold), set close under the title, then the
+  body (40, SemiBold), 32 px below the intro. The intro carries the meaning of the figure (“18.3 MILLION /
+  people face acute hunger”); the body gives context. Example: Yemen 87M carousel, `DAHbK5wRIC8`.
 - Big capitals set at line height 1.0 in Canva, always. 1.15 or 1.2 looks loose at this size and makes
   the slide look off (Javier, 17 Nov 2026). The canvas toolbar shows sizes ×0.75
   (96 px reads “72”); the connector uses px.
@@ -295,6 +300,12 @@ solution → what it means for people → what partners say → closing message.
   540, 1080×900 for bottom text (flip for top text), then text and credit layers to the front.
   Pick the strong one over people or busy colour.
 - Keep the gradient behind the OCHA logo subtle (≈30 % opacity).
+- **Keep the subject out of the gradient** (Javier, 18 Nov 2026). When the text gradient darkens a person
+  or the main subject, duplicate the photo, remove the background from the copy, and place it above the
+  gradient and below the text. Lower its opacity (around 65–100 %) so it blends into the gradient instead
+  of looking pasted on. Background removal is done in Chrome; layer order and opacity can be set with the
+  connector. The connector shows the copy as the same photo, so check the layer order before deleting what
+  looks like a duplicate. Example: Yemen 87M carousel, slides 5 and 7.
 - **Always ask the designer about legibility** (Javier, 19 Oct 2026). After building or changing a slide,
   show the preview and ask, per slide: *“Is the text easy to read here, or should the dark gradient be
   darker or lighter?”* Don’t decide it alone from the thumbnail — previews are small and photos vary.
