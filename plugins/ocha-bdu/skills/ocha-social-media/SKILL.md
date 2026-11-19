@@ -233,6 +233,10 @@ template: kicker text box at left 80, so the blue edge lands on the 72 px margin
   (96, Inter Black), an intro line that completes it (56, SemiBold), set close under the title, then the
   body (40, SemiBold), 32 px below the intro. The intro carries the meaning of the figure (“18.3 MILLION /
   people face acute hunger”); the body gives context. Example: Yemen 87M carousel, `DAHbK5wRIC8`.
+- **Country name standing out** (Javier, 19 Nov 2026): when the country name should stand out in a line
+  like “BURKINA FASO / The humanitarian response…”, set it one weight heavier than the rest of the line
+  (e.g. Heavy over SemiBold), same size.
+- **Stick to the margins and the grid** for every element, checked by its visible edges (see Grid above).
 - Big capitals set at line height 1.0 in Canva, always. 1.15 or 1.2 looks loose at this size and makes
   the slide look off (Javier, 17 Nov 2026). The canvas toolbar shows sizes ×0.75
   (96 px reads “72”); the connector uses px.
@@ -247,6 +251,9 @@ template: kicker text box at left 80, so the blue edge lands on the 72 px margin
   “every slide” rule). If several photographers, the one pill lists them all: “Photos: UNOCHA/First Last,
   WFP/First Last”. When a job needs credits per slide (Javier, 29 Oct 2026), each slide gets its own photo’s
   credit in the same pill and position.
+  **Credit placement** (Javier, 19 Nov 2026): a bottom corner, its bottom edge on the bottom margin (box top
+  ≈1348–1350). Often the corner opposite the text (bottom right, right-aligned, when the text is at the
+  top), but not always.
   Build it as the credit text’s own **Background** effect (black, roundness 65, spread 50, transparency 50)
   so the pill resizes with the text — not a separate shape. Text box top 1350, left 80 (the pill edge then
   lands on the 72 margin). Text ends **≥ 48 px** above the pill.
@@ -280,8 +287,13 @@ solution → what it means for people → what partners say → closing message.
 - **Every photo has a subject** — a person, or a telling object (a burnt car, an empty school). Never a
   merely decorative background (Javier, 27 Oct 2026).
 - **Text never touches faces or the photo’s main action.** Put text over the most uniform part of the
-  photo (sky, a wall, the ground). Reframe the photo (move/crop it) so faces and busy areas sit away from the
-  text — e.g. lower the photo when a 3-line headline would reach a head.
+  photo (sky, a wall, the ground): use the photo’s empty spaces. Many options are possible: move the text
+  (top or bottom), move or scale the photo, or both — whichever keeps the story. Zooming out to show the
+  whole scene often tells more, but not always (Javier, 19 Nov 2026). Reframe the photo so faces and busy
+  areas sit away from the text — e.g. lower the photo when a 3-line headline would reach a head.
+- **Keep text well clear of the mouth and face in portraits** (Javier, 19 Nov 2026): leave a visible gap,
+  not just “not touching”. Move the photo up (scaling it slightly if needed) or the text down. Example:
+  Burkina Faso 87M carousel `DAHbSHE5h1I`, slide 3; slide 5 shows text moved to the top over an empty wall.
 - **Tight portraits** (a face fills the frame): text at the bottom only. Align the photo to the bottom of
   the page, keep the big line to 2 lines at most, and keep the small text below the chin. If it still
   touches the face, use another page variant or ask for another photo.
@@ -292,7 +304,9 @@ solution → what it means for people → what partners say → closing message.
   common fix in reviews. Over people or busy colour, use two layers or raise the opacity (70 % is
   normal); over sky, wall or ground it can be lighter. The gradient runs to the very edge of the page,
   or past it: one that stops short leaves a visible band, above all behind the logo. Reuse the template’s own gradient layer on each
-  page (Javier, 29 Oct 2026): keep it, move it or flip it. Rotation 0 at top 405, left −206 for bottom
+  page (Javier, 29 Oct 2026): keep it, move it or flip it. **The gradient (and the dark corner shade, if
+  the page has one) always follows the text** — text at the top, gradient flipped to the top — and fits the
+  page edges (Javier, 19 Nov 2026). Rotation 0 at top 405, left −206 for bottom
   text; rotation −180 at top −196, left −176 for top text. It must sit above the photo and below the text
   (`layer_element`). Over people or busy colour make it stronger (raise the opacity); over sky, wall or
   ground keep it subtle. Fallback for a page with no gradient layer: `assets/text_gradient_strong_1080x900.png`

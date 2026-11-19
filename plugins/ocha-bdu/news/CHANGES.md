@@ -2,6 +2,11 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.19.4
+
+- **Social media:** new layout tips from Javier: put text in the photo’s empty spaces, keep it well clear of faces in portraits, let the gradient follow the text, and place the photo credit in a bottom corner on the margin.
+- **Social media:** to make a country name stand out, set it one weight heavier than the rest of its line.
+
 ## 2026.11.19.3
 
 - **Photos:** searching MediaValet by country (“find photos of Burkina Faso…”) works again. It had stopped returning results.
