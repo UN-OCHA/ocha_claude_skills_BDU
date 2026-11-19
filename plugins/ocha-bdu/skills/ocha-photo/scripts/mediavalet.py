@@ -416,12 +416,14 @@ def search(query, out, country=None, year=None, count=40, pool=400):
         elif len(known) > 1:
             date_note = f"camera date {taken[:4]} differs from caption/file name {yr}"
         if country:
-            names = country_aliases(country)
-            ok = (code.lower() in names) or (norm_country(ctry) in names)
+            # Not "names": attr() above reads the attribute-name map through that closure
+            # variable, so reusing the name broke every country-filtered search after the first photo.
+            aliases = country_aliases(country)
+            ok = (code.lower() in aliases) or (norm_country(ctry) in aliases)
             # caption fallback, without letting "Sudan" match "South Sudan"
             if not ok and not code and not ctry:
                 ok = any(re.search(r"(?<!south )\b" + re.escape(n) + r"\b", desc.lower())
-                         for n in names if len(n) > 3)
+                         for n in aliases if len(n) > 3)
             if not ok:
                 continue
         # Keep a photo whose sources disagree if any of them matches, flagged: a caption typo

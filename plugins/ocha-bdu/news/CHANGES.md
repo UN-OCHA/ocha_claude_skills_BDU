@@ -2,6 +2,10 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.19.3
+
+- **Photos:** searching MediaValet by country (“find photos of Burkina Faso…”) works again. It had stopped returning results.
+
 ## 2026.11.19.2
 
 - **Brand site (ocha-frontify):** links Claude adds to brand.unocha.org now always use the page’s permanent link, so they keep working when a page is renamed or moved.
