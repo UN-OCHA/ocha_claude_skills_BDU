@@ -2,6 +2,10 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.19.2
+
+- **Brand site (ocha-frontify):** links Claude adds to brand.unocha.org now always use the page’s permanent link, so they keep working when a page is renamed or moved.
+
 ## 2026.11.19
 
 - **Funding data (ocha-data):** ask Claude for the link to the FTS funding dashboard, opened straight on any page, such as the Ebola 2026 one-pager.
