@@ -50,8 +50,22 @@ from typing import Optional
 # --------------------------------------------------------------------------------------
 # Report identity
 # --------------------------------------------------------------------------------------
-# From the share URL: app.powerbi.com/view?r=<base64 of {"k":<key>,"t":<tenant>,"c":<n>}>
+# The dashboard's public share link is app.powerbi.com/view?r=<base64 of {"k":..,"t":..,"c":..}>.
+# Its three parts are kept here as plain values and the link is built by share_url().
+# Load-bearing: never paste the base64 link itself into the skill. Its coded part starts
+# like an old Grafana API key, so secret scanners flag the public repo (GitGuardian
+# alert, 19 Nov 2026). The link is public (publish-to-web); this only avoids the false alarm.
 RESOURCE_KEY = "4a74e99b-5b0c-44be-b9e5-4bac0baea69f"
+TENANT_ID = "0f9e35db-544f-4f60-bdcc-5ea416e6dc70"
+CLUSTER_NUMBER = 8
+
+
+def share_url(page: Optional[str] = None) -> str:
+    """The dashboard's public link, optionally opened on one page (hidden pages included)."""
+    import base64
+    blob = json.dumps({"k": RESOURCE_KEY, "t": TENANT_ID, "c": CLUSTER_NUMBER}, separators=(",", ":"))
+    url = "https://app.powerbi.com/view?r=" + base64.b64encode(blob.encode()).decode()
+    return url + (f"&pageName={page}" if page else "")
 
 # The cluster host is NOT derivable from the share URL — it is whichever wabi-* region
 # hosts the workspace. Read it off `performance.getEntriesByType('resource')` in the

@@ -2,6 +2,11 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.19
+
+- **Funding data (ocha-data):** ask Claude for the link to the FTS funding dashboard, opened straight on any page, such as the Ebola 2026 one-pager.
+- **Compress a PDF (ocha-utilities):** it now also shrinks PDFs with see-through images (common in Canva exports) and keeps long A4 reports sharp.
+
 ## 2026.11.18.3
 
 - **Compress a PDF (ocha-utilities):** compressing a heavy Canva PDF is now much faster, with the same sharp photos and the same colours as before.

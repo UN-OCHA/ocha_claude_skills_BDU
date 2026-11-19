@@ -149,7 +149,8 @@ rows, and state the data date.
 
 The **OCHA FTS Visualization Tool (PreCheck)** is a public Power BI report and the source of truth
 for OCHA’s published funding figures:
-https://app.powerbi.com/view?r=eyJrIjoiNGE3NGU5OWItNWIwYy00NGJlLWI5ZTUtNGJhYzBiYWVhNjlmIiwidCI6IjBmOWUzNWRiLTU0NGYtNGY2MC1iZGNjLTVlYTQxNmU2ZGM3MCIsImMiOjh9
+get its link with `fts.py link` (never paste the link itself here: its coded part looks like a
+key to secret scanners, which flagged this public repo on 19 Nov 2026).
 `fts.py` rebuilds each visual’s query from the report definition (its fields plus the report’s,
 page’s and visual’s filters and the page’s slicer settings), so each figure matches the dashboard.
 Tables come out flat: one row per item, no subtotal rows (add them up yourself).
@@ -167,7 +168,7 @@ python3 …/fts.py page aff35d160c8cbceb151d             # every table on it, as
 ```
 
 Use the page’s **snapshot date** (the “FTS API checksum date” card) as the data date. To show
-someone the page itself: `…/view?r=<the dashboard’s key>&pageName=<page id>`.
+someone the page itself: `fts.py link <page id>` prints its link.
 This is the figure OCHA Comms quote. Checked 17 Nov 2026: the dashboard showed OCHA at $10.2M among
 the Ebola recipients, where the API keyword count below gave $8.2M; everything else matched.
 

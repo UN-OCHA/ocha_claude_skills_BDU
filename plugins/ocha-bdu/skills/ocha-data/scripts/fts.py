@@ -7,6 +7,7 @@ Pull figures from the OCHA FTS Visualization Tool (PreCheck) Power BI dashboard.
     python3 fts.py page [PAGE]               every visual on a page       -> one CSV each
     python3 fts.py visual PAGE VISUAL_ID     one visual                   -> one CSV
     python3 fts.py pages                     list the report's pages
+    python3 fts.py link [PAGE]               the dashboard's public link (opened on PAGE if given)
     python3 fts.py visuals [PAGE]            list a page's visuals and their ids
     python3 fts.py tables                    list the named tables (plans, sectors, countries, donors…)
     python3 fts.py table NAME|all            one named table, or all of them   -> fts_<name>.csv
@@ -110,6 +111,10 @@ def first_value(rows: list[dict]):
             if value is not None:
                 return pbi.to_number(value)
     return None
+
+
+def cmd_link(args):
+    print(pbi.share_url(args.page))
 
 
 def cmd_pages(args):
@@ -332,6 +337,8 @@ def main():
     ap.add_argument("--refresh", action="store_true", help="ignore the cached report definition")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("pages")
+    ln = sub.add_parser("link", help="the dashboard's public link, optionally on one page")
+    ln.add_argument("page", nargs="?", help="a page id from `fts.py pages`")
     v = sub.add_parser("visuals"); v.add_argument("page", nargs="?", default=pbi.PAGE_87_DAYS)
     p = sub.add_parser("page"); p.add_argument("page", nargs="?", default=pbi.PAGE_87_DAYS)
     one = sub.add_parser("visual"); one.add_argument("page"); one.add_argument("visual_id")
@@ -345,7 +352,7 @@ def main():
     kw.add_argument("--by", choices=["recipient", "donor", "country", "sector", "plan", "flow"], default="recipient")
     args = ap.parse_args()
     try:
-        {"pages": cmd_pages, "visuals": cmd_visuals, "visual": cmd_visual, "page": cmd_page,
+        {"link": cmd_link, "pages": cmd_pages, "visuals": cmd_visuals, "visual": cmd_visual, "page": cmd_page,
          "headline": cmd_headline, "donors": cmd_donors,
          "tables": cmd_tables, "table": cmd_table, "keyword": cmd_keyword}[args.cmd](args)
     except pbi.PowerBIError as exc:
