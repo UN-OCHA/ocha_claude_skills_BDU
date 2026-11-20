@@ -2,6 +2,10 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.20
+
+- **Brand site (ocha-frontify):** Claude now stops before putting one uploaded image on two blocks, so deleting a test section can no longer blank an image on a live page.
+
 ## 2026.11.19.4
 
 - **Social media:** new layout tips from Javier: put text in the photo’s empty spaces, keep it well clear of faces in portraits, let the gradient follow the text, and place the photo credit in a bottom corner on the margin.
