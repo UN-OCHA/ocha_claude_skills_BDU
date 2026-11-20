@@ -2,6 +2,10 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.20.2
+
+- **Photos (ocha-photo):** downloading from MediaValet now works on Windows too, and photographer names in any alphabet are kept correctly in the credits.
+
 ## 2026.11.20
 
 - **Brand site (ocha-frontify):** Claude now stops before putting one uploaded image on two blocks, so deleting a test section can no longer blank an image on a live page.

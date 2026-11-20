@@ -37,8 +37,12 @@ python3 ~/.claude/skills/ocha-photo/scripts/mediavalet.py setup     # Client ID 
 python3 ~/.claude/skills/ocha-photo/scripts/mediavalet.py login     # browser sign-in, BDU team account (the person types the password)
 ```
 
-- `setup` stores the three values only in `~/.claude/tokens.json` on that Mac. Never ask for them in chat,
-  never write them into a job folder or a skill.
+- `setup` stores the three values only in `~/.claude/tokens.json` on that computer. Never ask for them in
+  chat, never write them into a job folder or a skill.
+- **Windows works too** (added 20 Nov 2026): the private boxes are a small window instead of the Mac
+  dialog (or Windows’ own sign-in box if Python’s window kit is missing), and the command is usually
+  `python` or `py` rather than `python3`. The pop-up can open behind other windows: tell the person to
+  look for it in the taskbar.
 - `login` opens the MediaValet sign-in in the browser and waits up to 15 minutes. **The person signs in
   themselves** — never type a password. The tab then says “Signed in to MediaValet”.
 - After that it stays signed in. If a command says the sign-in expired (long unused, or the account

@@ -38,17 +38,26 @@ SCOPE = "openid api offline_access"
 UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) OCHA-BDU-MediaValet/1.0"}
 UUID = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
 
+# Windows: the console and files default to a Western code page, so a photographer's name or a
+# caption in Arabic, Cyrillic or many accents crashed print() or was saved garbled. Load-bearing:
+# every text file here is opened with encoding="utf-8", and output is UTF-8 on every system.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 
 def load():
     if not os.path.exists(TOKENS):
         return {}
-    with open(TOKENS) as f:
+    with open(TOKENS, encoding="utf-8") as f:
         return json.load(f)
 
 
 def save(d):
     tmp = TOKENS + ".tmp"
-    with open(tmp, "w") as f:
+    with open(tmp, "w", encoding="utf-8") as f:
         json.dump(d, f, indent=2)
     os.chmod(tmp, 0o600)
     os.replace(tmp, TOKENS)
@@ -63,19 +72,73 @@ def creds():
     return d
 
 
+TITLE = "MediaValet - stored on this computer only"
+
+
 def ask_private(prompt):
-    """macOS dialog with hidden input: the value never touches the chat or the terminal output."""
+    """A pop-up with hidden input, so the value never touches the chat or the terminal output.
+    Mac: the system dialog. Windows (and others): a small Python window; on Windows without
+    Python's window kit, Windows PowerShell's own sign-in box. Claude runs commands without a
+    keyboard prompt, so a terminal prompt (getpass) would not work here."""
+    value = None
+    if sys.platform == "darwin":
+        import subprocess
+        script = (f'display dialog "{prompt}" default answer "" with hidden answer '
+                  f'with title "{TITLE}" buttons {{"Cancel","Save"}} default button "Save"')
+        r = subprocess.run(["osascript", "-e", script, "-e", "text returned of result"], capture_output=True, text=True)
+        value = r.stdout if r.returncode == 0 else None
+    else:
+        try:
+            value = _ask_private_tk(prompt)
+        except ImportError:
+            if sys.platform != "win32":
+                sys.exit("No private pop-up available on this computer (Python's tkinter is missing).")
+            value = _ask_private_powershell(prompt)
+    if not value or not value.strip():
+        sys.exit("Setup cancelled - nothing saved.")
+    return value.strip()
+
+
+def _ask_private_tk(prompt):
+    import tkinter as tk
+    root = tk.Tk()
+    root.title(TITLE)
+    root.attributes("-topmost", True)        # the window must not open behind the Claude app
+    root.resizable(False, False)
+    result = {}
+    tk.Label(root, text=prompt, padx=16, pady=12, justify="left").pack(anchor="w")
+    entry = tk.Entry(root, show="*", width=48)
+    entry.pack(padx=16, fill="x")
+
+    def save(_=None):
+        result["v"] = entry.get()
+        root.destroy()
+        return "break"                       # the key press goes no further
+
+    row = tk.Frame(root, pady=12)
+    row.pack()
+    tk.Button(row, text="Cancel", width=10, command=root.destroy).pack(side="left", padx=4)
+    tk.Button(row, text="Save", width=10, command=save, default="active").pack(side="left", padx=4)
+    entry.bind("<Return>", save)
+    root.bind("<Escape>", lambda _: root.destroy())
+    root.after(200, entry.focus_force)
+    root.mainloop()
+    return result.get("v")
+
+
+def _ask_private_powershell(prompt):
+    """Windows PowerShell 5.1 (built into Windows 10/11) shows Get-Credential as a window with a
+    hidden password box. The value comes back on the script's output, never on screen."""
     import subprocess
-    script = (f'display dialog "{prompt}" default answer "" with hidden answer '
-              f'with title "MediaValet — stored on this Mac only" buttons {{"Cancel","Save"}} default button "Save"')
-    r = subprocess.run(["osascript", "-e", script, "-e", "text returned of result"], capture_output=True, text=True)
-    if r.returncode != 0 or not r.stdout.strip():
-        sys.exit("Setup cancelled — nothing saved.")
-    return r.stdout.strip()
+    ps = ("$c = Get-Credential -UserName 'MediaValet' -Message $env:MV_PROMPT; "
+          "if ($c) { [Console]::Out.Write($c.GetNetworkCredential().Password) }")
+    r = subprocess.run(["powershell.exe", "-NoProfile", "-Command", ps], capture_output=True, text=True,
+                       env=dict(os.environ, MV_PROMPT=prompt + "  (paste it in the Password box)"))
+    return r.stdout if r.returncode == 0 else None
 
 
 def setup():
-    print("Ask Javier Cueto (cuetoj@un.org) for the MediaValet Client ID, Secret and Primary Key, then paste them in the dialogs.")
+    print("Ask Javier Cueto (cuetoj@un.org) for the MediaValet Client ID, Secret and Primary Key, then paste them in the pop-ups.")
     client_id = ask_private("Paste the MediaValet CLIENT ID (from Javier):")
     secret = ask_private("Paste the MediaValet SECRET (from Javier):")
     key = ask_private("Paste the MediaValet PRIMARY KEY (from Javier):")
@@ -290,7 +353,7 @@ def download(assets, out):
         m.update(file=got, bytes=size)
         records.append(m)
         print(f"{got}  {m['width']}x{m['height']}  {size/1e6:.1f} MB  credit: {m['credit'] or '(none found)'}")
-    with open(os.path.join(out, "credits.json"), "w") as f:
+    with open(os.path.join(out, "credits.json"), "w", encoding="utf-8") as f:
         json.dump(records, f, indent=2, ensure_ascii=False)
     if problems:
         sys.exit("Downloaded, but check these:\n  " + "\n  ".join(problems))
@@ -441,7 +504,7 @@ def search(query, out, country=None, year=None, count=40, pool=400):
             break
 
     os.makedirs(out, exist_ok=True)
-    with open(os.path.join(out, "results.json"), "w") as f:
+    with open(os.path.join(out, "results.json"), "w", encoding="utf-8") as f:
         json.dump([{k: v for k, v in r.items() if k != "thumb"} for r in results], f, indent=2, ensure_ascii=False)
     print(f"{len(found)} photos matched the meaning; {len(results)} kept after filters.")
     for r in results:
