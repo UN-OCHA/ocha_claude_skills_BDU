@@ -88,8 +88,8 @@ python3 ~/.claude/skills/ocha-photo/scripts/mediavalet.py search "aid workers di
   food”, “women collecting water”, “a health worker with a child”), not as keywords.
 - **Keep the request to 20 words or fewer.** MediaValet rejects longer ones with an error
   (“Search term too long, maximum 20 words allowed”).
-- **Give `--country` as the country name** (it is also added to the search, which the ranking
-  needs) and `--year` for the year it was taken. The AI ranking alone mixes in South Sudan for
+- **Give `--country` as the country name, never the ISO3 code** (it is also added to the search, which the
+  ranking needs; with `BFA` some searches returned nothing, 20 Nov 2026) and `--year` for the year it was taken. The AI ranking alone mixes in South Sudan for
   “Sudan” and older years; these two filters remove them using the photo’s own metadata.
 - **The year is when the photo was TAKEN, never when it was uploaded** (photos often reach the library
   months later). `--year` reads, strongest first: the date the caption opens with (“Kebe, Ethiopia.
@@ -191,7 +191,8 @@ When choosing or suggesting photos (not only when given links):
   photo of someone receiving help says assistance, not inclusion. For an event on inclusion, participation
   or leadership, choose people speaking, leading, working or deciding.
 - **Crop for meaning.** Don’t crop away what gives the photo its sense, such as the person someone is
-  working with. When OCHA staff are part of the story, keep the vest visible.
+  working with. For a portrait-format slide, a tight crop on the one person who meets the camera often
+  carries more than the whole group squeezed in. When OCHA staff are part of the story, keep the vest visible.
 - The image and its text work together: a dignified photo can be undone by its caption or copy, and vice versa.
 
 ## 6. Changing MediaValet — lightboxes, share links, captions, credits, deleting

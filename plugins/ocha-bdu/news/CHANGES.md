@@ -2,6 +2,12 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.21
+
+- **Social media (ocha-social-media):** Claude now does the Canva steps that need Chrome (fonts, guides, transitions) straight away, without stopping to ask each time.
+- **Social media (ocha-social-media):** new layout tips: crop a wide group photo to one clear subject on 3:4 slides, choose photos that show what the figure says, and use a soft shade behind small labels on busy photos.
+- **Photos (ocha-photo):** searching MediaValet by country works best with the country’s name, not its three-letter code.
+
 ## 2026.11.20.2
 
 - **Photos (ocha-photo):** downloading from MediaValet now works on Windows too, and photographer names in any alphabet are kept correctly in the credits.

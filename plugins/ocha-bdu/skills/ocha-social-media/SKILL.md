@@ -53,6 +53,11 @@ a job that will stall halfway.
 Then tell the person, once, that **some Canva steps can’t be done through the connector and will be done
 in their Chrome** (§4), so they’re not surprised when Chrome moves.
 
+**Using Chrome for these steps is expected and approved** (Javier, 21 Nov 2026): the connector can’t do
+them, so this skill is the standing approval. Don’t stop to ask before each Chrome step, and don’t offer a
+connector-only workaround or leave those steps for the person to do by hand. Say it once at the start,
+then carry on. Stop only if Chrome isn’t connected or Canva isn’t signed in there.
+
 ## What the Canva connector can and cannot do
 
 | Can (connector) | Cannot (needs Chrome, see §4) |
@@ -74,6 +79,9 @@ around the font limit. Using the Canva desktop app instead of Chrome does not ch
 - Read the Trello card (description, checklist, comments, attachments) — or the brief the person pasted
   (§0). The **card description is the cleared copy**; comments often hold the edits already folded in. Never reword cleared copy, and never
   change figures — flag doubts instead.
+- **The latest cleared draft wins** (Javier, 20 Nov 2026). When the comments hold several versions of the
+  copy (a suggestion, then “finally the cleared draft”), use the latest one marked as cleared and check
+  each comment’s time. An earlier suggestion is not the copy, even if it came from a senior colleague.
 - Note per slide: copy and photo link. Check the copy against `ocha-editorial-style` and **flag**
   (don’t fix) anything off.
 - **Long copy: propose the split, get an OK** (Javier, 29 Oct 2026). Slides have a big line (96/104 px)
@@ -108,6 +116,11 @@ Get, enhance and credit the photos with the **`ocha-photo`** skill:
 - **Choosing photos:** look first at the photo sources listed on the Trello card, then MediaValet. Show
   the candidates cropped to the slide format with the gradient on, so the choice is made on the real
   result.
+- **The photo shows what the slide’s figure says** (Javier, 20 Nov 2026). “1.2 million people received
+  aid” needs aid arriving on screen (a distribution), not just a person. A slightly older photo that shows
+  the figure’s meaning beats a recent one that doesn’t; mention its date when you propose it.
+- **Wide group photo on a 3:4 slide: crop to one clear subject** (Javier’s edit, Burkina Faso 87M,
+  20 Nov 2026): the person who meets the camera, framed tightly, rather than squeezing the whole group in.
 
 ## 3. Canva: template → copy → name → file → build
 
@@ -275,7 +288,9 @@ template: kicker text box at left 80, so the blue edge lands on the 72 px margin
   layer, about 60 %). Up to three short quotes; 56 px between one attribution and the next quote.
 - **Lists** (closing slide): thin separator lines (white, 2 px, 60 %) between items, not pills. Pills only
   for short items of one to three words. 88 px per row: line, then the item 20 px below it.
-- **No orphans or split names.** Fix by choosing another text box width — never by changing the copy. Keep
+- **No orphans or split names.** Fix by choosing another text box width — never by changing the copy.
+  When no width works, a manual line break is fine (it isn’t a copy change): Javier broke “clean water /
+  and sanitation” by hand on the Burkina Faso 87M carousel (20 Nov 2026). Keep
   the left edge on the grid; the (invisible) right edge may sit between columns if that’s what keeps a name
   like “EL FASHER” together.
 
@@ -287,7 +302,9 @@ solution → what it means for people → what partners say → closing message.
 - **Every photo has a subject** — a person, or a telling object (a burnt car, an empty school). Never a
   merely decorative background (Javier, 27 Oct 2026).
 - **Text never touches faces or the photo’s main action.** Put text over the most uniform part of the
-  photo (sky, a wall, the ground): use the photo’s empty spaces. Many options are possible: move the text
+  photo (sky, a wall, the ground): use the photo’s empty spaces. Decide per photo: text goes where there is
+  room and the best contrast; there is no fixed position across the slides of a carousel (Javier, 20 Nov 2026).
+  After placing text and gradient, check the credit still reads; it is never the reason to move the text. Many options are possible: move the text
   (top or bottom), move or scale the photo, or both — whichever keeps the story. Zooming out to show the
   whole scene often tells more, but not always (Javier, 19 Nov 2026). Reframe the photo so faces and busy
   areas sit away from the text — e.g. lower the photo when a 3-line headline would reach a head.
@@ -314,6 +331,10 @@ solution → what it means for people → what partners say → closing message.
   540, 1080×900 for bottom text (flip for top text), then text and credit layers to the front.
   Pick the strong one over people or busy colour.
 - Keep the gradient behind the OCHA logo subtle (≈30 % opacity).
+- **A small label over a busy patch gets its own soft shade** (Javier, 20 Nov 2026). When a kicker or
+  country label sits on bright, busy colour even with the gradient on, don’t darken the whole gradient:
+  put `assets/text_cloud_soft_1600x640.png` (a soft black ellipse, no visible edge) behind just that label.
+  Example: Burkina Faso 87M cover, about left −240, top 580, 1080×432, opacity 75 %, layered under the text.
 - **Keep the subject out of the gradient** (Javier, 18 Nov 2026). When the text gradient darkens a person
   or the main subject, duplicate the photo, remove the background from the copy, and place it above the
   gradient and below the text. Lower its opacity (around 65–100 %) so it blends into the gradient instead

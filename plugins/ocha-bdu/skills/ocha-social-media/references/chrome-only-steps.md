@@ -53,10 +53,21 @@ Social media uses **Inter**; photo credits stay in Roboto Condensed (Javier, 19 
 2. Click “Show the font styles for Inter”.
 3. Pick the style by its accessibility label: Black = **“Heavy”**, ExtraBold = **“Ultra Bold”**, Bold = “Bold”.
 
+**Bold on part of a text box** (e.g. “Another **$480 million** is needed…”): the connector can only bold a
+whole box. In Chrome, select just those words and pick **Ultra Bold** in the font panel as above. **Never
+Cmd+B:** on Inter SemiBold it removes the bold instead of adding it.
+
 If the design uses another font: pick Inter in the font panel and use **Change all → All pages**
 (“Change all Raleway → Inter”), then set weights per element. Afterwards re-read the design through
 the connector: every text element’s fontRef should be `YAFdJvSyp_k,…` (Inter) — then re-check line
 breaks, orphans and the 48 px gap above credits, because Inter sets wider than most fonts.
+
+## Copy a mock-up into the live design (same link)
+
+When changes were built in a copy of the design: open both designs in two tabs. Per page: in the copy,
+click the grey area beside the page, Cmd+A, Cmd+C; in the live design, open the same page, click the grey
+area, Cmd+A, Delete, Cmd+V. Check each page, then move the copy to the Bin when asked. The live link and
+the page settings stay as they were.
 
 ## Delete a design
 
