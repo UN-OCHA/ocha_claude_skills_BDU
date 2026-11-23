@@ -10,7 +10,7 @@ The updates, newest first:
 ## 2026.11.23.8
 
 - All OCHA BDU skills now start with ocha-bdu- (for example ocha-bdu-visual-identity, ocha-bdu-video, ocha-bdu-mapping). They work the same; only the names changed.
-- If a project note mentions an old name (like ocha-video), Claude finds the new one: no need to change anything.
+- If one of your project notes still uses an old name (like ocha-video), ask Claude to update it to the new one.
 
 ## 2026.11.23.7
 
