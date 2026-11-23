@@ -4,9 +4,14 @@ Source: the OCHA BDU plugin (github.com/UN-OCHA/ocha_claude_skills_BDU), maintai
 
 What to do, once in this session:
 - At the end of your first reply, add a short section headed "What's new in the OCHA BDU skills" and say, in plain words and in the user's language, what changed: one short line per change, 4 lines at most. Write for designers, not developers: what they can now do or what now works differently. No file names, no version numbers.
-- Then record that this note was shown, so it doesn't come back: in the Claude settings file (~/.claude/settings.json on a Mac, %USERPROFILE%\.claude\settings.json on Windows; create it if missing), keep everything already there and set, under "env": "OCHA_BDU_NEWS_SEEN": "2026.11.21". Check the file is still valid JSON. Change nothing else. You don't need to ask first: this setting only records that the note was shown.
+- Then record that this note was shown, so it doesn't come back: in the Claude settings file (~/.claude/settings.json on a Mac, %USERPROFILE%\.claude\settings.json on Windows; create it if missing), keep everything already there and set, under "env": "OCHA_BDU_NEWS_SEEN": "2026.11.23". Check the file is still valid JSON. Change nothing else. You don't need to ask first: this setting only records that the note was shown.
 
 The updates, newest first:
+## 2026.11.23
+
+- **Photos (ocha-photo):** a new point on sensitive photos: a recognisable woman at the door of her own home can be identified and found, however beautiful the photo. Weigh it case by case, and when in doubt pick people seen from behind or at a distance, or let the shelters and objects tell the story.
+- **Social media (ocha-social-media):** Claude now uses the latest cleared copy from the Trello comments, can bold just a few words in a text box, and accepts a manual line break when no box width avoids a short last line.
+
 ## 2026.11.21
 
 - **Social media (ocha-social-media):** Claude now does the Canva steps that need Chrome (fonts, guides, transitions) straight away, without stopping to ask each time.
@@ -25,7 +30,3 @@ The updates, newest first:
 
 - **Social media:** new layout tips from Javier: put text in the photo's empty spaces, keep it well clear of faces in portraits, let the gradient follow the text, and place the photo credit in a bottom corner on the margin.
 - **Social media:** to make a country name stand out, set it one weight heavier than the rest of its line.
-
-## 2026.11.19.3
-
-- **Photos:** searching MediaValet by country ("find photos of Burkina Faso...") works again. It had stopped returning results.

@@ -2,6 +2,11 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.23
+
+- **Photos (ocha-photo):** a new point on sensitive photos: a recognisable woman at the door of her own home can be identified and found, however beautiful the photo. Weigh it case by case, and when in doubt pick people seen from behind or at a distance, or let the shelters and objects tell the story.
+- **Social media (ocha-social-media):** Claude now uses the latest cleared copy from the Trello comments, can bold just a few words in a text box, and accepts a manual line break when no box width avoids a short last line.
+
 ## 2026.11.21
 
 - **Social media (ocha-social-media):** Claude now does the Canva steps that need Chrome (fonts, guides, transitions) straight away, without stopping to ask each time.

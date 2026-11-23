@@ -193,6 +193,11 @@ When choosing or suggesting photos (not only when given links):
 - **Crop for meaning.** Don’t crop away what gives the photo its sense, such as the person someone is
   working with. For a portrait-format slide, a tight crop on the one person who meets the camera often
   carries more than the whole group squeezed in. When OCHA staff are part of the story, keep the vest visible.
+- **A beautiful photo can still be sensitive** (Burkina Faso 87M, November 2026). A woman whose face we
+  see, at the door of her own home or shelter, shows who she is and where she lives. Even when the photo is
+  beautiful and dignified, she can be identified and found. Weigh it case by case (place, situation, consent
+  in the caption): when in doubt, prefer photos where people aren’t recognisable at their home (from behind,
+  at a distance) or let the shelters and objects carry the story.
 - The image and its text work together: a dignified photo can be undone by its caption or copy, and vice versa.
 
 ## 6. Changing MediaValet — lightboxes, share links, captions, credits, deleting
