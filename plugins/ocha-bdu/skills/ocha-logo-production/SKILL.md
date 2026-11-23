@@ -351,8 +351,11 @@ Vector files, without extra apps:
 
 ## 8. Handing the files onward
 
-- Public download links → `dropbox-public-link`. Never the Dropbox MCP's
-  `create_shared_link`.
+- Public download links: never use the Dropbox connector’s `create_shared_link`. It
+  makes a link only OCHA team members can open, and it takes the file’s one main link,
+  which then blocks a proper public one. Make the link by hand in Dropbox instead
+  (Share → link settings → “Anyone with the link”) and test it in a private browser
+  window before sending it.
 - Brand portal → `ocha-frontify`. Image/asset blocks are UI-only; text
   blocks are updatable, and anchors need `class="link"` or they render as grey chips.
 - **Canva** has two traps worth knowing:

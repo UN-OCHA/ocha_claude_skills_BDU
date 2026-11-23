@@ -175,6 +175,11 @@ The year-month-day format is for file names only. Dates written in text follow
 A job produced in a single language gets no language code at all. Add codes only when the
 same deliverable exists in two or more languages, and then give every language its code.
 
+**Style names follow the same logic** (Javier, 23 Nov 2026). While a job has several styles
+side by side (a flat and a cut-out version, say), name each by its style: `_flat`, `_cutout`.
+Once one is chosen and it is the only version in `export/`, drop the style name from the
+final. The versions that weren’t chosen keep theirs in `archive/`, so the two can’t be mixed up.
+
 Examples:
 
 - `sdn_humanitarian_snapshot_a4.pdf` — one language, no code, no date

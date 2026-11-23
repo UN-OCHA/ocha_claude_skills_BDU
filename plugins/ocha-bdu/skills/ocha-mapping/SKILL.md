@@ -471,7 +471,7 @@ geometry as GeoJSON (or shapefile/GeoPackage) and styling as `.qml` (QGIS) or `.
 ## 13. Tooling
 
 - **Illustrator** — the OCHA DataViz plugin's **Map Maker** builds choropleth and bubble
-  maps directly on the artboard. See `ocha-dataviz-release` for plugin architecture.
+  maps directly on the artboard.
 - **Datawrapper** — preferred for web-embedded maps on unocha.org (Drupal).
 - **Ready-made maps** — `Maps/Illustrator_ready_to_use_maps/`, `Maps/location_maps_2024/`.
 

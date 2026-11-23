@@ -2,6 +2,11 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.23.2
+
+- **Logos (ocha-logo-production):** clearer advice for sharing logo files from Dropbox: make the link by hand in Dropbox (Share → “Anyone with the link”) and test it in a private window, because the link Claude’s Dropbox connector makes only opens for OCHA team members.
+- **Charts, maps, brand and design (ocha-dataviz, ocha-mapping, ocha-visual-identity, ocha-design):** removed pointers to internal BDU tools you don’t have installed.
+
 ## 2026.11.23
 
 - **Photos (ocha-photo):** a new point on sensitive photos: a recognisable woman at the door of her own home can be identified and found, however beautiful the photo. Weigh it case by case, and when in doubt pick people seen from behind or at a distance, or let the shelters and objects tell the story.

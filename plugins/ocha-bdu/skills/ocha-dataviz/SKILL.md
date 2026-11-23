@@ -8,8 +8,7 @@ description: >
   Appeal/GHO products, or asks for OCHA dataviz rules (bar/line/pie/stacked/
   donut/matrix/icon). Trigger on phrases like "OCHA chart", "OCHA dataviz",
   "humanitarian dataviz", "dataviz rules", "which chart should I use", or
-  "infographic guidelines". For the Illustrator plugin RELEASE workflow, use
-  `ocha-dataviz-release`. For map-making specifically, use `ocha-mapping`. For
+  "infographic guidelines". For map-making specifically, use `ocha-mapping`. For
   logo / brand colours / design system only, use `ocha-visual-identity`.
 ---
 
@@ -224,7 +223,6 @@ generates brand-compliant SVG charts directly on the artboard.
 - **Chart types** (14 in the picker tile grid): hbar, vbar, stacked-bar, stacked-col, cluster, line, pie, donut, bubble, icon, table, sankey, keyfigures, timeline. (Map exists internally but is hidden on `main`; see `project_mapmaker.md`.)
 - **Styles**: `ocha` / `hnrp` / `flash` / `gho` — each with full palette, icon palette, and humanitarian-accent logic.
 - **AI-assisted import** (shipped v2026.0.16): the plugin can ingest JSON produced by an AI assistant (Copilot / ChatGPT / Claude / Gemini). All 14 picker chart types are supported. Single chart or batch (up to 20 charts in one click). Two batch layout modes: **One per artboard** (multi-page deliverable) or **Grid** (one-pager, multiple charts packed onto each artboard with auto-cell-size — ~9 on A4 portrait, ~4 on A5, ~16 on A0). Tables, timelines and sankey diagrams span 2 cells in grid mode. Per-chart selection in the batch review modal. Pause-on-error with skip/stop UX and one-click "Copy fix prompt" for AI-fixable errors. State and architecture documented in `project_ai_import.md`.
-- **Release workflow** is a separate skill: `ocha-dataviz-release`.
 - **Project rule** (from the plugin's own `CLAUDE.md`): cross-tool changes to shared concerns (brand colours, style IDs, chart keys, number formatting, chart data shapes) need explicit confirmation before being applied to the sibling **online dashboard editor** in `ocha_dataviz_online/`.
 
 ### 7.1 Maintainer rule when adding a new chart type to the plugin

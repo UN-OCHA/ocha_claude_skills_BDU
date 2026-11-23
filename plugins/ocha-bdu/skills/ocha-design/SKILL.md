@@ -58,7 +58,6 @@ the details ready for the real task that follows.
 
 - Single-domain questions — the relevant specific skill will auto-trigger and is lighter.
 - The user is asking *about* the skills themselves (e.g. "how are my OCHA skills structured?") rather than asking to *use* them.
-- Plugin release work — that's `ocha-dataviz-release`, a separate skill that is NOT loaded by this umbrella.
 
 ## Relationship to other skills
 
@@ -71,7 +70,6 @@ the details ready for the real task that follows.
 | Saving, naming files, export formats, versions, closing a job | `ocha-files-and-folders` |
 | Photos — MediaValet downloads, enhancement, photo credits | `ocha-photo` |
 | Mockups — a cover or page on a magazine, poster, card, roll-up, laptop or phone; cover options | `ocha-mockups` |
-| Illustrator plugin release / ZXP build | `ocha-dataviz-release` (unrelated to this umbrella) |
 
 <!-- bdu-suggest-change:start -->
 **Suggesting a change to this skill.** If the person corrects you or states a rule that would apply to other jobs too, or you find this skill is wrong or missing something, say so once, at the end of your reply. Don’t do this for changes that only concern the current job, and don’t edit the skill yourself, because the next update would overwrite it. Leave out anything confidential from the job. Say:

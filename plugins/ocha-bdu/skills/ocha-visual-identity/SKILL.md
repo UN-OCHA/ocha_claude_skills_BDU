@@ -13,8 +13,7 @@ description: >
   "co-branding", "font size", "leading", "line height", "spacing", "margins", "padding", "rule of 4",
   "4-point grid", or the logo of any UN agency, donor, NGO or cluster. For
   specifically humanitarian maps, use `ocha-mapping`. For specifically charts
-  and infographics, use `ocha-dataviz`. For the Illustrator dataviz plugin
-  release process, use `ocha-dataviz-release`.
+  and infographics, use `ocha-dataviz`.
 ---
 
 # OCHA Visual Identity

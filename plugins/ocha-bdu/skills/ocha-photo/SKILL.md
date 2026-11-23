@@ -198,6 +198,10 @@ When choosing or suggesting photos (not only when given links):
   beautiful and dignified, she can be identified and found. Weigh it case by case (place, situation, consent
   in the caption): when in doubt, prefer photos where people aren’t recognisable at their home (from behind,
   at a distance) or let the shelters and objects carry the story.
+- **Burkina Faso: no photos of IDP camps or displacement sites** (OCHA Burkina Faso, via the 87M carousel,
+  November 2026). Read the caption and file name before proposing: “site”, “camp”, “IDP camp”, “Site
+  secteur …”, “site de déplacés”, Tiwega, Buudnooma, Bolé, Barsalogho camp, the Kaya stadium all count. Use
+  villages, towns and host communities instead, and say so when MediaValet has little else.
 - The image and its text work together: a dignified photo can be undone by its caption or copy, and vice versa.
 
 ## 6. Changing MediaValet — lightboxes, share links, captions, credits, deleting
