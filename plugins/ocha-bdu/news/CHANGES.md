@@ -2,6 +2,11 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.23.3
+
+- **Public Dropbox links (ocha-dropbox-links, new):** Claude can now make Dropbox links that open for anyone, not only the OCHA team, and check whether a link asks people to sign in. The first time, Claude walks you through a 5-minute setup that connects your own Dropbox.
+- **Logos (ocha-logo-production):** no more making public links by hand in Dropbox: Claude makes them with the new Dropbox skill.
+
 ## 2026.11.23.2
 
 - **Logos (ocha-logo-production):** clearer advice for sharing logo files from Dropbox: make the link by hand in Dropbox (Share → “Anyone with the link”) and test it in a private window, because the link Claude’s Dropbox connector makes only opens for OCHA team members.
