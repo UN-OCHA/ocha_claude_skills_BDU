@@ -2,9 +2,9 @@
 name: ocha-dropbox-links
 description: >
   Make truly public (“anyone with the link”) Dropbox links for files and folders, through Claude, and
-  check whether a Dropbox link opens for people outside OCHA. Use whenever someone asks to “share this
-  file publicly”, “give me a Dropbox link”, “public link”, “download link”, “make this Dropbox file
-  public”, “link for the brand portal / README / email to a partner / Canva”, or says “my Dropbox link
+  check whether a Dropbox link opens for people outside OCHA. Use as soon as someone mentions sharing a
+  Dropbox file or folder or sending one to someone, or asks to “share this file publicly”, “give me a
+  Dropbox link”, “public link”, “download link”, “make this Dropbox file public”, “link for the brand portal / README / email to a partner / Canva”, or says “my Dropbox link
   doesn’t work for external people” or “the link asks people to sign in”. Includes the one-time setup
   that connects the person’s own Dropbox. NEVER use the Dropbox connector’s create_shared_link for
   these: it makes links only OCHA team members can open, and it takes the file’s one main link.
@@ -31,13 +31,23 @@ Windows the command is usually `python` or `py` instead of `python3`.
 python3 <skill>/scripts/dropbox_links.py status
 ```
 
-`READY - connected to the Dropbox of …` → go to §2. `NOT SET UP` → walk the person through the
-one-time setup below. Do every step you can yourself; they only click in the browser and paste into
-private pop-ups. Tell them first, in your own words:
+`READY - connected to the Dropbox of …` → go to §2.
 
-*“To make public Dropbox links I need a one-time setup: about 5 minutes. You create a small Dropbox
-‘app’ of your own (just a key that lets me make links in your Dropbox; nobody else’s), then allow it.
-Nothing goes in this chat: you paste into private pop-ups, and the key stays on your computer.”*
+`NOT SET UP` → **offer the setup; don’t start it unasked.** This skill is for the OCHA BDU team. If the
+person is not in the BDU, say it is OCHA BDU internal and that ochavisual@un.org can help, and stop.
+For a BDU colleague, explain in simple words and ask whether they want to set it up now:
+
+*“I can make Dropbox links that open for anyone you send them to, even people outside OCHA, without
+them signing in. I check each link works before I give it to you. If the file already has a link, you
+get that same one back. To do this I need a one-time setup, about 5 minutes: you create a small
+Dropbox ‘app’ of your own (a key that lets me make links in your Dropbox only), then allow it. Nothing
+goes in this chat: you paste into private pop-ups, and the key stays on your computer. Do you want to
+set it up now?”*
+
+If they say no, help with what they asked another way (they can copy the link in Dropbox themselves,
+with “Anyone with the link” chosen) and don’t offer again in this session. If yes, walk them through
+the steps below. Do every step you can yourself; they only click in the browser and paste into
+private pop-ups.
 
 ### Step 1 — the person creates their Dropbox app
 

@@ -4,9 +4,13 @@ Source: the OCHA BDU plugin (github.com/UN-OCHA/ocha_claude_skills_BDU), maintai
 
 What to do, once in this session:
 - At the end of your first reply, add a short section headed "What's new in the OCHA BDU skills" and say, in plain words and in the user's language, what changed: one short line per change, 4 lines at most. Write for designers, not developers: what they can now do or what now works differently. No file names, no version numbers.
-- Then record that this note was shown, so it doesn't come back: in the Claude settings file (~/.claude/settings.json on a Mac, %USERPROFILE%\.claude\settings.json on Windows; create it if missing), keep everything already there and set, under "env": "OCHA_BDU_NEWS_SEEN": "2026.11.23.6". Check the file is still valid JSON. Change nothing else. You don't need to ask first: this setting only records that the note was shown.
+- Then record that this note was shown, so it doesn't come back: in the Claude settings file (~/.claude/settings.json on a Mac, %USERPROFILE%\.claude\settings.json on Windows; create it if missing), keep everything already there and set, under "env": "OCHA_BDU_NEWS_SEEN": "2026.11.23.7". Check the file is still valid JSON. Change nothing else. You don't need to ask first: this setting only records that the note was shown.
 
 The updates, newest first:
+## 2026.11.23.7
+
+- Dropbox links: the first time you mention sharing a Dropbox file, Claude explains what it can do (links that open for anyone, checked before you get them) and offers a 5-minute setup.
+
 ## 2026.11.23.6
 
 - The skills now say BDU instead of the old DMU when they mention the team Dropbox. Folder locations on your computer are unchanged.
@@ -24,8 +28,3 @@ The updates, newest first:
 
 - **Public Dropbox links (ocha-dropbox-links, new):** Claude can now make Dropbox links that open for anyone, not only the OCHA team, and check whether a link asks people to sign in. The first time, Claude walks you through a 5-minute setup that connects your own Dropbox.
 - **Logos (ocha-logo-production):** no more making public links by hand in Dropbox: Claude makes them with the new Dropbox skill.
-
-## 2026.11.23.2
-
-- **Logos (ocha-logo-production):** clearer advice for sharing logo files from Dropbox: make the link by hand in Dropbox (Share -> "Anyone with the link") and test it in a private window, because the link Claude's Dropbox connector makes only opens for OCHA team members.
-- **Charts, maps, brand and design (ocha-dataviz, ocha-mapping, ocha-visual-identity, ocha-design):** removed pointers to internal BDU tools you don't have installed.

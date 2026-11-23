@@ -2,6 +2,10 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.23.7
+
+- Dropbox links: the first time you mention sharing a Dropbox file, Claude explains what it can do (links that open for anyone, checked before you get them) and offers a 5-minute setup.
+
 ## 2026.11.23.6
 
 - The skills now say BDU instead of the old DMU when they mention the team Dropbox. Folder locations on your computer are unchanged.
