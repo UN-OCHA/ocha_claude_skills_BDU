@@ -67,7 +67,7 @@
   video.addEventListener("seeked", () => { frameNow = frameOf(video.currentTime); tick(); });
   const setPlayLabel = () => {
     const playing = !video.paused;
-    playBtn.innerHTML = `<i class="fa-regular fa-${playing ? "pause" : "play"}" aria-hidden="true"></i><span>${playing ? "Pause" : "Play"}</span>`;
+    playBtn.innerHTML = `<i class="fa-solid fa-${playing ? "pause" : "play"}" aria-hidden="true"></i><span>${playing ? "Pause" : "Play"}</span>`;
     playBtn.setAttribute("aria-label", playing ? "Pause" : "Play");
   };
   video.addEventListener("play", setPlayLabel); video.addEventListener("pause", setPlayLabel);
@@ -191,10 +191,10 @@
     const small = "cd-button cd-button--outline cd-button--small";
     const actions = mine
       ? `<button class="cd-button cd-button--small" data-save="${c.id}">Save</button><button class="${small}" data-cancel="${c.id}">Cancel</button>`
-      : (c.status === "fixed" ? `<button class="cd-button cd-button--small" data-status="ok" data-for="${c.id}"><i class="fa-regular fa-check" aria-hidden="true"></i>Looks good</button><button class="${small}" data-status="open" data-for="${c.id}">Still not right</button>` : "")
+      : (c.status === "fixed" ? `<button class="cd-button cd-button--small" data-status="ok" data-for="${c.id}"><i class="fa-solid fa-check" aria-hidden="true"></i>Looks good</button><button class="${small}" data-status="open" data-for="${c.id}">Still not right</button>` : "")
         + (c.status === "ok" ? `<button class="${small}" data-status="open" data-for="${c.id}">Reopen</button>` : "")
-        + `<button class="${small}" data-edit="${c.id}"><i class="fa-regular fa-pen" aria-hidden="true"></i>Edit</button>`
-        + `<button class="${small}" data-del="${c.id}"><i class="fa-regular fa-trash-can" aria-hidden="true"></i>Delete</button>`;
+        + `<button class="${small}" data-edit="${c.id}"><i class="fa-solid fa-pen" aria-hidden="true"></i>Edit</button>`
+        + `<button class="${small}" data-del="${c.id}"><i class="fa-solid fa-trash-can" aria-hidden="true"></i>Delete</button>`;
     return `<li class="cd-card rv-item${c.id === selected ? " is-selected" : ""}" data-id="${c.id}"><div class="cd-card__content">
       <div class="rv-item__meta"><span class="rv-num">#${n}</span><button class="rv-time mono" data-jump="${c.id}" title="Go to this frame">${tc(c.frame)}</button>
         <span class="app-hint">${esc(where)}</span><span class="rv-status is-${c.status}">${status}</span></div>

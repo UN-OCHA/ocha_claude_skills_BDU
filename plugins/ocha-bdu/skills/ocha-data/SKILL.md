@@ -231,7 +231,7 @@ Two projects carry their own copy of the FTS client and must stay self-contained
 is canonical; if you fix the client, update all three.
 
 - `~/OCHA DMU Dropbox/<your-name>/Projects/2026/UNGA81/UNGA81_87M_Event/tooling/data_pipeline/`
-  — the 87 Million Lives figures workbook.
+  — the 87 Million Lives figures workbook. OCHA BDU internal content: only the BDU can open it. For more information, contact ochavisual@un.org.
 - `UN-OCHA/gho-prioritized-tracker-BDU` (GitHub) — the daily GitHub Action that publishes the
   prioritized figures as CSVs for Datawrapper.
 

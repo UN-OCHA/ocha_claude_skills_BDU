@@ -34,6 +34,8 @@ video skill’s thumbnail, the logo skill’s artboards — but they follow thes
 
 ### Files from the BDU Dropbox
 
+> **OCHA BDU internal content.** These folders are in the OCHA BDU Dropbox, which only the OCHA Brand and Design Unit can open. For more information, contact ochavisual@un.org.
+
 The OCHA skills point to shared folders in the BDU Dropbox: logos, icons, geodata, the sound library,
 ready-made maps. Dropbox often keeps folders online only, so a file can look present but be empty or fail
 to open.

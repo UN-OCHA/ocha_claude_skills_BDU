@@ -28,6 +28,9 @@ shadows, reflections, lighting and blend modes are kept exactly; only the design
 
 The templates are BDU’s curated set in the OCHA DMU Dropbox:
 `~/OCHA DMU Dropbox/<your-name>/Design/AI_skills_and_prompts/bdu/ocha_claude_skills_BDU/mockups`.
+
+> **OCHA BDU internal content.** The templates are in the OCHA BDU Dropbox, which only the OCHA Brand and Design Unit can open. For more information, contact ochavisual@un.org.
+
 Dropbox often keeps them **online-only**, and then they can’t be opened. So before the first
 render in a session, check the template(s) you are about to use:
 

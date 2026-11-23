@@ -169,6 +169,8 @@ lives in Javier's Dropbox:
 This and every other Dropbox folder in this skill must be available offline on the user’s computer:
 see “Files from the BDU Dropbox” in `ocha-files-and-folders`.
 
+> **OCHA BDU internal content.** The Dropbox folders in this skill are in the OCHA BDU Dropbox, which only the OCHA Brand and Design Unit can open. For more information, contact ochavisual@un.org.
+
 **Dropbox link (public):**
 https://www.dropbox.com/scl/fo/p8ii3zn8ixo99mjqr18ny/AGdbTBJZFDBdmxjjWbjmTjU?rlkey=rsoq8co6pzh09tcnf7xlgpmnm&dl=0
 

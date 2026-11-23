@@ -7,7 +7,9 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/kit.css">
 <link rel="stylesheet" href="/review.css">
-<script src="https://kit.fontawesome.com/f4c1c5435d.js" crossorigin="anonymous"></script>
+<!-- Free Font Awesome (Classic Solid), pinned: this tool ships in the public skills repo, so it must
+     not use BDU's Pro kit. Only free Solid icons work here (fa-solid). -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
 <a class="cd-skip-link" href="#main">Skip to main content</a>
@@ -28,11 +30,11 @@
       <div class="rv-overlay" id="overlay" aria-label="Click to comment on this frame"></div>
     </div>
     <div class="rv-transport">
-      <button class="cd-button cd-button--outline cd-button--small" data-step="-30" title="Back 1 second (Shift + ←)" aria-label="Back 1 second"><i class="fa-regular fa-backward" aria-hidden="true"></i></button>
-      <button class="cd-button cd-button--outline cd-button--small" data-step="-1" title="Back 1 frame (←)" aria-label="Back 1 frame"><i class="fa-regular fa-backward-step" aria-hidden="true"></i></button>
-      <button class="cd-button cd-button--small" id="play" title="Play or pause (Space)" aria-label="Play"><i class="fa-regular fa-play" aria-hidden="true"></i><span>Play</span></button>
-      <button class="cd-button cd-button--outline cd-button--small" data-step="1" title="Forward 1 frame (→)" aria-label="Forward 1 frame"><i class="fa-regular fa-forward-step" aria-hidden="true"></i></button>
-      <button class="cd-button cd-button--outline cd-button--small" data-step="30" title="Forward 1 second (Shift + →)" aria-label="Forward 1 second"><i class="fa-regular fa-forward" aria-hidden="true"></i></button>
+      <button class="cd-button cd-button--outline cd-button--small" data-step="-30" title="Back 1 second (Shift + ←)" aria-label="Back 1 second"><i class="fa-solid fa-backward" aria-hidden="true"></i></button>
+      <button class="cd-button cd-button--outline cd-button--small" data-step="-1" title="Back 1 frame (←)" aria-label="Back 1 frame"><i class="fa-solid fa-backward-step" aria-hidden="true"></i></button>
+      <button class="cd-button cd-button--small" id="play" title="Play or pause (Space)" aria-label="Play"><i class="fa-solid fa-play" aria-hidden="true"></i><span>Play</span></button>
+      <button class="cd-button cd-button--outline cd-button--small" data-step="1" title="Forward 1 frame (→)" aria-label="Forward 1 frame"><i class="fa-solid fa-forward-step" aria-hidden="true"></i></button>
+      <button class="cd-button cd-button--outline cd-button--small" data-step="30" title="Forward 1 second (Shift + →)" aria-label="Forward 1 second"><i class="fa-solid fa-forward" aria-hidden="true"></i></button>
       <span class="rv-timecode mono" id="timecode" aria-live="off">0:00.00</span>
       <span class="app-hint mono" id="frame">frame 0</span>
       <select id="speed" class="cd-form__input rv-speed" aria-label="Playback speed">

@@ -19,6 +19,8 @@ description: >
 Single source of truth for all style values: **`references/ocha_map_styles_data.js`**
 (mirrored from `~/OCHA DMU Dropbox/<your-name>/Maps/map_style_guidance/`).
 
+> **OCHA BDU internal content.** The Dropbox folders in this skill are in the OCHA BDU Dropbox, which only the OCHA Brand and Design Unit can open. For more information, contact ochavisual@un.org.
+
 Baseline is **A4 (794 × 1123 px at 96 dpi)**. All stroke weights and point sizes scale
 from A4 — see §16.
 

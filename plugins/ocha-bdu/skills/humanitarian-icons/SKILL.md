@@ -21,6 +21,8 @@ The official OCHA Humanitarian Icons: **389 single-colour SVG icons** in OCHA bl
 
 ## Where everything lives
 
+> **OCHA BDU internal content.** The Dropbox folders in this skill (the local working copy and the country icons) are in the OCHA BDU Dropbox, which only the OCHA Brand and Design Unit can open. For more information, contact ochavisual@un.org.
+
 | Thing | Location |
 |---|---|
 | **GitHub repo** | https://github.com/UN-OCHA/humanitarian-icons-2026-BDU |

@@ -2,6 +2,11 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.23.5
+
+- Video review tool: the play and comment buttons now use the free Font Awesome icons. They look slightly bolder.
+- Skills that point to files in the BDU Dropbox now say these are BDU internal content, with ochavisual@un.org as the contact.
+
 ## 2026.11.23.4
 
 - Public Dropbox links: small wording update to the examples in the setup steps. Nothing changes in how you use it.

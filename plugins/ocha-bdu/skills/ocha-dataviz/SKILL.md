@@ -219,7 +219,7 @@ Every chart needs:
 For Illustrator-based work, the BDU's **OCHA Humanitarian DataViz** plugin
 generates brand-compliant SVG charts directly on the artboard.
 
-- **Source:** `~/OCHA DMU Dropbox/<your-name>/Design/Resources/ocha_dataviz_tool/`
+- **Source:** `~/OCHA DMU Dropbox/<your-name>/Design/Resources/ocha_dataviz_tool/` (OCHA BDU internal content: only the BDU can open it. For more information, contact ochavisual@un.org.)
 - **Chart types** (14 in the picker tile grid): hbar, vbar, stacked-bar, stacked-col, cluster, line, pie, donut, bubble, icon, table, sankey, keyfigures, timeline. (Map exists internally but is hidden on `main`; see `project_mapmaker.md`.)
 - **Styles**: `ocha` / `hnrp` / `flash` / `gho` — each with full palette, icon palette, and humanitarian-accent logic.
 - **AI-assisted import** (shipped v2026.0.16): the plugin can ingest JSON produced by an AI assistant (Copilot / ChatGPT / Claude / Gemini). All 14 picker chart types are supported. Single chart or batch (up to 20 charts in one click). Two batch layout modes: **One per artboard** (multi-page deliverable) or **Grid** (one-pager, multiple charts packed onto each artboard with auto-cell-size — ~9 on A4 portrait, ~4 on A5, ~16 on A0). Tables, timelines and sankey diagrams span 2 cells in grid mode. Per-chart selection in the batch review modal. Pause-on-error with skip/stop UX and one-click "Copy fix prompt" for AI-fixable errors. State and architecture documented in `project_ai_import.md`.

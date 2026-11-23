@@ -61,7 +61,10 @@ an OCHA film should sound:
 ## 4 · Sound effects — the team library
 
 **Where:** the BDU sound library in Dropbox, `~/OCHA DMU Dropbox/<your-name>/Design/Resources/SFX/`
-(if the Design folder sits elsewhere in your Dropbox, search it for `Resources/SFX`):
+(if the Design folder sits elsewhere in your Dropbox, search it for `Resources/SFX`).
+
+> **OCHA BDU internal content.** This folder is in the OCHA BDU Dropbox, which only the OCHA Brand and Design Unit can open. For more information, contact ochavisual@un.org.
+
 
 | Folder | What |
 |---|---|

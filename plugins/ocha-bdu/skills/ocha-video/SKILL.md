@@ -342,6 +342,7 @@ Any video that gets a voiceover, music or sound effects, and any job with review
   `scripts/audio/` (mix, voice clarity, beats), `scripts/review/` (the review tool).
 - Sound effects: `~/OCHA DMU Dropbox/<your-name>/Design/Resources/SFX/` (see
   `references/sound-voice-music.md`). Make it available offline first: see “Files from the BDU Dropbox” in `ocha-files-and-folders`.
+  OCHA BDU internal content: only the BDU can open it. For more information, contact ochavisual@un.org.
 
 — OCHA Brand and Design Unit (BDU) · ochavisual@un.org
 
