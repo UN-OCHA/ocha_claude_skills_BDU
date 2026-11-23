@@ -1,0 +1,356 @@
+---
+name: ocha-bdu-video
+description: >
+  Everything OCHA video: cutting, branding and packaging any video for OCHA. Use whenever
+  Javi hands over footage or a webtv.un.org link, or asks to "brand this clip", "add
+  subtitles/captions", "burn in subtitles", "translate this video's subtitles" (any language),
+  "add a lower third / name strip", "add a location strip / pin", "add text on screen", "add
+  the OCHA logo / ending / click", "make a reel version of this square", "give me a clean
+  version for translation", "make a statement video" (or the older "statement clip"), "cut the
+  USG/ASG's Security Council briefing", "clip this member-states briefing", "cut the noon
+  briefing", "video message from [principal]", or wants a bespoke piece cut — a mission wrap-up,
+  a field film, an event recap. Also for any video's sound — "add a voiceover", "add music",
+  "find a sound effect", "the music is too loud", "mix the audio" (ElevenLabs voice, Flippermusic,
+  the BDU sound library, the three-layer mix) — and for review rounds ("review tool", "leave
+  comments on the video"); both shared with `ocha-bdu-animation`. Carries the house rules that hold for EVERY OCHA video (no
+  fades, vignette, ending logo, caption standard per format, approval flow, 4-folder package)
+  and routes to the deep procedure for the job in hand. Renders through the OCHA QuickVid
+  engine, which this skill offers to install the first time it is needed. Runs fully local (ffmpeg + cairosvg/resvg + faster-whisper);
+  footage never leaves the Mac.
+---
+
+# OCHA Video
+
+One skill for any OCHA video job. This file holds what is true **every time**; the deep
+procedure for a particular kind of job lives in `references/` and is read on demand.
+
+**These are defaults, not laws.** The designer on the job can change any rule here, case by
+case, when their judgement says the piece needs it. Say which rule is being set aside and why, so
+the choice is deliberate and the next person can see it. A rule that keeps being broken is a sign
+it should change: tell ochavisual@un.org.
+
+Everything runs locally with `ffmpeg` + `cairosvg`/`resvg` + `faster-whisper`. **The footage
+never leaves the machine.**
+
+---
+
+## 0 · The OCHA QuickVid engine — check it, then fix it yourself
+
+Every render goes through the **OCHA QuickVid engine**. It is not optional and there is no
+fallback. Before the first render of a session, run:
+
+```bash
+python3 scripts/render_social_video.py --check
+```
+
+About a second. Three possible answers, and what to do about each:
+
+| `--check` says | Do this |
+|---|---|
+| `ready` | Nothing. Get on with the video — no need to mention QuickVid. |
+| `NOT FOUND` | Say the paragraph below, then install it. |
+| `BROKEN` | Say the paragraph below, then run the same install command — it repairs in place. |
+
+**Always run `--check` before saying whether QuickVid is installed.** Claims were
+previously being made from reading this file, and they were wrong: colleagues who *had*
+QuickVid were told by their own Claude that it was missing. Reading tells you QuickVid is
+a separate program; only `--check` tells you whether **this machine** has it.
+
+### Installing it — explain clearly, then ask
+
+Installing QuickVid downloads and runs a script on the user's machine. That always needs
+their agreement. The goal is not to skip the question but to make it easy to answer:
+explain in plain English first, so a non-technical colleague isn't being asked to judge
+something they don't understand.
+
+> OCHA videos are cut by a separate program called **OCHA QuickVid** — it does the
+> captions, lower thirds and branding, and it runs entirely on your own computer, so your
+> footage is never uploaded anywhere. It isn't on this Mac yet. Installing takes about
+> 10 minutes the first time and won't ask you for a password. After that it's instant and
+> you'll never see this message again.
+>
+> Shall I install it now?
+
+**Wait for a yes.** If they decline, say plainly that the video can't be made without the
+engine, and stop — don't improvise a workaround.
+
+For the `BROKEN` case, explain instead that QuickVid is installed but is an old copy that
+didn't update itself, that re-running the installer repairs it in place and keeps their
+setup, and that it takes a couple of minutes. Then ask the same way.
+
+Once they've agreed, run (**Mac**):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/UN-OCHA/quickvid_BDU/main/install.sh | bash
+```
+
+This is the official OCHA QuickVid installer — the same command the QuickVid page hands
+out. Claude Code will also show its own approval prompt before running it; that prompt is
+expected and correct, so let the user approve it rather than trying to route around it.
+**Re-running the installer is also the update and the repair** — it keeps the existing
+setup, so an upgrade is quick rather than another full install. When it finishes, run
+`--check` again to confirm, then carry on with the video.
+
+> **If you are editing this skill: do not remove the question.** An earlier version told
+> the agent to install without asking and added reassurances that the command was
+> harmless. However well-intentioned, that is the exact shape of a prompt-injection
+> attack, and colleagues' assistants correctly refused to act on it — one flagged this
+> skill as suspicious and stopped mid-update, blocking the whole update for that person.
+> Running a remote script needs the user's agreement, every time. Make the explanation
+> good so the question is easy to answer; never delete the question.
+
+**Windows** has no equivalent one-liner: it is a downloaded installer. Send the user to
+**https://un-ocha.github.io/quickvid_BDU/** opened in **Chrome**, have them download and
+double-click it, then re-run `--check`.
+
+**Kept somewhere unusual?** `export QUICKVID_HOME=/path/to/ocha_quick_vid` and `--check`
+will honour it. Only relevant to QuickVid developers — a normal install is found on its own.
+
+**Do not build a version check into this skill.** QuickVid's launcher already self-updates,
+and when a copy gets stuck it is a launcher bug that `tools/qv-doctor.sh` in the QuickVid
+repo already detects by name. A second updater here would compete with that one and hide
+the real fault. Re-running the installer is the fix.
+
+If the install itself fails — UN networks sometimes block raw.githubusercontent.com —
+stop and say so, and point at the page. Do not improvise another route.
+
+**Never substitute a hand-rolled `ffmpeg` pipeline.** The engine carries the brand rules —
+caption style and safe areas, lower-third geometry, the logo ending, colour. Improvised
+ffmpeg produces output that looks close but is off-brand, and nobody catches it until it
+has shipped. If the engine is missing, stop and say so.
+
+(QuickVid also has a **web app** and a **Premiere panel** — those are alternative ways for
+a person to do the work by hand. They are not what this skill drives; see §1.)
+
+---
+
+## 1 · What kind of video is this?
+
+Ask (or infer) before anything else, because it decides which reference you open:
+
+| The job | What to do |
+|---|---|
+| **A statement** — a principal delivering official remarks: Security Council, member-states briefing, a guest slot at the Spokesperson's noon briefing, or a piece to camera | Read **`references/statement-video.md`**. It has the whole pipeline: UN Web TV download, audio sync, transcribe, script, word-driven cutting with punch-ins. |
+| **A bespoke piece** — mission wrap-up, field film, event recap, anything assembled from several clips | **No recipe, and don't invent one.** Every one is different. Use the rules on this page, build the edit to the material, and check `references/bespoke-edits.md` for the mechanics of multi-clip assembly. |
+| **Branding only** — the clip is already cut and at final size | Read **`references/branding.md`**: the one command, the `job.json` schema, every element. |
+| **A reel from a finished square** | `references/branding.md` → "Making a 9:16 reel from a square". |
+
+A statement job needs the statement reference **and** the branding one. Most jobs end in
+branding, whatever the front half was.
+
+### Should Claude be doing this at all?
+
+| Route | Use it when |
+|---|---|
+| **QuickVid web app** (`un-ocha.github.io/quickvid_BDU`) | A colleague is doing it themselves, or it is a standard job. GUI, no code, previews each element on their own footage. Also cuts from a transcript. |
+| **Premiere plugin** (OCHA QuickVid panel) | The video is already being edited in Premiere, or it needs real editorial craft. Places the same elements as live MOGRTs. |
+| **This skill** | Claude does the craft: bespoke jobs, translated captions, odd formats, batch runs, the packaged hand-off. |
+
+Same engine in all three, so the output is identical. If someone asks "how do I do this
+myself", point them at the web app.
+
+---
+
+## 2 · Destination first — it sets format and caption style
+
+**Confirm the destination before rendering anything.**
+
+| Deliverable / destination | Format (canvas) | Captions |
+|---|---|---|
+| **Social** — Reels / TikTok / Stories (default) | **9:16** 1080×1920 | **Boxed** (grey rounded box, Raleway) |
+| Social — IG / FB feed | 4:5 1080×1350 | **Boxed** |
+| Social — **square** post | **1:1** 1080×1080 | **Clean** |
+| **Event** — screening, cleaner broadcast look | **16:9** 1920×1080 | **Clean** — white over a soft bottom gradient |
+
+In the job set `canvas` and `subtitle.box`: `true` = boxed, `false` = clean (an auto dark
+bottom-gradient gives the contrast — **never** a text outline).
+
+> **Square moved to clean on 2026-08-06** — the video team's standard, not a preference. The
+> box exists for muted scrolling feeds, which is why reels and 4:5 keep it. The web app
+> (`OchaCaptions.styleFor()`) and the engine (`PRESETS[*].sub.box`) both apply this; if you
+> change it, change both. Anything that still says square is boxed is stale.
+
+---
+
+## 3 · Standing defaults — don't re-ask these
+
+| | Default | Notes |
+|---|---|---|
+| **Approval** | **Unbranded cut FIRST** | Always send the plain cut — no captions, no lower third, no logo — and get the edit signed off before branding. Standing procedure, not a per-job question. |
+| **Vignette** | **YES — apply it by default** | Close the video chain with `vignette` at ffmpeg's default strength, so the face reads first. Standard since 2026-08-20. **Say in your report that it has been added** — never apply it silently. Colour grading is NOT a default: leave saturation alone unless Javi raises it. |
+| **Lower third for USG Tom Fletcher** | `TOM FLETCHER` / **`UN Relief Chief`** | The short form. Fits one line at every format and is what a social audience recognises. Use it unless he names another title. |
+| **Lower third for the ASG** | `MOHAMED YAHYA` / **`UN Deputy Relief Chief`** | **`UN Deputy Relief Chief` is the standing title for the post** — it stays whoever holds it. Mohamed Yahya took up the post on **1 September 2026** and holds it substantively, so there is **no `a.i.`**. His predecessor Indrika Ratwatte was acting and his straps did carry `a.i.` — so **never copy the title straight out of an older job file**, including the reference build in `references/statement-video.md`. Full formal title, for documents rather than straps: Assistant Secretary-General for Humanitarian Affairs and Deputy Emergency Relief Coordinator. |
+| **Lower third SIZE** | **automatic — name 54 / title 36** on any 1080-class canvas | Fixed at source 2026-08-20: `brand-lt.json` now sizes the name off the frame's **short side** (`name_short_ratio` 0.05) instead of a per-orientation ratio of its height, so every format gets the same reading size. No `name_size` / `org_size` in the job unless you deliberately want to override. [[lower-third-too-small]] |
+| **Reel format** | **Full-frame 9:16** | The default for the ASG and everyone else. **The USG does not like full-size reels** — build him the blurred fill instead. Either way, if the source is only 1080 tall say so up front: full-frame then costs a ~1.8× upscale. |
+| **Thumbnail** | **Offer it — don't assume** | A standard deliverable, but ASK. When yes: **1080×1920 even when the video is square** (it is an Instagram cover), cut from the ORIGINAL frame, general framing, head in the 3:4 area, mouth closed, no branding. |
+| **Clean master for translation** | **Offer it — don't assume** | Same rule as the thumbnail. Spec in `references/branding.md`. |
+
+Still worth asking per job: destination and format, length, and anything about the content.
+
+---
+
+## 4 · How we work (with Javi or any colleague)
+
+- **Show a framing sheet before you render a cut.** Each shot type the edit will use, with
+  two or three crop alternatives each, side by side, labelled A / B / C. The subject is
+  rarely centred in the frame and the right crop needs a human eye — it cannot be settled
+  from a rule. He picks, then you build.
+- **Every option sheet states what each option costs** where it costs something: upscale
+  factor, a caption landing under the platform's UI, a person entering frame. A sheet that
+  hides the trade-off is worse than no sheet.
+- **Sample options at more than one moment** — a crop that frames him well at 0:05 can be
+  wrong at 0:50 once he has shifted in his seat.
+- **Start from the preset, then confirm it on a real rendered frame.** The per-format
+  numbers in `engine/statement.py` `PRESETS` are the starting point (they keep the lower third
+  clear of the captions); a still of the actual footage (`brand_preview`, in
+  `references/branding.md`) decides whether they work for THIS speaker. Change a number only
+  when the frame shows a reason.
+- **The lower third must clear the chin.** Check the frame where it is up: if any of it sits on
+  the face, move it (and the captions with it) down, or offer the **left-aligned** version when
+  the speaker is centred, before anything else. (Ramunion Rescue Brigade, Nov 2026.)
+- **Verify the export, not the recipe.** Check the finished file with `ffprobe` and by
+  looking at real frames — especially the last one.
+
+---
+
+## 5 · Before you touch the source
+
+- **Stills from MediaValet** (photos for a film, a thumbnail, a background): get them with `ocha-bdu-photo`
+  — true originals plus credits, and it offers the BDU enhancement.
+- **What renditions exist**, before promising a format. UN Web TV held only 1080/720/480 for
+  the Aug 2026 noon briefing, which is exactly what made a full-frame 9:16 reel an upscale.
+  ```python
+  import sys; sys.path.insert(0, f"{REPO}/engine"); import webtv
+  m = webtv.resolve(URL)
+  fl = webtv._api("flavorasset/action/getByEntryId", ks=m["ks"], entryId=m["recorded"])
+  sorted({(f.get("height"), f.get("width")) for f in fl if f.get("status") == 2}, reverse=True)
+  ```
+- **Where the live picture actually is**, before setting a single crop. Broadcast masters
+  often carry dead black rows or columns at the frame edge — the UN Web TV noon briefing has
+  **three dead rows at the bottom and one column at the right** of its 1920×1080. A crop that
+  runs to the edge drags them in: barely visible along the bottom of a square, a hard black
+  line across the middle once that square is inset into a reel. Measure the live area once
+  (first and last row/column whose mean brightness clears ~6), then keep every crop inside it.
+
+---
+
+## 6 · House rules for any OCHA video
+
+**Cutting**
+- **No fade in, no fade out** — hard cut both ends (a few frames of handle if it feels
+  abrupt). [[no-fade-in-out-on-videos]]
+- **Build the whole cut in ONE ffmpeg filtergraph** (`concat` filter). A stream-copy concat of
+  separate clips can silently truncate.
+- **Duration bookkeeping.** The video chain total and the audio `apad=whole_dur` must match.
+  Shorten the ending and you change BOTH — otherwise the file ends on a frozen frame or a
+  black tail and nothing warns you.
+- **Every shot-size change lands on a real edit** — a speech edit or a camera cut — and holds
+  until the next one. Changing size in the middle of a continuous shot is unmotivated and
+  reads as a mistake.
+- **Vignette closes the chain**, at ffmpeg's defaults — do not parameterise it unless asked:
+  ```
+  [vcat]vignette[v];                       # standard
+  [vcat]eq=saturation=0.85,vignette[v];    # only when he asks for a grade too
+  ```
+  The **Premiere plugin** has a vignette element of its own (a MOGRT with a Strength knob) —
+  use that when the job is being cut in Premiere. The **web app engine has no vignette yet**,
+  so a web-app job cannot add one: a known backlog item, and worth saying out loud if a
+  colleague asks why their own export looks different.
+
+**Branding**
+- **Captions carry the exact words SAID**, from the transcript — never the speechwriter
+  script; principals deviate. **Max 2 lines**, balanced wrap with no orphan word, fuller
+  blocks held ~2.5–5s. Captions **hard-cut, never fade**.
+- **Ending = OCHA logo**: modest (**0.055·H**), **centred by default**, **snap on with no
+  fade**, plus the OCHA click on the snap, **never a scrim or layer behind it**. If the centred
+  logo would land on a face, offer the two alternatives: **over black**, or **top right**
+  (`"logo_pos": "top_right"`). Never nudge it to some other height. [[ocha-ending-logo-rules]]
+- **Ending tail:** footage keeps rolling under the logo but the sound **fades to mute** right
+  after the last kept word — the next speaker in the room is never heard. If the principal
+  closes with "I thank you", keep it so it is heard.
+- **Logos are always SVG**, rasterised at render time. Never ship a PNG. [[logos-always-svg]]
+- **NEVER re-implement a branding element.** Every number lives in the engine and in
+  `browser/brand-lt.json` / `brand-pin.json`. Do not redraw one in SVG/HTML/CSS to "preview"
+  it either — render a real still. Two implementations of one element have already drifted.
+
+**Always**
+- Video stays local — never upload.
+- Curly quotes and apostrophes in caption text and in anything written for a human.
+- After building any new function or standard, update this skill + `docs/decisions.md` +
+  memory. [[keep-video-editing-docs-updated]]
+
+---
+
+## 7 · Package: four folders + a root README
+
+Folders, file names, draft versions and the end-of-job clean-up follow
+**`ocha-bdu-files-and-folders`**. What a video job puts in each folder:
+
+```
+export/   the finished videos (+ thumbnail, + clean_for_translation/ if made)
+info/     transcript, statement or key-message docs, the sheets used for approvals
+source/   the FULL original, audio-synced
+assets/   the exact recipe (filtergraph + job.json), word timings, reference stills
+archive/  optional: earlier cuts worth keeping (ask first)
+README.md what it is, the layout, how it was made (commands + timecodes), what was learned
+```
+
+Export names follow the standard: `ukr_asg_security_council_1080x1920.mp4`, with the
+thumbnail as `ukr_asg_security_council_thumbnail_1080x1920.jpg`. Add a language code
+(`_en`, `_es`…) only when the video is delivered in more than one language. Do moves and deletes in
+Python to avoid the bash rm-guard. Convert relative dates to absolute in the README.
+
+---
+
+## 8 · Voice, music, sound effects and review — shared with `ocha-bdu-animation`
+
+Any video that gets a voiceover, music or sound effects, and any job with review rounds:
+
+- **Voice** — ElevenLabs on its free credits: ask the person to create a free account if they have
+  none. **Music** — Flippermusic, BDU’s subscription: the login and password are on our Trello
+  (BDU work plan → Design resources → “Music archive from Matteo + Flipper”). **Sound effects** — the
+  BDU library in Dropbox, `Design/Resources/SFX/` (BoomBox with a searchable index, older collections,
+  single downloads). **The mix** — three layers at constant levels: voice on top, effects in the
+  middle, music lowest; nothing ducks. Read **`references/sound-voice-music.md`** first.
+- **Review** — the frame-comment review tool: **`references/review-tool.md`**.
+- Tools: `scripts/audio/mix.py` (the mix under the picture), `scripts/audio/voice_clarity.py` (does
+  the voice stand out, word by word), `scripts/audio/beats.py` (the beats, bar starts and tempo of a
+  music track, to cut on the beat), `scripts/review/` (the review tool).
+- The reference for all of it is the SG Awards 2026 Dataviz film:
+  [watch it](https://www.dropbox.com/scl/fi/a7a1kd3fhx60f35xyecl2/sg_awards_2026_film_1920x1080.mp4?rlkey=xm4o8g38esx4a94jsmyvms8aq&dl=0).
+
+---
+
+## References
+
+- **`references/statement-video.md`** — the statement pipeline, end to end.
+- **`references/branding.md`** — the render contract: one command, `job.json` schema, every
+  element, the blurred-fill reel, clean masters, Spanish glossary.
+- **`references/bespoke-edits.md`** — multi-clip assembly for mission films and recaps.
+- **`references/sound-voice-music.md`** — voice (ElevenLabs), music (Flippermusic), sound effects (the
+  BDU library) and the three-layer mix. Shared with `ocha-bdu-animation`.
+- **`references/review-tool.md`** — the frame-comment review tool and the fix-and-reply loop. Shared
+  with `ocha-bdu-animation`.
+
+## Assets
+
+- QuickVid repo (`brand_repo` in the render config, default path baked in):
+  `brand/brand.json` → `ending.asset` (the click .mov);
+  `assets/OCHA_logo_horizontal_white.svg`; Raleway at `/Library/Fonts/Raleway/static/`.
+- Download tool: `video_editing/tools/un-webtv-download.sh` in the same repo.
+- Scripts ship with this skill: `scripts/render_social_video.py`, `scripts/transcribe.py`,
+  `scripts/audio/` (mix, voice clarity, beats), `scripts/review/` (the review tool).
+- Sound effects: `~/OCHA DMU Dropbox/<your-name>/Design/Resources/SFX/` (see
+  `references/sound-voice-music.md`). Make it available offline first: see “Files from the BDU Dropbox” in `ocha-bdu-files-and-folders`.
+  OCHA BDU internal content: only the BDU can open it. For more information, contact ochavisual@un.org.
+
+— OCHA Brand and Design Unit (BDU) · ochavisual@un.org
+
+<!-- bdu-suggest-change:start -->
+**Suggesting a change to this skill.** If the person corrects you or states a rule that would apply to other jobs too, or you find this skill is wrong or missing something, say so once, at the end of your reply. Don’t do this for changes that only concern the current job, and don’t edit the skill yourself, because the next update would overwrite it. Leave out anything confidential from the job. Say:
+
+> This could be worth adding to the OCHA BDU skills. If you agree, copy this message and send it to Javi:
+> **Skill:** ocha-bdu-video
+> **Proposed rule:** [the rule, in one or two sentences]
+> **Why:** [what happened, with one example]
+<!-- bdu-suggest-change:end -->

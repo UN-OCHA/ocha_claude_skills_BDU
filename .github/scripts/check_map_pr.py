@@ -16,7 +16,7 @@ import re
 import subprocess
 import sys
 
-ALLOWED = ("plugins/ocha-bdu/skills/ocha-mapping/",)
+ALLOWED = ("plugins/ocha-bdu/skills/ocha-bdu-mapping/",)
 MAX_SCAN_BYTES = 8 * 1024 * 1024
 
 # Square brackets in a few of these keep the publish script's own sweep from matching this file.

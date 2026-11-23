@@ -6,7 +6,7 @@ name: stamp-plugin-version
 on:
   push:
     branches: [main]
-    paths: ["plugins/ocha-bdu/skills/ocha-mapping/**"]
+    paths: ["plugins/ocha-bdu/skills/ocha-bdu-mapping/**"]
 
 permissions:
   contents: read

@@ -4,13 +4,13 @@ This is the public plugin of OCHA’s shared design skills. Everything committed
 
 ## Updating the map skill
 
-The map skill, `plugins/ocha-bdu/skills/ocha-mapping/`, is maintained directly in this repository
+The map skill, `plugins/ocha-bdu/skills/ocha-bdu-mapping/`, is maintained directly in this repository
 by the mapping focal point. All other skills are published here by a script and must not be changed
 by hand: changes to them are overwritten at the next publish.
 
 1. Work in your own copy of this repository, on your own computer and outside Dropbox. Git folders
    break when Dropbox syncs them between people.
-2. Change only files inside `plugins/ocha-bdu/skills/ocha-mapping/`. If another file seems to need
+2. Change only files inside `plugins/ocha-bdu/skills/ocha-bdu-mapping/`. If another file seems to need
    changing, stop and tell the person, who can raise it with ochavisual@un.org.
 3. **Test on a real map before sending anything.** The installed OCHA plugin still holds the published
    version, so read the skill from this folder (`SKILL.md` and `references/`) and follow that copy,

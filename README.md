@@ -15,26 +15,26 @@ reinstall.
 
 | Skill | What it helps with |
 |---|---|
-| `ocha-visual-identity` | Brand colours, fonts, logo rules, clear space, the OCHA design system |
-| `ocha-dataviz` | Which chart to use, and how OCHA charts should look |
-| `ocha-mapping` | OCHA map standards — boundaries, symbols, disclaimers |
-| `humanitarian-icons` | The 389 OCHA Humanitarian Icons |
-| `ocha-editorial-style` | OCHA house style — numbers, dates, currency, capitalisation, acronyms |
-| `ocha-design` | Loads visual identity + charts + maps together |
-| `ocha-logo-production` | Building logo packages from Illustrator — languages, variants, verified exports |
-| `ocha-video` | Everything video — cutting, subtitles, lower third, logo ending, packaging |
-| `ocha-files-and-folders` | Where files go, how to name them, draft versions, cleaning up at the end |
-| `ocha-animation` | Smooth motion for animated graphics and data films — entrances, exits, transitions, timing, rendering to video |
-| `ocha-social-media` | Social media graphics in Canva — carousels and cards from a Trello brief, MediaValet photos, BDU templates, grid and Inter type rules, video-ready slides |
-| `ocha-photo` | OCHA photos — original downloads from MediaValet, photo credits and captions, the BDU photo enhancement, dignity and inclusion when choosing photos |
-| `web-motion` | Motion and interaction for websites and web apps — screen transitions, swipes, presses, sheets, timers, reduced motion, iPhone quirks |
-| `ocha-country-names` | Official UN country names in six languages, ISO3 codes and UN regions, plus OCHA usage (OPT, DRC) and names never to write |
-| `ocha-mockups` | Mockups without Photoshop — a cover or page on a magazine, book, poster, business card, roll-up or screen, and cover options as one PDF |
-| `ocha-frontify` | BDU only: editing the OCHA brand site. Needs a BDU account on the site |
-| `ocha-layout` | Laying out OCHA reports and templates in InDesign or Word — grid, styles, key figures, tables, chart frames, template checks |
-| `ocha-data` | Humanitarian funding figures from the official sources — CERF, the country-based pooled funds, the Pooled Funds hub and FTS: check a figure, see which fund and allocation it came from, pull tables for charts |
-| `ocha-dropbox-links` | Public Dropbox links that open for anyone, not only the OCHA team, and a check for links that ask people to sign in. One-time setup connects your own Dropbox |
-| `ocha-utilities` | Small BDU tools. Today: study a video from a link or file, with frames, a transcript with timings, the caption and its cuts |
+| `ocha-bdu-visual-identity` | Brand colours, fonts, logo rules, clear space, the OCHA design system |
+| `ocha-bdu-dataviz` | Which chart to use, and how OCHA charts should look |
+| `ocha-bdu-mapping` | OCHA map standards — boundaries, symbols, disclaimers |
+| `ocha-bdu-humanitarian-icons` | The 389 OCHA Humanitarian Icons |
+| `ocha-bdu-editorial-style` | OCHA house style — numbers, dates, currency, capitalisation, acronyms |
+| `ocha-bdu-design` | Loads visual identity + charts + maps together |
+| `ocha-bdu-logo-production` | Building logo packages from Illustrator — languages, variants, verified exports |
+| `ocha-bdu-video` | Everything video — cutting, subtitles, lower third, logo ending, packaging |
+| `ocha-bdu-files-and-folders` | Where files go, how to name them, draft versions, cleaning up at the end |
+| `ocha-bdu-animation` | Smooth motion for animated graphics and data films — entrances, exits, transitions, timing, rendering to video |
+| `ocha-bdu-social-media` | Social media graphics in Canva — carousels and cards from a Trello brief, MediaValet photos, BDU templates, grid and Inter type rules, video-ready slides |
+| `ocha-bdu-photo` | OCHA photos — original downloads from MediaValet, photo credits and captions, the BDU photo enhancement, dignity and inclusion when choosing photos |
+| `ocha-bdu-web-motion` | Motion and interaction for websites and web apps — screen transitions, swipes, presses, sheets, timers, reduced motion, iPhone quirks |
+| `ocha-bdu-country-names` | Official UN country names in six languages, ISO3 codes and UN regions, plus OCHA usage (OPT, DRC) and names never to write |
+| `ocha-bdu-mockups` | Mockups without Photoshop — a cover or page on a magazine, book, poster, business card, roll-up or screen, and cover options as one PDF |
+| `ocha-bdu-frontify` | BDU only: editing the OCHA brand site. Needs a BDU account on the site |
+| `ocha-bdu-layout` | Laying out OCHA reports and templates in InDesign or Word — grid, styles, key figures, tables, chart frames, template checks |
+| `ocha-bdu-data` | Humanitarian funding figures from the official sources — CERF, the country-based pooled funds, the Pooled Funds hub and FTS: check a figure, see which fund and allocation it came from, pull tables for charts |
+| `ocha-bdu-dropbox-links` | Public Dropbox links that open for anyone, not only the OCHA team, and a check for links that ask people to sign in. One-time setup connects your own Dropbox |
+| `ocha-bdu-utilities` | Small BDU tools. Today: study a video from a link or file, with frames, a transcript with timings, the caption and its cuts |
 
 ---
 
@@ -153,9 +153,9 @@ and showing up:
 
 > I have just installed the OCHA BDU plugin. Please confirm it is installed and that you
 > can see its skills. **Only if it is**, delete these folders from my `~/.claude/skills/`,
-> because they are old manual copies the plugin now replaces: ocha-visual-identity,
-> ocha-dataviz, ocha-mapping, humanitarian-icons, ocha-editorial-style, ocha-design,
-> ocha-video, ocha-logo-production. Do not touch any other folder there. If the plugin is
+> because they are old manual copies the plugin now replaces: ocha-bdu-visual-identity,
+> ocha-bdu-dataviz, ocha-bdu-mapping, ocha-bdu-humanitarian-icons, ocha-bdu-editorial-style, ocha-bdu-design,
+> ocha-bdu-video, ocha-bdu-logo-production. Do not touch any other folder there. If the plugin is
 > **not** installed, stop and tell me — do not delete anything.
 
 Brand new to these skills? Skip this — there's nothing to clean up.

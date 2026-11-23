@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+"""Start a cut-out film in a job folder: the kit, the shared tools, and a demo that builds at once.
+
+    python3 <ocha-bdu-animation skill>/scripts/new_cutout_film.py "<job folder>" --title "Film title"
+
+Copies into <job>/tools/:
+  - this skill's templates/cutout/ (the engine, the demo film, the build tools) and
+    scripts/headless_chrome.mjs (the Chrome driver the stills, probe and check_sync tools use)
+  - from the ocha-bdu-video skill beside this one: scripts/audio/mix.py, voice_clarity.py and beats.py (the
+    mix, the voice check and the beat finder, shared by every OCHA video) and scripts/review/ (the
+    review tool) as review/
+and, if the job has no voice timings yet, the demo's into assets/voice/voiceover_timings.json, so the
+demo film builds before any voice exists. NEVER overwrites a file that is already there: re-running it
+on a job only adds what is missing. The job keeps its own copy of every tool (tools/ = what produces
+the finals, so a colleague can rebuild the film: ocha-bdu-files-and-folders).
+"""
+import argparse
+import json
+import shutil
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+KIT = HERE.parent / "templates" / "cutout"
+VIDEO = HERE.parents[1] / "ocha-bdu-video"   # the sibling skill, wherever the skills are installed
+
+
+def copy_tree(src, dst, skip=()):
+    added = kept = 0
+    for f in sorted(src.rglob("*")):
+        rel = f.relative_to(src)
+        if f.is_dir() or rel.parts[0] in skip or f.name.startswith(".") or "__pycache__" in rel.parts:
+            continue
+        out = dst / rel
+        if out.exists():
+            kept += 1
+            continue
+        out.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(f, out)   # the content only (like cp -X: no Dropbox tag carried over)
+        added += 1
+    return added, kept
+
+
+def main():
+    ap = argparse.ArgumentParser(description="Start a cut-out film in a job folder.")
+    ap.add_argument("job", help="the job folder (ocha-bdu-files-and-folders: Projects/<year>/<office>/<job_name>)")
+    ap.add_argument("--title", help="the film's title (default: from the folder name)")
+    a = ap.parse_args()
+    job = Path(a.job).expanduser().resolve()
+    build = job / "tools"
+    if not KIT.exists():
+        sys.exit(f"The cut-out kit is missing: {KIT}")
+    shared = {VIDEO / f"scripts/audio/{name}": build / name for name in ("mix.py", "voice_clarity.py", "beats.py")}
+    shared[HERE / "headless_chrome.mjs"] = build / "headless_chrome.mjs"
+    missing = [str(p) for p in [*shared, VIDEO / "scripts/review/review_server.py"] if not p.exists()]
+    if missing:
+        sys.exit("Shared tools are missing:\n  " + "\n  ".join(missing)
+                 + "\nInstall or update the OCHA skills, then run this again.")
+
+    added, kept = copy_tree(KIT, build, skip=("demo",))
+    for src, dst in shared.items():
+        if dst.exists():
+            kept += 1
+        else:
+            shutil.copyfile(src, dst); added += 1
+    a2, k2 = copy_tree(VIDEO / "scripts/review", build / "review")
+    added, kept = added + a2, kept + k2
+
+    cfg_path = build / "film.json"
+    cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
+    if cfg.get("name") == "cutout_demo":   # a fresh copy: make it this job's
+        cfg["name"] = job.name
+        # Only the first letter is raised: .capitalize() lowers the rest, and "SG_awards" became "Sg awards".
+        default = job.name.replace("_", " ")
+        cfg["title"] = a.title or default[:1].upper() + default[1:]
+        cfg_path.write_text(json.dumps(cfg, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
+    voice = job / "assets" / "voice" / "voiceover_timings.json"
+    demo_voice = not voice.exists()
+    if demo_voice:
+        voice.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(KIT / "demo" / "voiceover_timings.json", voice)
+    for d in (job / "info" / "review", build / "previews", build / "audio"):
+        d.mkdir(parents=True, exist_ok=True)
+
+    print(f"Cut-out film set up in {job}")
+    print(f"  {added} files added, {kept} already there (left as they were)")
+    if demo_voice:
+        print("  the DEMO's word timings are in assets/voice/ until the real voice replaces them")
+    print(f"Next: python3 \"{build / 'timeline.py'}\", then open \"{build / 'film' / 'world.html'}\" in Chrome.")
+    print("The whole process: the ocha-bdu-animation skill → references/cutout-process.md")
+
+
+if __name__ == "__main__":
+    main()
