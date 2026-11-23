@@ -51,7 +51,7 @@ Then give them these steps (sign in to Dropbox with the OCHA account first if it
 
 1. **Choose an API:** “Scoped access”.
 2. **Type of access:** “Full Dropbox”.
-3. **Name:** “OCHA links” and their name, e.g. “OCHA links Maryam”. If the name is taken, add initials
+3. **Name:** “OCHA links” and their name, e.g. “OCHA links Alex”. If the name is taken, add initials
    or a number.
 4. Click **Create app**.
 5. Open the **Permissions** tab and tick **files.metadata.read** (under Files and folders),
@@ -94,7 +94,7 @@ python3 <skill>/scripts/dropbox_links.py share "<file or folder>" ["<another>" �
 What to pass, best first:
 
 - **The local path** of the file in the person’s Dropbox folder on their computer
-  (e.g. `~/OCHA DMU Dropbox/<your-name>/Design/…/file.pdf`). The script works out the Dropbox path.
+  (e.g. `~/Dropbox/<your-folder>/…/file.pdf`). The script works out the Dropbox path.
 - A **Dropbox path** (`/Team folder/…`): team folders work too.
 - An **id** (`id:Els7…`) from the Dropbox connector’s `search` or `list_folder`.
 

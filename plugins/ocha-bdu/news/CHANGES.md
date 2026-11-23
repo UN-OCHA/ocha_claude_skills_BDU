@@ -2,6 +2,10 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.23.4
+
+- Public Dropbox links: small wording update to the examples in the setup steps. Nothing changes in how you use it.
+
 ## 2026.11.23.3
 
 - **Public Dropbox links (ocha-dropbox-links, new):** Claude can now make Dropbox links that open for anyone, not only the OCHA team, and check whether a link asks people to sign in. The first time, Claude walks you through a 5-minute setup that connects your own Dropbox.
