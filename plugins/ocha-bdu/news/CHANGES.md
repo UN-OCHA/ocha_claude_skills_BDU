@@ -2,6 +2,10 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.23.6
+
+- The skills now say BDU instead of the old DMU when they mention the team Dropbox. Folder locations on your computer are unchanged.
+
 ## 2026.11.23.5
 
 - Video review tool: the play and comment buttons now use the free Font Awesome icons. They look slightly bolder.

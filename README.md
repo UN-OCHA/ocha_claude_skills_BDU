@@ -348,7 +348,7 @@ green tick, and tell Claude. Mockup templates are about 1.2 GB in all, so this t
 minutes the first time.
 
 **"Claude can't open a Dropbox file."**
-Some skills point at shared files in the OCHA DMU Dropbox. These are OCHA BDU internal content:
+Some skills point at shared files in the BDU Dropbox. These are OCHA BDU internal content:
 only the OCHA Brand and Design Unit can open them. For more information, contact ochavisual@un.org.
 
 **Anything else:** **ochavisual@un.org** — we'd rather help than have you stuck.

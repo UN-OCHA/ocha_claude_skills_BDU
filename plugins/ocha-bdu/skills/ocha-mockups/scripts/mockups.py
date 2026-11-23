@@ -43,7 +43,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CATALOG = os.path.join(HERE, "templates.json")
 CONFIG = os.path.join(os.path.expanduser("~"), ".claude", "ocha-mockups.json")
 ENV_FOLDER = "OCHA_MOCKUPS_FOLDER"
-# The curated templates sit in the BDU skills folder in the OCHA DMU Dropbox. That folder is
+# The curated templates sit in the BDU skills folder in the BDU Dropbox. That folder is
 # also the public GitHub repo, and mockups/ is git-ignored there: the PSDs are licensed.
 FOLDER_TAIL = os.path.join("Design", "AI_skills_and_prompts", "bdu", "ocha_claude_skills_BDU", "mockups")
 
@@ -80,7 +80,7 @@ def folder_candidates(explicit=None):
     if _config().get("folder"):
         out.append((CONFIG, _config()["folder"]))
     home = os.path.expanduser("~")
-    # The OCHA DMU team Dropbox shows each member's own name as the second folder, so the
+    # The BDU Dropbox shows each member's own name as the second folder, so the
     # same shared Design folder sits at a different path on every computer. Glob, never
     # hardcode a name. Newer Macs keep Dropbox under ~/Library/CloudStorage.
     patterns = [
@@ -116,7 +116,7 @@ def find_folder(explicit=None, required=True):
         "It normally lives at  ~/OCHA DMU Dropbox/<your-name>/Design/AI_skills_and_prompts/bdu/ocha_claude_skills_BDU/mockups\n"
         + ("Tried:\n" + "\n".join(tried) + "\n" if tried else "")
         + "Fix it one of these ways:\n"
-        "  - Make sure the OCHA DMU Dropbox is syncing on this computer and you can see that\n"
+        "  - Make sure the BDU Dropbox is syncing on this computer and you can see that\n"
         "    folder. If you can't, ask ochavisual@un.org for access.\n"
         "  - If it is somewhere else on this computer, remember that place once:\n"
         "      python3 mockups.py setup --folder \"/path/to/mockups\"\n"

@@ -130,7 +130,7 @@ humanitarian icons. They look different, live somewhere else and follow differen
 | **Naming** | `Country_Name_ISO3.svg` — `Haiti_HTI.svg`, `New_Zealand_NZL.svg`. Regions and world views have no code: `1_Caribbean.svg`, `World_1.svg` |
 | **Format** | SVG |
 
-The personal-folder part of that path differs per person. If it misses, search the DMU
+The personal-folder part of that path differs per person. If it misses, search the BDU
 Dropbox for `svg_2025`. The folder must be available offline (see “Files from the BDU Dropbox” in `ocha-files-and-folders`). To find a country, match its ISO3 code case-insensitively
 (`ls | grep -i '_hti\.svg'`) rather than guessing the exact name.
 
@@ -149,7 +149,7 @@ background, or leave them out; they can’t be recoloured.
   the colours are the map. Don’t redraw, crop, rename or relabel them.
 - **Some show disputed or sensitive territories.** Use those exactly as provided, and
   before adding any label or caption follow the territories guidance in `ocha-mapping` §7.
-- **They are internal to BDU.** They live only in the DMU Dropbox; there is deliberately
+- **They are internal to BDU.** They live only in the BDU Dropbox; there is deliberately
   no public link or CDN, so never publish one. If the folder isn’t on the user’s machine,
   tell them to ask BDU for the icon (ochavisual@un.org). Never draw a replacement country
   shape, and don’t substitute a flag unless the user asks for flags.

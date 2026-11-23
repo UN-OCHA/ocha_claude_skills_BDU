@@ -237,14 +237,14 @@ this skill.** The skill is distributed publicly; that guidance is internal.
 
 Whenever a map involves a disputed or sensitive territory, boundary, or place name:
 
-**1. Look for the guidance PDF locally.** It ships in the DMU Dropbox:
+**1. Look for the guidance PDF locally.** It ships in the BDU Dropbox:
 
 ```
 ~/OCHA DMU Dropbox/<your-name>/Design/Visual_identity/visual_identity_guidance/2017_2018/chapters/pdf/99_representing_territories.pdf
 ```
 
 The personal-folder segment differs per person — if that exact path misses, search the
-DMU Dropbox for `99_representing_territories.pdf`. Read it and follow it.
+BDU Dropbox for `99_representing_territories.pdf`. Read it and follow it.
 
 > ⛔ **`40_maps.pdf` sits in that same folder. Do not use it.** It's from the 2017/18
 > visual identity stylebook and is superseded — the colours and fonts in it are wrong.
@@ -256,7 +256,7 @@ them about where it goes:
 
 > This map involves a disputed territory, and OCHA has specific rules for how those are
 > shown. That guidance is internal, so it's deliberately not built into this skill.
-> Could you drop `99_representing_territories.pdf` into the chat? It's in the DMU
+> Could you drop `99_representing_territories.pdf` into the chat? It's in the BDU
 > Dropbox under Visual identity → visual identity guidance. I'll use it only for this
 > map — it isn't saved into the skill or published anywhere.
 

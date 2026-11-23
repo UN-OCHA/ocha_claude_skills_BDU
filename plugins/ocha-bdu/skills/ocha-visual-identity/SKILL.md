@@ -235,7 +235,7 @@ Every partner logo BDU holds is in one folder:
 
 `~/OCHA DMU Dropbox/<your-name>/Design/Logos/`
 
-The personal-folder part of that path differs per person. If it misses, search the DMU
+The personal-folder part of that path differs per person. If it misses, search the BDU
 Dropbox for the `Design/Logos` folder.
 
 | Folder | What’s in it |
