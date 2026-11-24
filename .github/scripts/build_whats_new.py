@@ -6,6 +6,8 @@
 How it works (details in plugins/ocha-bdu/hooks/README.md):
 - Before a publish, write the plain-words note in plugins/ocha-bdu/news/next.md: 2 to 4 short
   bullet lines, one per change a colleague would notice, written for designers, not developers.
+  When an update leaves something for colleagues to DO (a rename, a setup, a setting, old files
+  to remove), write that line as "Javi recommends: <the step>" so their Claude offers to do it.
 - This script moves it into news/CHANGES.md under the plugin's new version, then writes one
   small file per version, news/after-<version>.md, holding what came after that version.
 - At session start the plugin's hook prints after-<the version this computer last saw>.md, so
@@ -36,12 +38,13 @@ ASCII_MAP = {"‘": "'", "’": "'", "“": '"', "”": '"', "–": "-",
              "—": "-", "…": "...", "×": "x", " ": " ", " ": " ",
              "→": "->", "·": "-", "•": "-"}
 
-INSTRUCTIONS = """[OCHA BDU skills - what's new since this computer last checked]
+INSTRUCTIONS = """[OCHA BDU skills - update from Javi, since this computer last checked]
 
-Source: the OCHA BDU plugin (github.com/UN-OCHA/ocha_claude_skills_BDU), maintained by the OCHA Brand and Design Unit (ochavisual@un.org). Its skills were updated. This note appears once per update.
+Source: the OCHA BDU plugin (github.com/UN-OCHA/ocha_claude_skills_BDU), maintained by Javi (Javier Cueto) and the OCHA Brand and Design Unit (ochavisual@un.org). Javi updated its skills. This note appears once per update.
 
 What to do, once in this session:
-- At the end of your first reply, add a short section headed "What's new in the OCHA BDU skills" and say, in plain words and in the user's language, what changed: one short line per change, 4 lines at most. Write for designers, not developers: what they can now do or what now works differently. No file names, no version numbers.
+- At the end of your first reply, add a short section headed "Update from Javi (OCHA BDU skills)" and say, in plain words and in the user's language, what changed: one short line per change, 4 lines at most. Write for designers, not developers: what they can now do or what now works differently. No file names, no version numbers.
+- Lines marked "Javi recommends:" are steps Javi wants each colleague to take. Say them as his recommendation, plainly ("Javi recommends: ..."), then offer to do the step now, explain in one sentence what it changes, and do it only after the user says yes. If it isn't needed on this computer (for example the old folders aren't there), say so in one line instead of asking. Never delete or change anything without that yes.
 - Then record that this note was shown, so it doesn't come back: in the Claude settings file (~/.claude/settings.json on a Mac, %USERPROFILE%\\.claude\\settings.json on Windows; create it if missing), keep everything already there and set, under "env": "OCHA_BDU_NEWS_SEEN": "{latest}". Check the file is still valid JSON. Change nothing else. You don't need to ask first: this setting only records that the note was shown.
 
 The updates, newest first:

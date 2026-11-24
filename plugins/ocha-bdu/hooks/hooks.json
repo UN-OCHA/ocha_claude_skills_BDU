@@ -1,5 +1,5 @@
 {
-  "description": "Two notes at session start: a one-time offer to switch on automatic updates for the OCHA BDU skills, which the Claude desktop app leaves off; and, once per update, what changed, in plain words. Each is silent once dealt with. See hooks/README.md.",
+  "description": "Notes at session start: a one-time offer to switch on automatic updates for the OCHA BDU skills, which the Claude desktop app leaves off; once per update, what changed, in plain words; and a quiet check that this computer is not stuck on an old version. Each is silent once dealt with. See hooks/README.md.",
   "hooks": {
     "SessionStart": [
       {
@@ -13,6 +13,16 @@
           {
             "type": "command",
             "command": "cat \"${CLAUDE_PLUGIN_ROOT}/news/after-${OCHA_BDU_NEWS_SEEN}${env:OCHA_BDU_NEWS_SEEN}.md\"",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "cat \"${CLAUDE_PLUGIN_ROOT}/hooks/versioncheck.md\"",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "cat \"${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json\"",
             "timeout": 10
           }
         ]

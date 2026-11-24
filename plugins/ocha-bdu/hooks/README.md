@@ -84,3 +84,28 @@ session the hook prints that version’s file, which is empty until the next upd
 
 Tested 18 Nov 2026 on a copy of the repo (bash): first run, an up-to-date computer, two updates in
 a row, and the missing-note stop. **Not yet tested on Windows or in a live session.**
+
+# Is this computer up to date?
+
+On some computers the plugin’s copy of the repository stops refreshing (seen twice on a
+colleague’s laptop, Nov 2026): the skills stay old, the update button is greyed out, and nothing
+says so. Quitting Claude fully a few times got it refreshing again.
+
+`hooks.json` prints `versioncheck.md` and the installed `plugin.json` at the start of each
+session. The note tells Claude to fetch the latest `plugin.json` from GitHub once, the first time
+a reply uses an `ocha-bdu-` skill, and only if it is newer, to tell the user in plain words
+(“Javi has published a newer version… Javi recommends: quit Claude completely…”), with the
+reinstall steps as the next step. Offline or up to date: it says nothing.
+
+- The version comes from the installed `plugin.json`, never from a number written into the note:
+  versions stamped on GitHub after a map pull request would otherwise make an up-to-date computer
+  look behind.
+- `versioncheck.md` must stay plain ASCII (PowerShell 5.1, as above), and so must `plugin.json`.
+- Both are plain `cat` commands, so they run in bash and PowerShell alike.
+
+# “Javi recommends” steps in update notes
+
+When an update leaves something for colleagues to do (a rename, a setup, a setting, old files to
+remove), write that line in `news/next.md` as `Javi recommends: <the step>`. The update note tells
+the colleague’s Claude to present it as Javi’s recommendation, offer to do it, and do it only on
+their yes; or to say in one line that it isn’t needed on that computer.

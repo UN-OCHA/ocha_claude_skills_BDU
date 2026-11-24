@@ -2,6 +2,12 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.24
+
+- **Updates from Javi:** update notes now say plainly when Javi recommends a step, and Claude offers to do it for you.
+- **Staying up to date:** if your OCHA skills get stuck on an old version, Claude now notices and tells you exactly what to do.
+- **Javi recommends:** if you still have old OCHA skill folders whose names don’t start with “ocha-bdu-” (from before Monday’s rename), let Claude delete them. They are out of date and make Claude load every skill twice.
+
 ## 2026.11.23.8
 
 - All OCHA BDU skills now start with ocha-bdu- (for example ocha-bdu-visual-identity, ocha-bdu-video, ocha-bdu-mapping). They work the same; only the names changed.

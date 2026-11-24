@@ -322,12 +322,18 @@ else: Claude can download updates without it. Then quit Claude, open it again, a
 updates. *(Found with a colleague’s Windows laptop, October 2026.)*
 
 **The update button is greyed out, but you know a newer version exists.**
-Claude thinks you’re already up to date. Reinstall the plugin; this keeps your settings:
-1. Open **+** → **Plugins** → **Manage plugins**, find **OCHA BDU** and click **Uninstall**.
-2. Install **OCHA BDU** again from the same list. If it has disappeared, click **Add** → **Add
-   marketplace** → **Add from a repository**, paste `UN-OCHA/ocha_claude_skills_BDU`, click
-   **Sync**, then install it.
-3. Quit Claude and open it again.
+Claude keeps a copy of the skills on your computer, and on some computers that copy stops
+refreshing. Claude then thinks you’re up to date. Claude checks for this itself and tells you
+(“Javi has published a newer version…”).
+1. **First, quit Claude completely and open it again** (Mac: Claude → Quit Claude, or ⌘Q;
+   Windows: File → Exit), then wait a few minutes. This usually gets the copy refreshing again;
+   sometimes it takes two or three tries.
+2. Still behind after that? Reinstall the plugin; this keeps your settings:
+   - Open **+** → **Plugins** → **Manage plugins**, find **OCHA BDU** and click **Uninstall**.
+   - Install **OCHA BDU** again from the same list. If it has disappeared, click **Add** → **Add
+     marketplace** → **Add from a repository**, paste `UN-OCHA/ocha_claude_skills_BDU`, click
+     **Sync**, then install it.
+   - Quit Claude and open it again.
 
 If you fall behind again after a later update, check Step 6, then let us know:
 **ochavisual@un.org**. *(Found with a colleague’s laptop, November 2026.)*
