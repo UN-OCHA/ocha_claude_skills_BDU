@@ -2,6 +2,12 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.24.2
+
+- **New: graphic styles.** BDU’s named looks now have their own skill, for static graphics as well as films. Ask for “the newsprint style” or “the cut-out style” and Claude follows the recipe.
+- **Newsprint**, the first new style: cream printed paper, OCHA icons in ink, black caption strips and an orange marker on the key idea. A sober, newsy look for explainers and diagrams, with a starter graphic to copy.
+- **Old pictures for free:** the style points to the Public Domain Image Archive for photos, old charts and engravings that need no credit.
+
 ## 2026.11.24
 
 - **Updates from Javi:** update notes now say plainly when Javi recommends a step, and Claude offers to do it for you.

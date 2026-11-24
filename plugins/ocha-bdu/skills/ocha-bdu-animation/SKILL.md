@@ -54,6 +54,9 @@ it should change: tell ochavisual@un.org.
 
 ### Cut-out
 
+**The look also has a home in `ocha-bdu-graphic-styles`**, with BDU’s other named styles (Newsprint) and how to use it for
+static graphics. This section keeps how a cut-out film is made and moves.
+
 Paper cut-outs in one continuous world: flat OCHA shapes and icons cut from paper, with a hand-cut
 edge and a hard shadow, moving in stop-motion, while the voiceover’s words land on paper labels as
 they are spoken. **The reference is the SG Awards 2026 Dataviz animation:**
