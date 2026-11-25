@@ -31,7 +31,7 @@ Apply in this order to declutter any chart:
 4. Reduce the colour count
 5. Remove special effects — **no 3D, no drop shadows, ever**
 6. Remove gridlines; prefer **direct labelling**
-7. Round numbers (k / M / B — see §5)
+7. Round numbers; k / M / B only where space is tight (see §5)
 8. Adjust text size / weight
 9. Change to a brand font
 10. Adjust spacing
@@ -83,7 +83,7 @@ for true highlights.
 - **Tight spaces / compact infographics**: Roboto Condensed — infographic-only.
 - **Captions, photo credits, small meta text**: Roboto Mono.
 - **Long-form body text in a print report**: Crimson Pro.
-- **Numbers**: right-align. Round using k / M / B. No unnecessary decimals.
+- **Numbers**: right-align. Round; k / M / B only where space is tight (§5). No unnecessary decimals.
 
 **Body text rules**:
 - Left-align (right-ragged). Never justify.
@@ -194,7 +194,15 @@ for true highlights.
 
 ## 5. Number rules
 
-- **Round numbers and abbreviate**: `2.3M`, `450k`, `1.2B`.
+- **Write large numbers by the space you have** (brand portal “Write large numbers”, https://brand.unocha.org/r/MwbyPdwQ3Dp_BszHuQFHNRl01ysAiK3nwQKREvhXjI4):
+  - **No room** (chart labels, axes, tables, small social cards): `45k`, `2.3M`, `$1.2B`. Lower-case k,
+    capital M and B, no space. Never K, bn, mn or mil.
+  - **Enough room** (key figures, headlines, web pages): *2.3 million*, *$1.2 billion*, and anything below
+    a million in figures: *600,400*, never *600.4 thousand*.
+  - **One style per product**: don’t mix `2.3M` and *2.3 million* on the same page or graphic.
+  - Running text follows `ocha-bdu-editorial-style`.
+- **Round** in every public-facing product, to what the audience needs (*1.2 million*, *695,000*,
+  *about 700,000*). Exact figures only in detailed reports, tables or annexes where precision is the point.
   Real precision implies certainty we rarely have in humanitarian contexts.
 - **Right-align** all numeric columns in tables and lists.
 - **Don't use decimals** unless the decimal carries meaning.
@@ -309,7 +317,7 @@ Tested on the Ebola funding carousel (Nov 2026). Pick what tells the story; none
 ## 8. Do / Don't cheat sheet
 
 **DO**
-- Round numbers, use k/M/B.
+- Round numbers: k/M/B where space is tight, *million*/*billion* in full where there’s room.
 - Direct-label over legends whenever possible.
 - Zero baseline on every bar chart.
 - Give every chart a title with location + time + units.

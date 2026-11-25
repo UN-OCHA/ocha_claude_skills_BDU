@@ -2,6 +2,10 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.25
+
+- **Large numbers (charts, visual identity, editorial style):** Claude now writes 1.2 million and $4.5 billion in full when there’s room, and keeps 1.2M and $4.5B for tight spaces like chart labels. Below a million it writes 600,400, never 600.4 thousand, and it always rounds in public-facing work.
+
 ## 2026.11.24.2
 
 - **New: graphic styles.** BDU’s named looks now have their own skill, for static graphics as well as films. Ask for “the newsprint style” or “the cut-out style” and Claude follows the recipe.

@@ -117,7 +117,7 @@ accent sits in the middle slot (step 4 or 5 depending on the ramp).
 ### Type rules
 - **Body text**: left-align, right-ragged. Never justified (hurts dyslexic readers).
 - **Column width**: 40–80 characters (~12 words/line) for comfortable reading.
-- **Numbers**: right-align. Round aggressively using k / M / B abbreviations in humanitarian contexts — precise figures imply certainty we usually don't have.
+- **Numbers**: right-align. Always round in public-facing products — precise figures imply certainty we usually don't have. Where space is tight, use k / M / B (45k, 3.2M, $4.5B; no space). Where there’s room, write *3.2 million*, *$4.5 billion*, and figures below a million (*600,400*, never *600.4 thousand*). One style per product. Brand portal: “Write large numbers”, https://brand.unocha.org/r/MwbyPdwQ3Dp_BszHuQFHNRl01ysAiK3nwQKREvhXjI4.
 - **Round type sizes.** Font sizes are whole numbers or halves: 13 or 13.5, never 13.234. Leading is a
   whole number: 13/16, not 13/15.6. After scaling a layout to another size, round every type size and
   leading again. In CSS, set `line-height` in px, or choose a multiplier that lands on a whole number

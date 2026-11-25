@@ -84,7 +84,9 @@ Mostly black and white, so it sits naturally on newsprint.
 - **Editable .ai:** the textures are raster filters, so the exporter can’t keep them. Build the .ai from a vector
   copy: `templates/newsprint/make_ai_source.py` strips the filters, blend modes and `data-ai-name` tags (named
   groups made the exporter drop arrows and labels), then run `ocha-bdu-files-and-folders` export_ai on the copy.
-  The .ai has live text and flat shapes; add the paper texture in Illustrator as a placed image if needed.
+  The script also renders what isn’t vector as images and puts each on its own layer under the vector parts:
+  the paper texture at the bottom, the grid as vector lines, then the paper pieces with their edges, shadows and ink.
+  The .ai then looks like the final, with live text and vector arrows on top.
 - Layer containers in the template must span the artwork (`.art > div` with the artwork’s width and height), or the
   exporter loses track of which layer things belong to.
 - Exports are PNG while styles are explored; the editable .ai only for the chosen style, at the end.

@@ -62,6 +62,9 @@ official name, but communications use the new term above.
 - **Distance** → spell out when no specific number (*several kilometres away*); use `km`
   with a space when there is one, and use numerals even for one–nine: *9 km from the
   border*.
+- **Large numbers in text vs graphics** → in running text write the word: *4.5 billion*, *1.2 million*;
+  below a million use figures: *600,400*, never *600.4 thousand*. Graphics may shorten to `4.5B`, `1.2M`,
+  `600k` only where space is tight (brand portal “Write large numbers”, https://brand.unocha.org/r/MwbyPdwQ3Dp_BszHuQFHNRl01ysAiK3nwQKREvhXjI4).
 - **Currency** → US dollar is the reference. First mention `US$`, thereafter `$`, **no
   space** before the number. Headlines use `$` (not `US$`). Keyboards without `$` → `USD`.
 
