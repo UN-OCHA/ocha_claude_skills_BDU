@@ -2,6 +2,12 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.25.2
+
+- **Editable Illustrator files now look like the final:** textures, torn edges and shadows come in as images, one per piece, so they can still be moved.
+- **Layers by meaning:** the .ai is organised into one layer per part of the design (background, heading, each section), each with its own text, shapes and images.
+- **Layout tips in the graphic styles:** organise content in blocks with their own space, keep related things together, and let arrows leave a group from its middle.
+
 ## 2026.11.25
 
 - **Large numbers (charts, visual identity, editorial style):** Claude now writes 1.2 million and $4.5 billion in full when there’s room, and keeps 1.2M and $4.5B for tight spaces like chart labels. Below a million it writes 600,400, never 600.4 thousand, and it always rounds in public-facing work.

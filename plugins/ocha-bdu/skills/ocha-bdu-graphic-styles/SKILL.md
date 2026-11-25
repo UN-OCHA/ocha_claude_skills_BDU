@@ -65,6 +65,14 @@ The recipe, every value and why: **`references/newsprint.md`**. The short versio
 - Background details (lines, numbers, graphs) only as faint fragments multiplied into the ground with faded edges,
   never as a separate scrap of paper.
 
+### Layout (any style)
+
+- **Packages, like boxes when moving.** Organise the content in blocks (the title, the main flow, the example), each
+  with its own box and space, and arrange the blocks. Don’t pour everything into one big composition that spills
+  into its neighbours.
+- **Proximity:** things that belong together sit together, such as small side icons right next to their label.
+- **In general, an arrow leaves a group from its middle,** and the next steps share that line.
+
 ### Photos and archive material: the Public Domain Image Archive
 
 For photos, engravings, old charts, maps and diagrams, use the **Public Domain Image Archive**
@@ -84,9 +92,9 @@ Mostly black and white, so it sits naturally on newsprint.
 - **Editable .ai:** the textures are raster filters, so the exporter can’t keep them. Build the .ai from a vector
   copy: `templates/newsprint/make_ai_source.py` strips the filters, blend modes and `data-ai-name` tags (named
   groups made the exporter drop arrows and labels), then run `ocha-bdu-files-and-folders` export_ai on the copy.
-  The script also renders what isn’t vector as images and puts each on its own layer under the vector parts:
-  the paper texture at the bottom, the grid as vector lines, then the paper pieces with their edges, shadows and ink.
-  The .ai then looks like the final, with live text and vector arrows on top.
+  The script renders what isn’t vector as images, one image per piece (each badge, card, strip, marker, sheet, and
+  any drawing with an effect), and sorts everything into layers by meaning (Background, Heading, one layer per part
+  of the diagram), each with its live text, vector lines and images. The .ai looks like the final.
 - Layer containers in the template must span the artwork (`.art > div` with the artwork’s width and height), or the
   exporter loses track of which layer things belong to.
 - Exports are PNG while styles are explored; the editable .ai only for the chosen style, at the end.

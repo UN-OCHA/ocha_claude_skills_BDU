@@ -375,6 +375,16 @@ The tags don’t change how the page looks, so add them to the build template on
     `z-index` (the tags are then ignored and the background lands above the text).
   - **Keep separate text blocks at least one font size apart** on a line (e.g. two table columns):
     closer ones merge into one fragment and don’t convert.
+- **The .ai looks like the final, and is organised by meaning** (Javier, 25 Nov 2026):
+  - Whatever isn’t vector (textures, filters and effects, torn edges, shadows, photos) goes in as images (PNG or
+    JPEG), **one image per piece**, never one flattened sheet, so each piece can still be moved.
+  - **Layers follow meaning, not type:** a background layer, a heading layer, then one layer per section or part of
+    the design (for example “6 UN entities”, “Funding released”, “CERF example”). Each holds that part’s live text,
+    vector shapes and images. No groups.
+  - Tag each element itself with its layer (`data-ai-layer`, and `data-ai-text-layer` for text), not only a wrapper:
+    the exporter puts an object in the smallest tagged box that holds it, and same-sized wrappers tie. The DRF
+    Platform graphic (`ocha-bdu-graphic-styles`, Newsprint) has a script that does all of this
+    (`templates/newsprint/make_ai_source.py`).
 - **Check the merged file:** export each artboard from Illustrator back to PNG and compare it with the
   finals. Only anti-aliasing should differ.
 - **Known limits.** CSS gradients arrive as pattern fills. Underlines and highlights are separate
