@@ -1472,7 +1472,7 @@ def cmd_render(args):
         doc = fitz.open()
         for img in pages:
             buf = io.BytesIO()
-            img.save(buf, "JPEG", quality=90, optimize=True)
+            img.save(buf, "JPEG", quality=100, optimize=True)  # finals: always 100 (Javier, 25 Nov 2026)
             pw, ph = img.width * 72 / 150, img.height * 72 / 150      # 150 ppi page size
             page = doc.new_page(width=pw, height=ph)
             page.insert_image(page.rect, stream=buf.getvalue())
@@ -1480,7 +1480,7 @@ def cmd_render(args):
     elif ext == ".png":
         pages[0].save(out, optimize=True)
     else:
-        pages[0].save(out, "JPEG", quality=92, optimize=True)
+        pages[0].save(out, "JPEG", quality=100, optimize=True)  # finals: always 100 (Javier, 25 Nov 2026)
     print("Saved", out)
 
 

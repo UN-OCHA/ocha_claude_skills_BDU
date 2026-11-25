@@ -272,8 +272,8 @@ Aim for the best quality at the smallest file size.
 | Can stay vector, and the destination accepts it | **SVG** for web and Illustrator, **PDF** for print |
 | Flat colour, text, icons, charts, maps — no photos or raster effects | **PNG** |
 | Needs a transparent background | **PNG** — JPEG can’t do transparency |
-| Photos, grain, textures, blur, soft shadows | **JPEG**, quality 80–85 |
-| A photo with crisp text on top | JPEG at higher quality, or PNG if that is lighter — test both, deliver one |
+| Photos, grain, textures, blur, soft shadows | **JPEG**, quality 100 |
+| A photo with crisp text on top | JPEG at quality 100, or PNG if that is lighter — test both, deliver one |
 
 - **One raster file per image.** Never deliver a PNG and a JPEG of the same thing: deliver the lighter
   one at the highest quality. Pick the format from the table. When it’s a close call, test both in
@@ -283,7 +283,8 @@ Aim for the best quality at the smallest file size.
   image: social media, slides, email, some web tools.
 - **Flat graphics can often go smaller** with a reduced colour palette (8-bit PNG) and no
   visible change. Check smooth gradients afterwards: a reduced palette can make them band.
-- **JPEG above quality 90 buys almost nothing** but makes the file much bigger.
+- **JPEG finals are always quality 100** (Javier, 25 Nov 2026). The JPEG is still far lighter than a PNG of a
+  textured graphic (1.2 MB against 2.2 MB on the DRF Platform graphic). Lower quality only when Javier asks.
 - **PDF too heavy** (a Canva export is often 100 MB+)? Compress it with the `ocha-bdu-utilities` PDF tool. It
   keeps full resolution and the original colours.
 - **Raster finals at 2x** (Javier, 11 Nov 2026): twice the size the destination shows, so they stay sharp

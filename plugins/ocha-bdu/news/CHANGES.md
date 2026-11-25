@@ -2,6 +2,12 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.25.3
+
+- **Three views of funding (data):** Claude now keeps all humanitarian funding, the Global Humanitarian Overview (GHO) plans and the prioritized GHO apart, and says which one each figure comes from.
+- **More funding tables:** you can ask for prioritized figures by sector, plan, donor or recipient organization, and Claude can search the whole FTS dashboard for a table before saying it isn’t there.
+- **JPEG finals at full quality:** final JPEGs, including mockups, are now always exported at quality 100.
+
 ## 2026.11.25.2
 
 - **Editable Illustrator files now look like the final:** textures, torn edges and shadows come in as images, one per piece, so they can still be moved.

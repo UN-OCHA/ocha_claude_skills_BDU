@@ -70,7 +70,7 @@ Cards that still exist, by visual id:
 |---|---|
 | `5bedb7e690789f789ba8` | Org_Donors_V2 — donor detail |
 | `56d95b34860b7ad5cf15` | Org_Recipients_V2 — recipient detail |
-| `6ca75c869b08e812c5bb` | OnePager (Plans-Prioritized) V2 |
+| `6ca75c869b08e812c5bb` | OnePager (Plans-Prioritized) V2 — a draft; its tables show the full GHO, not prioritized |
 | `b5b23620ad140ab13253` | 87 Days_Ratios |
 | `ed10ddb93d24bdbbadf7` | OnePager_WithTotals (87 Days) |
 
@@ -107,6 +107,23 @@ and multi-year flows excluded.
 | donor-types | Org_Recipients_V2 | `53027e57bba09c3a177f` By Donor/Source Type |
 | recipient-types | Org_Donors_V2 | `0cf191c67290a24d6d26` By Recipient Type |
 | earmarking | Org_Donors_V2 | `10b8addaa6002310360d` Earmarking |
+| prio-sectors | OnePager (87 Days) | `62a920851c11809a4084` By Global Sectors* (prioritized; ends with “Various” rows: Not specified, Multiple Sectors) |
+| prio-plans | OnePager (87 Days) | `c056db16e838338ec71e` By GHO Plans (prioritized) |
+| prio-donors | OnePager (87 Days) | `756002108d716d0d1335` By Donors / Source Organizations (prioritized) |
+| prio-recipients | OnePager (87 Days) | `4580dbf51a453ccb2288` By Recipient Organizations (prioritized) |
+
+Added 25 Nov 2026. The prioritized page’s location tables (`63eb81a68cff85c3c72c`,
+`5fecab8e04dbe462e36d`) and its second plans table (`ef4158a8cde7e249a924`) show the FULL GHO, not
+the prioritized figures. So does the sector table on “OnePager (Plans-Prioritized) V2”
+`6ca75c869b08e812c5bb`, despite the page name: don’t use that page for prioritized figures.
+
+## The three views the dashboard’s buttons switch between
+
+| View | Page | Title on screen |
+|---|---|---|
+| Everything | `49cdf51d0dd63383b99b` OnePager (Horiz) V2 | Snapshot of Total Humanitarian Funding (the public link opens here) |
+| GHO | `9fc1ea690b6b64c05d51` OnePager (Plans) V2 | Snapshot of GHO Plans |
+| Prioritized | `590cff7c154827063455` OnePager (87 Days) | Financial Tracker of the 2026 Prioritized GHO – 87 Million Lives Campaign |
 
 Weekly also has 2025 and 2024 GHO Funding Progress tables (`4108253c3e6e9624b3b4`,
 `90e9959a469805b0430e`); several other Weekly tables return no rows in the default view.

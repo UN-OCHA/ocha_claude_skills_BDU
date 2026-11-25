@@ -1,6 +1,6 @@
 ---
 name: ocha-bdu-data
-description: OCHA humanitarian funding data from its official public sources — the CERF data hub (cerf.data.unocha.org), the CBPF data hub (cbpf.data.unocha.org), the Pooled Funds Data Hub (pfdata.unocha.org) and the FTS dashboard. Use to check a figure someone supplied (“Kenya, humanitarian fund, $2,287,000”: which fund, which allocation, which date, does it match?), to find and contrast figures across the three fund hubs, and to pull tables as CSV for charts and infographics — allocations by country, fund, allocation round, sector or cluster, agency and partner; contributions by donor; GHO funding, coverage, requirements and donor rankings from FTS. Trigger on CERF, CBPF, pooled fund(s), country-based pooled fund, humanitarian fund, regional fund, ESAHF, RhPF, allocation, “check this figure”, “verify these numbers”, “where does this number come from”, funding infographic, FTS, “pull the FTS data”, funding figures, top donors, donor ranking, coverage, prioritized requirements. Do NOT use the public FTS API (api.hpc.tools) for published FTS figures — it does not match the dashboard.
+description: OCHA humanitarian funding data from its official public sources — the CERF data hub (cerf.data.unocha.org), the CBPF data hub (cbpf.data.unocha.org), the Pooled Funds Data Hub (pfdata.unocha.org) and the FTS dashboard. Use to check a figure someone supplied (“Kenya, humanitarian fund, $2,287,000”: which fund, which allocation, which date, does it match?), to find and contrast figures across the three fund hubs, and to pull tables as CSV for charts and infographics — allocations by country, fund, allocation round, sector or cluster, agency and partner; contributions by donor; GHO funding, coverage, requirements and donor rankings from FTS. Trigger on CERF, CBPF, pooled fund(s), country-based pooled fund, humanitarian fund, regional fund, ESAHF, RhPF, allocation, “check this figure”, “verify these numbers”, “where does this number come from”, funding infographic, FTS, “pull the FTS data”, funding figures, top donors, donor ranking, coverage, prioritized requirements. For published FTS figures use the dashboard; verify any FTS API (api.hpc.tools) figure against it the same day.
 ---
 
 # OCHA funding data
@@ -122,6 +122,7 @@ python3 …/fts.py headline              # requirements, funding, coverage, pled
 python3 …/fts.py donors --top 15       # donor table -> donors.csv, ranking -> ranking.csv
 python3 …/fts.py page                  # every visual on the one-pager, one CSV each
 python3 …/fts.py visual PAGE ID        # one visual
+python3 …/fts.py find TEXT             # search every page (hidden ones too) for visuals by title
 python3 …/fts.py pages | visuals [PAGE]
 python3 …/fts.py tables                # the named tables below
 python3 …/fts.py table plans           # one table -> fts_plans.csv; `table all` for every one
@@ -138,6 +139,8 @@ python3 …/fts.py table plans           # one table -> fts_plans.csv; `table al
 | `donors`, `recipients` | all humanitarian funding by donor / recipient organization |
 | `donor-types`, `recipient-types` | by type: governments, pooled funds… / UN, NGOs… |
 | `earmarking` | earmarked vs unearmarked share |
+| `prio-sectors`, `prio-plans` | PRIORITIZED GHO by global sector / plan (with % of each plan prioritized) |
+| `prio-donors`, `prio-recipients` | PRIORITIZED GHO funding by donor (with pledges) / recipient organization |
 
 **What “the whole dashboard” covers.** Every page of the report can be read, hidden ones included
 (the emergency one-pagers for Ebola, Venezuela, Nepal…; list them with `fts.py pages`). Every table
@@ -155,6 +158,46 @@ key to secret scanners, which flagged this public repo on 19 Nov 2026).
 page’s and visual’s filters and the page’s slicer settings), so each figure matches the dashboard.
 Tables come out flat: one row per item, no subtotal rows (add them up yourself).
 **Always state the data date** with any figure; `headline` returns it.
+
+### Three views: everything, GHO, prioritized — pick the one the question needs
+
+The dashboard answers “how funded is X?” three ways, and the numbers differ a lot. Before quoting a
+figure, decide which view the person needs, and always name the view next to the figure.
+
+| View | Dashboard page (button) | Counts | Use it for |
+|---|---|---|---|
+| **Everything** | “Snapshot of Total Humanitarian Funding” (Global Overview, page `49cdf51d0dd63383b99b`) | all humanitarian funding: inside the GHO plus outside it | how much money went to X in total |
+| **GHO** | “Snapshot of GHO Plans” (GHO Overview / GHO Details, page `9fc1ea690b6b64c05d51`) | only funding against the GHO plans, with their full requirements | how well funded the appeal is; coverage and unmet |
+| **Prioritized** | “Financial Tracker of the 2026 Prioritized GHO – 87 Million Lives Campaign” (page `590cff7c154827063455`) | only the hyper-prioritized part of the GHO | anything tied to the 87 Million Lives campaign |
+
+Named tables per view: **everything** → `sectors`, `countries`, `donors`, `recipients`; **GHO** →
+`gho-sectors`, `gho-countries`, `gho-donors`, `gho-recipients`, `plans`; **prioritized** →
+`prio-sectors`, `prio-plans`, `prio-donors`, `prio-recipients`. There is no prioritized table by
+country: the prioritized page’s location tables show the full GHO.
+
+- **Inside the GHO** are all its plan types: HNRPs/HRPs, **flash appeals**, regional refugee plans
+  and other plans. A flash appeal launched during the year joins the GHO; it is not “outside”.
+- **Outside the GHO** is funding FTS records that counts against no GHO plan: the Red Cross and
+  Red Crescent Movement’s own appeals, crises with no GHO plan, aid given straight to governments,
+  NGO work outside the plans, activities in a plan country beyond the plan’s scope, and global or
+  regional funding tied to no plan ($7.5bn of $23.3bn in 2026, Nov 2026). It has no requirement,
+  so **coverage and “unmet” exist only for the GHO and prioritized views**.
+- **The gap between views can be large.** GBV, data as of 24 Nov 2026: GHO 30.9% covered
+  ($174.2M of $564.5M, 69% unmet); prioritized 63.4% covered ($157.4M of $248.1M, 37% unmet);
+  plus $43.4M given to GBV outside the GHO. A colleague’s “70% unmet” was the GHO view.
+- **Prioritized sectors don’t cover the whole requirement.** The asterisked requirement column
+  adds up to $20.35bn across named sectors; the other $4.58bn is “Not specified” (plans that don’t
+  split their prioritized needs by sector), which together make the $24.93bn total (Nov 2026).
+  `prio-sectors` has these “Various” rows at the end. Mention it when quoting a prioritized sector.
+- **Several pages look alike.** The report has duplicates and drafts (e.g. “OnePager
+  (Plans-Prioritized) V2”, whose sector table shows the full GHO despite its name). Quote only the
+  three pages above, and check a table’s column headers say “(Prioritized)” before calling it so.
+- **Links to a view:** the buttons switch pages without changing the address, so a copied URL
+  always opens the first page. Give `fts.py link <page id>` instead.
+
+**Anything on the dashboard is reachable.** If no named table fits, `fts.py find TEXT` searches
+every visual on every page, hidden ones included, by title; then `fts.py visual PAGE ID` reads it.
+Never report a dashboard figure as unavailable before running `find`.
 
 ### Emergency pages on the dashboard: look there first
 
@@ -194,11 +237,19 @@ internal flows means money passing through a pooled fund can appear twice (into 
 out of it); that is how the published figure is built, so don’t remove it, but don’t add a
 keyword total to dashboard figures either.
 
-**Why not the FTS API.** The public API (`api.hpc.tools`) **does not reproduce the dashboard’s
-numbers**. The dashboard attributes pooled-fund money back to the original donor and strips
-regional-plan double counting. A plain API pull put Sweden ~$190M light and reordered the top ten;
-in September 2026 the old API tracker said $23.42bn / $12.27bn / 52.4% where the dashboard said
-$24.94bn / $13.36bn / 53.5%. If a figure must match what OCHA publishes, it comes from `fts.py`.
+**The FTS API: matches now, but always verify.** The public API (`api.hpc.tools`) used to
+disagree with the dashboard: in September 2026 it said $23.42bn / $12.27bn / 52.4% where the
+dashboard said $24.94bn / $13.36bn / 53.5%, and put Sweden ~$190M light. After the FTS team rebuilt
+the dashboard, a check on 25 Nov 2026 found them in line: total funding $23.35bn vs $23.34bn,
+outside GHO $7.48bn both, GHO requirements $35.06bn both (37 plans), Sweden $907.0M both. Two
+things still differ:
+- **Donor grouping.** The dashboard groups a government’s agencies under one “(grouped)” name; the
+  API lists them apart (Sweden = Government of Sweden + Sida; US = Government + State Department).
+  Group them before comparing. Small remainders stay (US, EC, Switzerland: $12–24M, under 1%).
+- **No prioritized figures** in the API: the 87 Million Lives view exists only on the dashboard.
+
+**Always verify before relying on the API.** Compare the totals with `fts.py` the same day, since
+the two have drifted apart before. If a figure must match what OCHA publishes, quote `fts.py`.
 
 FTS figures and pooled-fund hub figures are different things: FTS tracks all humanitarian funding
 by plan and donor; the hubs track what CERF and the CBPFs allocated. Don’t add one to the other.
@@ -232,8 +283,9 @@ is canonical; if you fix the client, update all three.
 
 - `~/OCHA DMU Dropbox/<your-name>/Projects/2026/UNGA81/UNGA81_87M_Event/tooling/data_pipeline/`
   — the 87 Million Lives figures workbook. OCHA BDU internal content: only the BDU can open it. For more information, contact ochavisual@un.org.
-- `UN-OCHA/gho-prioritized-tracker-BDU` (GitHub) — the daily GitHub Action that publishes the
-  prioritized figures as CSVs for Datawrapper.
+- `UN-OCHA/fts_funding_data_BDU` (GitHub; `gho-prioritized-tracker-BDU` until 25 Nov 2026) — the daily
+  GitHub Action that publishes the FTS figures as data files (prioritized CSVs for Datawrapper, and
+  the tables behind the FTS funding agent in Copilot).
 
 <!-- bdu-suggest-change:start -->
 **Suggesting a change to this skill.** If the person corrects you or states a rule that would apply to other jobs too, or you find this skill is wrong or missing something, say so once, at the end of your reply. Don’t do this for changes that only concern the current job, and don’t edit the skill yourself, because the next update would overwrite it. Leave out anything confidential from the job. Say:

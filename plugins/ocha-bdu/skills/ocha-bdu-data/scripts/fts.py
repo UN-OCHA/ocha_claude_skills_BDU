@@ -9,6 +9,7 @@ Pull figures from the OCHA FTS Visualization Tool (PreCheck) Power BI dashboard.
     python3 fts.py pages                     list the report's pages
     python3 fts.py link [PAGE]               the dashboard's public link (opened on PAGE if given)
     python3 fts.py visuals [PAGE]            list a page's visuals and their ids
+    python3 fts.py find TEXT                 search EVERY page (hidden ones too) for visuals by title
     python3 fts.py tables                    list the named tables (plans, sectors, countries, donors…)
     python3 fts.py table NAME|all            one named table, or all of them   -> fts_<name>.csv
     python3 fts.py keyword TAG [--year Y] [--by recipient|donor|country|sector|plan|flow]
@@ -129,6 +130,21 @@ def cmd_visuals(args):
         print(f'{v["id"]}  {v["type"]:<14} {v["title"]}')
 
 
+def cmd_find(args):
+    """Search every page, hidden ones included, for visuals whose title or page title matches TEXT."""
+    out_dir(args)
+    model = pbi.fetch_model(args.refresh)
+    needle = args.text.lower()
+    hits = 0
+    for p in pbi.list_pages(model):
+        page_match = needle in (p["title"] or "").lower()
+        for v in pbi.list_visuals(model, p["name"]):
+            if page_match or needle in (v["title"] or "").lower():
+                print(f'{p["name"]}  {v["id"]}  {v["type"]:<14} {v["title"]}   [{(p["title"] or "").strip()}]')
+                hits += 1
+    print(f"{hits} visuals. Read one with: fts.py visual PAGE VISUAL_ID")
+
+
 def cmd_visual(args):
     d = out_dir(args)
     model = pbi.fetch_model(args.refresh)
@@ -236,6 +252,16 @@ TABLES = {
                         "all humanitarian funding by recipient type (UN, NGOs…)"),
     "earmarking": (pbi.PAGE_DONORS, "10b8addaa6002310360d", None,
                    "earmarked vs unearmarked share (Grand Bargain definition)"),
+    # PRIORITIZED view: the 87 Million Lives one-pager. Its "By Location" and "By Country" tables show the
+    # full GHO, not the prioritized figures, so there is no prioritized-by-country table to name here.
+    "prio-sectors": (pbi.PAGE_87_DAYS, "62a920851c11809a4084", "Global sector",
+                     "PRIORITIZED GHO by global sector (requirement column incomplete: see the skill)"),
+    "prio-plans": (pbi.PAGE_87_DAYS, "c056db16e838338ec71e", None,
+                   "PRIORITIZED GHO by plan, with % of each plan prioritized"),
+    "prio-donors": (pbi.PAGE_87_DAYS, "756002108d716d0d1335", None,
+                    "PRIORITIZED GHO funding by donor, with pledges and announcements"),
+    "prio-recipients": (pbi.PAGE_87_DAYS, "4580dbf51a453ccb2288", None,
+                        "PRIORITIZED GHO funding by recipient organization"),
 }
 
 # Power BI's internal column names, as the decoder passes them through, -> plain names.
@@ -342,6 +368,8 @@ def main():
     v = sub.add_parser("visuals"); v.add_argument("page", nargs="?", default=pbi.PAGE_87_DAYS)
     p = sub.add_parser("page"); p.add_argument("page", nargs="?", default=pbi.PAGE_87_DAYS)
     one = sub.add_parser("visual"); one.add_argument("page"); one.add_argument("visual_id")
+    fd = sub.add_parser("find", help="search every page for visuals by title or page title")
+    fd.add_argument("text")
     sub.add_parser("headline")
     dn = sub.add_parser("donors"); dn.add_argument("--top", type=int, default=15)
     sub.add_parser("tables")
@@ -353,6 +381,7 @@ def main():
     args = ap.parse_args()
     try:
         {"link": cmd_link, "pages": cmd_pages, "visuals": cmd_visuals, "visual": cmd_visual, "page": cmd_page,
+         "find": cmd_find,
          "headline": cmd_headline, "donors": cmd_donors,
          "tables": cmd_tables, "table": cmd_table, "keyword": cmd_keyword}[args.cmd](args)
     except pbi.PowerBIError as exc:
