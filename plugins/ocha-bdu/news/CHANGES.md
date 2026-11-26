@@ -2,6 +2,10 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.26.3
+
+- Connecting Claude to the brand site: Claude now finds the frontify-mcp folder wherever your Dropbox keeps it. If it still can’t, it asks you to make that folder available offline and drag it into the chat.
+
 ## 2026.11.26.2
 
 - Logo and template links on the brand site now use Dropbox’s download version, so one click downloads the file instead of opening a Dropbox preview.

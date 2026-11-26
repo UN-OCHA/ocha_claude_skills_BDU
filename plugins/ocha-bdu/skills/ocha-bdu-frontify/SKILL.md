@@ -29,6 +29,14 @@ How pages are organised (sections, subtitles, dividers): read `references/conten
 
 The code is `server.py` in the shared `frontify-mcp` folder (BDU’s Dropbox, under `Design/Visual_identity/assets/Brand portal/`). **Import it as a module and call its async functions directly.** It finds the person’s own token by itself. Not set up yet, or `server` won’t import? Find that folder on their computer and follow `SETUP.md` in it.
 
+**Finding the folder.** Its place differs per person: the shared `Design` folder sits wherever each person’s Dropbox put it (under their own name, at the top, in a team folder), so never assume Javier’s path. Look for it in every Dropbox on the computer, Mac and Windows alike:
+
+```bash
+python3 -c "import glob,os; h=os.path.expanduser('~'); t='Design/Visual_identity/assets/Brand portal/frontify-mcp'; r=[p for b in (h, h+'/Library/CloudStorage') for d in range(4) for p in glob.glob(os.path.join(b,'*Dropbox*',*(['*']*d),t))]; print('\n'.join(sorted(set(r))) or 'not found')"
+```
+
+More than one line is usually the same folder reached through an old Dropbox shortcut: use any that holds `SETUP.md`. If it prints `not found`, don’t keep searching: the folder is probably online-only or left out of this computer’s sync. Ask the person to open their Dropbox in Finder (File Explorer on Windows), go to `Design` → `Visual_identity` → `assets` → `Brand portal`, right-click `frontify-mcp`, choose **Make available offline**, and drag the folder into the chat. Use the path that gives you. If they can’t see `Design` at all, it hasn’t been shared with them: ask BDU (ochavisual@un.org).
+
 ```bash
 export PYTHONDONTWRITEBYTECODE=1  # the folder is shared on Dropbox: leave nothing behind
 cd "$(python3 -c "import os; h=os.path.expanduser('~/.claude'); m=os.path.join(h,'frontify_server_folder.txt'); p=os.path.join(h,'skills/ocha-bdu-frontify'); f=os.path.join(p,'server_folder.txt'); print(open(m).read().strip() if os.path.exists(m) else open(f).read().strip() if os.path.exists(f) else os.path.realpath(p+'/../..'))")"
