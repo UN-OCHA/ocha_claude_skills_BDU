@@ -2,6 +2,10 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.26.4
+
+- Updating a Word review document that others are commenting on: Claude now makes the change in Word for the web, and checks whether comments are attached to a picture before replacing it, so nobody’s edits or comments get lost.
+
 ## 2026.11.26.3
 
 - Connecting Claude to the brand site: Claude now finds the frontify-mcp folder wherever your Dropbox keeps it. If it still can’t, it asks you to make that folder available offline and drag it into the chat.

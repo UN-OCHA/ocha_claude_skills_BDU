@@ -244,24 +244,32 @@ next to it when there is one. People comment straight on the page.
 
 ### Shared Word files on OneDrive or SharePoint (review documents)
 
-A Word file that several people comment on is co-authored in the cloud. Changing the copy on
-the Mac (swapping images, marking comments resolved) works only until someone who has it open
-saves again: their Word writes its own version back over yours, minutes later, with no warning.
-On the Ebola carousel (Nov 2026) this undid an update twice while every check right after
-writing passed.
+A Word file that several people comment on is co-authored in the cloud. **Never change it from
+outside Word** (editing the synced copy on the Mac, swapping images inside the file, marking
+comments resolved in its XML). Anyone who has it open keeps their own copy, and their Word saves it
+back over yours minutes later, with no warning; checks run right after writing still pass. The
+synced copy on the Mac is the same file the reviewers use, so the problem is the outside edit, not
+the copy. On the Ebola carousel (Nov 2026) this undid three updates.
 
-1. **Before editing,** check for Word’s lock file next to the document (`~$` + the name). If it
-   is there, ask the person to close the file first. Other people’s open copies can’t be seen
-   from the Mac: say so.
-2. **Edit in place,** keeping everything else: swap the image data inside the file, never
-   rebuild the document, so comments, replies and resolved marks survive. Write into the
-   existing file (don’t delete and recreate it), so OneDrive keeps it as the same file.
-3. **After editing,** wait for OneDrive to sync and check again a few minutes later, not only
-   right after writing. If the change was overwritten, say so; never report it as updated.
-4. **While a review is active** (several people commenting), don’t replace content from
-   outside Word. Hand the person the new image to put in with Word’s own **Change Picture**
-   (right-click the image → Change Picture → From a File), which goes through co-authoring
-   and can’t be overwritten.
+**Edit it in Word for the web** (with Chrome when Claude does it). Changes made there go through
+co-authoring and stick. To replace a slide or picture:
+
+1. **Check what is attached to the picture first.** Comments anchored to a picture are deleted
+   with it when the picture is replaced, resolved or not; comments on text survive. If the picture
+   has comments, say so and let the person decide before replacing: resolve or reply first, or
+   insert the new picture next to the old one.
+2. Put the new image in a temporary folder in the person’s own OneDrive (synced on the Mac).
+3. In Word for the web: right-click the picture → **Change Picture** → **From OneDrive** → the
+   temporary folder → Insert. (**From This Device** opens a Mac file dialog Claude can’t use.)
+4. Word resizes the new picture: set the width back to the old one (Picture tab → Width), so all
+   pictures in the document keep the same size.
+5. Wait for “Saved”, then delete the temporary folder. Check the result in the synced copy a few
+   minutes later (the picture data matches the export).
+
+Resolve comments in Word too (the comment’s ⋯ → Resolve), never in the file.
+
+**Version history** (to read deleted comments or an earlier state): File → Info → Version History.
+Open an old version to read it; restoring it undoes everything since.
 
 ## 5. Export formats
 
