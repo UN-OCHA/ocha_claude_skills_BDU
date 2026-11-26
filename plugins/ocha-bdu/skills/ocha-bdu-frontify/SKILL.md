@@ -179,6 +179,9 @@ circulating.
   people outside OCHA can open. Never use the Dropbox connector’s `create_shared_link`: it makes a
   team-only link. If the person hasn’t connected their own Dropbox yet, suggest the one-time setup
   in that skill (a few minutes, done once) before going on.
+- **Use the download version of the link** (`dl=1`, the Dropbox skill’s `--download` option) for
+  logos and templates, so a click downloads the file straight away. The `dl=0` version opens
+  Dropbox’s preview page instead. On a folder link, `dl=1` downloads the whole folder as a zip.
 - **Updating a file keeps its link only when it is saved over the old one**, with the same name in
   the same folder. Moving, renaming, or deleting it and adding a new file breaks the link on the
   page. Say so when someone asks how to update a logo or template.

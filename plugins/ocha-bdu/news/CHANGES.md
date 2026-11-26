@@ -2,6 +2,10 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.26.2
+
+- Logo and template links on the brand site now use Dropbox’s download version, so one click downloads the file instead of opening a Dropbox preview.
+
 ## 2026.11.26
 
 - The Frontify skill now explains BDU’s own blocks on the brand site (Font preview, AI prompt, Useful links): what each is for and how to add one, for example a new font.
