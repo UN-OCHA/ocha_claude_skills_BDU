@@ -140,7 +140,53 @@ reads. Use it for those once enabled; use our server for anything that changes t
 
 **Showing a font: use the Font preview block, not Frontify’s old `typostyles` / `typofonts` blocks.** It shows the live font with every weight, and links to its Google Fonts page. Pages built before May 2026 may still have the old ones. To swap: `create_reference(source_id, target_section_id=…, after_section_element_id=…)` from the matching block on the Fonts page (Roboto `12103432`, Roboto Condensed `12107638`, Roboto Slab `12107636`, Roboto Mono `12107637`, Crimson Pro `12107635`), then `delete_block` on the old one. A reference stays in step with the Fonts page, but can only be removed in the editor, so show the plan first. For a different setup on one page, `copy_block` a Font preview block and change `googleFontsUrl`, `weights` and `showItalic` with `update_block_settings` (rehearsed 2 Nov 2026). Old blocks can hold sizes and sample text the new one doesn’t show: point those out before deleting.
 
-**Custom content blocks (marketplace apps) in this tenant:** Font preview (`font-preview` source folder, app `3306772`), `Copy OCHA prompt` button block (app `3307325`), `Useful links` footer-like band (app `3596056`, Marketplace `cmvv9wbb00001pgutzsma6saa`, source in `Brand portal/2026/useful-links-block/`; the one source block is `12148723` on the Visual Identity overview, shown on 13 other pages as references; its README lists them). Custom blocks can't be created via the API (`createGuidelinePageBlock` → “This block type cannot be created via the API”): add one in the editor, then reuse it with `create_reference`. A new app must be installed (Marketplace page → **Install in guidelines**) before the editor offers it. Image block = `2044618`, text block = `2044620`, divider = `405579`. Image block `ratio` valid values are ONLY `"1:1"`, `"1:2"`, `"2:1"` — anything else (1:3, 2:3, 3:1…) 500s. The rightmost / smallest-image option in the UI = **`"1:2"`**.
+## Custom blocks BDU built
+
+BDU built three content blocks of its own for the brand site. They are installed on our Frontify,
+so **anyone who can edit pages there finds them in the editor’s block list** (**+ Block**, then
+the name below), next to Frontify’s own blocks. Nothing to install per person. Visitors only see
+the result. Changing a block’s code is a different job: it needs Node 22 and the Frontify
+developer login, and each block’s README in its source folder has the steps.
+
+| In the editor | What it’s for | How to add one |
+|---|---|---|
+| **Font preview** (app `3306772`) | Shows a live Google Font with every weight it has, with a link to its Google Fonts page. Use it for every font on the site, never the old Frontify `typostyles` / `typofonts` blocks or a screenshot. | **Editor:** + Block → Font preview → **Change font** → type the font’s name and pick it. Sample text and italics are in the block’s sidebar. **Claude:** reuse a block from the Fonts page (*Showing a font*, just above). |
+| **AI prompt** (app `3307325`) | A copy button that puts a ready-made prompt on the clipboard, optionally with a Humanitarian Icon, title, description and examples. Used on the “Working with AI” page. | **Editor:** + Block → AI prompt, then fill the sidebar. The prompt texts have one source, `AI_skills_and_prompts/ocha_general/M365_Copilot_Brand_Kit/prompts/`: change them there, not in the block. |
+| **Useful links** (app `3596056`) | The grey band of links at the bottom of key pages, standing in for the footer Frontify shows only on the cover page. | **Never a new one.** There is one source block, `12148723` on the Visual Identity overview; every other page shows it as a reference: `create_reference(12148723, <last section id>, <section_element_id of that section’s last element>)` (without the last argument it lands at the top). Edit the links in the source block only; deleting it empties every page. |
+
+Source folders: Font preview and Useful links in `Brand portal/2026/font-preview/` and
+`Brand portal/2026/useful-links-block/`; AI prompt in
+`AI_skills_and_prompts/ocha_general/copy-prompt-block/`.
+
+**Claude can’t create a custom block from nothing** (the API answers “This block type cannot be
+created via the API”). Reuse an existing one with `create_reference` (stays in step with the
+source) or `copy_block` (an independent copy, then `update_block_settings`). If neither fits,
+ask the person to add it in the editor and give them the page and position. A new custom app
+must be installed first (its Marketplace page → **Install in guidelines**) before the editor
+offers it.
+
+Frontify’s own block ids: image = `2044618`, text = `2044620`, divider = `405579`. Image block `ratio` valid values are ONLY `"1:1"`, `"1:2"`, `"2:1"` — anything else (1:3, 2:3, 3:1…) 500s. The rightmost / smallest-image option in the UI = **`"1:2"`**.
+
+## Logos and templates: a Dropbox link, not an upload
+
+**BDU doesn’t upload logos or templates to Frontify** (Javier, 26 Nov 2026). They stay in the BDU
+Dropbox, and the page gets a public Dropbox link to the file or folder. When a logo or template
+changes, BDU updates it in Dropbox and the page needs no edit, because the link stays the same.
+An upload would have to be replaced on Frontify by hand each time, and an old copy would keep
+circulating.
+
+- **Make the link with the `ocha-bdu-dropbox-links` skill.** It makes a truly public link that
+  people outside OCHA can open. Never use the Dropbox connector’s `create_shared_link`: it makes a
+  team-only link. If the person hasn’t connected their own Dropbox yet, suggest the one-time setup
+  in that skill (a few minutes, done once) before going on.
+- **Updating a file keeps its link only when it is saved over the old one**, with the same name in
+  the same folder. Moving, renaming, or deleting it and adding a new file breaks the link on the
+  page. Say so when someone asks how to update a logo or template.
+- **Link a folder** when a set of files changes over time (a logo pack, a template family): new
+  files then appear without touching the page.
+- Images shown on the page itself (pictures, examples, screenshots) are still uploaded as before.
+
+## Links, text encoding and Chrome
 
 **Links: always the permanent link** (Javier, 19 Nov 2026). Any link to a brand-site page, in a footer, block, callout or text, uses the page’s permanent link (`https://brand.unocha.org/r/…`), never the `/document/<id>#/<slug>` address someone pasted. The permanent link survives renames and moves. Get it with `list_pages(document_id)` or `get_page(page_id)` (`permanent_link`). Two pages can share a title (e.g. “This is OCHA” 3502611 and 4141374): match the pasted slug before choosing. Exception: a link to a section inside a page (no permanent link exists for sections) uses the section address, e.g. the footer’s “Frequently asked questions” → `/document/281801#/overview/visual-identity/frequently-asked-questions`; check it still works when that page is renamed or moved.
 

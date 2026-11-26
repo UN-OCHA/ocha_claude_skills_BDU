@@ -2,6 +2,11 @@
 
 Newest first. Written for colleagues, in plain words.
 
+## 2026.11.26
+
+- The Frontify skill now explains BDU’s own blocks on the brand site (Font preview, AI prompt, Useful links): what each is for and how to add one, for example a new font.
+- Logos and templates on the brand site are Dropbox links, not uploads, so updating the file in Dropbox updates the page. Claude makes the link and offers to connect your Dropbox first if it isn’t yet.
+
 ## 2026.11.25.3
 
 - **Three views of funding (data):** Claude now keeps all humanitarian funding, the Global Humanitarian Overview (GHO) plans and the prioritized GHO apart, and says which one each figure comes from.
